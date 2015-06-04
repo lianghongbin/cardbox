@@ -1,0 +1,12 @@
+*.class
+*.jar
+ceph.conf
+keyring.*
+/target/
+*.iml
+*.iws
+*.ipr
+.idea/
+.classpath
+.project
+.settings/

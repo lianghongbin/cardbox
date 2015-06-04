@@ -1,0 +1,102 @@
+<!--用户中心右侧头部开始 -->
+<div class="user_list_top">
+    <ul class="user_note_order">
+        <li>
+            <a href="javascript:;" style="display:inline-block">最新发布</a>
+
+            <div class="arrow_box">
+                <a href="javascript:;" class="up"><em></em></a>
+                <a href="javascript:;" class="down"><em></em></a>
+            </div>
+        </li>
+        <li>
+            <a href="javascript:;">点击最高</a>
+
+            <div class="arrow_box">
+                <a href="javascript:;" class="up"><em></em></a>
+                <a href="javascript:;" class="down"><em></em></a>
+            </div>
+        </li>
+        <li>
+            <a href="javascript:;">评论最多</a>
+
+            <div class="arrow_box">
+                <a href="javascript:;" class="up"><em></em></a>
+                <a href="javascript:;" class="down"><em></em></a>
+            </div>
+        </li>
+    </ul>
+    <div class="search ns">
+        <input type="text" id="from" name="from" readonly="readonly"/> 至 <input type="text" id="to" name="to"
+                                                                                readonly="readonly"/> <input
+            type="submit" value="搜索" class="date_search_button"/>
+
+        <div class="search_box" style="width:140px">
+            <form method="post" action="#"><input type="text" value="搜索我的帖子" style="width:80px"
+                                                  class="search_user"/><input type="submit" class="zoom" value=""
+                                                                              style="width:20px"/></form>
+        </div>
+    </div>
+</div>
+<!--用户中心右侧头部结束 -->
+<div class="note_list">
+
+</div>
+<!--收藏操作弹出层 -->
+<div class="operate_layer">
+    <div class="content">
+        <p>确认要删除此条信息吗?</p>
+
+        <div class="ok_cancel">
+            <div><a href="javascript:;" class="ok">确认</a><a href="javascript:;" class="cancel">取消</a></div>
+        </div>
+    </div>
+    <span class="arrow">
+      <em></em>
+      <i></i>
+    </span>
+</div>
+<!--收藏操作弹出层结束 -->
+<script src="js/collection_comment.js"></script>
+
+<script src="js/overlay.js"></script>
+<script src="js/focus-blur.js"></script>
+<script src="date/jquery.ui.core.js"></script>
+<script src="date/jquery.ui.datepicker.js"></script>
+<script src="date/jquery.ui.datepicker-zh-TW.js"></script>
+
+<link rel="stylesheet" href="date/date.css">
+<script>
+    $(document).ready(function (e) {
+        $("#from").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            changeYear: true,
+            numberOfMonths: 1,
+            onClose: function (selectedDate) {
+                $("#to").datepicker("option", "minDate", selectedDate);
+            }
+        });
+        $("#to").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            changeYear: true,
+            numberOfMonths: 1,
+            onClose: function (selectedDate) {
+                $("#from").datepicker("option", "maxDate", selectedDate);
+            }
+        });
+        //点击评论按钮
+        $(".comment_b").click(function () {
+            $(".comment_area").attr("id", "");
+            $(".comment_area_topline").attr("id", "");
+            $(this).parents('.note').find('.comment_area').attr("id", "comment_area");
+            $(this).parents(".note").find(".comment_area_topline").attr("id", "comment_area_topline");
+            $('.comment_area').not('#comment_area').slideUp();
+            $(".comment_area_topline").not("#comment_area_topline").css("display", "none");
+            $(".comment_area").slideToggle();
+            $('.comment_area_topline').slideToggle()
+        });
+    });
+
+</script>

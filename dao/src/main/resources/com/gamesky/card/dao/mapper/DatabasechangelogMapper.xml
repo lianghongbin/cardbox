@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gamesky.card.dao.mapper.DatabasechangelogMapper" >
+  <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.Databasechangelog" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="AUTHOR" property="author" jdbcType="VARCHAR" />
+    <result column="FILENAME" property="filename" jdbcType="VARCHAR" />
+    <result column="DATEEXECUTED" property="dateexecuted" jdbcType="TIMESTAMP" />
+    <result column="ORDEREXECUTED" property="orderexecuted" jdbcType="INTEGER" />
+    <result column="EXECTYPE" property="exectype" jdbcType="VARCHAR" />
+    <result column="MD5SUM" property="md5sum" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+    <result column="TAG" property="tag" jdbcType="VARCHAR" />
+    <result column="LIQUIBASE" property="liquibase" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, EXECTYPE, MD5SUM, DESCRIPTION, 
+    COMMENTS, TAG, LIQUIBASE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.DatabasechangelogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from DATABASECHANGELOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitOffset != null and limitOffset>=0" >
+      limit #{limitOffset}, #{limit}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.gamesky.card.core.model.DatabasechangelogExample" >
+    delete from DATABASECHANGELOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gamesky.card.core.model.Databasechangelog" >
+    insert into DATABASECHANGELOG (ID, AUTHOR, FILENAME, 
+      DATEEXECUTED, ORDEREXECUTED, EXECTYPE, 
+      MD5SUM, DESCRIPTION, COMMENTS, 
+      TAG, LIQUIBASE)
+    values (#{id,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR}, 
+      #{dateexecuted,jdbcType=TIMESTAMP}, #{orderexecuted,jdbcType=INTEGER}, #{exectype,jdbcType=VARCHAR}, 
+      #{md5sum,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR}, 
+      #{tag,jdbcType=VARCHAR}, #{liquibase,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Databasechangelog" >
+    insert into DATABASECHANGELOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="author != null" >
+        AUTHOR,
+      </if>
+      <if test="filename != null" >
+        FILENAME,
+      </if>
+      <if test="dateexecuted != null" >
+        DATEEXECUTED,
+      </if>
+      <if test="orderexecuted != null" >
+        ORDEREXECUTED,
+      </if>
+      <if test="exectype != null" >
+        EXECTYPE,
+      </if>
+      <if test="md5sum != null" >
+        MD5SUM,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="comments != null" >
+        COMMENTS,
+      </if>
+      <if test="tag != null" >
+        TAG,
+      </if>
+      <if test="liquibase != null" >
+        LIQUIBASE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="dateexecuted != null" >
+        #{dateexecuted,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderexecuted != null" >
+        #{orderexecuted,jdbcType=INTEGER},
+      </if>
+      <if test="exectype != null" >
+        #{exectype,jdbcType=VARCHAR},
+      </if>
+      <if test="md5sum != null" >
+        #{md5sum,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="liquibase != null" >
+        #{liquibase,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gamesky.card.core.model.DatabasechangelogExample" resultType="java.lang.Integer" >
+    select count(*) from DATABASECHANGELOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update DATABASECHANGELOG
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null" >
+        AUTHOR = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filename != null" >
+        FILENAME = #{record.filename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dateexecuted != null" >
+        DATEEXECUTED = #{record.dateexecuted,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderexecuted != null" >
+        ORDEREXECUTED = #{record.orderexecuted,jdbcType=INTEGER},
+      </if>
+      <if test="record.exectype != null" >
+        EXECTYPE = #{record.exectype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.md5sum != null" >
+        MD5SUM = #{record.md5sum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comments != null" >
+        COMMENTS = #{record.comments,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tag != null" >
+        TAG = #{record.tag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.liquibase != null" >
+        LIQUIBASE = #{record.liquibase,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update DATABASECHANGELOG
+    set ID = #{record.id,jdbcType=VARCHAR},
+      AUTHOR = #{record.author,jdbcType=VARCHAR},
+      FILENAME = #{record.filename,jdbcType=VARCHAR},
+      DATEEXECUTED = #{record.dateexecuted,jdbcType=TIMESTAMP},
+      ORDEREXECUTED = #{record.orderexecuted,jdbcType=INTEGER},
+      EXECTYPE = #{record.exectype,jdbcType=VARCHAR},
+      MD5SUM = #{record.md5sum,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      COMMENTS = #{record.comments,jdbcType=VARCHAR},
+      TAG = #{record.tag,jdbcType=VARCHAR},
+      LIQUIBASE = #{record.liquibase,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
