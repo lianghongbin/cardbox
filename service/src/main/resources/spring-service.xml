@@ -7,4 +7,24 @@
     http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <context:component-scan base-package="com.gamesky.card.service"/>
+
+
+    <bean id="shortMessageSender" class="com.gamesky.card.service.impl.ShortMessageSender">
+        <property name="url" value="http://api.app.7k7k.com/my/smmsg"/>
+    </bean>
+
+    <bean id="codeGenerator" class="com.gamesky.card.service.impl.DefaultCodeGenerator"/>
+
+    <bean id="marshaller" class="com.gamesky.card.core.LocalSessionMarshaller"/>
+
+    <bean id="smsService" class="com.gamesky.card.service.impl.SmsServiceImpl">
+        <property name="marshaller" ref="marshaller"/>
+        <property name="placeholder" value="验证码：{0}，用于手机验证，请尽快使用，如非本人操作，请忽略本短信。"/>
+        <property name="codeGenerator" ref="codeGenerator"/>
+        <property name="messageSenders">
+            <list>
+                <ref bean="shortMessageSender"/>
+            </list>
+        </property>
+    </bean>
 </beans>
