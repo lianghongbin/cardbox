@@ -7,7 +7,7 @@ public class Key {
 
     private Integer cardId;
 
-    private Integer code;
+    private String code;
 
     private Boolean assigned;
 
@@ -16,6 +16,8 @@ public class Key {
     private Date assignTime;
 
     private Date useTime;
+
+    private String phone;
 
     public Integer getId() {
         return id;
@@ -33,11 +35,11 @@ public class Key {
         this.cardId = cardId;
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -73,6 +75,14 @@ public class Key {
         this.useTime = useTime;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -91,7 +101,8 @@ public class Key {
             && (this.getAssigned() == null ? other.getAssigned() == null : this.getAssigned().equals(other.getAssigned()))
             && (this.getUsed() == null ? other.getUsed() == null : this.getUsed().equals(other.getUsed()))
             && (this.getAssignTime() == null ? other.getAssignTime() == null : this.getAssignTime().equals(other.getAssignTime()))
-            && (this.getUseTime() == null ? other.getUseTime() == null : this.getUseTime().equals(other.getUseTime()));
+            && (this.getUseTime() == null ? other.getUseTime() == null : this.getUseTime().equals(other.getUseTime()))
+            && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()));
     }
 
     @Override
@@ -105,6 +116,7 @@ public class Key {
         result = prime * result + ((getUsed() == null) ? 0 : getUsed().hashCode());
         result = prime * result + ((getAssignTime() == null) ? 0 : getAssignTime().hashCode());
         result = prime * result + ((getUseTime() == null) ? 0 : getUseTime().hashCode());
+        result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
         return result;
     }
 
@@ -121,6 +133,7 @@ public class Key {
         sb.append(", used=").append(used);
         sb.append(", assignTime=").append(assignTime);
         sb.append(", useTime=").append(useTime);
+        sb.append(", phone=").append(phone);
         sb.append("]");
         return sb.toString();
     }

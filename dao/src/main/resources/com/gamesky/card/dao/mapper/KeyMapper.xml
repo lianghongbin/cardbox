@@ -4,11 +4,12 @@
   <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.Key" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="card_id" property="cardId" jdbcType="INTEGER" />
-    <result column="code" property="code" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
     <result column="assigned" property="assigned" jdbcType="BIT" />
     <result column="used" property="used" jdbcType="BIT" />
     <result column="assign_time" property="assignTime" jdbcType="TIMESTAMP" />
     <result column="use_time" property="useTime" jdbcType="TIMESTAMP" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, card_id, code, assigned, used, assign_time, use_time
+    id, card_id, code, assigned, used, assign_time, use_time, phone
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.KeyExample" >
     select
@@ -107,10 +108,10 @@
   <insert id="insert" parameterType="com.gamesky.card.core.model.Key" >
     insert into key (id, card_id, code, 
       assigned, used, assign_time, 
-      use_time)
-    values (#{id,jdbcType=INTEGER}, #{cardId,jdbcType=INTEGER}, #{code,jdbcType=INTEGER}, 
+      use_time, phone)
+    values (#{id,jdbcType=INTEGER}, #{cardId,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, 
       #{assigned,jdbcType=BIT}, #{used,jdbcType=BIT}, #{assignTime,jdbcType=TIMESTAMP}, 
-      #{useTime,jdbcType=TIMESTAMP})
+      #{useTime,jdbcType=TIMESTAMP}, #{phone,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Key" >
     insert into key
@@ -136,6 +137,9 @@
       <if test="useTime != null" >
         use_time,
       </if>
+      <if test="phone != null" >
+        phone,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -145,7 +149,7 @@
         #{cardId,jdbcType=INTEGER},
       </if>
       <if test="code != null" >
-        #{code,jdbcType=INTEGER},
+        #{code,jdbcType=VARCHAR},
       </if>
       <if test="assigned != null" >
         #{assigned,jdbcType=BIT},
@@ -158,6 +162,9 @@
       </if>
       <if test="useTime != null" >
         #{useTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -177,7 +184,7 @@
         card_id = #{record.cardId,jdbcType=INTEGER},
       </if>
       <if test="record.code != null" >
-        code = #{record.code,jdbcType=INTEGER},
+        code = #{record.code,jdbcType=VARCHAR},
       </if>
       <if test="record.assigned != null" >
         assigned = #{record.assigned,jdbcType=BIT},
@@ -191,6 +198,9 @@
       <if test="record.useTime != null" >
         use_time = #{record.useTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -200,11 +210,12 @@
     update key
     set id = #{record.id,jdbcType=INTEGER},
       card_id = #{record.cardId,jdbcType=INTEGER},
-      code = #{record.code,jdbcType=INTEGER},
+      code = #{record.code,jdbcType=VARCHAR},
       assigned = #{record.assigned,jdbcType=BIT},
       used = #{record.used,jdbcType=BIT},
       assign_time = #{record.assignTime,jdbcType=TIMESTAMP},
-      use_time = #{record.useTime,jdbcType=TIMESTAMP}
+      use_time = #{record.useTime,jdbcType=TIMESTAMP},
+      phone = #{record.phone,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -216,7 +227,7 @@
         card_id = #{cardId,jdbcType=INTEGER},
       </if>
       <if test="code != null" >
-        code = #{code,jdbcType=INTEGER},
+        code = #{code,jdbcType=VARCHAR},
       </if>
       <if test="assigned != null" >
         assigned = #{assigned,jdbcType=BIT},
@@ -230,17 +241,21 @@
       <if test="useTime != null" >
         use_time = #{useTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Key" >
     update key
     set card_id = #{cardId,jdbcType=INTEGER},
-      code = #{code,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR},
       assigned = #{assigned,jdbcType=BIT},
       used = #{used,jdbcType=BIT},
       assign_time = #{assignTime,jdbcType=TIMESTAMP},
-      use_time = #{useTime,jdbcType=TIMESTAMP}
+      use_time = #{useTime,jdbcType=TIMESTAMP},
+      phone = #{phone,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -137,4 +137,34 @@ public class CardServiceImpl implements CardService {
     public List<Card> findByCondition(CardExample cardExample) {
         return cardMapper.selectByExample(cardExample);
     }
+
+    /**
+     * 根据游戏查找该游戏下的卡包列表
+     *
+     * @param gameId 游戏ID
+     * @param page   分页数据
+     * @return 卡包列表
+     */
+    @Override
+    public List<Card> findByGame(int gameId, Page page) {
+        CardExample cardExample = new CardExample();
+        cardExample.createCriteria().andGameIdEqualTo(gameId);
+        cardExample.setLimitOffset(page.getOffset());
+        cardExample.setLimit(page.getSize());
+        cardExample.setOrderByClause("id desc");
+        return cardMapper.selectByExample(cardExample);
+    }
+
+    /**
+     * 查找某款游戏下的卡包类别数量
+     *
+     * @param gameId 游戏ID
+     * @return 卡包类别数量
+     */
+    @Override
+    public int findCountByGame(int gameId) {
+        CardExample cardExample = new CardExample();
+        cardExample.createCriteria().andGameIdEqualTo(gameId);
+        return cardMapper.countByExample(cardExample);
+    }
 }

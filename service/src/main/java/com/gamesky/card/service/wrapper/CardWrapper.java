@@ -11,10 +11,6 @@ import com.gamesky.card.core.model.Card;
 public class CardWrapper implements Lockable {
     private int id;
 
-    public CardWrapper(Card card) {
-        this.id = card.getId();
-    }
-
     public CardWrapper(int id) {
         this.id = id;
     }
