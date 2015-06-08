@@ -9,12 +9,22 @@ public class Page {
 
     private int total;
     private int size;
-    private int num;
+    private int num = 1;
+
+    public Page() {
+        this.total = 0;
+        this.size = Integer.MAX_VALUE;
+        this.num = 1;
+    }
 
     public Page(int total, int size, int num) {
         this.total = total;
         this.size = size;
-        this.num = num;
+        if (num < 1) {
+            this.num = 1;
+        } else {
+            this.num = num;
+        }
     }
 
     public int getTotal() {
@@ -27,5 +37,9 @@ public class Page {
 
     public int getNum() {
         return num;
+    }
+
+    public int getOffset() {
+        return (num -1) * size;
     }
 }
