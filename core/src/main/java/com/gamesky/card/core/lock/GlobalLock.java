@@ -1,5 +1,7 @@
 package com.gamesky.card.core.lock;
 
+import com.gamesky.card.core.exceptions.LockException;
+
 /**
  * Created on 6/8/15.
  *

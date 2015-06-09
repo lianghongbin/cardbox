@@ -2,7 +2,9 @@ package com.gamesky.card.inner.controller;
 
 import com.gamesky.card.core.Keyable;
 import com.gamesky.card.core.Marshaller;
-import org.apache.commons.io.FileUtils;
+import com.gamesky.card.core.exceptions.MarshalException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -12,11 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
+ * 图片上传控制器
  * Created on 6/9/15.
  *
  * @Author lianghongbin
@@ -28,53 +29,55 @@ public class UploadController {
     @Autowired
     @Qualifier("uploadMarshaller")
     private Marshaller<Keyable, Serializable> marshaller;
+    private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
 
-    @ResponseBody
-    @RequestMapping(value = "/sign")
     public String single(@RequestParam("uploadfile") CommonsMultipartFile file, HttpServletRequest request) {
         if (file.isEmpty()) {
             return "上传文件不能为空";
         }
 
-        String type = file.getOriginalFilename().substring(
-                file.getOriginalFilename().indexOf("."));// 取文件格式后缀名
-        String filename = System.currentTimeMillis() + type;// 取当前时间戳作为文件名
-        String path = request.getSession().getServletContext()
-                .getRealPath("/upload/" + filename);// 存放位置
-        File destFile = new File(path);
+        String type = file.getOriginalFilename().substring(file.getOriginalFilename().indexOf("."));    // 取文件格式后缀名
+        final String fileName = System.currentTimeMillis() + type;  // 取当前时间戳作为文件名
+
         try {
-            // FileUtils.copyInputStreamToFile()这个方法里对IO进行了自动操作，不需要额外的再去关闭IO流
-            FileUtils
-                    .copyInputStreamToFile(file.getInputStream(), destFile);// 复制临时文件到指定目录下
-        } catch (IOException e) {
-            e.printStackTrace();
+            marshaller.marshal(new Keyable() {
+                @Override
+                public String k() {
+                    return fileName;
+                }
+            }, file.getBytes());
+        } catch (MarshalException e) {
+            logger.error("上传文件出错：{}", e);
+            return "上传文件出错!";
         }
-        return "redirect:upload_ok.jsp";
+
+        return "";
     }
 
     //多文件上传
-    @RequestMapping(value = "/uploads.do")
-    public String multipart(
-            @RequestParam("uploadfile") CommonsMultipartFile[] files,
-            HttpServletRequest request) {
-        if (files != null) {
-            for (CommonsMultipartFile file : files) {
-                String type = file.getOriginalFilename().substring(
-                        file.getOriginalFilename().indexOf("."));// 取文件格式后缀名
-                String filename = System.currentTimeMillis() + type;// 取当前时间戳作为文件名
-                String path = request.getSession().getServletContext()
-                        .getRealPath("/upload/" + filename);// 存放位置
-                File destFile = new File(path);
-                try {
-                    FileUtils.copyInputStreamToFile(file.getInputStream(),
-                            destFile);// 复制临时文件到指定目录下
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return "redirect:upload_ok.jsp";
-        } else {
-            return "redirect:upload_error.jsp";
+    @ResponseBody
+    @RequestMapping(value = "/multipart")
+    public String multipart(@RequestParam("uploadfile") CommonsMultipartFile[] files, HttpServletRequest request) {
+        if (files == null) {
+            return "上传文件不能为空";
         }
 
+        for (CommonsMultipartFile file : files) {
+            String type = file.getOriginalFilename().substring(
+                    file.getOriginalFilename().indexOf("."));// 取文件格式后缀名
+            final String fileName = System.currentTimeMillis() + type;// 取当前时间戳作为文件名
+            try {
+                marshaller.marshal(new Keyable() {
+                    @Override
+                    public String k() {
+                        return fileName;
+                    }
+                }, file.getBytes());
+            } catch (MarshalException e) {
+                logger.error("上传文件出错：{}", e);
+            }
+        }
+
+        return "";
     }
+}

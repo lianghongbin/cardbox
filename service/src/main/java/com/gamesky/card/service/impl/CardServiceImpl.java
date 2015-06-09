@@ -2,7 +2,7 @@ package com.gamesky.card.service.impl;
 
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.lock.GlobalLock;
-import com.gamesky.card.core.lock.LockException;
+import com.gamesky.card.core.exceptions.LockException;
 import com.gamesky.card.core.model.Card;
 import com.gamesky.card.core.model.CardExample;
 import com.gamesky.card.dao.mapper.CardMapper;

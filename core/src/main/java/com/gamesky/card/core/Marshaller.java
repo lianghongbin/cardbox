@@ -1,5 +1,7 @@
 package com.gamesky.card.core;
 
+import com.gamesky.card.core.exceptions.MarshalException;
+
 import java.io.Serializable;
 
 /**
@@ -10,7 +12,7 @@ import java.io.Serializable;
  */
 public interface Marshaller<K extends Keyable, V extends Serializable> {
 
-    public void marshal(K k, V v);
+    public void marshal(K k, V v) throws MarshalException;
 
-    public V unmarshal(K k);
+    public V unmarshal(K k) throws MarshalException;
 }

@@ -1,4 +1,4 @@
-package com.gamesky.card.core.lock;
+package com.gamesky.card.core.exceptions;
 
 /**
  * Created on 6/8/15.
