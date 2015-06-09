@@ -7,7 +7,9 @@ public class Key {
 
     private Integer cardId;
 
-    private String code;
+    private String phone;
+
+    private Integer code;
 
     private Boolean assigned;
 
@@ -16,8 +18,6 @@ public class Key {
     private Date assignTime;
 
     private Date useTime;
-
-    private String phone;
 
     public Integer getId() {
         return id;
@@ -35,11 +35,19 @@ public class Key {
         this.cardId = cardId;
     }
 
-    public String getCode() {
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
@@ -75,14 +83,6 @@ public class Key {
         this.useTime = useTime;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -97,12 +97,12 @@ public class Key {
         Key other = (Key) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getCardId() == null ? other.getCardId() == null : this.getCardId().equals(other.getCardId()))
+            && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
             && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
             && (this.getAssigned() == null ? other.getAssigned() == null : this.getAssigned().equals(other.getAssigned()))
             && (this.getUsed() == null ? other.getUsed() == null : this.getUsed().equals(other.getUsed()))
             && (this.getAssignTime() == null ? other.getAssignTime() == null : this.getAssignTime().equals(other.getAssignTime()))
-            && (this.getUseTime() == null ? other.getUseTime() == null : this.getUseTime().equals(other.getUseTime()))
-            && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()));
+            && (this.getUseTime() == null ? other.getUseTime() == null : this.getUseTime().equals(other.getUseTime()));
     }
 
     @Override
@@ -111,12 +111,12 @@ public class Key {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getCardId() == null) ? 0 : getCardId().hashCode());
+        result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
         result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
         result = prime * result + ((getAssigned() == null) ? 0 : getAssigned().hashCode());
         result = prime * result + ((getUsed() == null) ? 0 : getUsed().hashCode());
         result = prime * result + ((getAssignTime() == null) ? 0 : getAssignTime().hashCode());
         result = prime * result + ((getUseTime() == null) ? 0 : getUseTime().hashCode());
-        result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
         return result;
     }
 
@@ -128,12 +128,12 @@ public class Key {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", cardId=").append(cardId);
+        sb.append(", phone=").append(phone);
         sb.append(", code=").append(code);
         sb.append(", assigned=").append(assigned);
         sb.append(", used=").append(used);
         sb.append(", assignTime=").append(assignTime);
         sb.append(", useTime=").append(useTime);
-        sb.append(", phone=").append(phone);
         sb.append("]");
         return sb.toString();
     }

@@ -15,8 +15,6 @@ public class Splash {
 
     private String type;
 
-    private Integer sort;
-
     public Integer getId() {
         return id;
     }
@@ -65,14 +63,6 @@ public class Splash {
         this.type = type;
     }
 
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -90,8 +80,7 @@ public class Splash {
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
             && (this.getEnabled() == null ? other.getEnabled() == null : this.getEnabled().equals(other.getEnabled()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
-            && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()));
+            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()));
     }
 
     @Override
@@ -104,7 +93,6 @@ public class Splash {
         result = prime * result + ((getEnabled() == null) ? 0 : getEnabled().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
-        result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
         return result;
     }
 
@@ -120,7 +108,6 @@ public class Splash {
         sb.append(", enabled=").append(enabled);
         sb.append(", createTime=").append(createTime);
         sb.append(", type=").append(type);
-        sb.append(", sort=").append(sort);
         sb.append("]");
         return sb.toString();
     }

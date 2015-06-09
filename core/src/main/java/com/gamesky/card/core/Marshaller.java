@@ -8,7 +8,7 @@ import java.io.Serializable;
  *
  * @Author lianghongbin
  */
-public interface Marshaller<K extends Key, V extends Serializable> {
+public interface Marshaller<K extends Keyable, V extends Serializable> {
 
     public void marshal(K k, V v);
 

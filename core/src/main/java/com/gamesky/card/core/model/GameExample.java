@@ -464,6 +464,76 @@ public class GameExample {
             return (Criteria) this;
         }
 
+        public Criteria andIosIdIsNull() {
+            addCriterion("ios_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosIdIsNotNull() {
+            addCriterion("ios_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosIdEqualTo(String value) {
+            addCriterion("ios_id =", value, "iosId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosIdNotEqualTo(String value) {
+            addCriterion("ios_id <>", value, "iosId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosIdGreaterThan(String value) {
+            addCriterion("ios_id >", value, "iosId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosIdGreaterThanOrEqualTo(String value) {
+            addCriterion("ios_id >=", value, "iosId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosIdLessThan(String value) {
+            addCriterion("ios_id <", value, "iosId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosIdLessThanOrEqualTo(String value) {
+            addCriterion("ios_id <=", value, "iosId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosIdLike(String value) {
+            addCriterion("ios_id like", value, "iosId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosIdNotLike(String value) {
+            addCriterion("ios_id not like", value, "iosId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosIdIn(List<String> values) {
+            addCriterion("ios_id in", values, "iosId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosIdNotIn(List<String> values) {
+            addCriterion("ios_id not in", values, "iosId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosIdBetween(String value1, String value2) {
+            addCriterion("ios_id between", value1, value2, "iosId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosIdNotBetween(String value1, String value2) {
+            addCriterion("ios_id not between", value1, value2, "iosId");
+            return (Criteria) this;
+        }
+
         public Criteria andNameLikeInsensitive(String value) {
             addCriterion("upper(name) like", value.toUpperCase(), "name");
             return (Criteria) this;
@@ -481,6 +551,11 @@ public class GameExample {
 
         public Criteria andUrlLikeInsensitive(String value) {
             addCriterion("upper(url) like", value.toUpperCase(), "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosIdLikeInsensitive(String value) {
+            addCriterion("upper(ios_id) like", value.toUpperCase(), "iosId");
             return (Criteria) this;
         }
     }

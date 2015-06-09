@@ -455,6 +455,76 @@ public class CardExample {
             return (Criteria) this;
         }
 
+        public Criteria andProcedureIsNull() {
+            addCriterion("procedure is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcedureIsNotNull() {
+            addCriterion("procedure is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcedureEqualTo(String value) {
+            addCriterion("procedure =", value, "procedure");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcedureNotEqualTo(String value) {
+            addCriterion("procedure <>", value, "procedure");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcedureGreaterThan(String value) {
+            addCriterion("procedure >", value, "procedure");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcedureGreaterThanOrEqualTo(String value) {
+            addCriterion("procedure >=", value, "procedure");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcedureLessThan(String value) {
+            addCriterion("procedure <", value, "procedure");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcedureLessThanOrEqualTo(String value) {
+            addCriterion("procedure <=", value, "procedure");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcedureLike(String value) {
+            addCriterion("procedure like", value, "procedure");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcedureNotLike(String value) {
+            addCriterion("procedure not like", value, "procedure");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcedureIn(List<String> values) {
+            addCriterion("procedure in", values, "procedure");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcedureNotIn(List<String> values) {
+            addCriterion("procedure not in", values, "procedure");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcedureBetween(String value1, String value2) {
+            addCriterion("procedure between", value1, value2, "procedure");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcedureNotBetween(String value1, String value2) {
+            addCriterion("procedure not between", value1, value2, "procedure");
+            return (Criteria) this;
+        }
+
         public Criteria andTotalIsNull() {
             addCriterion("total is null");
             return (Criteria) this;
@@ -1077,6 +1147,11 @@ public class CardExample {
 
         public Criteria andDescLikeInsensitive(String value) {
             addCriterion("upper(desc) like", value.toUpperCase(), "desc");
+            return (Criteria) this;
+        }
+
+        public Criteria andProcedureLikeInsensitive(String value) {
+            addCriterion("upper(procedure) like", value.toUpperCase(), "procedure");
             return (Criteria) this;
         }
 

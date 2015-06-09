@@ -13,6 +13,8 @@ public class Card {
 
     private String desc;
 
+    private String procedure;
+
     private Integer total;
 
     private Integer assignTotal;
@@ -71,6 +73,14 @@ public class Card {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getProcedure() {
+        return procedure;
+    }
+
+    public void setProcedure(String procedure) {
+        this.procedure = procedure;
     }
 
     public Integer getTotal() {
@@ -170,6 +180,7 @@ public class Card {
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getPhoto() == null ? other.getPhoto() == null : this.getPhoto().equals(other.getPhoto()))
             && (this.getDesc() == null ? other.getDesc() == null : this.getDesc().equals(other.getDesc()))
+            && (this.getProcedure() == null ? other.getProcedure() == null : this.getProcedure().equals(other.getProcedure()))
             && (this.getTotal() == null ? other.getTotal() == null : this.getTotal().equals(other.getTotal()))
             && (this.getAssignTotal() == null ? other.getAssignTotal() == null : this.getAssignTotal().equals(other.getAssignTotal()))
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
@@ -191,6 +202,7 @@ public class Card {
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getPhoto() == null) ? 0 : getPhoto().hashCode());
         result = prime * result + ((getDesc() == null) ? 0 : getDesc().hashCode());
+        result = prime * result + ((getProcedure() == null) ? 0 : getProcedure().hashCode());
         result = prime * result + ((getTotal() == null) ? 0 : getTotal().hashCode());
         result = prime * result + ((getAssignTotal() == null) ? 0 : getAssignTotal().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
@@ -215,6 +227,7 @@ public class Card {
         sb.append(", name=").append(name);
         sb.append(", photo=").append(photo);
         sb.append(", desc=").append(desc);
+        sb.append(", procedure=").append(procedure);
         sb.append(", total=").append(total);
         sb.append(", assignTotal=").append(assignTotal);
         sb.append(", type=").append(type);

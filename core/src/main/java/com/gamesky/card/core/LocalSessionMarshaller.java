@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @Author lianghongbin
  */
-public class LocalSessionMarshaller<K extends Key, V extends Serializable> implements Marshaller<K, V> {
+public class LocalSessionMarshaller<K extends Keyable, V extends Serializable> implements Marshaller<K, V> {
 
     private int seconds = 24 * 60 * 60;    //默认缓存1天
     private int maxSize = 1000000;          //最高缓存100万数据

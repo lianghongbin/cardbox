@@ -11,6 +11,8 @@ public class Game {
 
     private String url;
 
+    private String iosId;
+
     public Integer getId() {
         return id;
     }
@@ -51,6 +53,14 @@ public class Game {
         this.url = url;
     }
 
+    public String getIosId() {
+        return iosId;
+    }
+
+    public void setIosId(String iosId) {
+        this.iosId = iosId;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -67,7 +77,8 @@ public class Game {
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getPhoto() == null ? other.getPhoto() == null : this.getPhoto().equals(other.getPhoto()))
             && (this.getDesc() == null ? other.getDesc() == null : this.getDesc().equals(other.getDesc()))
-            && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()));
+            && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
+            && (this.getIosId() == null ? other.getIosId() == null : this.getIosId().equals(other.getIosId()));
     }
 
     @Override
@@ -79,6 +90,7 @@ public class Game {
         result = prime * result + ((getPhoto() == null) ? 0 : getPhoto().hashCode());
         result = prime * result + ((getDesc() == null) ? 0 : getDesc().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
+        result = prime * result + ((getIosId() == null) ? 0 : getIosId().hashCode());
         return result;
     }
 
@@ -93,6 +105,7 @@ public class Game {
         sb.append(", photo=").append(photo);
         sb.append(", desc=").append(desc);
         sb.append(", url=").append(url);
+        sb.append(", iosId=").append(iosId);
         sb.append("]");
         return sb.toString();
     }

@@ -5,7 +5,7 @@ package com.gamesky.card.core;
  *
  * @Author lianghongbin
  */
-public interface Key {
+public interface Keyable {
 
     public String k();
 }

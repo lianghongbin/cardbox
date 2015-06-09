@@ -18,7 +18,13 @@ public interface PhotoMapper {
 
     List<Photo> selectByExample(PhotoExample example);
 
+    Photo selectByPrimaryKey(Integer id);
+
     int updateByExampleSelective(@Param("record") Photo record, @Param("example") PhotoExample example);
 
     int updateByExample(@Param("record") Photo record, @Param("example") PhotoExample example);
+
+    int updateByPrimaryKeySelective(Photo record);
+
+    int updateByPrimaryKey(Photo record);
 }

@@ -7,6 +7,7 @@
     <result column="photo" property="photo" jdbcType="VARCHAR" />
     <result column="desc" property="desc" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="ios_id" property="iosId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, photo, desc, url
+    id, name, photo, desc, url, ios_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.GameExample" >
     select
@@ -104,9 +105,9 @@
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Game" >
     insert into game (id, name, photo, 
-      desc, url)
+      desc, url, ios_id)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
-      #{desc,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR})
+      #{desc,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{iosId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Game" >
     insert into game
@@ -126,6 +127,9 @@
       <if test="url != null" >
         url,
       </if>
+      <if test="iosId != null" >
+        ios_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -142,6 +146,9 @@
       </if>
       <if test="url != null" >
         #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="iosId != null" >
+        #{iosId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -169,6 +176,9 @@
       <if test="record.url != null" >
         url = #{record.url,jdbcType=VARCHAR},
       </if>
+      <if test="record.iosId != null" >
+        ios_id = #{record.iosId,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -180,7 +190,8 @@
       name = #{record.name,jdbcType=VARCHAR},
       photo = #{record.photo,jdbcType=VARCHAR},
       desc = #{record.desc,jdbcType=VARCHAR},
-      url = #{record.url,jdbcType=VARCHAR}
+      url = #{record.url,jdbcType=VARCHAR},
+      ios_id = #{record.iosId,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -200,6 +211,9 @@
       <if test="url != null" >
         url = #{url,jdbcType=VARCHAR},
       </if>
+      <if test="iosId != null" >
+        ios_id = #{iosId,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -208,7 +222,8 @@
     set name = #{name,jdbcType=VARCHAR},
       photo = #{photo,jdbcType=VARCHAR},
       desc = #{desc,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR}
+      url = #{url,jdbcType=VARCHAR},
+      ios_id = #{iosId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

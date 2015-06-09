@@ -1,6 +1,6 @@
 package com.gamesky.card.service.impl;
 
-import com.gamesky.card.core.Key;
+import com.gamesky.card.core.Keyable;
 import com.gamesky.card.core.Marshaller;
 import com.gamesky.card.core.MessageSender;
 import com.gamesky.card.core.SmsMessage;
@@ -20,13 +20,13 @@ import java.util.List;
  */
 public class SmsServiceImpl implements SmsService {
 
-    private Marshaller<Key, Serializable> marshaller;
+    private Marshaller<Keyable, Serializable> marshaller;
     private String placeholder;
     private CodeGenerator codeGenerator;
     private List<MessageSender<SmsMessage>> messageSenders;
     private static final Logger logger = LoggerFactory.getLogger(SmsServiceImpl.class);
 
-    public void setMarshaller(Marshaller<Key, Serializable> marshaller) {
+    public void setMarshaller(Marshaller<Keyable, Serializable> marshaller) {
         this.marshaller = marshaller;
     }
 
@@ -52,7 +52,7 @@ public class SmsServiceImpl implements SmsService {
                 continue;
             }
 
-            marshaller.marshal(new Key() {
+            marshaller.marshal(new Keyable() {
                 @Override
                 public String k() {
                     return phone;

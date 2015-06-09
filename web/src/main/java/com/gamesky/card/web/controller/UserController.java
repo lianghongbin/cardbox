@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @Author lianghongbin
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping(value = "/user", produces="application/json;charset=UTF-8")
 public class UserController {
 
 }

@@ -7,6 +7,7 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="photo" property="photo" jdbcType="VARCHAR" />
     <result column="desc" property="desc" jdbcType="VARCHAR" />
+    <result column="procedure" property="procedure" jdbcType="VARCHAR" />
     <result column="total" property="total" jdbcType="INTEGER" />
     <result column="assign_total" property="assignTotal" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="VARCHAR" />
@@ -77,8 +78,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, game_id, name, photo, desc, total, assign_total, type, expire, score, free, closed, 
-    create_time, close_time, open_time
+    id, game_id, name, photo, desc, procedure, total, assign_total, type, expire, score, 
+    free, closed, create_time, close_time, open_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.CardExample" >
     select
@@ -115,15 +116,17 @@
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Card" >
     insert into card (id, game_id, name, 
-      photo, desc, total, 
-      assign_total, type, expire, 
-      score, free, closed, create_time, 
-      close_time, open_time)
+      photo, desc, procedure, 
+      total, assign_total, type, 
+      expire, score, free, 
+      closed, create_time, close_time, 
+      open_time)
     values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{photo,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, 
-      #{assignTotal,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{expire,jdbcType=TIMESTAMP}, 
-      #{score,jdbcType=INTEGER}, #{free,jdbcType=BIT}, #{closed,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{closeTime,jdbcType=TIMESTAMP}, #{openTime,jdbcType=TIMESTAMP})
+      #{photo,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, #{procedure,jdbcType=VARCHAR}, 
+      #{total,jdbcType=INTEGER}, #{assignTotal,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
+      #{expire,jdbcType=TIMESTAMP}, #{score,jdbcType=INTEGER}, #{free,jdbcType=BIT}, 
+      #{closed,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, 
+      #{openTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Card" >
     insert into card
@@ -142,6 +145,9 @@
       </if>
       <if test="desc != null" >
         desc,
+      </if>
+      <if test="procedure != null" >
+        procedure,
       </if>
       <if test="total != null" >
         total,
@@ -189,6 +195,9 @@
       </if>
       <if test="desc != null" >
         #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="procedure != null" >
+        #{procedure,jdbcType=VARCHAR},
       </if>
       <if test="total != null" >
         #{total,jdbcType=INTEGER},
@@ -246,6 +255,9 @@
       <if test="record.desc != null" >
         desc = #{record.desc,jdbcType=VARCHAR},
       </if>
+      <if test="record.procedure != null" >
+        procedure = #{record.procedure,jdbcType=VARCHAR},
+      </if>
       <if test="record.total != null" >
         total = #{record.total,jdbcType=INTEGER},
       </if>
@@ -288,6 +300,7 @@
       name = #{record.name,jdbcType=VARCHAR},
       photo = #{record.photo,jdbcType=VARCHAR},
       desc = #{record.desc,jdbcType=VARCHAR},
+      procedure = #{record.procedure,jdbcType=VARCHAR},
       total = #{record.total,jdbcType=INTEGER},
       assign_total = #{record.assignTotal,jdbcType=INTEGER},
       type = #{record.type,jdbcType=VARCHAR},
@@ -316,6 +329,9 @@
       </if>
       <if test="desc != null" >
         desc = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="procedure != null" >
+        procedure = #{procedure,jdbcType=VARCHAR},
       </if>
       <if test="total != null" >
         total = #{total,jdbcType=INTEGER},
@@ -356,6 +372,7 @@
       name = #{name,jdbcType=VARCHAR},
       photo = #{photo,jdbcType=VARCHAR},
       desc = #{desc,jdbcType=VARCHAR},
+      procedure = #{procedure,jdbcType=VARCHAR},
       total = #{total,jdbcType=INTEGER},
       assign_total = #{assignTotal,jdbcType=INTEGER},
       type = #{type,jdbcType=VARCHAR},
