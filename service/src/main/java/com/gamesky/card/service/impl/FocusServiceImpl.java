@@ -40,7 +40,7 @@ public class FocusServiceImpl implements FocusService {
      * @return 影响条数
      */
     @Override
-    public int delete(int id) {
+    public int remove(int id) {
         return focusMapper.deleteByPrimaryKey(id);
     }
 

@@ -57,6 +57,17 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     /**
+     * 根据ID获取反馈实体
+     *
+     * @param id 反馈ID
+     * @return 反馈实体
+     */
+    @Override
+    public Feedback find(int id) {
+        return feedbackMapper.selectByPrimaryKey(id);
+    }
+
+    /**
      * 用户反馈分页列表
      *
      * @param page 分页参数
@@ -69,6 +80,18 @@ public class FeedbackServiceImpl implements FeedbackService {
         feedbackExample.setLimit(page.getSize());
         feedbackExample.setOrderByClause("id desc");
         return feedbackMapper.selectByExample(feedbackExample);
+    }
+
+    /**
+     * 用户反馈数量
+     *
+     * @return 反馈数量
+     */
+    @Override
+    public int findCount() {
+        FeedbackExample feedbackExample = new FeedbackExample();
+        feedbackExample.createCriteria().andIdGreaterThan(0);
+        return feedbackMapper.countByExample(feedbackExample);
     }
 
     /**
@@ -88,6 +111,19 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     /**
+     * 根据用户手机查看用户反馈数量
+     *
+     * @param phone 用户手机
+     * @return 反馈数量
+     */
+    @Override
+    public int findCountByUser(String phone) {
+        FeedbackExample feedbackExample = new FeedbackExample();
+        feedbackExample.createCriteria().andPhoneEqualTo(phone);
+        return feedbackMapper.countByExample(feedbackExample);
+    }
+
+    /**
      * 根据条件查询反馈列表
      *
      * @param feedbackExample 查询条件
@@ -96,5 +132,16 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public List<Feedback> findByCondition(FeedbackExample feedbackExample) {
         return feedbackMapper.selectByExample(feedbackExample);
+    }
+
+    /**
+     * 根据条件查询反馈数量
+     *
+     * @param feedbackExample 查询条件
+     * @return 反馈数量
+     */
+    @Override
+    public int findCountByCondition(FeedbackExample feedbackExample) {
+        return feedbackMapper.countByExample(feedbackExample);
     }
 }

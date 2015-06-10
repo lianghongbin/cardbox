@@ -18,6 +18,10 @@ public class ResultGenerator {
         return toJson(result);
     }
 
+    public static String generate() {
+        return toJson(new Result());
+    }
+
     public static String generate(Object data) {
         return toJson(new Result(data));
     }

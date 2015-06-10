@@ -1,6 +1,8 @@
 package com.gamesky.card.service;
 
 import com.gamesky.card.core.Page;
+import com.gamesky.card.core.exceptions.CheckCodeInvalidException;
+import com.gamesky.card.core.exceptions.CheckCodeWrongException;
 import com.gamesky.card.core.model.User;
 import com.gamesky.card.core.model.UserExample;
 
@@ -101,5 +103,5 @@ public interface UserService {
      * @param checkCode 验证码
      * @return true/false
      */
-    boolean login(final String phone, String checkCode);
+    boolean login(final String phone, String checkCode) throws CheckCodeInvalidException, CheckCodeWrongException;
 }

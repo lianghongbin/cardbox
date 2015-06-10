@@ -39,7 +39,7 @@ public class GameServiceImpl implements GameService {
      * @return 影响条数
      */
     @Override
-    public int delete(int id) {
+    public int remove(int id) {
         return gameMapper.deleteByPrimaryKey(id);
     }
 
@@ -66,6 +66,21 @@ public class GameServiceImpl implements GameService {
     }
 
     /**
+     * 推荐/取消推荐一个游戏
+     *
+     * @param id        游戏ID
+     * @param recommend 是否推荐
+     * @return 影响条数
+     */
+    @Override
+    public int recommend(int id, boolean recommend) {
+        Game game = new Game();
+        game.setId(id);
+        game.setRecommend(recommend);
+        return gameMapper.updateByPrimaryKeySelective(game);
+    }
+
+    /**
      * 获取所有的游戏列表
      *
      * @param page 分页参数
@@ -89,6 +104,34 @@ public class GameServiceImpl implements GameService {
     public int findCount() {
         GameExample gameExample = new GameExample();
         gameExample.createCriteria().andIdGreaterThan(0);
+        return gameMapper.countByExample(gameExample);
+    }
+
+    /**
+     * 取出推荐列表
+     *
+     * @param page 分页参数
+     * @return 游戏列表
+     */
+    @Override
+    public List<Game> findRecommend(Page page) {
+        GameExample gameExample = new GameExample();
+        gameExample.createCriteria().andRecommendEqualTo(true);
+        gameExample.setLimit(page.getSize());
+        gameExample.setLimitOffset(page.getOffset());
+        gameExample.setOrderByClause("recommend desc, sort asc");
+        return gameMapper.selectByExample(gameExample);
+    }
+
+    /**
+     * 取出推荐的游戏个数
+     *
+     * @return 游戏数量
+     */
+    @Override
+    public int findCountRecommend() {
+        GameExample gameExample = new GameExample();
+        gameExample.createCriteria().andRecommendEqualTo(true);
         return gameMapper.countByExample(gameExample);
     }
 

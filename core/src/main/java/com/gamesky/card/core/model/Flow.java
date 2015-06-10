@@ -2,16 +2,20 @@ package com.gamesky.card.core.model;
 
 import java.util.Date;
 
-public class MyGame {
+public class Flow {
     private Integer id;
+
+    private Integer score;
+
+    private Integer type;
 
     private Integer userId;
 
     private String phone;
 
-    private Integer gameId;
-
     private Date createTime;
+
+    private String method;
 
     public Integer getId() {
         return id;
@@ -19,6 +23,22 @@ public class MyGame {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public Integer getUserId() {
@@ -37,20 +57,20 @@ public class MyGame {
         this.phone = phone;
     }
 
-    public Integer getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(Integer gameId) {
-        this.gameId = gameId;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
     }
 
     @Override
@@ -64,12 +84,14 @@ public class MyGame {
         if (getClass() != that.getClass()) {
             return false;
         }
-        MyGame other = (MyGame) that;
+        Flow other = (Flow) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getScore() == null ? other.getScore() == null : this.getScore().equals(other.getScore()))
+            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
-            && (this.getGameId() == null ? other.getGameId() == null : this.getGameId().equals(other.getGameId()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
+            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+            && (this.getMethod() == null ? other.getMethod() == null : this.getMethod().equals(other.getMethod()));
     }
 
     @Override
@@ -77,10 +99,12 @@ public class MyGame {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getScore() == null) ? 0 : getScore().hashCode());
+        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
-        result = prime * result + ((getGameId() == null) ? 0 : getGameId().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+        result = prime * result + ((getMethod() == null) ? 0 : getMethod().hashCode());
         return result;
     }
 
@@ -91,10 +115,12 @@ public class MyGame {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", score=").append(score);
+        sb.append(", type=").append(type);
         sb.append(", userId=").append(userId);
         sb.append(", phone=").append(phone);
-        sb.append(", gameId=").append(gameId);
         sb.append(", createTime=").append(createTime);
+        sb.append(", method=").append(method);
         sb.append("]");
         return sb.toString();
     }

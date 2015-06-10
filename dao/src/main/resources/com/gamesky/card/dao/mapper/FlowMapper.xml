@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.gamesky.card.dao.mapper.KeyMapper" >
-  <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.Key" >
+<mapper namespace="com.gamesky.card.dao.mapper.FlowMapper" >
+  <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.Flow" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="card_id" property="cardId" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="code" property="code" jdbcType="VARCHAR" />
-    <result column="used" property="used" jdbcType="BIT" />
-    <result column="assigned" property="assigned" jdbcType="BIT" />
-    <result column="game_id" property="gameId" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="assign_time" property="assignTime" jdbcType="TIMESTAMP" />
-    <result column="use_time" property="useTime" jdbcType="TIMESTAMP" />
+    <result column="method" property="method" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -72,15 +69,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, card_id, phone, code, used, assigned, game_id, create_time, assign_time, use_time
+    id, score, type, user_id, phone, create_time, method
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.KeyExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.FlowExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from key
+    from Flow
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -94,134 +91,105 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from key
+    from Flow
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from key
+    delete from Flow
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.gamesky.card.core.model.KeyExample" >
-    delete from key
+  <delete id="deleteByExample" parameterType="com.gamesky.card.core.model.FlowExample" >
+    delete from Flow
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.gamesky.card.core.model.Key" >
-    insert into key (id, card_id, phone, 
-      code, used, assigned, game_id, 
-      create_time, assign_time, use_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{cardId,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, 
-      #{code,jdbcType=VARCHAR}, #{used,jdbcType=BIT}, #{assigned,jdbcType=BIT}, #{gameId,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{assignTime,jdbcType=TIMESTAMP}, #{useTime,jdbcType=TIMESTAMP}
-      )
+  <insert id="insert" parameterType="com.gamesky.card.core.model.Flow" >
+    insert into Flow (id, score, type, 
+      user_id, phone, create_time, 
+      method)
+    values (#{id,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{method,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Key" >
-    insert into key
+  <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Flow" >
+    insert into Flow
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="cardId != null" >
-        card_id,
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="userId != null" >
+        user_id,
       </if>
       <if test="phone != null" >
         phone,
       </if>
-      <if test="code != null" >
-        code,
-      </if>
-      <if test="used != null" >
-        used,
-      </if>
-      <if test="assigned != null" >
-        assigned,
-      </if>
-      <if test="gameId != null" >
-        game_id,
-      </if>
       <if test="createTime != null" >
         create_time,
       </if>
-      <if test="assignTime != null" >
-        assign_time,
-      </if>
-      <if test="useTime != null" >
-        use_time,
+      <if test="method != null" >
+        method,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="cardId != null" >
-        #{cardId,jdbcType=INTEGER},
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
       </if>
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="code != null" >
-        #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="used != null" >
-        #{used,jdbcType=BIT},
-      </if>
-      <if test="assigned != null" >
-        #{assigned,jdbcType=BIT},
-      </if>
-      <if test="gameId != null" >
-        #{gameId,jdbcType=INTEGER},
-      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="assignTime != null" >
-        #{assignTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="useTime != null" >
-        #{useTime,jdbcType=TIMESTAMP},
+      <if test="method != null" >
+        #{method,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.gamesky.card.core.model.KeyExample" resultType="java.lang.Integer" >
-    select count(*) from key
+  <select id="countByExample" parameterType="com.gamesky.card.core.model.FlowExample" resultType="java.lang.Integer" >
+    select count(*) from Flow
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update key
+    update Flow
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.cardId != null" >
-        card_id = #{record.cardId,jdbcType=INTEGER},
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.phone != null" >
         phone = #{record.phone,jdbcType=VARCHAR},
       </if>
-      <if test="record.code != null" >
-        code = #{record.code,jdbcType=VARCHAR},
-      </if>
-      <if test="record.used != null" >
-        used = #{record.used,jdbcType=BIT},
-      </if>
-      <if test="record.assigned != null" >
-        assigned = #{record.assigned,jdbcType=BIT},
-      </if>
-      <if test="record.gameId != null" >
-        game_id = #{record.gameId,jdbcType=INTEGER},
-      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.assignTime != null" >
-        assign_time = #{record.assignTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.useTime != null" >
-        use_time = #{record.useTime,jdbcType=TIMESTAMP},
+      <if test="record.method != null" >
+        method = #{record.method,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -229,65 +197,50 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update key
+    update Flow
     set id = #{record.id,jdbcType=INTEGER},
-      card_id = #{record.cardId,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
       phone = #{record.phone,jdbcType=VARCHAR},
-      code = #{record.code,jdbcType=VARCHAR},
-      used = #{record.used,jdbcType=BIT},
-      assigned = #{record.assigned,jdbcType=BIT},
-      game_id = #{record.gameId,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      assign_time = #{record.assignTime,jdbcType=TIMESTAMP},
-      use_time = #{record.useTime,jdbcType=TIMESTAMP}
+      method = #{record.method,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gamesky.card.core.model.Key" >
-    update key
+  <update id="updateByPrimaryKeySelective" parameterType="com.gamesky.card.core.model.Flow" >
+    update Flow
     <set >
-      <if test="cardId != null" >
-        card_id = #{cardId,jdbcType=INTEGER},
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="code != null" >
-        code = #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="used != null" >
-        used = #{used,jdbcType=BIT},
-      </if>
-      <if test="assigned != null" >
-        assigned = #{assigned,jdbcType=BIT},
-      </if>
-      <if test="gameId != null" >
-        game_id = #{gameId,jdbcType=INTEGER},
-      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="assignTime != null" >
-        assign_time = #{assignTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="useTime != null" >
-        use_time = #{useTime,jdbcType=TIMESTAMP},
+      <if test="method != null" >
+        method = #{method,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Key" >
-    update key
-    set card_id = #{cardId,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Flow" >
+    update Flow
+    set score = #{score,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
       phone = #{phone,jdbcType=VARCHAR},
-      code = #{code,jdbcType=VARCHAR},
-      used = #{used,jdbcType=BIT},
-      assigned = #{assigned,jdbcType=BIT},
-      game_id = #{gameId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      assign_time = #{assignTime,jdbcType=TIMESTAMP},
-      use_time = #{useTime,jdbcType=TIMESTAMP}
+      method = #{method,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

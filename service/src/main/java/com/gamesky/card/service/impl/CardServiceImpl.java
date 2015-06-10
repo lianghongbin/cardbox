@@ -5,8 +5,10 @@ import com.gamesky.card.core.lock.GlobalLock;
 import com.gamesky.card.core.exceptions.LockException;
 import com.gamesky.card.core.model.Card;
 import com.gamesky.card.core.model.CardExample;
+import com.gamesky.card.core.model.Key;
 import com.gamesky.card.dao.mapper.CardMapper;
 import com.gamesky.card.service.CardService;
+import com.gamesky.card.service.KeyService;
 import com.gamesky.card.service.RedisGlobalLock;
 import com.gamesky.card.service.wrapper.CardWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class CardServiceImpl implements CardService {
 
     @Autowired
     private CardMapper cardMapper;
+    @Autowired
+    private KeyService keyService;
     private GlobalLock<CardWrapper> globalLock = new RedisGlobalLock<>();
 
     /**
@@ -78,13 +82,14 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
-     * 分发、分配一个卡
+     * 分发、分配一个卡给某个用户
      *
-     * @param id 卡包ID
+     * @param id    卡包ID
+     * @param phone 用户手机
      * @return 影响条数
      */
     @Override
-    public int assign(int id) {
+    public int assign(int id, String phone) {
         CardWrapper cardWrapper = new CardWrapper(id);
         try {
             globalLock.lock(cardWrapper);
@@ -92,6 +97,12 @@ public class CardServiceImpl implements CardService {
             if (card.getTotal() > card.getAssignTotal()) {
                 card.setAssignTotal(card.getAssignTotal() + 1);
             }
+
+            Key key = keyService.findOne(id);
+            key.setAssigned(true);
+            key.setPhone(phone);
+            key.setAssignTime(new Date());
+            keyService.update(key);
 
             return cardMapper.updateByPrimaryKey(card);
         } catch (LockException e) {

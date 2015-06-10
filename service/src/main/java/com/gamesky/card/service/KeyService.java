@@ -96,6 +96,13 @@ public interface KeyService {
     int findCount();
 
     /**
+     * 随机获取某种卡包下的一个未分配的激活码
+     * @param cardId 卡包ID
+     * @return 激活码实体
+     */
+    Key findOne(int cardId);
+
+    /**
      * 根据条件查询激活码列表
      * @param keyExample 查询条件
      * @return 激活码列表

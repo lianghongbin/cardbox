@@ -1,16 +1,22 @@
 package com.gamesky.card.service.impl;
 
+import com.gamesky.card.core.Constants;
 import com.gamesky.card.core.Keyable;
 import com.gamesky.card.core.Marshaller;
 import com.gamesky.card.core.Page;
+import com.gamesky.card.core.exceptions.CheckCodeInvalidException;
+import com.gamesky.card.core.exceptions.CheckCodeWrongException;
+import com.gamesky.card.core.exceptions.MarshalException;
 import com.gamesky.card.core.model.User;
 import com.gamesky.card.core.model.UserExample;
 import com.gamesky.card.dao.mapper.UserMapper;
 import com.gamesky.card.service.SmsService;
 import com.gamesky.card.service.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +37,10 @@ public class UserServiceImpl implements UserService {
     private SmsService smsService;
     @Autowired
     private Marshaller<Keyable,String> marshaller;
+    @Autowired
+    @Qualifier("checkCodeMarshaller")
+    private Marshaller<Keyable, String> checkCodeMarshaller;
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     /**
      * 保存用户、添加用户
@@ -155,12 +165,18 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public boolean isLogin(final String phone) {
-        String result = marshaller.unmarshal(new Keyable() {
-            @Override
-            public String k() {
-                return phone;
-            }
-        });
+        String result;
+        try {
+            result = marshaller.unmarshal(new Keyable() {
+                @Override
+                public String k() {
+                    return phone;
+                }
+            });
+        } catch (MarshalException e) {
+            logger.error("验证用户是否登录出错：{}", e);
+            return false;
+        }
 
         return StringUtils.isNotBlank(result);
     }
@@ -173,13 +189,40 @@ public class UserServiceImpl implements UserService {
      * @return true/false
      */
     @Override
-    public boolean login(final String phone, String checkCode) {
-        marshaller.marshal(new Keyable() {
-            @Override
-            public String k() {
-                return phone;
+    public boolean login(final String phone, String checkCode) throws CheckCodeInvalidException, CheckCodeWrongException{
+
+        String code = null;
+        try {
+            code = checkCodeMarshaller.unmarshal(new Keyable() {
+                @Override
+                public String k() {
+                    return Constants.CHECK_CODE_KEY_PREFIX + phone;
+                }
+            });
+
+            if (code == null) {
+                throw new CheckCodeInvalidException("验证码已过期");
             }
-        }, checkCode);
+
+            if (!checkCode.equalsIgnoreCase(code)) {
+                throw new CheckCodeWrongException("验证码错误");
+            }
+        } catch (MarshalException e) {
+            logger.error("校验验证码失败");
+            return false;
+        }
+
+        try {
+            marshaller.marshal(new Keyable() {
+                @Override
+                public String k() {
+                    return Constants.USER_LOGIN_KEY_PREFIX + phone;
+                }
+            }, checkCode);
+        } catch (MarshalException e) {
+            logger.error("用户登录出错：{}", e);
+            return false;
+        }
 
         return isLogin(phone);
     }

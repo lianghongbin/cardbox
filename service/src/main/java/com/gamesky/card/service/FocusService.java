@@ -24,7 +24,7 @@ public interface FocusService {
      * @param id 焦点图ID
      * @return 影响条数
      */
-    public int delete(int id);
+    public int remove(int id);
 
     /**
      * 更新焦点图

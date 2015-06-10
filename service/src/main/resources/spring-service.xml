@@ -29,4 +29,7 @@
     </bean>
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+    <bean id="uploadMarshaller" class="com.gamesky.card.service.FileMarshaller"/>
+    <bean id="checkCodeMarshaller" class="com.gamesky.card.core.LocalCheckCodeMarshaller"/>
 </beans>

@@ -325,53 +325,123 @@ public class KeyExample {
             return (Criteria) this;
         }
 
-        public Criteria andCodeEqualTo(Integer value) {
+        public Criteria andCodeEqualTo(String value) {
             addCriterion("code =", value, "code");
             return (Criteria) this;
         }
 
-        public Criteria andCodeNotEqualTo(Integer value) {
+        public Criteria andCodeNotEqualTo(String value) {
             addCriterion("code <>", value, "code");
             return (Criteria) this;
         }
 
-        public Criteria andCodeGreaterThan(Integer value) {
+        public Criteria andCodeGreaterThan(String value) {
             addCriterion("code >", value, "code");
             return (Criteria) this;
         }
 
-        public Criteria andCodeGreaterThanOrEqualTo(Integer value) {
+        public Criteria andCodeGreaterThanOrEqualTo(String value) {
             addCriterion("code >=", value, "code");
             return (Criteria) this;
         }
 
-        public Criteria andCodeLessThan(Integer value) {
+        public Criteria andCodeLessThan(String value) {
             addCriterion("code <", value, "code");
             return (Criteria) this;
         }
 
-        public Criteria andCodeLessThanOrEqualTo(Integer value) {
+        public Criteria andCodeLessThanOrEqualTo(String value) {
             addCriterion("code <=", value, "code");
             return (Criteria) this;
         }
 
-        public Criteria andCodeIn(List<Integer> values) {
+        public Criteria andCodeLike(String value) {
+            addCriterion("code like", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeNotLike(String value) {
+            addCriterion("code not like", value, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeIn(List<String> values) {
             addCriterion("code in", values, "code");
             return (Criteria) this;
         }
 
-        public Criteria andCodeNotIn(List<Integer> values) {
+        public Criteria andCodeNotIn(List<String> values) {
             addCriterion("code not in", values, "code");
             return (Criteria) this;
         }
 
-        public Criteria andCodeBetween(Integer value1, Integer value2) {
+        public Criteria andCodeBetween(String value1, String value2) {
             addCriterion("code between", value1, value2, "code");
             return (Criteria) this;
         }
 
-        public Criteria andCodeNotBetween(Integer value1, Integer value2) {
+        public Criteria andCodeNotBetween(String value1, String value2) {
             addCriterion("code not between", value1, value2, "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsedIsNull() {
+            addCriterion("used is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsedIsNotNull() {
+            addCriterion("used is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsedEqualTo(Boolean value) {
+            addCriterion("used =", value, "used");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsedNotEqualTo(Boolean value) {
+            addCriterion("used <>", value, "used");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsedGreaterThan(Boolean value) {
+            addCriterion("used >", value, "used");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsedGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("used >=", value, "used");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsedLessThan(Boolean value) {
+            addCriterion("used <", value, "used");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsedLessThanOrEqualTo(Boolean value) {
+            addCriterion("used <=", value, "used");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsedIn(List<Boolean> values) {
+            addCriterion("used in", values, "used");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsedNotIn(List<Boolean> values) {
+            addCriterion("used not in", values, "used");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsedBetween(Boolean value1, Boolean value2) {
+            addCriterion("used between", value1, value2, "used");
+            return (Criteria) this;
+        }
+
+        public Criteria andUsedNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("used not between", value1, value2, "used");
             return (Criteria) this;
         }
 
@@ -435,63 +505,123 @@ public class KeyExample {
             return (Criteria) this;
         }
 
-        public Criteria andUsedIsNull() {
-            addCriterion("used is null");
+        public Criteria andGameIdIsNull() {
+            addCriterion("game_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andUsedIsNotNull() {
-            addCriterion("used is not null");
+        public Criteria andGameIdIsNotNull() {
+            addCriterion("game_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUsedEqualTo(Boolean value) {
-            addCriterion("used =", value, "used");
+        public Criteria andGameIdEqualTo(Integer value) {
+            addCriterion("game_id =", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andUsedNotEqualTo(Boolean value) {
-            addCriterion("used <>", value, "used");
+        public Criteria andGameIdNotEqualTo(Integer value) {
+            addCriterion("game_id <>", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andUsedGreaterThan(Boolean value) {
-            addCriterion("used >", value, "used");
+        public Criteria andGameIdGreaterThan(Integer value) {
+            addCriterion("game_id >", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andUsedGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("used >=", value, "used");
+        public Criteria andGameIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("game_id >=", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andUsedLessThan(Boolean value) {
-            addCriterion("used <", value, "used");
+        public Criteria andGameIdLessThan(Integer value) {
+            addCriterion("game_id <", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andUsedLessThanOrEqualTo(Boolean value) {
-            addCriterion("used <=", value, "used");
+        public Criteria andGameIdLessThanOrEqualTo(Integer value) {
+            addCriterion("game_id <=", value, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andUsedIn(List<Boolean> values) {
-            addCriterion("used in", values, "used");
+        public Criteria andGameIdIn(List<Integer> values) {
+            addCriterion("game_id in", values, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andUsedNotIn(List<Boolean> values) {
-            addCriterion("used not in", values, "used");
+        public Criteria andGameIdNotIn(List<Integer> values) {
+            addCriterion("game_id not in", values, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andUsedBetween(Boolean value1, Boolean value2) {
-            addCriterion("used between", value1, value2, "used");
+        public Criteria andGameIdBetween(Integer value1, Integer value2) {
+            addCriterion("game_id between", value1, value2, "gameId");
             return (Criteria) this;
         }
 
-        public Criteria andUsedNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("used not between", value1, value2, "used");
+        public Criteria andGameIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("game_id not between", value1, value2, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("create_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("create_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeEqualTo(Date value) {
+            addCriterion("create_time =", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotEqualTo(Date value) {
+            addCriterion("create_time <>", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThan(Date value) {
+            addCriterion("create_time >", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("create_time >=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThan(Date value) {
+            addCriterion("create_time <", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("create_time <=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIn(List<Date> values) {
+            addCriterion("create_time in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotIn(List<Date> values) {
+            addCriterion("create_time not in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeBetween(Date value1, Date value2) {
+            addCriterion("create_time between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
 
@@ -617,6 +747,11 @@ public class KeyExample {
 
         public Criteria andPhoneLikeInsensitive(String value) {
             addCriterion("upper(phone) like", value.toUpperCase(), "phone");
+            return (Criteria) this;
+        }
+
+        public Criteria andCodeLikeInsensitive(String value) {
+            addCriterion("upper(code) like", value.toUpperCase(), "code");
             return (Criteria) this;
         }
     }

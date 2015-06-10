@@ -16,6 +16,7 @@ public interface GameService {
 
     /**
      * 添加、保存游戏
+     *
      * @param game 游戏对象
      * @return 影响条数
      */
@@ -23,13 +24,15 @@ public interface GameService {
 
     /**
      * 删除一个游戏
+     *
      * @param id 游戏ID
      * @return 影响条数
      */
-    int delete(int id);
+    int remove(int id);
 
     /**
      * 修改一个游戏
+     *
      * @param game 游戏对象
      * @return 影响条数
      */
@@ -37,13 +40,24 @@ public interface GameService {
 
     /**
      * 根据ID获取一个游戏对象
+     *
      * @param id 游戏ID
      * @return 游戏对象
      */
     Game find(int id);
 
     /**
+     * 推荐一个游戏
+     *
+     * @param id        游戏ID
+     * @param recommend 是否推荐
+     * @return 影响条数
+     */
+    int recommend(int id, boolean recommend);
+
+    /**
      * 获取所有的游戏列表
+     *
      * @param page 分页参数
      * @return 游戏列表
      */
@@ -51,12 +65,28 @@ public interface GameService {
 
     /**
      * 获取所有的游戏数量
+     *
      * @return 游戏数量
      */
     int findCount();
 
     /**
+     * 取出推荐列表
+     *
+     * @param page 分页参数
+     * @return 游戏列表
+     */
+    List<Game> findRecommend(Page page);
+
+    /**
+     * 取出推荐的游戏个数
+     * @return 游戏数量
+     */
+    int findCountRecommend();
+
+    /**
      * 根据条件获取游戏列表
+     *
      * @param gameExample 查询条件
      * @return 游戏列表
      */
@@ -64,6 +94,7 @@ public interface GameService {
 
     /**
      * 根据条件获取游戏数量
+     *
      * @param gameExample 查询条件
      * @return 游戏数量
      */

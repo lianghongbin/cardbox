@@ -9,11 +9,15 @@ public class Key {
 
     private String phone;
 
-    private Integer code;
+    private String code;
+
+    private Boolean used;
 
     private Boolean assigned;
 
-    private Boolean used;
+    private Integer gameId;
+
+    private Date createTime;
 
     private Date assignTime;
 
@@ -43,12 +47,20 @@ public class Key {
         this.phone = phone;
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
+    }
+
+    public Boolean getUsed() {
+        return used;
+    }
+
+    public void setUsed(Boolean used) {
+        this.used = used;
     }
 
     public Boolean getAssigned() {
@@ -59,12 +71,20 @@ public class Key {
         this.assigned = assigned;
     }
 
-    public Boolean getUsed() {
-        return used;
+    public Integer getGameId() {
+        return gameId;
     }
 
-    public void setUsed(Boolean used) {
-        this.used = used;
+    public void setGameId(Integer gameId) {
+        this.gameId = gameId;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Date getAssignTime() {
@@ -99,8 +119,10 @@ public class Key {
             && (this.getCardId() == null ? other.getCardId() == null : this.getCardId().equals(other.getCardId()))
             && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
             && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
-            && (this.getAssigned() == null ? other.getAssigned() == null : this.getAssigned().equals(other.getAssigned()))
             && (this.getUsed() == null ? other.getUsed() == null : this.getUsed().equals(other.getUsed()))
+            && (this.getAssigned() == null ? other.getAssigned() == null : this.getAssigned().equals(other.getAssigned()))
+            && (this.getGameId() == null ? other.getGameId() == null : this.getGameId().equals(other.getGameId()))
+            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getAssignTime() == null ? other.getAssignTime() == null : this.getAssignTime().equals(other.getAssignTime()))
             && (this.getUseTime() == null ? other.getUseTime() == null : this.getUseTime().equals(other.getUseTime()));
     }
@@ -113,8 +135,10 @@ public class Key {
         result = prime * result + ((getCardId() == null) ? 0 : getCardId().hashCode());
         result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
         result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
-        result = prime * result + ((getAssigned() == null) ? 0 : getAssigned().hashCode());
         result = prime * result + ((getUsed() == null) ? 0 : getUsed().hashCode());
+        result = prime * result + ((getAssigned() == null) ? 0 : getAssigned().hashCode());
+        result = prime * result + ((getGameId() == null) ? 0 : getGameId().hashCode());
+        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getAssignTime() == null) ? 0 : getAssignTime().hashCode());
         result = prime * result + ((getUseTime() == null) ? 0 : getUseTime().hashCode());
         return result;
@@ -130,8 +154,10 @@ public class Key {
         sb.append(", cardId=").append(cardId);
         sb.append(", phone=").append(phone);
         sb.append(", code=").append(code);
-        sb.append(", assigned=").append(assigned);
         sb.append(", used=").append(used);
+        sb.append(", assigned=").append(assigned);
+        sb.append(", gameId=").append(gameId);
+        sb.append(", createTime=").append(createTime);
         sb.append(", assignTime=").append(assignTime);
         sb.append(", useTime=").append(useTime);
         sb.append("]");

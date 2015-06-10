@@ -8,6 +8,10 @@
     <result column="desc" property="desc" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="ios_id" property="iosId" jdbcType="VARCHAR" />
+    <result column="recommend" property="recommend" jdbcType="BIT" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, photo, desc, url, ios_id
+    id, name, photo, desc, url, ios_id, recommend, sort, create_time, modify_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.GameExample" >
     select
@@ -105,9 +109,13 @@
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Game" >
     insert into game (id, name, photo, 
-      desc, url, ios_id)
+      desc, url, ios_id, recommend, 
+      sort, create_time, modify_time
+      )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
-      #{desc,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{iosId,jdbcType=VARCHAR})
+      #{desc,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{iosId,jdbcType=VARCHAR}, #{recommend,jdbcType=BIT}, 
+      #{sort,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Game" >
     insert into game
@@ -130,6 +138,18 @@
       <if test="iosId != null" >
         ios_id,
       </if>
+      <if test="recommend != null" >
+        recommend,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -149,6 +169,18 @@
       </if>
       <if test="iosId != null" >
         #{iosId,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null" >
+        #{recommend,jdbcType=BIT},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -179,6 +211,18 @@
       <if test="record.iosId != null" >
         ios_id = #{record.iosId,jdbcType=VARCHAR},
       </if>
+      <if test="record.recommend != null" >
+        recommend = #{record.recommend,jdbcType=BIT},
+      </if>
+      <if test="record.sort != null" >
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -191,7 +235,11 @@
       photo = #{record.photo,jdbcType=VARCHAR},
       desc = #{record.desc,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
-      ios_id = #{record.iosId,jdbcType=VARCHAR}
+      ios_id = #{record.iosId,jdbcType=VARCHAR},
+      recommend = #{record.recommend,jdbcType=BIT},
+      sort = #{record.sort,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -214,6 +262,18 @@
       <if test="iosId != null" >
         ios_id = #{iosId,jdbcType=VARCHAR},
       </if>
+      <if test="recommend != null" >
+        recommend = #{recommend,jdbcType=BIT},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -223,7 +283,11 @@
       photo = #{photo,jdbcType=VARCHAR},
       desc = #{desc,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
-      ios_id = #{iosId,jdbcType=VARCHAR}
+      ios_id = #{iosId,jdbcType=VARCHAR},
+      recommend = #{recommend,jdbcType=BIT},
+      sort = #{sort,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

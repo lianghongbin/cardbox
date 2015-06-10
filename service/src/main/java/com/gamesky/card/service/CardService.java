@@ -49,10 +49,11 @@ public interface CardService {
     /**
      * 分发、分配一个卡
      *
-     * @param id 卡包ID
+     * @param id    卡包ID
+     * @param phone 分配给用户（手机唯一）
      * @return 影响条数
      */
-    public int assign(int id);
+    public int assign(int id, String phone);
 
     /**
      * 根据卡包ID，查找卡包
@@ -89,6 +90,7 @@ public interface CardService {
 
     /**
      * 查找某款游戏下的卡包类别数量
+     *
      * @param gameId 游戏ID
      * @return 卡包类别数量
      */

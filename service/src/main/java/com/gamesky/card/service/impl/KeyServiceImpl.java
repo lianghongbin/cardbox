@@ -1,10 +1,14 @@
 package com.gamesky.card.service.impl;
 
 import com.gamesky.card.core.Page;
+import com.gamesky.card.core.exceptions.LockException;
+import com.gamesky.card.core.lock.GlobalLock;
+import com.gamesky.card.core.lock.Lockable;
 import com.gamesky.card.core.model.Key;
 import com.gamesky.card.core.model.KeyExample;
 import com.gamesky.card.dao.mapper.KeyMapper;
 import com.gamesky.card.service.KeyService;
+import com.gamesky.card.service.RedisGlobalLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +24,8 @@ public class KeyServiceImpl implements KeyService {
 
     @Autowired
     private KeyMapper keyMapper;
+
+    private GlobalLock<Lockable> globalLock =new RedisGlobalLock<>();;
 
     /**
      * 保存我的激活码
@@ -63,6 +69,44 @@ public class KeyServiceImpl implements KeyService {
     @Override
     public Key find(int id) {
         return keyMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 随机获取某种卡包下的一个未分配的激活码
+     * @param cardId 卡包ID
+     * @return 激活码实体
+     */
+    @Override
+    public Key findOne(final int cardId) {
+        Lockable lockable = new Lockable() {
+            @Override
+            public String key() {
+                return Key.class.getCanonicalName() + ":" + cardId;
+            }
+
+            @Override
+            public int expireSecond() {
+                return 5;
+            }
+        };
+
+        try {
+            globalLock.lock(lockable);
+            KeyExample keyExample = new KeyExample();
+            keyExample.createCriteria().andCardIdEqualTo(cardId).andAssignedEqualTo(false);
+            keyExample.setOrderByClause("id asc");
+            List<Key> keys = keyMapper.selectByExample(keyExample);
+            if (keys == null || keys.size() == 0) {
+                return null;
+            }
+
+            return keys.get(0);
+        }catch (LockException e) {
+            return null;
+        }
+        finally {
+            globalLock.unLock(lockable);
+        }
     }
 
     /**

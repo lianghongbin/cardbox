@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.MyGame" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="game_id" property="gameId" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, user_id, game_id, create_time
+    id, user_id, phone, game_id, create_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.MyGameExample" >
     select
@@ -74,7 +75,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from my-game
+    from my_game
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,33 +89,36 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from my-game
+    from my_game
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from my-game
+    delete from my_game
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.gamesky.card.core.model.MyGameExample" >
-    delete from my-game
+    delete from my_game
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.MyGame" >
-    insert into my-game (id, user_id, game_id, 
-      create_time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{gameId,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP})
+    insert into my_game (id, user_id, phone, 
+      game_id, create_time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, 
+      #{gameId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.MyGame" >
-    insert into my-game
+    insert into my_game
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
       <if test="userId != null" >
         user_id,
+      </if>
+      <if test="phone != null" >
+        phone,
       </if>
       <if test="gameId != null" >
         game_id,
@@ -130,6 +134,9 @@
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
       <if test="gameId != null" >
         #{gameId,jdbcType=INTEGER},
       </if>
@@ -139,19 +146,22 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.gamesky.card.core.model.MyGameExample" resultType="java.lang.Integer" >
-    select count(*) from my-game
+    select count(*) from my_game
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update my-game
+    update my_game
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
       </if>
       <if test="record.gameId != null" >
         game_id = #{record.gameId,jdbcType=INTEGER},
@@ -165,9 +175,10 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update my-game
+    update my_game
     set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
+      phone = #{record.phone,jdbcType=VARCHAR},
       game_id = #{record.gameId,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -175,10 +186,13 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.gamesky.card.core.model.MyGame" >
-    update my-game
+    update my_game
     <set >
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="gameId != null" >
         game_id = #{gameId,jdbcType=INTEGER},
@@ -190,8 +204,9 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.MyGame" >
-    update my-game
+    update my_game
     set user_id = #{userId,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
       game_id = #{gameId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

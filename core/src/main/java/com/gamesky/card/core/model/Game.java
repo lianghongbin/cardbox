@@ -1,5 +1,7 @@
 package com.gamesky.card.core.model;
 
+import java.util.Date;
+
 public class Game {
     private Integer id;
 
@@ -12,6 +14,14 @@ public class Game {
     private String url;
 
     private String iosId;
+
+    private Boolean recommend;
+
+    private Integer sort;
+
+    private Date createTime;
+
+    private Date modifyTime;
 
     public Integer getId() {
         return id;
@@ -61,6 +71,38 @@ public class Game {
         this.iosId = iosId;
     }
 
+    public Boolean getRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(Boolean recommend) {
+        this.recommend = recommend;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -78,7 +120,11 @@ public class Game {
             && (this.getPhoto() == null ? other.getPhoto() == null : this.getPhoto().equals(other.getPhoto()))
             && (this.getDesc() == null ? other.getDesc() == null : this.getDesc().equals(other.getDesc()))
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
-            && (this.getIosId() == null ? other.getIosId() == null : this.getIosId().equals(other.getIosId()));
+            && (this.getIosId() == null ? other.getIosId() == null : this.getIosId().equals(other.getIosId()))
+            && (this.getRecommend() == null ? other.getRecommend() == null : this.getRecommend().equals(other.getRecommend()))
+            && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
+            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+            && (this.getModifyTime() == null ? other.getModifyTime() == null : this.getModifyTime().equals(other.getModifyTime()));
     }
 
     @Override
@@ -91,6 +137,10 @@ public class Game {
         result = prime * result + ((getDesc() == null) ? 0 : getDesc().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
         result = prime * result + ((getIosId() == null) ? 0 : getIosId().hashCode());
+        result = prime * result + ((getRecommend() == null) ? 0 : getRecommend().hashCode());
+        result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
+        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+        result = prime * result + ((getModifyTime() == null) ? 0 : getModifyTime().hashCode());
         return result;
     }
 
@@ -106,6 +156,10 @@ public class Game {
         sb.append(", desc=").append(desc);
         sb.append(", url=").append(url);
         sb.append(", iosId=").append(iosId);
+        sb.append(", recommend=").append(recommend);
+        sb.append(", sort=").append(sort);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", modifyTime=").append(modifyTime);
         sb.append("]");
         return sb.toString();
     }

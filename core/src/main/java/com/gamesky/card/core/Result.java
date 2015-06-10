@@ -11,6 +11,10 @@ public class Result {
     private Page page;
     private Object data;
 
+    public Result() {
+        this.status = new Status();
+    }
+
     public Result(Object data) {
         this.status = new Status();
         this.data = data;
