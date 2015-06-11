@@ -9,6 +9,9 @@ import com.gamesky.card.core.exceptions.LockException;
  */
 public interface GlobalLock<T extends Lockable> {
 
-    public boolean lock(T t) throws LockException;
-    public void unLock(T t);
+    public boolean acquire(T t) throws LockException;
+
+    public boolean acquire(T t, long timeout) throws LockException;
+
+    public void release(T t);
 }

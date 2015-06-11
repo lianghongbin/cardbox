@@ -103,6 +103,25 @@ public interface KeyService {
     Key findOne(int cardId);
 
     /**
+     * 根据手机号查看用户的激活码
+     *
+     * @param cardId 卡包ID
+     * @param phone  用户手机号
+     * @param page   分页参数
+     * @return 激活码列表
+     */
+    public List<Key> findByCardAndPhone(int cardId, String phone, Page page);
+
+    /**
+     * 根据手机号查看用户的激活码
+     *
+     * @param cardId 卡包ID
+     * @param phone  用户手机号
+     * @return 激活码列表
+     */
+    public int findCountByCardAndPhone(int cardId, String phone);
+
+    /**
      * 根据条件查询激活码列表
      * @param keyExample 查询条件
      * @return 激活码列表

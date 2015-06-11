@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created on 6/10/15.
@@ -20,7 +22,7 @@ import java.util.List;
  * @Author lianghongbin
  */
 @Controller
-@RequestMapping(value = "/feedback", produces = "application/json;charset=UTF-8")
+@RequestMapping(value = "/card", produces = "application/json;charset=UTF-8")
 public class CardController {
 
     @Autowired
@@ -83,7 +85,13 @@ public class CardController {
     @RequestMapping(value = "/findwhenlogin", method = RequestMethod.GET)
     public String find(int id, String phone) {
         Card card = cardService.find(id);
-        List<Key> keys = keyService.findByCard(id, new Page());
+        List<Key> keys = keyService.findByCardAndPhone(id, phone, new Page());
+        if (keys != null && keys.size() > 0) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("card", card);
+            map.put("key", keys.get(0));
+            return ResultGenerator.generate(map);
+        }
         return ResultGenerator.generate(card);
     }
 

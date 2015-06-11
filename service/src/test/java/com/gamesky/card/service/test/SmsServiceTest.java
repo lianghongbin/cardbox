@@ -22,6 +22,7 @@ public class SmsServiceTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void testSend() {
+        //18611288996
         boolean result = smsService.send("13910661166");
         Assert.assertTrue(result);
     }

@@ -86,6 +86,7 @@ public class UserController {
     @RequestMapping(value = "/checkcode", method = RequestMethod.GET)
     public String checkCode(final String phone) {
         String code = generator.generate();
+        System.out.println(code);
         try {
             marshaller.marshal(new Keyable() {
                 @Override

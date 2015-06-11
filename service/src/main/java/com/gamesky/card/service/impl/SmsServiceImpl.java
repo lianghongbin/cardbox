@@ -4,6 +4,7 @@ import com.gamesky.card.core.Keyable;
 import com.gamesky.card.core.Marshaller;
 import com.gamesky.card.core.MessageSender;
 import com.gamesky.card.core.SmsMessage;
+import com.gamesky.card.core.exceptions.MarshalException;
 import com.gamesky.card.service.CodeGenerator;
 import com.gamesky.card.service.SmsService;
 import org.slf4j.Logger;
@@ -52,12 +53,18 @@ public class SmsServiceImpl implements SmsService {
                 continue;
             }
 
-            marshaller.marshal(new Keyable() {
-                @Override
-                public String k() {
-                    return phone;
-                }
-            }, code);
+            try {
+                marshaller.marshal(new Keyable() {
+                    @Override
+                    public String k() {
+                        return phone;
+                    }
+                }, code);
+            } catch (MarshalException e) {
+                logger.error("验证码存储出错");
+                return false;
+            }
+
             return true;
         }
 

@@ -191,7 +191,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean login(final String phone, String checkCode) throws CheckCodeInvalidException, CheckCodeWrongException{
 
-        String code = null;
+        String code;
         try {
             code = checkCodeMarshaller.unmarshal(new Keyable() {
                 @Override

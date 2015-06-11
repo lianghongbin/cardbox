@@ -3,19 +3,20 @@ package com.gamesky.card.service.impl;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.lock.GlobalLock;
 import com.gamesky.card.core.exceptions.LockException;
+import com.gamesky.card.core.lock.Lockable;
 import com.gamesky.card.core.model.Card;
 import com.gamesky.card.core.model.CardExample;
 import com.gamesky.card.core.model.Key;
 import com.gamesky.card.dao.mapper.CardMapper;
 import com.gamesky.card.service.CardService;
 import com.gamesky.card.service.KeyService;
-import com.gamesky.card.service.RedisGlobalLock;
-import com.gamesky.card.service.wrapper.CardWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
 
 /**
  * 卡包服务接口实现类
@@ -24,13 +25,15 @@ import java.util.List;
  * @Author lianghongbin
  */
 @Service
+@Transactional
 public class CardServiceImpl implements CardService {
 
     @Autowired
     private CardMapper cardMapper;
     @Autowired
     private KeyService keyService;
-    private GlobalLock<CardWrapper> globalLock = new RedisGlobalLock<>();
+    @Autowired
+    private GlobalLock<Lockable> globalLock;
 
     /**
      * 添加保存一个卡包
@@ -89,10 +92,24 @@ public class CardServiceImpl implements CardService {
      * @return 影响条数
      */
     @Override
-    public int assign(int id, String phone) {
-        CardWrapper cardWrapper = new CardWrapper(id);
+    public int assign(final int id, String phone) {
+        Lockable lockable = new Lockable() {
+            @Override
+            public String key() {
+                return Card.class.getCanonicalName() + ":" + id;
+            }
+
+            @Override
+            public long expire() {
+                return 10 * 1000;
+            }
+        };
+
         try {
-            globalLock.lock(cardWrapper);
+            if (!globalLock.acquire(lockable, 3000)) {
+                return 0;
+            }
+
             Card card = cardMapper.selectByPrimaryKey(id);
             if (card.getTotal() > card.getAssignTotal()) {
                 card.setAssignTotal(card.getAssignTotal() + 1);
@@ -105,10 +122,11 @@ public class CardServiceImpl implements CardService {
             keyService.update(key);
 
             return cardMapper.updateByPrimaryKey(card);
+
         } catch (LockException e) {
             return 0;
         } finally {
-            globalLock.unLock(cardWrapper);
+            globalLock.release(lockable);
         }
     }
 

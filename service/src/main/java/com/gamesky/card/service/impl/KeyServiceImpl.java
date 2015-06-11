@@ -25,7 +25,8 @@ public class KeyServiceImpl implements KeyService {
     @Autowired
     private KeyMapper keyMapper;
 
-    private GlobalLock<Lockable> globalLock =new RedisGlobalLock<>();;
+    private GlobalLock<Lockable> globalLock = new RedisGlobalLock<>();
+    ;
 
     /**
      * 保存我的激活码
@@ -73,6 +74,7 @@ public class KeyServiceImpl implements KeyService {
 
     /**
      * 随机获取某种卡包下的一个未分配的激活码
+     *
      * @param cardId 卡包ID
      * @return 激活码实体
      */
@@ -85,13 +87,16 @@ public class KeyServiceImpl implements KeyService {
             }
 
             @Override
-            public int expireSecond() {
-                return 5;
+            public long expire() {
+                return 10000;
             }
         };
 
         try {
-            globalLock.lock(lockable);
+            if (!globalLock.acquire(lockable, 3000)) {
+                return null;
+            }
+
             KeyExample keyExample = new KeyExample();
             keyExample.createCriteria().andCardIdEqualTo(cardId).andAssignedEqualTo(false);
             keyExample.setOrderByClause("id asc");
@@ -101,11 +106,10 @@ public class KeyServiceImpl implements KeyService {
             }
 
             return keys.get(0);
-        }catch (LockException e) {
+        } catch (LockException e) {
             return null;
-        }
-        finally {
-            globalLock.unLock(lockable);
+        } finally {
+            globalLock.release(lockable);
         }
     }
 
@@ -143,7 +147,7 @@ public class KeyServiceImpl implements KeyService {
      * 根据手机号查看用户的激活码
      *
      * @param phone 用户手机号
-     * @param page   分页参数
+     * @param page  分页参数
      * @return 激活码列表
      */
     @Override
@@ -170,9 +174,41 @@ public class KeyServiceImpl implements KeyService {
     }
 
     /**
+     * 根据手机号查看用户的激活码
+     *
+     * @param cardId 卡包ID
+     * @param phone  用户手机号
+     * @param page   分页参数
+     * @return 激活码列表
+     */
+    @Override
+    public List<Key> findByCardAndPhone(int cardId, String phone, Page page) {
+        KeyExample keyExample = new KeyExample();
+        keyExample.createCriteria().andCardIdEqualTo(cardId).andPhoneEqualTo(phone);
+        keyExample.setLimitOffset(page.getOffset());
+        keyExample.setLimit(page.getSize());
+        keyExample.setOrderByClause("use_time desc, assign_time desc");
+        return keyMapper.selectByExample(keyExample);
+    }
+
+    /**
+     * 根据手机号查看用户的激活码
+     *
+     * @param cardId 卡包ID
+     * @param phone  用户手机号
+     * @return 激活码列表
+     */
+    @Override
+    public int findCountByCardAndPhone(int cardId, String phone) {
+        KeyExample keyExample = new KeyExample();
+        keyExample.createCriteria().andCardIdEqualTo(cardId).andPhoneEqualTo(phone);
+        return keyMapper.countByExample(keyExample);
+    }
+
+    /**
      * 根据用户的激活码
      *
-     * @param page  分页参数
+     * @param page 分页参数
      * @return 激活码列表
      */
     @Override
