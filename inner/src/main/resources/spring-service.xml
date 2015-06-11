@@ -1,17 +1,33 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-    http://www.springframework.org/schema/tx
-    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-    <context:annotation-config/>
-    <tx:annotation-driven/>
     <context:component-scan base-package="com.gamesky.card.service"/>
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="30"/>
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+        <property name="maxTotal" value="${redis.maxTotal}"/>
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
+    </bean>
+
+
+    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+          p:hostName="${redis.host}" p:port="${redis.port}" p:poolConfig-ref="poolConfig"/>
+
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+    </bean>
+
+    <bean id="jedis" class="redis.clients.jedis.Jedis">
+        <constructor-arg name="host" value="${redis.host}"/>
+        <constructor-arg name="port" value="${redis.port}"/>
+    </bean>
+
 
     <bean id="shortMessageSender" class="com.gamesky.card.service.impl.ShortMessageSender">
         <property name="url" value="http://api.app.7k7k.com/my/smmsg"/>
@@ -19,12 +35,15 @@
 
     <bean id="codeGenerator" class="com.gamesky.card.service.impl.DefaultCodeGenerator"/>
 
-    <bean id="marshaller" class="com.gamesky.card.core.LocalSessionMarshaller"/>
+    <bean id="marshaller" class="com.gamesky.card.service.RedisMarshaller">
+        <property name="redisTemplate" ref="redisTemplate"/>
+    </bean>
 
-    <bean id="smsService" class="com.gamesky.card.service.impl.SmsServiceImpl">
+    <bean id="notifyCallable" class="com.gamesky.card.service.NotifyCallable"/>
+
+    <bean id="smsService" class="com.gamesky.card.service.impl.CheckCodeServiceImpl">
         <property name="marshaller" ref="marshaller"/>
-        <property name="placeholder" value="KK卡箱验证码:{0},请注意保密"/>
-        <property name="codeGenerator" ref="codeGenerator"/>
+        <property name="placeholder" value="验证码：{0}，用于手机验证，请尽快使用，如非本人操作，请忽略本短信。"/>
         <property name="messageSenders">
             <list>
                 <ref bean="shortMessageSender"/>
@@ -32,5 +51,12 @@
         </property>
     </bean>
 
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
     <bean id="uploadMarshaller" class="com.gamesky.card.service.FileMarshaller"/>
+    <bean id="checkCodeMarshaller" class="com.gamesky.card.core.LocalCheckCodeMarshaller"/>
+
+    <bean id="globalLock" class="com.gamesky.card.service.RedisGlobalLock">
+        <property name="jedis" ref="jedis"/>
+    </bean>
 </beans>

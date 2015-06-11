@@ -1,13 +1,12 @@
 package com.gamesky.card.web.controller;
 
-import com.gamesky.card.core.Constants;
 import com.gamesky.card.core.Keyable;
 import com.gamesky.card.core.Marshaller;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.exceptions.CheckCodeInvalidException;
 import com.gamesky.card.core.exceptions.CheckCodeWrongException;
-import com.gamesky.card.core.exceptions.MarshalException;
 import com.gamesky.card.service.CodeGenerator;
+import com.gamesky.card.service.CheckCodeService;
 import com.gamesky.card.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,7 +26,7 @@ import java.util.Map;
  * @Author lianghongbin
  */
 @Controller
-@RequestMapping(value = "/user", produces="application/json;charset=UTF-8")
+@RequestMapping(value = "/1_0/user", produces="application/json;charset=UTF-8")
 public class UserController {
 
     @Autowired
@@ -35,8 +34,7 @@ public class UserController {
     @Autowired
     private CodeGenerator generator;
     @Autowired
-    @Qualifier("checkCodeMarshaller")
-    private Marshaller<Keyable, Serializable> marshaller;
+    private CheckCodeService checkCodeService;
 
     /**
      * 系统登录
@@ -87,16 +85,7 @@ public class UserController {
     public String checkCode(final String phone) {
         String code = generator.generate();
         System.out.println(code);
-        try {
-            marshaller.marshal(new Keyable() {
-                @Override
-                public String k() {
-                    return Constants.CHECK_CODE_KEY_PREFIX + phone;
-                }
-            }, code);
-        } catch (MarshalException e) {
-            ResultGenerator.generateError("生成验证码失败");
-        }
+        checkCodeService.send(phone, code);
 
         Map<String,String> data = new HashMap<>();
         data.put("checkCode", code);

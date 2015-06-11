@@ -8,4 +8,6 @@ package com.gamesky.card.core;
 public interface Keyable {
 
     public String k();
+
+    public long expire();   //秒
 }

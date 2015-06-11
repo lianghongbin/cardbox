@@ -45,6 +45,7 @@ public class UploadController {
                 public String k() {
                     return fileName;
                 }
+                public long expire() {return 0;}
             }, file.getBytes());
         } catch (MarshalException e) {
             logger.error("上传文件出错：{}", e);
@@ -72,6 +73,7 @@ public class UploadController {
                     public String k() {
                         return fileName;
                     }
+                    public long expire() {return 0;}
                 }, file.getBytes());
             } catch (MarshalException e) {
                 logger.error("上传文件出错：{}", e);

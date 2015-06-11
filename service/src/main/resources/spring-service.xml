@@ -9,12 +9,15 @@
 
     <context:component-scan base-package="com.gamesky.card.service"/>
     <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="maxIdle" value="30"/>
         <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+        <property name="maxTotal" value="${redis.maxTotal}"/>
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
     </bean>
 
+
     <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-          p:hostName="${redis.host}" p:port="${redis.port}" p:password="${redis.pass}" p:poolConfig-ref="poolConfig"/>
+          p:hostName="${redis.host}" p:port="${redis.port}" p:poolConfig-ref="poolConfig"/>
 
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
         <property name="connectionFactory" ref="connectionFactory"/>
@@ -32,12 +35,15 @@
 
     <bean id="codeGenerator" class="com.gamesky.card.service.impl.DefaultCodeGenerator"/>
 
-    <bean id="marshaller" class="com.gamesky.card.core.LocalSessionMarshaller"/>
+    <bean id="marshaller" class="com.gamesky.card.service.RedisMarshaller">
+        <property name="redisTemplate" ref="redisTemplate"/>
+    </bean>
 
-    <bean id="smsService" class="com.gamesky.card.service.impl.SmsServiceImpl">
+    <bean id="notifyCallable" class="com.gamesky.card.service.NotifyCallable"/>
+
+    <bean id="smsService" class="com.gamesky.card.service.impl.CheckCodeServiceImpl">
         <property name="marshaller" ref="marshaller"/>
         <property name="placeholder" value="验证码：{0}，用于手机验证，请尽快使用，如非本人操作，请忽略本短信。"/>
-        <property name="codeGenerator" ref="codeGenerator"/>
         <property name="messageSenders">
             <list>
                 <ref bean="shortMessageSender"/>

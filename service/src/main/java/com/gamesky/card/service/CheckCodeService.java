@@ -5,7 +5,7 @@ package com.gamesky.card.service;
  *
  * @Author lianghongbin
  */
-public interface SmsService {
+public interface CheckCodeService {
 
-    public boolean send(String phone);
+    public boolean send(String phone, String message);
 }

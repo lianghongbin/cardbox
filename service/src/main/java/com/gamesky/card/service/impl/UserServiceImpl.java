@@ -10,13 +10,11 @@ import com.gamesky.card.core.exceptions.MarshalException;
 import com.gamesky.card.core.model.User;
 import com.gamesky.card.core.model.UserExample;
 import com.gamesky.card.dao.mapper.UserMapper;
-import com.gamesky.card.service.SmsService;
 import com.gamesky.card.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,12 +32,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
-    private SmsService smsService;
-    @Autowired
-    private Marshaller<Keyable,String> marshaller;
-    @Autowired
-    @Qualifier("checkCodeMarshaller")
-    private Marshaller<Keyable, String> checkCodeMarshaller;
+    private Marshaller<Keyable, String> marshaller;
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     /**
@@ -107,7 +100,7 @@ public class UserServiceImpl implements UserService {
     /**
      * 分页查找所有用户
      *
-     * @param page  分页参数
+     * @param page          分页参数
      * @param orderByClause 排序
      * @return 用户列表
      */
@@ -170,7 +163,11 @@ public class UserServiceImpl implements UserService {
             result = marshaller.unmarshal(new Keyable() {
                 @Override
                 public String k() {
-                    return phone;
+                    return Constants.CHECK_CODE_KEY_PREFIX + ":" + phone;
+                }
+
+                public long expire() {
+                    return 24 * 60 * 60;
                 }
             });
         } catch (MarshalException e) {
@@ -189,14 +186,18 @@ public class UserServiceImpl implements UserService {
      * @return true/false
      */
     @Override
-    public boolean login(final String phone, String checkCode) throws CheckCodeInvalidException, CheckCodeWrongException{
+    public boolean login(final String phone, String checkCode) throws CheckCodeInvalidException, CheckCodeWrongException {
 
         String code;
         try {
-            code = checkCodeMarshaller.unmarshal(new Keyable() {
+            code = marshaller.unmarshal(new Keyable() {
                 @Override
                 public String k() {
-                    return Constants.CHECK_CODE_KEY_PREFIX + phone;
+                    return Constants.CHECK_CODE_KEY_PREFIX + ":" + phone;
+                }
+
+                public long expire() {
+                    return 60;
                 }
             });
 
@@ -216,7 +217,11 @@ public class UserServiceImpl implements UserService {
             marshaller.marshal(new Keyable() {
                 @Override
                 public String k() {
-                    return Constants.USER_LOGIN_KEY_PREFIX + phone;
+                    return Constants.USER_LOGIN_KEY_PREFIX + ":" + phone;
+                }
+
+                public long expire() {
+                    return 24 * 60 * 60;
                 }
             }, checkCode);
         } catch (MarshalException e) {

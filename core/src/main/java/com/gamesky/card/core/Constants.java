@@ -15,4 +15,6 @@ public interface Constants {
 
     String CHECK_CODE_KEY_PREFIX = "check_code_key-";
     String USER_LOGIN_KEY_PREFIX = "user_login_key-";
+    String TOKEN_KEY    = "_token";
+    String TOKEN_SHUFFLE = "!WV%5D_[{+=7K 7K#^";
 }

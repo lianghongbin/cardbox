@@ -1,12 +1,8 @@
 package com.gamesky.card.service.impl;
 
-import com.gamesky.card.core.Keyable;
-import com.gamesky.card.core.Marshaller;
-import com.gamesky.card.core.MessageSender;
-import com.gamesky.card.core.SmsMessage;
+import com.gamesky.card.core.*;
 import com.gamesky.card.core.exceptions.MarshalException;
-import com.gamesky.card.service.CodeGenerator;
-import com.gamesky.card.service.SmsService;
+import com.gamesky.card.service.CheckCodeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,13 +15,12 @@ import java.util.List;
  *
  * @Author lianghongbin
  */
-public class SmsServiceImpl implements SmsService {
+public class CheckCodeServiceImpl implements CheckCodeService {
 
     private Marshaller<Keyable, Serializable> marshaller;
     private String placeholder;
-    private CodeGenerator codeGenerator;
     private List<MessageSender<SmsMessage>> messageSenders;
-    private static final Logger logger = LoggerFactory.getLogger(SmsServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(CheckCodeServiceImpl.class);
 
     public void setMarshaller(Marshaller<Keyable, Serializable> marshaller) {
         this.marshaller = marshaller;
@@ -35,17 +30,12 @@ public class SmsServiceImpl implements SmsService {
         this.placeholder = placeholder;
     }
 
-    public void setCodeGenerator(CodeGenerator codeGenerator) {
-        this.codeGenerator = codeGenerator;
-    }
-
     public void setMessageSenders(List<MessageSender<SmsMessage>> messageSenders) {
         this.messageSenders = messageSenders;
     }
 
     @Override
-    public boolean send(final String phone) {
-        String code = codeGenerator.generate();
+    public boolean send(final String phone, String code) {
         String content = MessageFormat.format(placeholder, code);
         for (MessageSender<SmsMessage> sender : messageSenders) {
             if (!sender.send(new SmsMessage(phone, content))) {
@@ -57,8 +47,9 @@ public class SmsServiceImpl implements SmsService {
                 marshaller.marshal(new Keyable() {
                     @Override
                     public String k() {
-                        return phone;
+                        return Constants.CHECK_CODE_KEY_PREFIX + ":" + phone;
                     }
+                    public long expire() {return 60;}
                 }, code);
             } catch (MarshalException e) {
                 logger.error("验证码存储出错");

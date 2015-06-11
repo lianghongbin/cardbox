@@ -7,7 +7,8 @@ package com.gamesky.card.core;
  */
 public enum ErrorCode {
 
-    GENERAL(-1);
+    GENERAL(-1),
+    ILLEGAL_ARGUMENT(-2);
 
     private int code;
 
