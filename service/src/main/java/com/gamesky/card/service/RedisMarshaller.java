@@ -1,5 +1,6 @@
 package com.gamesky.card.service;
 
+import com.gamesky.card.core.Cacheable;
 import com.gamesky.card.core.Keyable;
 import com.gamesky.card.core.Marshaller;
 import com.gamesky.card.core.SerializeUtils;
@@ -17,7 +18,7 @@ import java.io.Serializable;
  *
  * @Author lianghongbin
  */
-public class RedisMarshaller<K extends Keyable, V extends Serializable> implements Marshaller<K, V> {
+public class RedisMarshaller<K extends Cacheable, V extends Serializable> implements Marshaller<K, V> {
 
     private RedisTemplate<K, V> redisTemplate;
 
@@ -27,34 +28,29 @@ public class RedisMarshaller<K extends Keyable, V extends Serializable> implemen
 
     @Override
     public void marshal(K k, V v) throws MarshalException {
-        redisTemplate.execute(new RedisCallback<Boolean>() {
-            public Boolean doInRedis(RedisConnection connection)
-                    throws DataAccessException {
-                RedisSerializer<String> serializer = redisTemplate.getStringSerializer();
-                byte[] key  = serializer.serialize(k.k());
-                byte[] name = SerializeUtils.serialize(v);
+        redisTemplate.execute((RedisConnection connection) -> {
+            RedisSerializer<String> serializer = redisTemplate.getStringSerializer();
+            byte[] key  = serializer.serialize(k.k());
+            byte[] name = SerializeUtils.serialize(v);
 
-                connection.setEx(key, k.expire(), name);
-                return true;
-            }
+            connection.setEx(key, k.expire(), name);
+            return true;
         });
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public V unmarshal(K k) throws MarshalException {
 
-        return redisTemplate.execute(new RedisCallback<V>() {
-            public V doInRedis(RedisConnection connection)
-                    throws DataAccessException {
-                RedisSerializer<String> serializer = redisTemplate.getStringSerializer();
-                byte[] key = serializer.serialize(k.k());
-                byte[] value = connection.get(key);
-                if (value == null) {
-                    return null;
-                }
-
-                return (V) SerializeUtils.unserialize(value);
+        return redisTemplate.execute((RedisConnection connection) -> {
+            RedisSerializer<String> serializer = redisTemplate.getStringSerializer();
+            byte[] key = serializer.serialize(k.k());
+            byte[] value = connection.get(key);
+            if (value == null) {
+                return null;
             }
+
+            return (V) SerializeUtils.unserialize(value);
         });
     }
 }

@@ -11,6 +11,8 @@ import com.gamesky.card.core.model.User;
 import com.gamesky.card.core.model.UserExample;
 import com.gamesky.card.dao.mapper.UserMapper;
 import com.gamesky.card.service.UserService;
+import com.gamesky.card.service.key.CheckCodeKey;
+import com.gamesky.card.service.key.LoginKey;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -160,16 +162,7 @@ public class UserServiceImpl implements UserService {
     public boolean isLogin(final String phone) {
         String result;
         try {
-            result = marshaller.unmarshal(new Keyable() {
-                @Override
-                public String k() {
-                    return Constants.CHECK_CODE_KEY_PREFIX + ":" + phone;
-                }
-
-                public long expire() {
-                    return 24 * 60 * 60;
-                }
-            });
+            result = marshaller.unmarshal(new LoginKey(phone, 24 * 60 * 60));
         } catch (MarshalException e) {
             logger.error("验证用户是否登录出错：{}", e);
             return false;
@@ -190,16 +183,7 @@ public class UserServiceImpl implements UserService {
 
         String code;
         try {
-            code = marshaller.unmarshal(new Keyable() {
-                @Override
-                public String k() {
-                    return Constants.CHECK_CODE_KEY_PREFIX + ":" + phone;
-                }
-
-                public long expire() {
-                    return 60;
-                }
-            });
+            code = marshaller.unmarshal(new CheckCodeKey(phone, 60));
 
             if (code == null) {
                 throw new CheckCodeInvalidException("验证码已过期");
@@ -214,16 +198,7 @@ public class UserServiceImpl implements UserService {
         }
 
         try {
-            marshaller.marshal(new Keyable() {
-                @Override
-                public String k() {
-                    return Constants.USER_LOGIN_KEY_PREFIX + ":" + phone;
-                }
-
-                public long expire() {
-                    return 24 * 60 * 60;
-                }
-            }, checkCode);
+            marshaller.marshal(new LoginKey(phone, 24*60*60), checkCode);
         } catch (MarshalException e) {
             logger.error("用户登录出错：{}", e);
             return false;

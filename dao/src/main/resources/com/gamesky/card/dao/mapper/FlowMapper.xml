@@ -77,7 +77,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from Flow
+    from flow
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -91,21 +91,21 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from Flow
+    from flow
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from Flow
+    delete from flow
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.gamesky.card.core.model.FlowExample" >
-    delete from Flow
+    delete from flow
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Flow" >
-    insert into Flow (id, score, type, 
+    insert into flow (id, score, type, 
       user_id, phone, create_time, 
       method)
     values (#{id,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
@@ -113,7 +113,7 @@
       #{method,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Flow" >
-    insert into Flow
+    insert into flow
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -162,13 +162,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.gamesky.card.core.model.FlowExample" resultType="java.lang.Integer" >
-    select count(*) from Flow
+    select count(*) from flow
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update Flow
+    update flow
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
@@ -197,7 +197,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update Flow
+    update flow
     set id = #{record.id,jdbcType=INTEGER},
       score = #{record.score,jdbcType=INTEGER},
       type = #{record.type,jdbcType=INTEGER},
@@ -210,7 +210,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.gamesky.card.core.model.Flow" >
-    update Flow
+    update flow
     <set >
       <if test="score != null" >
         score = #{score,jdbcType=INTEGER},
@@ -234,7 +234,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Flow" >
-    update Flow
+    update flow
     set score = #{score,jdbcType=INTEGER},
       type = #{type,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},

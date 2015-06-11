@@ -40,13 +40,7 @@ public class UploadController {
         final String fileName = System.currentTimeMillis() + type;  // 取当前时间戳作为文件名
 
         try {
-            marshaller.marshal(new Keyable() {
-                @Override
-                public String k() {
-                    return fileName;
-                }
-                public long expire() {return 0;}
-            }, file.getBytes());
+            marshaller.marshal(() -> fileName, file.getBytes());
         } catch (MarshalException e) {
             logger.error("上传文件出错：{}", e);
             return "上传文件出错!";
@@ -68,13 +62,7 @@ public class UploadController {
                     file.getOriginalFilename().indexOf("."));// 取文件格式后缀名
             final String fileName = System.currentTimeMillis() + type;// 取当前时间戳作为文件名
             try {
-                marshaller.marshal(new Keyable() {
-                    @Override
-                    public String k() {
-                        return fileName;
-                    }
-                    public long expire() {return 0;}
-                }, file.getBytes());
+                marshaller.marshal(() -> fileName, file.getBytes());
             } catch (MarshalException e) {
                 logger.error("上传文件出错：{}", e);
             }

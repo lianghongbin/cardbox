@@ -3,6 +3,7 @@ package com.gamesky.card.service.impl;
 import com.gamesky.card.core.*;
 import com.gamesky.card.core.exceptions.MarshalException;
 import com.gamesky.card.service.CheckCodeService;
+import com.gamesky.card.service.key.CheckCodeKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,13 +45,7 @@ public class CheckCodeServiceImpl implements CheckCodeService {
             }
 
             try {
-                marshaller.marshal(new Keyable() {
-                    @Override
-                    public String k() {
-                        return Constants.CHECK_CODE_KEY_PREFIX + ":" + phone;
-                    }
-                    public long expire() {return 60;}
-                }, code);
+                marshaller.marshal(new CheckCodeKey(phone, 60), code);
             } catch (MarshalException e) {
                 logger.error("验证码存储出错");
                 return false;

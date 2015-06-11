@@ -53,7 +53,9 @@
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
-    <bean id="uploadMarshaller" class="com.gamesky.card.service.FileMarshaller"/>
+    <bean id="uploadMarshaller" class="com.gamesky.card.service.LocalFileMarshaller">
+        <property name="uploadDir" value="/upload/"/>
+    </bean>
 
     <bean id="globalLock" class="com.gamesky.card.service.RedisGlobalLock">
         <property name="jedis" ref="jedis"/>
