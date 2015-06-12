@@ -100,9 +100,12 @@ public class ShortMessageSender implements MessageSender<SmsMessage> {
 
         String data = StringEscapeUtils.unescapeJava(stringBuilder.toString());
         Gson gson = new Gson();
-        Map<String, String> map = gson.fromJson(data, new TypeToken<Map<String, String>>() {
-        }.getType());
+        Map<String, String> map = gson.fromJson(data, new TypeToken<Map<String, String>>() {}.getType());
 
+        String status = map.get("status");
+        if (!status.equals("1")) {
+            logger.error("消息发送出错，状态码：{}， 错误原因：{}", status, map.get("data"));
+        }
         return map.get("status").equals("1");
     }
 }

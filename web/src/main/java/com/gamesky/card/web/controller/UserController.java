@@ -70,7 +70,7 @@ public class UserController {
     @RequestMapping(value = "/islogin", method = RequestMethod.GET)
     public String isLogin(String phone) {
         if(userService.isLogin(phone)){
-            return "";
+            return ResultGenerator.generate();
         }
         return ResultGenerator.generateError("该手机号未登录");
     }
@@ -84,8 +84,10 @@ public class UserController {
     @RequestMapping(value = "/checkcode", method = RequestMethod.GET)
     public String checkCode(final String phone) {
         String code = generator.generate();
-        System.out.println(code);
-        checkCodeService.send(phone, code);
+
+        if (!checkCodeService.send(phone, code)) {
+            return ResultGenerator.generateError("验证码发送或存储失败");
+        }
 
         Map<String,String> data = new HashMap<>();
         data.put("checkCode", code);
