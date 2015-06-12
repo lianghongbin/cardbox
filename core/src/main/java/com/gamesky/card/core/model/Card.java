@@ -9,7 +9,7 @@ public class Card {
 
     private String name;
 
-    private String photo;
+    private String icon;
 
     private String description;
 
@@ -25,7 +25,7 @@ public class Card {
 
     private Integer score;
 
-    private Boolean free;
+    private Boolean recommend;
 
     private Boolean closed;
 
@@ -59,12 +59,12 @@ public class Card {
         this.name = name;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public String getDescription() {
@@ -123,12 +123,12 @@ public class Card {
         this.score = score;
     }
 
-    public Boolean getFree() {
-        return free;
+    public Boolean getRecommend() {
+        return recommend;
     }
 
-    public void setFree(Boolean free) {
-        this.free = free;
+    public void setRecommend(Boolean recommend) {
+        this.recommend = recommend;
     }
 
     public Boolean getClosed() {
@@ -178,7 +178,7 @@ public class Card {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getGameId() == null ? other.getGameId() == null : this.getGameId().equals(other.getGameId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getPhoto() == null ? other.getPhoto() == null : this.getPhoto().equals(other.getPhoto()))
+            && (this.getIcon() == null ? other.getIcon() == null : this.getIcon().equals(other.getIcon()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
             && (this.getFlow() == null ? other.getFlow() == null : this.getFlow().equals(other.getFlow()))
             && (this.getTotal() == null ? other.getTotal() == null : this.getTotal().equals(other.getTotal()))
@@ -186,7 +186,7 @@ public class Card {
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
             && (this.getExpire() == null ? other.getExpire() == null : this.getExpire().equals(other.getExpire()))
             && (this.getScore() == null ? other.getScore() == null : this.getScore().equals(other.getScore()))
-            && (this.getFree() == null ? other.getFree() == null : this.getFree().equals(other.getFree()))
+            && (this.getRecommend() == null ? other.getRecommend() == null : this.getRecommend().equals(other.getRecommend()))
             && (this.getClosed() == null ? other.getClosed() == null : this.getClosed().equals(other.getClosed()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCloseTime() == null ? other.getCloseTime() == null : this.getCloseTime().equals(other.getCloseTime()))
@@ -200,7 +200,7 @@ public class Card {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getGameId() == null) ? 0 : getGameId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getPhoto() == null) ? 0 : getPhoto().hashCode());
+        result = prime * result + ((getIcon() == null) ? 0 : getIcon().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         result = prime * result + ((getFlow() == null) ? 0 : getFlow().hashCode());
         result = prime * result + ((getTotal() == null) ? 0 : getTotal().hashCode());
@@ -208,7 +208,7 @@ public class Card {
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         result = prime * result + ((getExpire() == null) ? 0 : getExpire().hashCode());
         result = prime * result + ((getScore() == null) ? 0 : getScore().hashCode());
-        result = prime * result + ((getFree() == null) ? 0 : getFree().hashCode());
+        result = prime * result + ((getRecommend() == null) ? 0 : getRecommend().hashCode());
         result = prime * result + ((getClosed() == null) ? 0 : getClosed().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCloseTime() == null) ? 0 : getCloseTime().hashCode());
@@ -225,7 +225,7 @@ public class Card {
         sb.append(", id=").append(id);
         sb.append(", gameId=").append(gameId);
         sb.append(", name=").append(name);
-        sb.append(", photo=").append(photo);
+        sb.append(", icon=").append(icon);
         sb.append(", description=").append(description);
         sb.append(", flow=").append(flow);
         sb.append(", total=").append(total);
@@ -233,7 +233,7 @@ public class Card {
         sb.append(", type=").append(type);
         sb.append(", expire=").append(expire);
         sb.append(", score=").append(score);
-        sb.append(", free=").append(free);
+        sb.append(", recommend=").append(recommend);
         sb.append(", closed=").append(closed);
         sb.append(", createTime=").append(createTime);
         sb.append(", closeTime=").append(closeTime);

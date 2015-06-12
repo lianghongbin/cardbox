@@ -315,73 +315,73 @@ public class CardExample {
             return (Criteria) this;
         }
 
-        public Criteria andPhotoIsNull() {
-            addCriterion("photo is null");
+        public Criteria andIconIsNull() {
+            addCriterion("icon is null");
             return (Criteria) this;
         }
 
-        public Criteria andPhotoIsNotNull() {
-            addCriterion("photo is not null");
+        public Criteria andIconIsNotNull() {
+            addCriterion("icon is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPhotoEqualTo(String value) {
-            addCriterion("photo =", value, "photo");
+        public Criteria andIconEqualTo(String value) {
+            addCriterion("icon =", value, "icon");
             return (Criteria) this;
         }
 
-        public Criteria andPhotoNotEqualTo(String value) {
-            addCriterion("photo <>", value, "photo");
+        public Criteria andIconNotEqualTo(String value) {
+            addCriterion("icon <>", value, "icon");
             return (Criteria) this;
         }
 
-        public Criteria andPhotoGreaterThan(String value) {
-            addCriterion("photo >", value, "photo");
+        public Criteria andIconGreaterThan(String value) {
+            addCriterion("icon >", value, "icon");
             return (Criteria) this;
         }
 
-        public Criteria andPhotoGreaterThanOrEqualTo(String value) {
-            addCriterion("photo >=", value, "photo");
+        public Criteria andIconGreaterThanOrEqualTo(String value) {
+            addCriterion("icon >=", value, "icon");
             return (Criteria) this;
         }
 
-        public Criteria andPhotoLessThan(String value) {
-            addCriterion("photo <", value, "photo");
+        public Criteria andIconLessThan(String value) {
+            addCriterion("icon <", value, "icon");
             return (Criteria) this;
         }
 
-        public Criteria andPhotoLessThanOrEqualTo(String value) {
-            addCriterion("photo <=", value, "photo");
+        public Criteria andIconLessThanOrEqualTo(String value) {
+            addCriterion("icon <=", value, "icon");
             return (Criteria) this;
         }
 
-        public Criteria andPhotoLike(String value) {
-            addCriterion("photo like", value, "photo");
+        public Criteria andIconLike(String value) {
+            addCriterion("icon like", value, "icon");
             return (Criteria) this;
         }
 
-        public Criteria andPhotoNotLike(String value) {
-            addCriterion("photo not like", value, "photo");
+        public Criteria andIconNotLike(String value) {
+            addCriterion("icon not like", value, "icon");
             return (Criteria) this;
         }
 
-        public Criteria andPhotoIn(List<String> values) {
-            addCriterion("photo in", values, "photo");
+        public Criteria andIconIn(List<String> values) {
+            addCriterion("icon in", values, "icon");
             return (Criteria) this;
         }
 
-        public Criteria andPhotoNotIn(List<String> values) {
-            addCriterion("photo not in", values, "photo");
+        public Criteria andIconNotIn(List<String> values) {
+            addCriterion("icon not in", values, "icon");
             return (Criteria) this;
         }
 
-        public Criteria andPhotoBetween(String value1, String value2) {
-            addCriterion("photo between", value1, value2, "photo");
+        public Criteria andIconBetween(String value1, String value2) {
+            addCriterion("icon between", value1, value2, "icon");
             return (Criteria) this;
         }
 
-        public Criteria andPhotoNotBetween(String value1, String value2) {
-            addCriterion("photo not between", value1, value2, "photo");
+        public Criteria andIconNotBetween(String value1, String value2) {
+            addCriterion("icon not between", value1, value2, "icon");
             return (Criteria) this;
         }
 
@@ -835,63 +835,63 @@ public class CardExample {
             return (Criteria) this;
         }
 
-        public Criteria andFreeIsNull() {
-            addCriterion("free is null");
+        public Criteria andRecommendIsNull() {
+            addCriterion("recommend is null");
             return (Criteria) this;
         }
 
-        public Criteria andFreeIsNotNull() {
-            addCriterion("free is not null");
+        public Criteria andRecommendIsNotNull() {
+            addCriterion("recommend is not null");
             return (Criteria) this;
         }
 
-        public Criteria andFreeEqualTo(Boolean value) {
-            addCriterion("free =", value, "free");
+        public Criteria andRecommendEqualTo(Boolean value) {
+            addCriterion("recommend =", value, "recommend");
             return (Criteria) this;
         }
 
-        public Criteria andFreeNotEqualTo(Boolean value) {
-            addCriterion("free <>", value, "free");
+        public Criteria andRecommendNotEqualTo(Boolean value) {
+            addCriterion("recommend <>", value, "recommend");
             return (Criteria) this;
         }
 
-        public Criteria andFreeGreaterThan(Boolean value) {
-            addCriterion("free >", value, "free");
+        public Criteria andRecommendGreaterThan(Boolean value) {
+            addCriterion("recommend >", value, "recommend");
             return (Criteria) this;
         }
 
-        public Criteria andFreeGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("free >=", value, "free");
+        public Criteria andRecommendGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("recommend >=", value, "recommend");
             return (Criteria) this;
         }
 
-        public Criteria andFreeLessThan(Boolean value) {
-            addCriterion("free <", value, "free");
+        public Criteria andRecommendLessThan(Boolean value) {
+            addCriterion("recommend <", value, "recommend");
             return (Criteria) this;
         }
 
-        public Criteria andFreeLessThanOrEqualTo(Boolean value) {
-            addCriterion("free <=", value, "free");
+        public Criteria andRecommendLessThanOrEqualTo(Boolean value) {
+            addCriterion("recommend <=", value, "recommend");
             return (Criteria) this;
         }
 
-        public Criteria andFreeIn(List<Boolean> values) {
-            addCriterion("free in", values, "free");
+        public Criteria andRecommendIn(List<Boolean> values) {
+            addCriterion("recommend in", values, "recommend");
             return (Criteria) this;
         }
 
-        public Criteria andFreeNotIn(List<Boolean> values) {
-            addCriterion("free not in", values, "free");
+        public Criteria andRecommendNotIn(List<Boolean> values) {
+            addCriterion("recommend not in", values, "recommend");
             return (Criteria) this;
         }
 
-        public Criteria andFreeBetween(Boolean value1, Boolean value2) {
-            addCriterion("free between", value1, value2, "free");
+        public Criteria andRecommendBetween(Boolean value1, Boolean value2) {
+            addCriterion("recommend between", value1, value2, "recommend");
             return (Criteria) this;
         }
 
-        public Criteria andFreeNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("free not between", value1, value2, "free");
+        public Criteria andRecommendNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("recommend not between", value1, value2, "recommend");
             return (Criteria) this;
         }
 
@@ -1140,8 +1140,8 @@ public class CardExample {
             return (Criteria) this;
         }
 
-        public Criteria andPhotoLikeInsensitive(String value) {
-            addCriterion("upper(photo) like", value.toUpperCase(), "photo");
+        public Criteria andIconLikeInsensitive(String value) {
+            addCriterion("upper(icon) like", value.toUpperCase(), "icon");
             return (Criteria) this;
         }
 

@@ -7,7 +7,7 @@ public class Game {
 
     private String name;
 
-    private String photo;
+    private String icon;
 
     private String description;
 
@@ -39,12 +39,12 @@ public class Game {
         this.name = name;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public String getDescription() {
@@ -117,7 +117,7 @@ public class Game {
         Game other = (Game) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getPhoto() == null ? other.getPhoto() == null : this.getPhoto().equals(other.getPhoto()))
+            && (this.getIcon() == null ? other.getIcon() == null : this.getIcon().equals(other.getIcon()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
             && (this.getIosId() == null ? other.getIosId() == null : this.getIosId().equals(other.getIosId()))
@@ -133,7 +133,7 @@ public class Game {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getPhoto() == null) ? 0 : getPhoto().hashCode());
+        result = prime * result + ((getIcon() == null) ? 0 : getIcon().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
         result = prime * result + ((getIosId() == null) ? 0 : getIosId().hashCode());
@@ -152,7 +152,7 @@ public class Game {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
-        sb.append(", photo=").append(photo);
+        sb.append(", icon=").append(icon);
         sb.append(", description=").append(description);
         sb.append(", url=").append(url);
         sb.append(", iosId=").append(iosId);

@@ -1,8 +1,10 @@
 package com.gamesky.card.web.controller;
 
+import com.gamesky.card.core.CardType;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.model.Card;
+import com.gamesky.card.core.model.CardExample;
 import com.gamesky.card.core.model.Code;
 import com.gamesky.card.service.CardService;
 import com.gamesky.card.service.CodeService;
@@ -113,5 +115,49 @@ public class CardController {
         }
 
         return ResultGenerator.generateError("领取卡包失败");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/recommend", method = RequestMethod.GET)
+    public String recommend(int searchType, Page page) {
+        CardExample cardExample = new CardExample();
+        CardExample.Criteria criteria = cardExample.createCriteria().andRecommendEqualTo(true).andClosedEqualTo(false);
+        switch (searchType) {
+            case 1://付费
+                criteria.andTypeEqualTo(CardType.PAY.name());
+                break;
+            case 2://免费
+                criteria.andTypeEqualTo(CardType.PAY.name());
+                break;
+            case 3://积分
+                criteria.andTypeEqualTo(CardType.SCORE.name());
+                break;
+            default:
+        }
+
+        cardExample.setOrderByClause("id desc");
+        cardExample.setLimit(page.getSize());
+        cardExample.setLimitOffset(page.getOffset());
+
+        List<Card> cards = cardService.findByCondition(cardExample);
+        int count = cardService.findCountByCondition(cardExample);
+        page.setTotal(count);
+        return ResultGenerator.generate(page, cards);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/recommendbygame", method = RequestMethod.GET)
+    public String recommendByGame(int gameId, Page page) {
+        CardExample cardExample = new CardExample();
+        cardExample.createCriteria().andRecommendEqualTo(true).andGameIdEqualTo(gameId).andClosedEqualTo(false);
+
+        cardExample.setOrderByClause("id desc");
+        cardExample.setLimit(page.getSize());
+        cardExample.setLimitOffset(page.getOffset());
+
+        List<Card> cards = cardService.findByCondition(cardExample);
+        int count = cardService.findCountByCondition(cardExample);
+        page.setTotal(count);
+        return ResultGenerator.generate(page, cards);
     }
 }

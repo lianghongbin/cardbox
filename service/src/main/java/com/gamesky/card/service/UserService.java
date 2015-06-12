@@ -104,4 +104,11 @@ public interface UserService {
      * @return true/false
      */
     boolean login(final String phone, String device, String checkCode) throws CheckCodeInvalidException, CheckCodeWrongException;
+
+    /**
+     * 手机号注销登录
+     * @param phone 手机号
+     * @return true/false
+     */
+    boolean logout(String phone);
 }

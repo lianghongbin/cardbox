@@ -80,6 +80,14 @@ public interface CardService {
     public List<Card> findByCondition(CardExample cardExample);
 
     /**
+     * 根据条件分页查询显示卡包数量
+     *
+     * @param cardExample 查询条件
+     * @return 卡包数量
+     */
+    public int findCountByCondition(CardExample cardExample);
+
+    /**
      * 根据游戏查找该游戏下的卡包列表
      *
      * @param gameId 游戏ID

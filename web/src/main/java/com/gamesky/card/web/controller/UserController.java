@@ -1,5 +1,6 @@
 package com.gamesky.card.web.controller;
 
+import com.gamesky.card.core.Result;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.exceptions.CheckCodeInvalidException;
 import com.gamesky.card.core.exceptions.CheckCodeWrongException;
@@ -39,7 +40,7 @@ public class UserController {
      * @return 返回text结果
      */
     @ResponseBody
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(String phone, String device, String checkCode) {
         boolean result;
         try {
@@ -55,6 +56,17 @@ public class UserController {
         }
 
         return ResultGenerator.generate();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(String phone) {
+        boolean result = userService.logout(phone);
+        if (result) {
+            return ResultGenerator.generate();
+        }
+
+        return ResultGenerator.generateError("注销出错");
     }
 
     /**

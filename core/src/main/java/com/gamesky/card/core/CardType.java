@@ -9,5 +9,5 @@ package com.gamesky.card.core;
 public enum CardType {
     FREE,
     PAY,
-    POINT
+    SCORE
 }

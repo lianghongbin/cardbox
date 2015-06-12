@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.Game" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="photo" property="photo" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="ios_id" property="iosId" jdbcType="VARCHAR" />
@@ -72,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, photo, description, url, ios_id, recommend, sort, create_time, modify_time
+    id, name, icon, description, url, ios_id, recommend, sort, create_time, modify_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.GameExample" >
     select
@@ -108,11 +108,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Game" >
-    insert into game (id, name, photo, 
+    insert into game (id, name, icon, 
       description, url, ios_id, 
       recommend, sort, create_time, 
       modify_time)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{iosId,jdbcType=VARCHAR}, 
       #{recommend,jdbcType=BIT}, #{sort,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{modifyTime,jdbcType=TIMESTAMP})
@@ -126,8 +126,8 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="photo != null" >
-        photo,
+      <if test="icon != null" >
+        icon,
       </if>
       <if test="description != null" >
         description,
@@ -158,8 +158,8 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="photo != null" >
-        #{photo,jdbcType=VARCHAR},
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
       </if>
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
@@ -199,8 +199,8 @@
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.photo != null" >
-        photo = #{record.photo,jdbcType=VARCHAR},
+      <if test="record.icon != null" >
+        icon = #{record.icon,jdbcType=VARCHAR},
       </if>
       <if test="record.description != null" >
         description = #{record.description,jdbcType=VARCHAR},
@@ -232,7 +232,7 @@
     update game
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
-      photo = #{record.photo,jdbcType=VARCHAR},
+      icon = #{record.icon,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
       ios_id = #{record.iosId,jdbcType=VARCHAR},
@@ -250,8 +250,8 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="photo != null" >
-        photo = #{photo,jdbcType=VARCHAR},
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
       </if>
       <if test="description != null" >
         description = #{description,jdbcType=VARCHAR},
@@ -280,7 +280,7 @@
   <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Game" >
     update game
     set name = #{name,jdbcType=VARCHAR},
-      photo = #{photo,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       ios_id = #{iosId,jdbcType=VARCHAR},

@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="game_id" property="gameId" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="photo" property="photo" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="flow" property="flow" jdbcType="VARCHAR" />
     <result column="total" property="total" jdbcType="INTEGER" />
@@ -13,7 +13,7 @@
     <result column="type" property="type" jdbcType="VARCHAR" />
     <result column="expire" property="expire" jdbcType="TIMESTAMP" />
     <result column="score" property="score" jdbcType="INTEGER" />
-    <result column="free" property="free" jdbcType="BIT" />
+    <result column="recommend" property="recommend" jdbcType="BIT" />
     <result column="closed" property="closed" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="close_time" property="closeTime" jdbcType="TIMESTAMP" />
@@ -78,8 +78,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, game_id, name, photo, description, flow, total, assign_total, type, expire, score, 
-    free, closed, create_time, close_time, open_time
+    id, game_id, name, icon, description, flow, total, assign_total, type, expire, score, 
+    recommend, closed, create_time, close_time, open_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.CardExample" >
     select
@@ -116,15 +116,15 @@
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Card" >
     insert into card (id, game_id, name, 
-      photo, description, flow, 
+      icon, description, flow, 
       total, assign_total, type, 
-      expire, score, free, 
+      expire, score, recommend, 
       closed, create_time, close_time, 
       open_time)
     values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{photo,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{flow,jdbcType=VARCHAR}, 
+      #{icon,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{flow,jdbcType=VARCHAR}, 
       #{total,jdbcType=INTEGER}, #{assignTotal,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
-      #{expire,jdbcType=TIMESTAMP}, #{score,jdbcType=INTEGER}, #{free,jdbcType=BIT}, 
+      #{expire,jdbcType=TIMESTAMP}, #{score,jdbcType=INTEGER}, #{recommend,jdbcType=BIT}, 
       #{closed,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, 
       #{openTime,jdbcType=TIMESTAMP})
   </insert>
@@ -140,8 +140,8 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="photo != null" >
-        photo,
+      <if test="icon != null" >
+        icon,
       </if>
       <if test="description != null" >
         description,
@@ -164,8 +164,8 @@
       <if test="score != null" >
         score,
       </if>
-      <if test="free != null" >
-        free,
+      <if test="recommend != null" >
+        recommend,
       </if>
       <if test="closed != null" >
         closed,
@@ -190,8 +190,8 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="photo != null" >
-        #{photo,jdbcType=VARCHAR},
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
       </if>
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
@@ -214,8 +214,8 @@
       <if test="score != null" >
         #{score,jdbcType=INTEGER},
       </if>
-      <if test="free != null" >
-        #{free,jdbcType=BIT},
+      <if test="recommend != null" >
+        #{recommend,jdbcType=BIT},
       </if>
       <if test="closed != null" >
         #{closed,jdbcType=BIT},
@@ -249,8 +249,8 @@
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.photo != null" >
-        photo = #{record.photo,jdbcType=VARCHAR},
+      <if test="record.icon != null" >
+        icon = #{record.icon,jdbcType=VARCHAR},
       </if>
       <if test="record.description != null" >
         description = #{record.description,jdbcType=VARCHAR},
@@ -273,8 +273,8 @@
       <if test="record.score != null" >
         score = #{record.score,jdbcType=INTEGER},
       </if>
-      <if test="record.free != null" >
-        free = #{record.free,jdbcType=BIT},
+      <if test="record.recommend != null" >
+        recommend = #{record.recommend,jdbcType=BIT},
       </if>
       <if test="record.closed != null" >
         closed = #{record.closed,jdbcType=BIT},
@@ -298,7 +298,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       game_id = #{record.gameId,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
-      photo = #{record.photo,jdbcType=VARCHAR},
+      icon = #{record.icon,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
       flow = #{record.flow,jdbcType=VARCHAR},
       total = #{record.total,jdbcType=INTEGER},
@@ -306,7 +306,7 @@
       type = #{record.type,jdbcType=VARCHAR},
       expire = #{record.expire,jdbcType=TIMESTAMP},
       score = #{record.score,jdbcType=INTEGER},
-      free = #{record.free,jdbcType=BIT},
+      recommend = #{record.recommend,jdbcType=BIT},
       closed = #{record.closed,jdbcType=BIT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       close_time = #{record.closeTime,jdbcType=TIMESTAMP},
@@ -324,8 +324,8 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="photo != null" >
-        photo = #{photo,jdbcType=VARCHAR},
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
       </if>
       <if test="description != null" >
         description = #{description,jdbcType=VARCHAR},
@@ -348,8 +348,8 @@
       <if test="score != null" >
         score = #{score,jdbcType=INTEGER},
       </if>
-      <if test="free != null" >
-        free = #{free,jdbcType=BIT},
+      <if test="recommend != null" >
+        recommend = #{recommend,jdbcType=BIT},
       </if>
       <if test="closed != null" >
         closed = #{closed,jdbcType=BIT},
@@ -370,7 +370,7 @@
     update card
     set game_id = #{gameId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
-      photo = #{photo,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       flow = #{flow,jdbcType=VARCHAR},
       total = #{total,jdbcType=INTEGER},
@@ -378,7 +378,7 @@
       type = #{type,jdbcType=VARCHAR},
       expire = #{expire,jdbcType=TIMESTAMP},
       score = #{score,jdbcType=INTEGER},
-      free = #{free,jdbcType=BIT},
+      recommend = #{recommend,jdbcType=BIT},
       closed = #{closed,jdbcType=BIT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       close_time = #{closeTime,jdbcType=TIMESTAMP},

@@ -223,4 +223,21 @@ public class UserServiceImpl implements UserService {
 
         return true;
     }
+
+    /**
+     * 手机号注销登录
+     *
+     * @param phone 手机号
+     * @return true/false
+     */
+    @Override
+    public boolean logout(String phone) {
+        try {
+            marshaller.marshal(new LoginKey(phone, 0), "11");
+        } catch (MarshalException e) {
+            return false;
+        }
+
+        return true;
+    }
 }

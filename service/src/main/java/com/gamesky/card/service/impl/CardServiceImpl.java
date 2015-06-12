@@ -101,7 +101,7 @@ public class CardServiceImpl implements CardService {
             }
 
             Card card = cardMapper.selectByPrimaryKey(id);
-            if (card == null) {
+            if (card == null || card.getClosed()) {
                 return 0;
             }
 
@@ -162,6 +162,17 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
+     * 根据条件分页查询显示卡包数量
+     *
+     * @param cardExample 查询条件
+     * @return 卡包数量
+     */
+    @Override
+    public int findCountByCondition(CardExample cardExample) {
+        return cardMapper.countByExample(cardExample);
+    }
+
+    /**
      * 根据游戏查找该游戏下的卡包列表
      *
      * @param gameId 游戏ID
@@ -171,7 +182,7 @@ public class CardServiceImpl implements CardService {
     @Override
     public List<Card> findByGame(int gameId, Page page) {
         CardExample cardExample = new CardExample();
-        cardExample.createCriteria().andGameIdEqualTo(gameId);
+        cardExample.createCriteria().andGameIdEqualTo(gameId).andClosedEqualTo(false);
         cardExample.setLimitOffset(page.getOffset());
         cardExample.setLimit(page.getSize());
         cardExample.setOrderByClause("id desc");
@@ -187,7 +198,7 @@ public class CardServiceImpl implements CardService {
     @Override
     public int findCountByGame(int gameId) {
         CardExample cardExample = new CardExample();
-        cardExample.createCriteria().andGameIdEqualTo(gameId);
+        cardExample.createCriteria().andGameIdEqualTo(gameId).andClosedEqualTo(false);
         return cardMapper.countByExample(cardExample);
     }
 }
