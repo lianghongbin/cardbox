@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="photo" property="photo" jdbcType="VARCHAR" />
-    <result column="desc" property="desc" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="ios_id" property="iosId" jdbcType="VARCHAR" />
     <result column="recommend" property="recommend" jdbcType="BIT" />
@@ -72,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, photo, desc, url, ios_id, recommend, sort, create_time, modify_time
+    id, name, photo, description, url, ios_id, recommend, sort, create_time, modify_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.GameExample" >
     select
@@ -109,13 +109,13 @@
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Game" >
     insert into game (id, name, photo, 
-      desc, url, ios_id, recommend, 
-      sort, create_time, modify_time
-      )
+      description, url, ios_id, 
+      recommend, sort, create_time, 
+      modify_time)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
-      #{desc,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{iosId,jdbcType=VARCHAR}, #{recommend,jdbcType=BIT}, 
-      #{sort,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
-      )
+      #{description,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{iosId,jdbcType=VARCHAR}, 
+      #{recommend,jdbcType=BIT}, #{sort,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Game" >
     insert into game
@@ -129,8 +129,8 @@
       <if test="photo != null" >
         photo,
       </if>
-      <if test="desc != null" >
-        desc,
+      <if test="description != null" >
+        description,
       </if>
       <if test="url != null" >
         url,
@@ -161,8 +161,8 @@
       <if test="photo != null" >
         #{photo,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null" >
-        #{desc,jdbcType=VARCHAR},
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
       </if>
       <if test="url != null" >
         #{url,jdbcType=VARCHAR},
@@ -202,8 +202,8 @@
       <if test="record.photo != null" >
         photo = #{record.photo,jdbcType=VARCHAR},
       </if>
-      <if test="record.desc != null" >
-        desc = #{record.desc,jdbcType=VARCHAR},
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
       </if>
       <if test="record.url != null" >
         url = #{record.url,jdbcType=VARCHAR},
@@ -233,7 +233,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       photo = #{record.photo,jdbcType=VARCHAR},
-      desc = #{record.desc,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
       ios_id = #{record.iosId,jdbcType=VARCHAR},
       recommend = #{record.recommend,jdbcType=BIT},
@@ -253,8 +253,8 @@
       <if test="photo != null" >
         photo = #{photo,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null" >
-        desc = #{desc,jdbcType=VARCHAR},
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="url != null" >
         url = #{url,jdbcType=VARCHAR},
@@ -281,7 +281,7 @@
     update game
     set name = #{name,jdbcType=VARCHAR},
       photo = #{photo,jdbcType=VARCHAR},
-      desc = #{desc,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       ios_id = #{iosId,jdbcType=VARCHAR},
       recommend = #{recommend,jdbcType=BIT},

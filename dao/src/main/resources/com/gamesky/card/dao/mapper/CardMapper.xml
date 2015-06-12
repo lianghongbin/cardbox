@@ -6,8 +6,8 @@
     <result column="game_id" property="gameId" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="photo" property="photo" jdbcType="VARCHAR" />
-    <result column="desc" property="desc" jdbcType="VARCHAR" />
-    <result column="procedure" property="procedure" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="flow" property="flow" jdbcType="VARCHAR" />
     <result column="total" property="total" jdbcType="INTEGER" />
     <result column="assign_total" property="assignTotal" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="VARCHAR" />
@@ -78,7 +78,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, game_id, name, photo, desc, procedure, total, assign_total, type, expire, score, 
+    id, game_id, name, photo, description, flow, total, assign_total, type, expire, score, 
     free, closed, create_time, close_time, open_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.CardExample" >
@@ -116,13 +116,13 @@
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Card" >
     insert into card (id, game_id, name, 
-      photo, desc, procedure, 
+      photo, description, flow, 
       total, assign_total, type, 
       expire, score, free, 
       closed, create_time, close_time, 
       open_time)
     values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{photo,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, #{procedure,jdbcType=VARCHAR}, 
+      #{photo,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{flow,jdbcType=VARCHAR}, 
       #{total,jdbcType=INTEGER}, #{assignTotal,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
       #{expire,jdbcType=TIMESTAMP}, #{score,jdbcType=INTEGER}, #{free,jdbcType=BIT}, 
       #{closed,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, 
@@ -143,11 +143,11 @@
       <if test="photo != null" >
         photo,
       </if>
-      <if test="desc != null" >
-        desc,
+      <if test="description != null" >
+        description,
       </if>
-      <if test="procedure != null" >
-        procedure,
+      <if test="flow != null" >
+        flow,
       </if>
       <if test="total != null" >
         total,
@@ -193,11 +193,11 @@
       <if test="photo != null" >
         #{photo,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null" >
-        #{desc,jdbcType=VARCHAR},
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
       </if>
-      <if test="procedure != null" >
-        #{procedure,jdbcType=VARCHAR},
+      <if test="flow != null" >
+        #{flow,jdbcType=VARCHAR},
       </if>
       <if test="total != null" >
         #{total,jdbcType=INTEGER},
@@ -252,11 +252,11 @@
       <if test="record.photo != null" >
         photo = #{record.photo,jdbcType=VARCHAR},
       </if>
-      <if test="record.desc != null" >
-        desc = #{record.desc,jdbcType=VARCHAR},
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
       </if>
-      <if test="record.procedure != null" >
-        procedure = #{record.procedure,jdbcType=VARCHAR},
+      <if test="record.flow != null" >
+        flow = #{record.flow,jdbcType=VARCHAR},
       </if>
       <if test="record.total != null" >
         total = #{record.total,jdbcType=INTEGER},
@@ -299,8 +299,8 @@
       game_id = #{record.gameId,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       photo = #{record.photo,jdbcType=VARCHAR},
-      desc = #{record.desc,jdbcType=VARCHAR},
-      procedure = #{record.procedure,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      flow = #{record.flow,jdbcType=VARCHAR},
       total = #{record.total,jdbcType=INTEGER},
       assign_total = #{record.assignTotal,jdbcType=INTEGER},
       type = #{record.type,jdbcType=VARCHAR},
@@ -327,11 +327,11 @@
       <if test="photo != null" >
         photo = #{photo,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null" >
-        desc = #{desc,jdbcType=VARCHAR},
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
       </if>
-      <if test="procedure != null" >
-        procedure = #{procedure,jdbcType=VARCHAR},
+      <if test="flow != null" >
+        flow = #{flow,jdbcType=VARCHAR},
       </if>
       <if test="total != null" >
         total = #{total,jdbcType=INTEGER},
@@ -371,8 +371,8 @@
     set game_id = #{gameId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       photo = #{photo,jdbcType=VARCHAR},
-      desc = #{desc,jdbcType=VARCHAR},
-      procedure = #{procedure,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      flow = #{flow,jdbcType=VARCHAR},
       total = #{total,jdbcType=INTEGER},
       assign_total = #{assignTotal,jdbcType=INTEGER},
       type = #{type,jdbcType=VARCHAR},

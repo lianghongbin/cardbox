@@ -13,9 +13,9 @@ public class Flow {
 
     private String phone;
 
-    private Date createTime;
-
     private String method;
+
+    private Date createTime;
 
     public Integer getId() {
         return id;
@@ -57,20 +57,20 @@ public class Flow {
         this.phone = phone;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
     public String getMethod() {
         return method;
     }
 
     public void setMethod(String method) {
         this.method = method;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     @Override
@@ -90,8 +90,8 @@ public class Flow {
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getMethod() == null ? other.getMethod() == null : this.getMethod().equals(other.getMethod()));
+            && (this.getMethod() == null ? other.getMethod() == null : this.getMethod().equals(other.getMethod()))
+            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
     }
 
     @Override
@@ -103,8 +103,8 @@ public class Flow {
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getMethod() == null) ? 0 : getMethod().hashCode());
+        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         return result;
     }
 
@@ -119,8 +119,8 @@ public class Flow {
         sb.append(", type=").append(type);
         sb.append(", userId=").append(userId);
         sb.append(", phone=").append(phone);
-        sb.append(", createTime=").append(createTime);
         sb.append(", method=").append(method);
+        sb.append(", createTime=").append(createTime);
         sb.append("]");
         return sb.toString();
     }

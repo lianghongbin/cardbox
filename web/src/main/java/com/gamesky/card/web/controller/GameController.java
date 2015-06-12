@@ -3,9 +3,8 @@ package com.gamesky.card.web.controller;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.model.Game;
-import com.gamesky.card.core.model.Key;
 import com.gamesky.card.service.GameService;
-import com.gamesky.card.service.KeyService;
+import com.gamesky.card.service.CodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,13 +19,11 @@ import java.util.List;
  * @Author lianghongbin
  */
 @Controller
-@RequestMapping(value = "/game", produces="application/json;charset=UTF-8")
+@RequestMapping(value = "/1_0/game", produces="application/json;charset=UTF-8")
 public class GameController {
 
     @Autowired
     private GameService gameService;
-    @Autowired
-    private KeyService keyService;
 
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -69,7 +66,7 @@ public class GameController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/findall", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String findAll(Page page) {
         List<Game> games = gameService.findAll(page);
         int count = gameService.findCount();

@@ -1,21 +1,17 @@
 package com.gamesky.card.web.controller;
 
-import com.gamesky.card.core.Keyable;
-import com.gamesky.card.core.Marshaller;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.exceptions.CheckCodeInvalidException;
 import com.gamesky.card.core.exceptions.CheckCodeWrongException;
-import com.gamesky.card.service.CodeGenerator;
 import com.gamesky.card.service.CheckCodeService;
+import com.gamesky.card.service.CodeGenerator;
 import com.gamesky.card.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,10 +40,10 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(String phone, String checkCode) {
+    public String login(String phone, String device, String checkCode) {
         boolean result;
         try {
-            result = userService.login(phone, checkCode);
+            result = userService.login(phone, device, checkCode);
         } catch (CheckCodeInvalidException e) {
             return ResultGenerator.generateError("验证码已过期");
         } catch (CheckCodeWrongException e) {

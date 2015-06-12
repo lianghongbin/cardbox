@@ -72,6 +72,19 @@ public class FocusServiceImpl implements FocusService {
     }
 
     /**
+     * 取出所有焦点图
+     *
+     * @return 焦点图列表
+     */
+    @Override
+    public List<Focus> findAll() {
+        FocusExample focusExample = new FocusExample();
+        focusExample.createCriteria().andEnabledEqualTo(true);
+        focusExample.setOrderByClause("sort asc");
+        return focusMapper.selectByExample(focusExample);
+    }
+
+    /**
      * 计算所有焦点图数
      *
      * @return 焦点图数

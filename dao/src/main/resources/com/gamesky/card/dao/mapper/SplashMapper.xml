@@ -6,8 +6,8 @@
     <result column="photo" property="photo" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="enabled" property="enabled" jdbcType="BIT" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="type" property="type" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, photo, url, enabled, create_time, type
+    id, photo, url, enabled, sort, create_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.SplashExample" >
     select
@@ -105,10 +105,10 @@
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Splash" >
     insert into splash (id, photo, url, 
-      enabled, create_time, type
+      enabled, sort, create_time
       )
     values (#{id,jdbcType=INTEGER}, #{photo,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
-      #{enabled,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}
+      #{enabled,jdbcType=BIT}, #{sort,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Splash" >
@@ -126,11 +126,11 @@
       <if test="enabled != null" >
         enabled,
       </if>
+      <if test="sort != null" >
+        sort,
+      </if>
       <if test="createTime != null" >
         create_time,
-      </if>
-      <if test="type != null" >
-        type,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -146,11 +146,11 @@
       <if test="enabled != null" >
         #{enabled,jdbcType=BIT},
       </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -175,11 +175,11 @@
       <if test="record.enabled != null" >
         enabled = #{record.enabled,jdbcType=BIT},
       </if>
+      <if test="record.sort != null" >
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.type != null" >
-        type = #{record.type,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -192,8 +192,8 @@
       photo = #{record.photo,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
       enabled = #{record.enabled,jdbcType=BIT},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      type = #{record.type,jdbcType=VARCHAR}
+      sort = #{record.sort,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -210,11 +210,11 @@
       <if test="enabled != null" >
         enabled = #{enabled,jdbcType=BIT},
       </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="type != null" >
-        type = #{type,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -224,8 +224,8 @@
     set photo = #{photo,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       enabled = #{enabled,jdbcType=BIT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      type = #{type,jdbcType=VARCHAR}
+      sort = #{sort,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

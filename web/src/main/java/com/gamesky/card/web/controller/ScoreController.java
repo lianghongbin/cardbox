@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @Author lianghongbin
  */
 @Controller
-@RequestMapping(value = "/score", produces="application/json;charset=UTF-8")
+@RequestMapping(value = "/1_0/score", produces="application/json;charset=UTF-8")
 public class ScoreController {
     @Autowired
     private ScoreService scoreService;
@@ -33,22 +33,22 @@ public class ScoreController {
     @ResponseBody
     @RequestMapping(value = "/weixin", method = RequestMethod.GET)
     public String weiXin(String phone) {
-        int result = scoreService.dailySign(phone);
+        int result = scoreService.weixinShare(phone);
         if (result > 0) {
             return ResultGenerator.generate();
         }
 
-        return ResultGenerator.generateError("微信分享领取积分失败");
+        return ResultGenerator.generateError("当日微信已经分享或者领取积分失败");
     }
 
     @ResponseBody
     @RequestMapping(value = "/qq", method = RequestMethod.GET)
     public String qq(String phone) {
-        int result = scoreService.dailySign(phone);
+        int result = scoreService.qqShare(phone);
         if (result > 0) {
             return ResultGenerator.generate();
         }
 
-        return ResultGenerator.generateError("QQ分享领取积分失败");
+        return ResultGenerator.generateError("当时QQ已经分享或者领取积分失败");
     }
 }

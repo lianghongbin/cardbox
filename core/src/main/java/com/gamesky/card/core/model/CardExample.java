@@ -385,143 +385,143 @@ public class CardExample {
             return (Criteria) this;
         }
 
-        public Criteria andDescIsNull() {
-            addCriterion("desc is null");
+        public Criteria andDescriptionIsNull() {
+            addCriterion("description is null");
             return (Criteria) this;
         }
 
-        public Criteria andDescIsNotNull() {
-            addCriterion("desc is not null");
+        public Criteria andDescriptionIsNotNull() {
+            addCriterion("description is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDescEqualTo(String value) {
-            addCriterion("desc =", value, "desc");
+        public Criteria andDescriptionEqualTo(String value) {
+            addCriterion("description =", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotEqualTo(String value) {
-            addCriterion("desc <>", value, "desc");
+        public Criteria andDescriptionNotEqualTo(String value) {
+            addCriterion("description <>", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescGreaterThan(String value) {
-            addCriterion("desc >", value, "desc");
+        public Criteria andDescriptionGreaterThan(String value) {
+            addCriterion("description >", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescGreaterThanOrEqualTo(String value) {
-            addCriterion("desc >=", value, "desc");
+        public Criteria andDescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("description >=", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescLessThan(String value) {
-            addCriterion("desc <", value, "desc");
+        public Criteria andDescriptionLessThan(String value) {
+            addCriterion("description <", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescLessThanOrEqualTo(String value) {
-            addCriterion("desc <=", value, "desc");
+        public Criteria andDescriptionLessThanOrEqualTo(String value) {
+            addCriterion("description <=", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescLike(String value) {
-            addCriterion("desc like", value, "desc");
+        public Criteria andDescriptionLike(String value) {
+            addCriterion("description like", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotLike(String value) {
-            addCriterion("desc not like", value, "desc");
+        public Criteria andDescriptionNotLike(String value) {
+            addCriterion("description not like", value, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescIn(List<String> values) {
-            addCriterion("desc in", values, "desc");
+        public Criteria andDescriptionIn(List<String> values) {
+            addCriterion("description in", values, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotIn(List<String> values) {
-            addCriterion("desc not in", values, "desc");
+        public Criteria andDescriptionNotIn(List<String> values) {
+            addCriterion("description not in", values, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescBetween(String value1, String value2) {
-            addCriterion("desc between", value1, value2, "desc");
+        public Criteria andDescriptionBetween(String value1, String value2) {
+            addCriterion("description between", value1, value2, "description");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotBetween(String value1, String value2) {
-            addCriterion("desc not between", value1, value2, "desc");
+        public Criteria andDescriptionNotBetween(String value1, String value2) {
+            addCriterion("description not between", value1, value2, "description");
             return (Criteria) this;
         }
 
-        public Criteria andProcedureIsNull() {
-            addCriterion("procedure is null");
+        public Criteria andFlowIsNull() {
+            addCriterion("flow is null");
             return (Criteria) this;
         }
 
-        public Criteria andProcedureIsNotNull() {
-            addCriterion("procedure is not null");
+        public Criteria andFlowIsNotNull() {
+            addCriterion("flow is not null");
             return (Criteria) this;
         }
 
-        public Criteria andProcedureEqualTo(String value) {
-            addCriterion("procedure =", value, "procedure");
+        public Criteria andFlowEqualTo(String value) {
+            addCriterion("flow =", value, "flow");
             return (Criteria) this;
         }
 
-        public Criteria andProcedureNotEqualTo(String value) {
-            addCriterion("procedure <>", value, "procedure");
+        public Criteria andFlowNotEqualTo(String value) {
+            addCriterion("flow <>", value, "flow");
             return (Criteria) this;
         }
 
-        public Criteria andProcedureGreaterThan(String value) {
-            addCriterion("procedure >", value, "procedure");
+        public Criteria andFlowGreaterThan(String value) {
+            addCriterion("flow >", value, "flow");
             return (Criteria) this;
         }
 
-        public Criteria andProcedureGreaterThanOrEqualTo(String value) {
-            addCriterion("procedure >=", value, "procedure");
+        public Criteria andFlowGreaterThanOrEqualTo(String value) {
+            addCriterion("flow >=", value, "flow");
             return (Criteria) this;
         }
 
-        public Criteria andProcedureLessThan(String value) {
-            addCriterion("procedure <", value, "procedure");
+        public Criteria andFlowLessThan(String value) {
+            addCriterion("flow <", value, "flow");
             return (Criteria) this;
         }
 
-        public Criteria andProcedureLessThanOrEqualTo(String value) {
-            addCriterion("procedure <=", value, "procedure");
+        public Criteria andFlowLessThanOrEqualTo(String value) {
+            addCriterion("flow <=", value, "flow");
             return (Criteria) this;
         }
 
-        public Criteria andProcedureLike(String value) {
-            addCriterion("procedure like", value, "procedure");
+        public Criteria andFlowLike(String value) {
+            addCriterion("flow like", value, "flow");
             return (Criteria) this;
         }
 
-        public Criteria andProcedureNotLike(String value) {
-            addCriterion("procedure not like", value, "procedure");
+        public Criteria andFlowNotLike(String value) {
+            addCriterion("flow not like", value, "flow");
             return (Criteria) this;
         }
 
-        public Criteria andProcedureIn(List<String> values) {
-            addCriterion("procedure in", values, "procedure");
+        public Criteria andFlowIn(List<String> values) {
+            addCriterion("flow in", values, "flow");
             return (Criteria) this;
         }
 
-        public Criteria andProcedureNotIn(List<String> values) {
-            addCriterion("procedure not in", values, "procedure");
+        public Criteria andFlowNotIn(List<String> values) {
+            addCriterion("flow not in", values, "flow");
             return (Criteria) this;
         }
 
-        public Criteria andProcedureBetween(String value1, String value2) {
-            addCriterion("procedure between", value1, value2, "procedure");
+        public Criteria andFlowBetween(String value1, String value2) {
+            addCriterion("flow between", value1, value2, "flow");
             return (Criteria) this;
         }
 
-        public Criteria andProcedureNotBetween(String value1, String value2) {
-            addCriterion("procedure not between", value1, value2, "procedure");
+        public Criteria andFlowNotBetween(String value1, String value2) {
+            addCriterion("flow not between", value1, value2, "flow");
             return (Criteria) this;
         }
 
@@ -1145,13 +1145,13 @@ public class CardExample {
             return (Criteria) this;
         }
 
-        public Criteria andDescLikeInsensitive(String value) {
-            addCriterion("upper(desc) like", value.toUpperCase(), "desc");
+        public Criteria andDescriptionLikeInsensitive(String value) {
+            addCriterion("upper(description) like", value.toUpperCase(), "description");
             return (Criteria) this;
         }
 
-        public Criteria andProcedureLikeInsensitive(String value) {
-            addCriterion("upper(procedure) like", value.toUpperCase(), "procedure");
+        public Criteria andFlowLikeInsensitive(String value) {
+            addCriterion("upper(flow) like", value.toUpperCase(), "flow");
             return (Criteria) this;
         }
 

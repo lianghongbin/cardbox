@@ -73,14 +73,18 @@
     <!-- 出错页面定义 -->
     <error-page>
         <exception-type>java.lang.Throwable</exception-type>
-        <location>/1_0/error/exception</location>
+        <location>/error/exception</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/1_0/error/500</location>
+        <location>/error/500</location>
+    </error-page>
+    <error-page>
+        <error-code>504</error-code>
+        <location>/error/504</location>
     </error-page>
     <error-page>
         <error-code>404</error-code>
-        <location>/1_0/error/404</location>
+        <location>/error/404</location>
     </error-page>
 </web-app>

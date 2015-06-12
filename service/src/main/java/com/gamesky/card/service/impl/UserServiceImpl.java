@@ -1,9 +1,6 @@
 package com.gamesky.card.service.impl;
 
-import com.gamesky.card.core.Constants;
-import com.gamesky.card.core.Keyable;
-import com.gamesky.card.core.Marshaller;
-import com.gamesky.card.core.Page;
+import com.gamesky.card.core.*;
 import com.gamesky.card.core.exceptions.CheckCodeInvalidException;
 import com.gamesky.card.core.exceptions.CheckCodeWrongException;
 import com.gamesky.card.core.exceptions.MarshalException;
@@ -20,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -179,7 +177,7 @@ public class UserServiceImpl implements UserService {
      * @return true/false
      */
     @Override
-    public boolean login(final String phone, String checkCode) throws CheckCodeInvalidException, CheckCodeWrongException {
+    public boolean login(final String phone, String device, String checkCode) throws CheckCodeInvalidException, CheckCodeWrongException {
 
         String code;
         try {
@@ -197,13 +195,32 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
+        User user = this.findByPhone(phone);
+        if (user == null) { //如果是新用户，注册并登录
+            user = new User();
+            user.setUsername(phone);
+            user.setPhone(phone);
+            user.setScore(Constants.REGISTRY_SCORE);
+            user.setCreateTime(new Date());
+            user.setLastTime(new Date());
+            user.setDevice(device);
+            if (this.save(user) < 1) {
+                return false;
+            }
+        }
+        else {  //已经注册过的用户，更新设备及最后一次登录时间
+            user.setLastTime(new Date());
+            user.setDevice(device);
+            this.update(user);
+        }
+
         try {
-            marshaller.marshal(new LoginKey(phone, 24*60*60), checkCode);
+            marshaller.marshal(new LoginKey(phone, 24 * 60 * 60), checkCode);
         } catch (MarshalException e) {
             logger.error("用户登录出错：{}", e);
             return false;
         }
 
-        return isLogin(phone);
+        return true;
     }
 }

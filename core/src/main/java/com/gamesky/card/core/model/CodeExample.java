@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class KeyExample {
+public class CodeExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -15,7 +15,7 @@ public class KeyExample {
 
     protected Integer limit;
 
-    public KeyExample() {
+    public CodeExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

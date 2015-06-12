@@ -2,7 +2,7 @@ package com.gamesky.card.core.model;
 
 import java.util.Date;
 
-public class Key {
+public class Code {
     private Integer id;
 
     private Integer cardId;
@@ -114,7 +114,7 @@ public class Key {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Key other = (Key) that;
+        Code other = (Code) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getCardId() == null ? other.getCardId() == null : this.getCardId().equals(other.getCardId()))
             && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))

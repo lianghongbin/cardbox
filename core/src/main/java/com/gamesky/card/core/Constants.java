@@ -7,8 +7,8 @@ package com.gamesky.card.core;
  */
 public interface Constants {
 
+    int REGISTRY_SCORE = 300;
     int DAILY_SCORE = 300;
-
     int SHARE_WEIXIN = 300;
 
     int SHARE_QQ = 300;

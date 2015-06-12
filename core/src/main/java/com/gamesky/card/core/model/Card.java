@@ -11,9 +11,9 @@ public class Card {
 
     private String photo;
 
-    private String desc;
+    private String description;
 
-    private String procedure;
+    private String flow;
 
     private Integer total;
 
@@ -67,20 +67,20 @@ public class Card {
         this.photo = photo;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getProcedure() {
-        return procedure;
+    public String getFlow() {
+        return flow;
     }
 
-    public void setProcedure(String procedure) {
-        this.procedure = procedure;
+    public void setFlow(String flow) {
+        this.flow = flow;
     }
 
     public Integer getTotal() {
@@ -179,8 +179,8 @@ public class Card {
             && (this.getGameId() == null ? other.getGameId() == null : this.getGameId().equals(other.getGameId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getPhoto() == null ? other.getPhoto() == null : this.getPhoto().equals(other.getPhoto()))
-            && (this.getDesc() == null ? other.getDesc() == null : this.getDesc().equals(other.getDesc()))
-            && (this.getProcedure() == null ? other.getProcedure() == null : this.getProcedure().equals(other.getProcedure()))
+            && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
+            && (this.getFlow() == null ? other.getFlow() == null : this.getFlow().equals(other.getFlow()))
             && (this.getTotal() == null ? other.getTotal() == null : this.getTotal().equals(other.getTotal()))
             && (this.getAssignTotal() == null ? other.getAssignTotal() == null : this.getAssignTotal().equals(other.getAssignTotal()))
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
@@ -201,8 +201,8 @@ public class Card {
         result = prime * result + ((getGameId() == null) ? 0 : getGameId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getPhoto() == null) ? 0 : getPhoto().hashCode());
-        result = prime * result + ((getDesc() == null) ? 0 : getDesc().hashCode());
-        result = prime * result + ((getProcedure() == null) ? 0 : getProcedure().hashCode());
+        result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        result = prime * result + ((getFlow() == null) ? 0 : getFlow().hashCode());
         result = prime * result + ((getTotal() == null) ? 0 : getTotal().hashCode());
         result = prime * result + ((getAssignTotal() == null) ? 0 : getAssignTotal().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
@@ -226,8 +226,8 @@ public class Card {
         sb.append(", gameId=").append(gameId);
         sb.append(", name=").append(name);
         sb.append(", photo=").append(photo);
-        sb.append(", desc=").append(desc);
-        sb.append(", procedure=").append(procedure);
+        sb.append(", description=").append(description);
+        sb.append(", flow=").append(flow);
         sb.append(", total=").append(total);
         sb.append(", assignTotal=").append(assignTotal);
         sb.append(", type=").append(type);

@@ -11,9 +11,9 @@ public class Splash {
 
     private Boolean enabled;
 
-    private Date createTime;
+    private Integer sort;
 
-    private String type;
+    private Date createTime;
 
     public Integer getId() {
         return id;
@@ -47,20 +47,20 @@ public class Splash {
         this.enabled = enabled;
     }
 
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     @Override
@@ -79,8 +79,8 @@ public class Splash {
             && (this.getPhoto() == null ? other.getPhoto() == null : this.getPhoto().equals(other.getPhoto()))
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
             && (this.getEnabled() == null ? other.getEnabled() == null : this.getEnabled().equals(other.getEnabled()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()));
+            && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
+            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
     }
 
     @Override
@@ -91,8 +91,8 @@ public class Splash {
         result = prime * result + ((getPhoto() == null) ? 0 : getPhoto().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
         result = prime * result + ((getEnabled() == null) ? 0 : getEnabled().hashCode());
+        result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         return result;
     }
 
@@ -106,8 +106,8 @@ public class Splash {
         sb.append(", photo=").append(photo);
         sb.append(", url=").append(url);
         sb.append(", enabled=").append(enabled);
+        sb.append(", sort=").append(sort);
         sb.append(", createTime=").append(createTime);
-        sb.append(", type=").append(type);
         sb.append("]");
         return sb.toString();
     }

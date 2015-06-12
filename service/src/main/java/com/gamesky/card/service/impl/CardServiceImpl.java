@@ -6,17 +6,17 @@ import com.gamesky.card.core.exceptions.LockException;
 import com.gamesky.card.core.lock.Lockable;
 import com.gamesky.card.core.model.Card;
 import com.gamesky.card.core.model.CardExample;
-import com.gamesky.card.core.model.Key;
+import com.gamesky.card.core.model.Code;
 import com.gamesky.card.dao.mapper.CardMapper;
+import com.gamesky.card.service.CardLock;
 import com.gamesky.card.service.CardService;
-import com.gamesky.card.service.KeyService;
+import com.gamesky.card.service.CodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.locks.Lock;
 
 /**
  * 卡包服务接口实现类
@@ -31,7 +31,7 @@ public class CardServiceImpl implements CardService {
     @Autowired
     private CardMapper cardMapper;
     @Autowired
-    private KeyService keyService;
+    private CodeService codeService;
     @Autowired
     private GlobalLock<Lockable> globalLock;
 
@@ -93,40 +93,34 @@ public class CardServiceImpl implements CardService {
      */
     @Override
     public int assign(final int id, String phone) {
-        Lockable lockable = new Lockable() {
-            @Override
-            public String key() {
-                return Card.class.getCanonicalName() + ":" + id;
-            }
-
-            @Override
-            public long expire() {
-                return 10 * 1000;
-            }
-        };
+        CardLock cardLock = new CardLock(id);
 
         try {
-            if (!globalLock.acquire(lockable, 3000)) {
+            if (!globalLock.acquire(cardLock, 3000)) {
                 return 0;
             }
 
             Card card = cardMapper.selectByPrimaryKey(id);
+            if (card == null) {
+                return 0;
+            }
+
             if (card.getTotal() > card.getAssignTotal()) {
                 card.setAssignTotal(card.getAssignTotal() + 1);
             }
 
-            Key key = keyService.findOne(id);
-            key.setAssigned(true);
-            key.setPhone(phone);
-            key.setAssignTime(new Date());
-            keyService.update(key);
+            Code code = codeService.findOne(id);
+            code.setAssigned(true);
+            code.setPhone(phone);
+            code.setAssignTime(new Date());
+            codeService.update(code);
 
             return cardMapper.updateByPrimaryKey(card);
 
         } catch (LockException e) {
             return 0;
         } finally {
-            globalLock.release(lockable);
+            globalLock.release(cardLock);
         }
     }
 

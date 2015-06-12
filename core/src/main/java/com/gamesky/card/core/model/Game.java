@@ -9,7 +9,7 @@ public class Game {
 
     private String photo;
 
-    private String desc;
+    private String description;
 
     private String url;
 
@@ -47,12 +47,12 @@ public class Game {
         this.photo = photo;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getUrl() {
@@ -118,7 +118,7 @@ public class Game {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getPhoto() == null ? other.getPhoto() == null : this.getPhoto().equals(other.getPhoto()))
-            && (this.getDesc() == null ? other.getDesc() == null : this.getDesc().equals(other.getDesc()))
+            && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
             && (this.getIosId() == null ? other.getIosId() == null : this.getIosId().equals(other.getIosId()))
             && (this.getRecommend() == null ? other.getRecommend() == null : this.getRecommend().equals(other.getRecommend()))
@@ -134,7 +134,7 @@ public class Game {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getPhoto() == null) ? 0 : getPhoto().hashCode());
-        result = prime * result + ((getDesc() == null) ? 0 : getDesc().hashCode());
+        result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
         result = prime * result + ((getIosId() == null) ? 0 : getIosId().hashCode());
         result = prime * result + ((getRecommend() == null) ? 0 : getRecommend().hashCode());
@@ -153,7 +153,7 @@ public class Game {
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", photo=").append(photo);
-        sb.append(", desc=").append(desc);
+        sb.append(", description=").append(description);
         sb.append(", url=").append(url);
         sb.append(", iosId=").append(iosId);
         sb.append(", recommend=").append(recommend);

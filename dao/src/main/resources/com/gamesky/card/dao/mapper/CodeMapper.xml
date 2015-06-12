@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.gamesky.card.dao.mapper.KeyMapper" >
-  <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.Key" >
+<mapper namespace="com.gamesky.card.dao.mapper.CodeMapper" >
+  <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.Code" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="card_id" property="cardId" jdbcType="INTEGER" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
@@ -74,13 +74,13 @@
   <sql id="Base_Column_List" >
     id, card_id, phone, code, used, assigned, game_id, create_time, assign_time, use_time
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.KeyExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.CodeExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from key
+    from code
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -94,21 +94,21 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from key
+    from code
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from key
+    delete from code
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.gamesky.card.core.model.KeyExample" >
-    delete from key
+  <delete id="deleteByExample" parameterType="com.gamesky.card.core.model.CodeExample" >
+    delete from code
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.gamesky.card.core.model.Key" >
-    insert into key (id, card_id, phone, 
+  <insert id="insert" parameterType="com.gamesky.card.core.model.Code" >
+    insert into code (id, card_id, phone, 
       code, used, assigned, game_id, 
       create_time, assign_time, use_time
       )
@@ -117,8 +117,8 @@
       #{createTime,jdbcType=TIMESTAMP}, #{assignTime,jdbcType=TIMESTAMP}, #{useTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Key" >
-    insert into key
+  <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Code" >
+    insert into code
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -184,14 +184,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.gamesky.card.core.model.KeyExample" resultType="java.lang.Integer" >
-    select count(*) from key
+  <select id="countByExample" parameterType="com.gamesky.card.core.model.CodeExample" resultType="java.lang.Integer" >
+    select count(*) from code
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update key
+    update code
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
@@ -229,7 +229,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update key
+    update code
     set id = #{record.id,jdbcType=INTEGER},
       card_id = #{record.cardId,jdbcType=INTEGER},
       phone = #{record.phone,jdbcType=VARCHAR},
@@ -244,8 +244,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gamesky.card.core.model.Key" >
-    update key
+  <update id="updateByPrimaryKeySelective" parameterType="com.gamesky.card.core.model.Code" >
+    update code
     <set >
       <if test="cardId != null" >
         card_id = #{cardId,jdbcType=INTEGER},
@@ -277,8 +277,8 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Key" >
-    update key
+  <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Code" >
+    update code
     set card_id = #{cardId,jdbcType=INTEGER},
       phone = #{phone,jdbcType=VARCHAR},
       code = #{code,jdbcType=VARCHAR},

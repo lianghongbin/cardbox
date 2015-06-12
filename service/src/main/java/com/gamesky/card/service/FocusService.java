@@ -41,6 +41,12 @@ public interface FocusService {
     public List<Focus> findAll(Page page);
 
     /**
+     * 取出所有焦点图
+     * @return 焦点图列表
+     */
+    public List<Focus> findAll();
+
+    /**
      * 计算所有焦点图数
      * @return 焦点图数
      */

@@ -27,20 +27,28 @@ public class Page {
         }
     }
 
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
     public int getTotal() {
         return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
 
     public int getSize() {
         return size;
     }
 
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     public int getNum() {
         return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public int getOffset() {

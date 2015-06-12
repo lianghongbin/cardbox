@@ -18,7 +18,7 @@ import java.util.List;
  * @Author lianghongbin
  */
 @Controller
-@RequestMapping(value = "/feedback", produces = "application/json;charset=UTF-8")
+@RequestMapping(value = "/1_0/feedback", produces = "application/json;charset=UTF-8")
 public class FeedbackController {
 
     @Autowired

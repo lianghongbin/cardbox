@@ -69,6 +69,19 @@ public class SplashServiceImpl implements SplashService {
     }
 
     /**
+     * 获取所有启动页
+     *
+     * @return 启动页列表
+     */
+    @Override
+    public List<Splash> findAll() {
+        SplashExample splashExample = new SplashExample();
+        splashExample.createCriteria().andEnabledEqualTo(true);
+        splashExample.setOrderByClause("sort asc");
+        return splashMapper.selectByExample(splashExample);
+    }
+
+    /**
      * 获取所有启动页数
      *
      * @return 启动页数

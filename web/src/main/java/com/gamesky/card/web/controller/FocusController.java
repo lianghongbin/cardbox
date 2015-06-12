@@ -19,7 +19,7 @@ import java.util.List;
  * @Author lianghongbin
  */
 @Controller
-@RequestMapping(value = "/focus", produces="application/json;charset=UTF-8")
+@RequestMapping(value = "/1_0/focus", produces="application/json;charset=UTF-8")
 public class FocusController {
 
     @Autowired
@@ -60,10 +60,8 @@ public class FocusController {
 
     @ResponseBody
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public String findAll(Page page) {
-        List<Focus> focusList = focusService.findAll(page);
-        int count = focusService.findCount();
-        page.setTotal(count);
-        return ResultGenerator.generate(page, focusList);
+    public String findAll() {
+        List<Focus> focusList = focusService.findAll();
+        return ResultGenerator.generate(focusList);
     }
 }

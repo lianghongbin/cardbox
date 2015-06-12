@@ -18,7 +18,7 @@ import java.util.List;
  * @Author lianghongbin
  */
 @Controller
-@RequestMapping(value = "/splash", produces="application/json;charset=UTF-8")
+@RequestMapping(value = "/1_0/splash", produces="application/json;charset=UTF-8")
 public class SplashController {
 
     @Autowired
@@ -59,16 +59,13 @@ public class SplashController {
 
     /**
      * 多个启动页的请求接口
-     * @param page 分页参数
      * @return json
      */
     @ResponseBody
-    @RequestMapping(value = "/findall", method = RequestMethod.GET)
-    public String findAll(Page page) {
-        List<Splash> splashs = splashService.findAll(page);
-        int count = splashService.findCount();
-        page.setTotal(count);
-        return ResultGenerator.generate(page, splashs);
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public String findAll() {
+        List<Splash> splashes = splashService.findAll();
+        return ResultGenerator.generate(splashes);
     }
 
     @ResponseBody

@@ -103,5 +103,5 @@ public interface UserService {
      * @param checkCode 验证码
      * @return true/false
      */
-    boolean login(final String phone, String checkCode) throws CheckCodeInvalidException, CheckCodeWrongException;
+    boolean login(final String phone, String device, String checkCode) throws CheckCodeInvalidException, CheckCodeWrongException;
 }

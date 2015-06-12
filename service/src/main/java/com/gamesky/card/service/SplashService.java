@@ -41,6 +41,13 @@ public interface SplashService {
     public List<Splash> findAll(Page page);
 
     /**
+     * 获取所有启动页
+     *
+     * @return 启动页列表
+     */
+    public List<Splash> findAll();
+
+    /**
      * 获取所有启动页数
      * @return 启动页数
      */

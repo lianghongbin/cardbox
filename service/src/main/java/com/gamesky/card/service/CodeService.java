@@ -1,8 +1,8 @@
 package com.gamesky.card.service;
 
 import com.gamesky.card.core.Page;
-import com.gamesky.card.core.model.Key;
-import com.gamesky.card.core.model.KeyExample;
+import com.gamesky.card.core.model.Code;
+import com.gamesky.card.core.model.CodeExample;
 
 import java.util.List;
 
@@ -12,15 +12,15 @@ import java.util.List;
  *
  * @Author lianghongbin
  */
-public interface KeyService {
+public interface CodeService {
 
     /**
      * 保存我的激活码
      *
-     * @param key 激活码
+     * @param code 激活码
      * @return 影响条数
      */
-    int save(Key key);
+    int save(Code code);
 
     /**
      * 删除我的激活码
@@ -33,10 +33,10 @@ public interface KeyService {
     /**
      * 更新我的激活码
      *
-     * @param key 激活码
+     * @param code 激活码
      * @return 影响条数
      */
-    int update(Key key);
+    int update(Code code);
 
     /**
      * 根据id查找激活码
@@ -44,7 +44,7 @@ public interface KeyService {
      * @param id 激活码ID
      * @return 激活码
      */
-    Key find(int id);
+    Code find(int id);
 
     /**
      * 查看某个礼包下的激活码
@@ -53,7 +53,7 @@ public interface KeyService {
      * @param page   分页参数
      * @return 激活码列表
      */
-    List<Key> findByCard(int cardId, Page page);
+    List<Code> findByCard(int cardId, Page page);
 
     /**
      * 查看某个礼包下的激活码数量
@@ -70,7 +70,7 @@ public interface KeyService {
      * @param page  分页参数
      * @return 激活码列表
      */
-    List<Key> findByPhone(String phone, Page page);
+    List<Code> findByPhone(String phone, Page page);
 
     /**
      * 根据用户手机号查找该用户的激活码数量
@@ -86,7 +86,7 @@ public interface KeyService {
      * @param page  分页参数
      * @return 激活码列表
      */
-    List<Key> findAll(Page page);
+    List<Code> findAll(Page page);
 
     /**
      * 根据用户手机号查找该用户的激活码数量
@@ -100,7 +100,7 @@ public interface KeyService {
      * @param cardId 卡包ID
      * @return 激活码实体
      */
-    Key findOne(int cardId);
+    Code findOne(int cardId);
 
     /**
      * 根据手机号查看用户的激活码
@@ -110,7 +110,7 @@ public interface KeyService {
      * @param page   分页参数
      * @return 激活码列表
      */
-    public List<Key> findByCardAndPhone(int cardId, String phone, Page page);
+    public List<Code> findByCardAndPhone(int cardId, String phone, Page page);
 
     /**
      * 根据手机号查看用户的激活码
@@ -126,12 +126,12 @@ public interface KeyService {
      * @param keyExample 查询条件
      * @return 激活码列表
      */
-    List<Key> findByCondition(KeyExample keyExample);
+    List<Code> findByCondition(CodeExample keyExample);
 
     /**
      * 根据条件查询激活码列表数量
      * @param keyExample 查询条件
      * @return 激活码列表数量
      */
-    int findCountByCondition(KeyExample keyExample);
+    int findCountByCondition(CodeExample keyExample);
 }

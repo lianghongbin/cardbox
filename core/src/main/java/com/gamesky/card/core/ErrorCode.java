@@ -8,7 +8,12 @@ package com.gamesky.card.core;
 public enum ErrorCode {
 
     GENERAL(-1),
-    ILLEGAL_ARGUMENT(-2);
+    ILLEGAL_ARGUMENT(-2),
+    EXCEPTION(-3),
+    ERROR(-4),
+    SERVER_ERROR_500(500),
+    SERVER_ERROR_504(504),
+    PAGE_NOT_FOUND(404);
 
     private int code;
 
