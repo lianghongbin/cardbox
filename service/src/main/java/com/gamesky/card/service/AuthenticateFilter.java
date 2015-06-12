@@ -58,6 +58,6 @@ public class AuthenticateFilter extends OncePerRequestFilter {
             return;
         }
 
-        response.getWriter().print(ResultGenerator.generateError(ErrorCode.ILLEGAL_ARGUMENT, "非法请求"));
+        response.getWriter().print(ResultGenerator.generateError(ErrorCode.ILLEGAL_ARGUMENT));
     }
 }

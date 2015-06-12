@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.Card" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="game_id" property="gameId" jdbcType="INTEGER" />
+    <result column="game_name" property="gameName" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="icon" property="icon" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
@@ -78,8 +79,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, game_id, name, icon, description, flow, total, assign_total, type, expire, score, 
-    recommend, closed, create_time, close_time, open_time
+    id, game_id, game_name, name, icon, description, flow, total, assign_total, type, 
+    expire, score, recommend, closed, create_time, close_time, open_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.CardExample" >
     select
@@ -115,18 +116,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Card" >
-    insert into card (id, game_id, name, 
-      icon, description, flow, 
-      total, assign_total, type, 
-      expire, score, recommend, 
-      closed, create_time, close_time, 
-      open_time)
-    values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{icon,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{flow,jdbcType=VARCHAR}, 
-      #{total,jdbcType=INTEGER}, #{assignTotal,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
-      #{expire,jdbcType=TIMESTAMP}, #{score,jdbcType=INTEGER}, #{recommend,jdbcType=BIT}, 
-      #{closed,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, 
-      #{openTime,jdbcType=TIMESTAMP})
+    insert into card (id, game_id, game_name, 
+      name, icon, description, 
+      flow, total, assign_total, 
+      type, expire, score, 
+      recommend, closed, create_time, 
+      close_time, open_time)
+    values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=INTEGER}, #{gameName,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{flow,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, #{assignTotal,jdbcType=INTEGER}, 
+      #{type,jdbcType=VARCHAR}, #{expire,jdbcType=TIMESTAMP}, #{score,jdbcType=INTEGER}, 
+      #{recommend,jdbcType=BIT}, #{closed,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{closeTime,jdbcType=TIMESTAMP}, #{openTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Card" >
     insert into card
@@ -136,6 +137,9 @@
       </if>
       <if test="gameId != null" >
         game_id,
+      </if>
+      <if test="gameName != null" >
+        game_name,
       </if>
       <if test="name != null" >
         name,
@@ -186,6 +190,9 @@
       </if>
       <if test="gameId != null" >
         #{gameId,jdbcType=INTEGER},
+      </if>
+      <if test="gameName != null" >
+        #{gameName,jdbcType=VARCHAR},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
@@ -246,6 +253,9 @@
       <if test="record.gameId != null" >
         game_id = #{record.gameId,jdbcType=INTEGER},
       </if>
+      <if test="record.gameName != null" >
+        game_name = #{record.gameName,jdbcType=VARCHAR},
+      </if>
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
@@ -297,6 +307,7 @@
     update card
     set id = #{record.id,jdbcType=INTEGER},
       game_id = #{record.gameId,jdbcType=INTEGER},
+      game_name = #{record.gameName,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       icon = #{record.icon,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
@@ -320,6 +331,9 @@
     <set >
       <if test="gameId != null" >
         game_id = #{gameId,jdbcType=INTEGER},
+      </if>
+      <if test="gameName != null" >
+        game_name = #{gameName,jdbcType=VARCHAR},
       </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
@@ -369,6 +383,7 @@
   <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Card" >
     update card
     set game_id = #{gameId,jdbcType=INTEGER},
+      game_name = #{gameName,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},

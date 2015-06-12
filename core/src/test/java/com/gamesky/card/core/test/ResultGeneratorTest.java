@@ -3,7 +3,6 @@ package com.gamesky.card.core.test;
 import com.gamesky.card.core.ErrorCode;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
-import com.gamesky.card.core.model.Databasechangelog;
 import com.gamesky.card.core.model.TestElement;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,7 +16,7 @@ public class ResultGeneratorTest {
 
     @Test
     public void testGeneratorError() {
-        String result = ResultGenerator.generateError(ErrorCode.GENERAL, "error");
+        String result = ResultGenerator.generateError(ErrorCode.GENERAL);
 
         System.out.println(result);
         Assert.assertNotNull(result);

@@ -1,7 +1,7 @@
 package com.gamesky.card.service;
 
-import com.gamesky.card.core.lock.GlobalLock;
 import com.gamesky.card.core.exceptions.LockException;
+import com.gamesky.card.core.lock.GlobalLock;
 import com.gamesky.card.core.lock.Lockable;
 import redis.clients.jedis.Jedis;
 
@@ -13,7 +13,6 @@ import redis.clients.jedis.Jedis;
 public class RedisGlobalLock<T extends Lockable> implements GlobalLock<T> {
 
     private Jedis jedis;
-    private int expire = 60 * 1000;    //Lock expiration in miliseconds.
     private boolean locked = false;
 
     public void setJedis(Jedis jedis) {

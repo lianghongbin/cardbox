@@ -9,7 +9,6 @@ import com.gamesky.card.core.model.CodeExample;
 import com.gamesky.card.dao.mapper.CodeMapper;
 import com.gamesky.card.service.CodeLock;
 import com.gamesky.card.service.CodeService;
-import com.gamesky.card.service.RedisGlobalLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,8 +26,8 @@ public class CodeServiceImpl implements CodeService {
 
     @Autowired
     private CodeMapper codeMapper;
-
-    private GlobalLock<Lockable> globalLock = new RedisGlobalLock<>();
+    @Autowired
+    private GlobalLock<Lockable> globalLock;
     ;
 
     /**

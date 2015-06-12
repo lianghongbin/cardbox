@@ -245,6 +245,76 @@ public class CardExample {
             return (Criteria) this;
         }
 
+        public Criteria andGameNameIsNull() {
+            addCriterion("game_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameIsNotNull() {
+            addCriterion("game_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameEqualTo(String value) {
+            addCriterion("game_name =", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameNotEqualTo(String value) {
+            addCriterion("game_name <>", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameGreaterThan(String value) {
+            addCriterion("game_name >", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameGreaterThanOrEqualTo(String value) {
+            addCriterion("game_name >=", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameLessThan(String value) {
+            addCriterion("game_name <", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameLessThanOrEqualTo(String value) {
+            addCriterion("game_name <=", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameLike(String value) {
+            addCriterion("game_name like", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameNotLike(String value) {
+            addCriterion("game_name not like", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameIn(List<String> values) {
+            addCriterion("game_name in", values, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameNotIn(List<String> values) {
+            addCriterion("game_name not in", values, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameBetween(String value1, String value2) {
+            addCriterion("game_name between", value1, value2, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameNotBetween(String value1, String value2) {
+            addCriterion("game_name not between", value1, value2, "gameName");
+            return (Criteria) this;
+        }
+
         public Criteria andNameIsNull() {
             addCriterion("name is null");
             return (Criteria) this;
@@ -1132,6 +1202,11 @@ public class CardExample {
 
         public Criteria andOpenTimeNotBetween(Date value1, Date value2) {
             addCriterion("open_time not between", value1, value2, "openTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameLikeInsensitive(String value) {
+            addCriterion("upper(game_name) like", value.toUpperCase(), "gameName");
             return (Criteria) this;
         }
 

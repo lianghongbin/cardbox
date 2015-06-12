@@ -10,11 +10,16 @@ import com.google.gson.Gson;
 public class ResultGenerator {
 
     public static String generateError(String message) {
-        return generateError(ErrorCode.GENERAL, message);
+        return generateError(-1, message);
     }
 
-    public static String generateError(ErrorCode code, String message) {
-        Result result = new Result(new Status(code.getCode(), message));
+    public static String generateError(int code, String message) {
+        Result result = new Result(new Status(code, message));
+        return toJson(result);
+    }
+
+    public static String generateError(ErrorCode code) {
+        Result result = new Result(new Status(code.getCode(), code.getDesc()));
         return toJson(result);
     }
 

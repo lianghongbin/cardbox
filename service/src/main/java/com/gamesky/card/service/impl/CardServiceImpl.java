@@ -1,16 +1,22 @@
 package com.gamesky.card.service.impl;
 
+import com.gamesky.card.core.CardType;
+import com.gamesky.card.core.ErrorCode;
 import com.gamesky.card.core.Page;
-import com.gamesky.card.core.lock.GlobalLock;
 import com.gamesky.card.core.exceptions.LockException;
+import com.gamesky.card.core.lock.GlobalLock;
 import com.gamesky.card.core.lock.Lockable;
 import com.gamesky.card.core.model.Card;
 import com.gamesky.card.core.model.CardExample;
 import com.gamesky.card.core.model.Code;
+import com.gamesky.card.core.model.User;
 import com.gamesky.card.dao.mapper.CardMapper;
 import com.gamesky.card.service.CardLock;
 import com.gamesky.card.service.CardService;
 import com.gamesky.card.service.CodeService;
+import com.gamesky.card.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,15 +39,11 @@ public class CardServiceImpl implements CardService {
     @Autowired
     private CodeService codeService;
     @Autowired
+    private UserService userService;
+    @Autowired
     private GlobalLock<Lockable> globalLock;
+    private final static Logger logger = LoggerFactory.getLogger(CardServiceImpl.class);
 
-    /**
-     * 添加保存一个卡包
-     *
-     * @param card 卡包类
-     * @return 影响条数
-     */
-    @Override
     public int save(Card card) {
         card.setCreateTime(new Date());
         return cardMapper.insert(card);
@@ -102,14 +104,39 @@ public class CardServiceImpl implements CardService {
 
             Card card = cardMapper.selectByPrimaryKey(id);
             if (card == null || card.getClosed()) {
-                return 0;
+                return ErrorCode.DATA_EMPTY.getCode();
             }
 
-            if (card.getTotal() > card.getAssignTotal()) {
-                card.setAssignTotal(card.getAssignTotal() + 1);
+            if (card.getTotal()<=card.getAssignTotal()) {
+                return -1;
             }
+
+            if(card.getType().equalsIgnoreCase(CardType.SCORE.name())) {
+                //如果是扣分数的礼包，查看一下分数是否够，如果不够直接返回错误提示
+                User user = userService.findByPhone(phone);
+                if (user == null) {
+                    return ErrorCode.ILLEGAL_ARGUMENT.getCode();
+                }
+
+                if (card.getScore() > user.getScore()) {
+                    return ErrorCode.SCORE_NOT_ENOUGH.getCode();
+                }
+
+                user.setScore(user.getScore() - card.getScore());
+                userService.update(user);
+            }
+            else if (card.getType().equalsIgnoreCase(CardType.PAY.name())) {
+                logger.info("需要付费领取礼包");
+            }
+
+            card.setAssignTotal(card.getAssignTotal() + 1);
 
             Code code = codeService.findOne(id);
+            if (code == null) {
+                logger.error("礼包激活码没有导入");
+                return ErrorCode.DATA_EMPTY.getCode();
+            }
+
             code.setAssigned(true);
             code.setPhone(phone);
             code.setAssignTime(new Date());

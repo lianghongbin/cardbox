@@ -7,6 +7,8 @@ public class Card {
 
     private Integer gameId;
 
+    private String gameName;
+
     private String name;
 
     private String icon;
@@ -49,6 +51,14 @@ public class Card {
 
     public void setGameId(Integer gameId) {
         this.gameId = gameId;
+    }
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
     }
 
     public String getName() {
@@ -177,6 +187,7 @@ public class Card {
         Card other = (Card) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getGameId() == null ? other.getGameId() == null : this.getGameId().equals(other.getGameId()))
+            && (this.getGameName() == null ? other.getGameName() == null : this.getGameName().equals(other.getGameName()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getIcon() == null ? other.getIcon() == null : this.getIcon().equals(other.getIcon()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
@@ -199,6 +210,7 @@ public class Card {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getGameId() == null) ? 0 : getGameId().hashCode());
+        result = prime * result + ((getGameName() == null) ? 0 : getGameName().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getIcon() == null) ? 0 : getIcon().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
@@ -224,6 +236,7 @@ public class Card {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", gameId=").append(gameId);
+        sb.append(", gameName=").append(gameName);
         sb.append(", name=").append(name);
         sb.append(", icon=").append(icon);
         sb.append(", description=").append(description);

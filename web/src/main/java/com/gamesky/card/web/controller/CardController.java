@@ -1,6 +1,7 @@
 package com.gamesky.card.web.controller;
 
 import com.gamesky.card.core.CardType;
+import com.gamesky.card.core.ErrorCode;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.model.Card;
@@ -114,7 +115,7 @@ public class CardController {
             return ResultGenerator.generate();
         }
 
-        return ResultGenerator.generateError("领取卡包失败");
+        return ResultGenerator.generateError(ErrorCode.fromCode(result));
     }
 
     @ResponseBody

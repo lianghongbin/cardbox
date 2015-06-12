@@ -19,31 +19,31 @@ public class ErrorController {
     @ResponseBody
     @RequestMapping("/500")
     public String error500() {
-        return ResultGenerator.generateError(ErrorCode.SERVER_ERROR_500, "服务器内部错误");
+        return ResultGenerator.generateError(ErrorCode.SERVER_ERROR_500);
     }
 
     @ResponseBody
     @RequestMapping("/504")
     public String error504() {
-        return ResultGenerator.generateError(ErrorCode.SERVER_ERROR_504, "错误的访问格式");
+        return ResultGenerator.generateError(ErrorCode.SERVER_ERROR_504);
     }
 
 
     @ResponseBody
     @RequestMapping("/404")
     public String error404() {
-        return ResultGenerator.generateError(ErrorCode.PAGE_NOT_FOUND, "请求页面不存在");
+        return ResultGenerator.generateError(ErrorCode.PAGE_NOT_FOUND);
     }
 
     @ResponseBody
     @RequestMapping("/exception")
     public String exception() {
-        return ResultGenerator.generateError(ErrorCode.EXCEPTION, "系统内部发生异常");
+        return ResultGenerator.generateError(ErrorCode.EXCEPTION);
     }
 
     @ResponseBody
     @RequestMapping("/error")
     public String error() {
-        return ResultGenerator.generateError(ErrorCode.ERROR, "未知错误");
+        return ResultGenerator.generateError(ErrorCode.ERROR);
     }
 }
