@@ -1,6 +1,5 @@
 package com.gamesky.card.web.controller;
 
-import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.model.Splash;
 import com.gamesky.card.service.SplashService;
@@ -69,7 +68,7 @@ public class SplashController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    @RequestMapping(value = "/one", method = RequestMethod.GET)
     public String find() {
         Splash splash = splashService.findOne();
         return ResultGenerator.generate(splash);

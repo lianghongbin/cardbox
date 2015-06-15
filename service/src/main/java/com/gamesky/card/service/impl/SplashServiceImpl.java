@@ -63,7 +63,7 @@ public class SplashServiceImpl implements SplashService {
     public List<Splash> findAll(Page page) {
         SplashExample splashExample = new SplashExample();
         splashExample.setLimitOffset(page.getOffset());
-        splashExample.setLimit(page.getSize());
+        splashExample.setLimit(page.getPagesize());
         splashExample.setOrderByClause("sort asc");
         return splashMapper.selectByExample(splashExample);
     }
@@ -104,7 +104,7 @@ public class SplashServiceImpl implements SplashService {
     public List<Splash> findByEnable(boolean enabled, Page page) {
         SplashExample splashExample = new SplashExample();
         splashExample.createCriteria().andEnabledEqualTo(enabled);
-        splashExample.setLimit(page.getSize());
+        splashExample.setLimit(page.getPagesize());
         splashExample.setLimitOffset(page.getOffset());
         splashExample.setOrderByClause("sort asc");
         return splashMapper.selectByExample(splashExample);
@@ -137,6 +137,7 @@ public class SplashServiceImpl implements SplashService {
     @Override
     public Splash findOne() {
         SplashExample splashExample = new SplashExample();
+        splashExample.createCriteria().andEnabledEqualTo(true);
         splashExample.setOrderByClause("sort asc");
         List<Splash> splashs = splashMapper.selectByExample(splashExample);
         if (splashs == null || splashs.size() == 0) {

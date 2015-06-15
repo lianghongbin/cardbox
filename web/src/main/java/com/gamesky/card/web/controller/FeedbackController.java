@@ -58,7 +58,7 @@ public class FeedbackController {
     public String findAll(Page page) {
         List<Feedback> feedbacks = feedbackService.findAll(page);
         int count = feedbackService.findCount();
-        page.setTotal(count);
+        page.setCount(count);
         return ResultGenerator.generate(page, feedbacks);
     }
 
@@ -67,7 +67,7 @@ public class FeedbackController {
     public String findByUser(String phone, Page page) {
         List<Feedback> feedbacks = feedbackService.findByUser(phone, page);
         int count = feedbackService.findCountByUser(phone);
-        page.setTotal(count);
+        page.setCount(count);
         return ResultGenerator.generate(page, feedbacks);
     }
 }

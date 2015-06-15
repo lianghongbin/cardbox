@@ -13,6 +13,7 @@ public enum ErrorCode {
     ERROR(-4, "系统错误"),
     SCORE_NOT_ENOUGH(-5, "积分不足"),
     DATA_EMPTY(-6, "数据为空"),
+    ILLEGAL_OPERATE(-7, "非法操作"),
     SERVER_ERROR_500(-500, "服务器异常"),
     SERVER_ERROR_504(-504, "请求方式不支持"),
     PAGE_NOT_FOUND(-404, "访问的接口不存在"),

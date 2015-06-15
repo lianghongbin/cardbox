@@ -56,7 +56,7 @@ public class FlowServiceImpl implements FlowService {
         flowExample.createCriteria().andPhoneEqualTo(phone);
         flowExample.setOrderByClause("id desc");
         flowExample.setLimitOffset(page.getOffset());
-        flowExample.setLimit(page.getSize());
+        flowExample.setLimit(page.getPagesize());
         return flowMapper.selectByExample(flowExample);
     }
 
@@ -73,7 +73,7 @@ public class FlowServiceImpl implements FlowService {
         flowExample.createCriteria().andUserIdEqualTo(userId);
         flowExample.setOrderByClause("id desc");
         flowExample.setLimitOffset(page.getOffset());
-        flowExample.setLimit(page.getSize());
+        flowExample.setLimit(page.getPagesize());
         return flowMapper.selectByExample(flowExample);
     }
 
@@ -88,7 +88,7 @@ public class FlowServiceImpl implements FlowService {
         FlowExample flowExample = new FlowExample();
         flowExample.setOrderByClause("id desc");
         flowExample.setLimitOffset(page.getOffset());
-        flowExample.setLimit(page.getSize());
+        flowExample.setLimit(page.getPagesize());
         return flowMapper.selectByExample(flowExample);
     }
 

@@ -1,156 +1,24 @@
 package com.gamesky.card.core.model;
 
-import java.util.Date;
+public class CardWithBLOBs extends Card {
+    private String description;
 
-public class Card {
-    private Integer id;
+    private String flow;
 
-    private Integer gameId;
-
-    private String gameName;
-
-    private String name;
-
-    private String icon;
-
-    private Integer total;
-
-    private Integer assignTotal;
-
-    private String type;
-
-    private Date expire;
-
-    private Integer score;
-
-    private Boolean recommend;
-
-    private Boolean closed;
-
-    private Date createTime;
-
-    private Date closeTime;
-
-    private Date openTime;
-
-    public Integer getId() {
-        return id;
+    public String getDescription() {
+        return description;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Integer getGameId() {
-        return gameId;
+    public String getFlow() {
+        return flow;
     }
 
-    public void setGameId(Integer gameId) {
-        this.gameId = gameId;
-    }
-
-    public String getGameName() {
-        return gameName;
-    }
-
-    public void setGameName(String gameName) {
-        this.gameName = gameName;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public Integer getTotal() {
-        return total;
-    }
-
-    public void setTotal(Integer total) {
-        this.total = total;
-    }
-
-    public Integer getAssignTotal() {
-        return assignTotal;
-    }
-
-    public void setAssignTotal(Integer assignTotal) {
-        this.assignTotal = assignTotal;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Date getExpire() {
-        return expire;
-    }
-
-    public void setExpire(Date expire) {
-        this.expire = expire;
-    }
-
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
-    public Boolean getRecommend() {
-        return recommend;
-    }
-
-    public void setRecommend(Boolean recommend) {
-        this.recommend = recommend;
-    }
-
-    public Boolean getClosed() {
-        return closed;
-    }
-
-    public void setClosed(Boolean closed) {
-        this.closed = closed;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getCloseTime() {
-        return closeTime;
-    }
-
-    public void setCloseTime(Date closeTime) {
-        this.closeTime = closeTime;
-    }
-
-    public Date getOpenTime() {
-        return openTime;
-    }
-
-    public void setOpenTime(Date openTime) {
-        this.openTime = openTime;
+    public void setFlow(String flow) {
+        this.flow = flow;
     }
 
     @Override
@@ -164,7 +32,7 @@ public class Card {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Card other = (Card) that;
+        CardWithBLOBs other = (CardWithBLOBs) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getGameId() == null ? other.getGameId() == null : this.getGameId().equals(other.getGameId()))
             && (this.getGameName() == null ? other.getGameName() == null : this.getGameName().equals(other.getGameName()))
@@ -179,7 +47,9 @@ public class Card {
             && (this.getClosed() == null ? other.getClosed() == null : this.getClosed().equals(other.getClosed()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCloseTime() == null ? other.getCloseTime() == null : this.getCloseTime().equals(other.getCloseTime()))
-            && (this.getOpenTime() == null ? other.getOpenTime() == null : this.getOpenTime().equals(other.getOpenTime()));
+            && (this.getOpenTime() == null ? other.getOpenTime() == null : this.getOpenTime().equals(other.getOpenTime()))
+            && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
+            && (this.getFlow() == null ? other.getFlow() == null : this.getFlow().equals(other.getFlow()));
     }
 
     @Override
@@ -201,6 +71,8 @@ public class Card {
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCloseTime() == null) ? 0 : getCloseTime().hashCode());
         result = prime * result + ((getOpenTime() == null) ? 0 : getOpenTime().hashCode());
+        result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        result = prime * result + ((getFlow() == null) ? 0 : getFlow().hashCode());
         return result;
     }
 
@@ -210,21 +82,8 @@ public class Card {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", gameId=").append(gameId);
-        sb.append(", gameName=").append(gameName);
-        sb.append(", name=").append(name);
-        sb.append(", icon=").append(icon);
-        sb.append(", total=").append(total);
-        sb.append(", assignTotal=").append(assignTotal);
-        sb.append(", type=").append(type);
-        sb.append(", expire=").append(expire);
-        sb.append(", score=").append(score);
-        sb.append(", recommend=").append(recommend);
-        sb.append(", closed=").append(closed);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", closeTime=").append(closeTime);
-        sb.append(", openTime=").append(openTime);
+        sb.append(", description=").append(description);
+        sb.append(", flow=").append(flow);
         sb.append("]");
         return sb.toString();
     }

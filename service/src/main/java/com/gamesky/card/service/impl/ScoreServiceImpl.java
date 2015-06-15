@@ -5,9 +5,11 @@ import com.gamesky.card.core.FlowType;
 import com.gamesky.card.core.MethodType;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.model.Flow;
+import com.gamesky.card.core.model.Setting;
 import com.gamesky.card.core.model.User;
 import com.gamesky.card.service.FlowService;
 import com.gamesky.card.service.ScoreService;
+import com.gamesky.card.service.SettingService;
 import com.gamesky.card.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +30,8 @@ public class ScoreServiceImpl implements ScoreService {
     private UserService userService;
     @Autowired
     private FlowService flowService;
-
+    @Autowired
+    private SettingService settingService;
     /**
      * 用户赚取积分
      *
@@ -100,8 +103,15 @@ public class ScoreServiceImpl implements ScoreService {
      */
     public int dailySign(String phone) {
         List<Flow> flows = flowService.findByPhone(phone, new Page());
+        int score = Constants.DAILY_SCORE;
+        Setting setting;
         if (flows == null || flows.size() == 0) {
-            return this.gain(phone, Constants.DAILY_SCORE, MethodType.DAILY_GAIN);
+            setting = settingService.find("1_0");
+            if (setting != null) {
+                score = setting.getDaily();
+            }
+
+            return this.gain(phone, score, MethodType.DAILY_GAIN);
         }
 
         for (Flow flow : flows) {
@@ -114,7 +124,12 @@ public class ScoreServiceImpl implements ScoreService {
             }
         }
 
-        return this.gain(phone, Constants.DAILY_SCORE, MethodType.DAILY_GAIN);
+        setting = settingService.find("1_0");
+        if (setting != null) {
+            score = setting.getDaily();
+        }
+
+        return this.gain(phone, score, MethodType.DAILY_GAIN);
     }
 
     /**
@@ -124,8 +139,14 @@ public class ScoreServiceImpl implements ScoreService {
      */
     public int weixinShare(String phone) {
         List<Flow> flows = flowService.findByPhone(phone, new Page());
+        int score = Constants.SHARE_WEIXIN;
+        Setting setting;
         if (flows == null || flows.size() == 0) {
-            return this.gain(phone, Constants.SHARE_WEIXIN, MethodType.WEIXIN_GAIN);
+            setting = settingService.find("1_0");
+            if (setting != null) {
+                score = setting.getDaily();
+            }
+            return this.gain(phone, score, MethodType.WEIXIN_GAIN);
         }
 
         for (Flow flow : flows) {
@@ -137,8 +158,11 @@ public class ScoreServiceImpl implements ScoreService {
                 return 0;
             }
         }
-
-        return this.gain(phone, Constants.SHARE_WEIXIN, MethodType.WEIXIN_GAIN);
+        setting = settingService.find("1_0");
+        if (setting != null) {
+            score = setting.getDaily();
+        }
+        return this.gain(phone, score, MethodType.WEIXIN_GAIN);
     }
 
     /**
@@ -148,8 +172,14 @@ public class ScoreServiceImpl implements ScoreService {
      */
     public int qqShare(String phone) {
         List<Flow> flows = flowService.findByPhone(phone, new Page());
+        int score = Constants.SHARE_QQ;
+        Setting setting;
         if (flows == null || flows.size() == 0) {
-            return this.gain(phone, Constants.SHARE_QQ, MethodType.QQ_GAIN);
+            setting = settingService.find("1_0");
+            if (setting != null) {
+                score = setting.getDaily();
+            }
+            return this.gain(phone, score, MethodType.QQ_GAIN);
         }
 
         for (Flow flow : flows) {
@@ -162,7 +192,11 @@ public class ScoreServiceImpl implements ScoreService {
             }
         }
 
-        return this.gain(phone, Constants.SHARE_QQ, MethodType.QQ_GAIN);
+        setting = settingService.find("1_0");
+        if (setting != null) {
+            score = setting.getDaily();
+        }
+        return this.gain(phone, score, MethodType.QQ_GAIN);
     }
 
     private boolean sameDay(Date one, Date two) {

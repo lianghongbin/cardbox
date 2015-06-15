@@ -1,12 +1,17 @@
 package com.gamesky.card.service.impl;
 
-import com.gamesky.card.core.*;
+import com.gamesky.card.core.Constants;
+import com.gamesky.card.core.Keyable;
+import com.gamesky.card.core.Marshaller;
+import com.gamesky.card.core.Page;
 import com.gamesky.card.core.exceptions.CheckCodeInvalidException;
 import com.gamesky.card.core.exceptions.CheckCodeWrongException;
 import com.gamesky.card.core.exceptions.MarshalException;
+import com.gamesky.card.core.model.Setting;
 import com.gamesky.card.core.model.User;
 import com.gamesky.card.core.model.UserExample;
 import com.gamesky.card.dao.mapper.UserMapper;
+import com.gamesky.card.service.SettingService;
 import com.gamesky.card.service.UserService;
 import com.gamesky.card.service.key.CheckCodeKey;
 import com.gamesky.card.service.key.LoginKey;
@@ -32,6 +37,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
+    private SettingService settingService;
+    @Autowired
     private Marshaller<Keyable, String> marshaller;
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -43,6 +50,16 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public int save(User user) {
+        user.setUsername(user.getPhone());
+        if (user.getScore() == 0) {
+            Setting setting = settingService.find("1_0");
+            if (setting != null) {
+                user.setScore(setting.getRegistry());
+            } else {
+                user.setScore(Constants.DAILY_SCORE);
+            }
+        }
+
         return userMapper.insert(user);
     }
 
@@ -108,7 +125,7 @@ public class UserServiceImpl implements UserService {
     public List<User> findAll(Page page, String orderByClause) {
         UserExample userExample = new UserExample();
         userExample.setLimitOffset(page.getOffset());
-        userExample.setLimit(page.getSize());
+        userExample.setLimit(page.getPagesize());
         if (orderByClause != null) {
             userExample.setOrderByClause(orderByClause);
         }
@@ -174,10 +191,10 @@ public class UserServiceImpl implements UserService {
      *
      * @param phone     手机号
      * @param checkCode 验证码
-     * @return true/false
+     * @return 登录用户
      */
     @Override
-    public boolean login(final String phone, String device, String checkCode) throws CheckCodeInvalidException, CheckCodeWrongException {
+    public User login(final String phone, String device, String checkCode) throws CheckCodeInvalidException, CheckCodeWrongException {
 
         String code;
         try {
@@ -192,7 +209,7 @@ public class UserServiceImpl implements UserService {
             }
         } catch (MarshalException e) {
             logger.error("校验验证码失败");
-            return false;
+            return null;
         }
 
         User user = this.findByPhone(phone);
@@ -205,10 +222,9 @@ public class UserServiceImpl implements UserService {
             user.setLastTime(new Date());
             user.setDevice(device);
             if (this.save(user) < 1) {
-                return false;
+                return null;
             }
-        }
-        else {  //已经注册过的用户，更新设备及最后一次登录时间
+        } else {  //已经注册过的用户，更新设备及最后一次登录时间
             user.setLastTime(new Date());
             user.setDevice(device);
             this.update(user);
@@ -218,10 +234,10 @@ public class UserServiceImpl implements UserService {
             marshaller.marshal(new LoginKey(phone, 24 * 60 * 60), checkCode);
         } catch (MarshalException e) {
             logger.error("用户登录出错：{}", e);
-            return false;
+            return null;
         }
 
-        return true;
+        return user;
     }
 
     /**

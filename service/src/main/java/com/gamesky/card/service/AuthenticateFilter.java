@@ -25,12 +25,12 @@ public class AuthenticateFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        Enumeration<String> enumeration = request.getAttributeNames();
+        Enumeration enumeration = request.getAttributeNames();
         SortedSet<String> attributes = new TreeSet<String>();
 
         while (enumeration.hasMoreElements()) {
-            String attribute = enumeration.nextElement();
-            if (attribute.equals("_token")) {
+            String attribute = (String) enumeration.nextElement();
+            if (attribute.equals(Constants.TOKEN_KEY)) {
                 continue;
             }
 

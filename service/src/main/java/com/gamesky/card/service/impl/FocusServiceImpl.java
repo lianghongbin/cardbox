@@ -66,7 +66,7 @@ public class FocusServiceImpl implements FocusService {
         FocusExample focusExample = new FocusExample();
         focusExample.createCriteria().andIdGreaterThan(0);
         focusExample.setLimitOffset(page.getOffset());
-        focusExample.setLimit(page.getSize());
+        focusExample.setLimit(page.getPagesize());
         focusExample.setOrderByClause("sort asc");
         return focusMapper.selectByExample(focusExample);
     }
@@ -108,7 +108,7 @@ public class FocusServiceImpl implements FocusService {
         FocusExample focusExample = new FocusExample();
         focusExample.createCriteria().andEnabledEqualTo(enable);
         focusExample.setLimitOffset(page.getOffset());
-        focusExample.setLimit(page.getSize());
+        focusExample.setLimit(page.getPagesize());
         focusExample.setOrderByClause("sort asc");
         return focusMapper.selectByExample(focusExample);
     }

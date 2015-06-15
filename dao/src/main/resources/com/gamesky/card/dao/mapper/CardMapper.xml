@@ -7,8 +7,6 @@
     <result column="game_name" property="gameName" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="icon" property="icon" jdbcType="VARCHAR" />
-    <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="flow" property="flow" jdbcType="VARCHAR" />
     <result column="total" property="total" jdbcType="INTEGER" />
     <result column="assign_total" property="assignTotal" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="VARCHAR" />
@@ -19,6 +17,10 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="close_time" property="closeTime" jdbcType="TIMESTAMP" />
     <result column="open_time" property="openTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gamesky.card.core.model.CardWithBLOBs" extends="BaseResultMap" >
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+    <result column="flow" property="flow" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -79,9 +81,28 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, game_id, game_name, name, icon, description, flow, total, assign_total, type, 
-    expire, score, recommend, closed, create_time, close_time, open_time
+    id, game_id, game_name, name, icon, total, assign_total, type, expire, score, recommend, 
+    closed, create_time, close_time, open_time
   </sql>
+  <sql id="Blob_Column_List" >
+    description, flow
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.gamesky.card.core.model.CardExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from card
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.CardExample" >
     select
     <if test="distinct" >
@@ -99,9 +120,11 @@
       limit #{limitOffset}, #{limit}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from card
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -115,21 +138,21 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.gamesky.card.core.model.Card" >
+  <insert id="insert" parameterType="com.gamesky.card.core.model.CardWithBLOBs" >
     insert into card (id, game_id, game_name, 
-      name, icon, description, 
-      flow, total, assign_total, 
-      type, expire, score, 
-      recommend, closed, create_time, 
-      close_time, open_time)
+      name, icon, total, 
+      assign_total, type, expire, 
+      score, recommend, closed, create_time, 
+      close_time, open_time, description, 
+      flow)
     values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=INTEGER}, #{gameName,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{flow,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, #{assignTotal,jdbcType=INTEGER}, 
-      #{type,jdbcType=VARCHAR}, #{expire,jdbcType=TIMESTAMP}, #{score,jdbcType=INTEGER}, 
-      #{recommend,jdbcType=BIT}, #{closed,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{closeTime,jdbcType=TIMESTAMP}, #{openTime,jdbcType=TIMESTAMP})
+      #{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, 
+      #{assignTotal,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{expire,jdbcType=TIMESTAMP}, 
+      #{score,jdbcType=INTEGER}, #{recommend,jdbcType=BIT}, #{closed,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{closeTime,jdbcType=TIMESTAMP}, #{openTime,jdbcType=TIMESTAMP}, #{description,jdbcType=LONGVARCHAR}, 
+      #{flow,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Card" >
+  <insert id="insertSelective" parameterType="com.gamesky.card.core.model.CardWithBLOBs" >
     insert into card
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -146,12 +169,6 @@
       </if>
       <if test="icon != null" >
         icon,
-      </if>
-      <if test="description != null" >
-        description,
-      </if>
-      <if test="flow != null" >
-        flow,
       </if>
       <if test="total != null" >
         total,
@@ -183,6 +200,12 @@
       <if test="openTime != null" >
         open_time,
       </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="flow != null" >
+        flow,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -199,12 +222,6 @@
       </if>
       <if test="icon != null" >
         #{icon,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
-        #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="flow != null" >
-        #{flow,jdbcType=VARCHAR},
       </if>
       <if test="total != null" >
         #{total,jdbcType=INTEGER},
@@ -236,6 +253,12 @@
       <if test="openTime != null" >
         #{openTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="flow != null" >
+        #{flow,jdbcType=LONGVARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.gamesky.card.core.model.CardExample" resultType="java.lang.Integer" >
@@ -261,12 +284,6 @@
       </if>
       <if test="record.icon != null" >
         icon = #{record.icon,jdbcType=VARCHAR},
-      </if>
-      <if test="record.description != null" >
-        description = #{record.description,jdbcType=VARCHAR},
-      </if>
-      <if test="record.flow != null" >
-        flow = #{record.flow,jdbcType=VARCHAR},
       </if>
       <if test="record.total != null" >
         total = #{record.total,jdbcType=INTEGER},
@@ -298,7 +315,36 @@
       <if test="record.openTime != null" >
         open_time = #{record.openTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.flow != null" >
+        flow = #{record.flow,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update card
+    set id = #{record.id,jdbcType=INTEGER},
+      game_id = #{record.gameId,jdbcType=INTEGER},
+      game_name = #{record.gameName,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      total = #{record.total,jdbcType=INTEGER},
+      assign_total = #{record.assignTotal,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=VARCHAR},
+      expire = #{record.expire,jdbcType=TIMESTAMP},
+      score = #{record.score,jdbcType=INTEGER},
+      recommend = #{record.recommend,jdbcType=BIT},
+      closed = #{record.closed,jdbcType=BIT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      close_time = #{record.closeTime,jdbcType=TIMESTAMP},
+      open_time = #{record.openTime,jdbcType=TIMESTAMP},
+      description = #{record.description,jdbcType=LONGVARCHAR},
+      flow = #{record.flow,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -310,8 +356,6 @@
       game_name = #{record.gameName,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       icon = #{record.icon,jdbcType=VARCHAR},
-      description = #{record.description,jdbcType=VARCHAR},
-      flow = #{record.flow,jdbcType=VARCHAR},
       total = #{record.total,jdbcType=INTEGER},
       assign_total = #{record.assignTotal,jdbcType=INTEGER},
       type = #{record.type,jdbcType=VARCHAR},
@@ -326,7 +370,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gamesky.card.core.model.Card" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.gamesky.card.core.model.CardWithBLOBs" >
     update card
     <set >
       <if test="gameId != null" >
@@ -340,12 +384,6 @@
       </if>
       <if test="icon != null" >
         icon = #{icon,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
-        description = #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="flow != null" >
-        flow = #{flow,jdbcType=VARCHAR},
       </if>
       <if test="total != null" >
         total = #{total,jdbcType=INTEGER},
@@ -377,7 +415,33 @@
       <if test="openTime != null" >
         open_time = #{openTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="flow != null" >
+        flow = #{flow,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gamesky.card.core.model.CardWithBLOBs" >
+    update card
+    set game_id = #{gameId,jdbcType=INTEGER},
+      game_name = #{gameName,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      total = #{total,jdbcType=INTEGER},
+      assign_total = #{assignTotal,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      expire = #{expire,jdbcType=TIMESTAMP},
+      score = #{score,jdbcType=INTEGER},
+      recommend = #{recommend,jdbcType=BIT},
+      closed = #{closed,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      close_time = #{closeTime,jdbcType=TIMESTAMP},
+      open_time = #{openTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=LONGVARCHAR},
+      flow = #{flow,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Card" >
@@ -386,8 +450,6 @@
       game_name = #{gameName,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
-      flow = #{flow,jdbcType=VARCHAR},
       total = #{total,jdbcType=INTEGER},
       assign_total = #{assignTotal,jdbcType=INTEGER},
       type = #{type,jdbcType=VARCHAR},

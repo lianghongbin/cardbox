@@ -117,7 +117,7 @@ public class CodeServiceImpl implements CodeService {
         CodeExample codeExample = new CodeExample();
         codeExample.createCriteria().andCardIdEqualTo(cardId);
         codeExample.setLimitOffset(page.getOffset());
-        codeExample.setLimit(page.getSize());
+        codeExample.setLimit(page.getPagesize());
         codeExample.setOrderByClause("use_time desc, assign_time desc");
         return codeMapper.selectByExample(codeExample);
     }
@@ -147,7 +147,7 @@ public class CodeServiceImpl implements CodeService {
         CodeExample codeExample = new CodeExample();
         codeExample.createCriteria().andPhoneEqualTo(phone);
         codeExample.setLimitOffset(page.getOffset());
-        codeExample.setLimit(page.getSize());
+        codeExample.setLimit(page.getPagesize());
         codeExample.setOrderByClause("use_time desc, assign_time desc");
         return codeMapper.selectByExample(codeExample);
     }
@@ -178,7 +178,7 @@ public class CodeServiceImpl implements CodeService {
         CodeExample codeExample = new CodeExample();
         codeExample.createCriteria().andCardIdEqualTo(cardId).andPhoneEqualTo(phone);
         codeExample.setLimitOffset(page.getOffset());
-        codeExample.setLimit(page.getSize());
+        codeExample.setLimit(page.getPagesize());
         codeExample.setOrderByClause("use_time desc, assign_time desc");
         return codeMapper.selectByExample(codeExample);
     }
@@ -207,7 +207,7 @@ public class CodeServiceImpl implements CodeService {
     public List<Code> findAll(Page page) {
         CodeExample codeExample = new CodeExample();
         codeExample.setLimitOffset(page.getOffset());
-        codeExample.setLimit(page.getSize());
+        codeExample.setLimit(page.getPagesize());
         codeExample.setOrderByClause("use_time desc, assign_time desc");
         return codeMapper.selectByExample(codeExample);
     }

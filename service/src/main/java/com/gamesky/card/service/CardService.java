@@ -3,6 +3,7 @@ package com.gamesky.card.service;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.model.Card;
 import com.gamesky.card.core.model.CardExample;
+import com.gamesky.card.core.model.CardWithBLOBs;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface CardService {
      * @param card 卡包类
      * @return 影响条数
      */
-    public int save(Card card);
+    public int save(CardWithBLOBs card);
 
     /**
      * 锁死卡包
@@ -103,4 +104,19 @@ public interface CardService {
      * @return 卡包类别数量
      */
     public int findCountByGame(int gameId);
+
+    /**
+     * 指查找礼包
+     * @param ids 礼包ID集合
+     * @return 礼包集合
+     */
+    public List<Card> findByIds(List<Integer> ids);
+
+    /**
+     * 查询手机用户是否已经申领过该礼品包
+     * @param cardId 礼包ID
+     * @param phone 用户手机
+     * @return true/false
+     */
+    public boolean hasAssign(int cardId, String phone);
 }

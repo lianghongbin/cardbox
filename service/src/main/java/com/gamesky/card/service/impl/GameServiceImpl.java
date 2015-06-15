@@ -8,6 +8,7 @@ import com.gamesky.card.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,7 +52,7 @@ public class GameServiceImpl implements GameService {
      */
     @Override
     public int update(Game game) {
-        return gameMapper.updateByPrimaryKey(game);
+        return gameMapper.updateByPrimaryKeySelective(game);
     }
 
     /**
@@ -89,7 +90,7 @@ public class GameServiceImpl implements GameService {
     @Override
     public List<Game> findAll(Page page) {
         GameExample gameExample = new GameExample();
-        gameExample.setLimit(page.getSize());
+        gameExample.setLimit(page.getPagesize());
         gameExample.setLimitOffset(page.getOffset());
         gameExample.setOrderByClause("id desc");
         return gameMapper.selectByExample(gameExample);
@@ -108,6 +109,29 @@ public class GameServiceImpl implements GameService {
     }
 
     /**
+     * 获取所有的游戏包名
+     *
+     * @return 游戏包名列表
+     */
+    @Override
+    public List<String> findPackages() {
+        GameExample gameExample = new GameExample();
+        gameExample.createCriteria().andIdGreaterThan(0);
+        gameExample.setOrderByClause("id desc");
+        List<Game> games = gameMapper.selectByExample(gameExample);
+        if (games == null || games.size() == 0) {
+            return null;
+        }
+
+        List<String> packages = new ArrayList<>();
+        for (Game game : games) {
+            packages.add(game.getIdentifier());
+        }
+
+        return packages;
+    }
+
+    /**
      * 取出推荐列表
      *
      * @param page 分页参数
@@ -117,7 +141,7 @@ public class GameServiceImpl implements GameService {
     public List<Game> findRecommend(Page page) {
         GameExample gameExample = new GameExample();
         gameExample.createCriteria().andRecommendEqualTo(true);
-        gameExample.setLimit(page.getSize());
+        gameExample.setLimit(page.getPagesize());
         gameExample.setLimitOffset(page.getOffset());
         gameExample.setOrderByClause("recommend desc, sort asc");
         return gameMapper.selectByExample(gameExample);

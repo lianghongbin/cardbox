@@ -1,5 +1,7 @@
 package com.gamesky.card.core;
 
+import java.beans.Transient;
+
 /**
  * Created on 6/4/15.
  *
@@ -7,51 +9,61 @@ package com.gamesky.card.core;
  */
 public class Page {
 
-    private int total;
-    private int size;
-    private int num = 1;
+    private int count;
+    private int pagesize;
+    private int pagenum = 1;
+    private int total = 1;
 
     public Page() {
-        this.total = 0;
-        this.size = Integer.MAX_VALUE;
-        this.num = 1;
+        this.count = 0;
+        this.pagesize = Integer.MAX_VALUE;
+        this.pagenum = 1;
+        this.total = 1;
     }
 
-    public Page(int total, int size, int num) {
-        this.total = total;
-        this.size = size;
-        if (num < 1) {
-            this.num = 1;
+    public Page(int count, int pagesize, int pagenum) {
+        this.count = count;
+        this.pagesize = pagesize;
+        if (pagenum < 1) {
+            this.pagenum = 1;
         } else {
-            this.num = num;
+            this.pagenum = pagenum;
         }
+
+        this.total = (int) Math.ceil(count/(float)pagesize);
+    }
+
+    @Transient
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+        this.total = (int) Math.ceil(count/(float)pagesize);
+    }
+
+    public int getPagesize() {
+        return pagesize;
+    }
+
+    public void setPagesize(int pagesize) {
+        this.pagesize = pagesize;
+    }
+
+    public int getPagenum() {
+        return pagenum;
+    }
+
+    public void setPagenum(int pagenum) {
+        this.pagenum = pagenum;
+    }
+
+    public int getOffset() {
+        return (pagenum -1) * pagesize;
     }
 
     public int getTotal() {
         return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public int getNum() {
-        return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
-    }
-
-    public int getOffset() {
-        return (num -1) * size;
     }
 }

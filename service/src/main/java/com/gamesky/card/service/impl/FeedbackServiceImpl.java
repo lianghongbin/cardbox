@@ -77,7 +77,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     public List<Feedback> findAll(Page page) {
         FeedbackExample feedbackExample = new FeedbackExample();
         feedbackExample.setLimitOffset(page.getOffset());
-        feedbackExample.setLimit(page.getSize());
+        feedbackExample.setLimit(page.getPagesize());
         feedbackExample.setOrderByClause("id desc");
         return feedbackMapper.selectByExample(feedbackExample);
     }
@@ -104,7 +104,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     public List<Feedback> findByUser(String phone, Page page) {
         FeedbackExample feedbackExample = new FeedbackExample();
         feedbackExample.setLimitOffset(page.getOffset());
-        feedbackExample.setLimit(page.getSize());
+        feedbackExample.setLimit(page.getPagesize());
         feedbackExample.setOrderByClause("id desc");
         feedbackExample.createCriteria().andPhoneEqualTo(phone);
         return feedbackMapper.selectByExample(feedbackExample);

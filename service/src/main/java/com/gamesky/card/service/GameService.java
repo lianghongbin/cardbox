@@ -71,6 +71,12 @@ public interface GameService {
     int findCount();
 
     /**
+     * 获取所有的游戏包名
+     * @return 游戏包名列表
+     */
+    List<String> findPackages();
+
+    /**
      * 取出推荐列表
      *
      * @param page 分页参数

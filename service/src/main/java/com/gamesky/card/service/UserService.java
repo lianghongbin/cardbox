@@ -101,9 +101,9 @@ public interface UserService {
      *
      * @param phone     手机号
      * @param checkCode 验证码
-     * @return true/false
+     * @return 登录用户
      */
-    boolean login(final String phone, String device, String checkCode) throws CheckCodeInvalidException, CheckCodeWrongException;
+    User login(final String phone, String device, String checkCode) throws CheckCodeInvalidException, CheckCodeWrongException;
 
     /**
      * 手机号注销登录

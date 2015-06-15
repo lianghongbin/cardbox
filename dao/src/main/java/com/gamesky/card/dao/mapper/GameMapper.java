@@ -2,8 +2,9 @@ package com.gamesky.card.dao.mapper;
 
 import com.gamesky.card.core.model.Game;
 import com.gamesky.card.core.model.GameExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface GameMapper {
     int countByExample(GameExample example);
@@ -16,15 +17,21 @@ public interface GameMapper {
 
     int insertSelective(Game record);
 
+    List<Game> selectByExampleWithBLOBs(GameExample example);
+
     List<Game> selectByExample(GameExample example);
 
     Game selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Game record, @Param("example") GameExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") Game record, @Param("example") GameExample example);
+
     int updateByExample(@Param("record") Game record, @Param("example") GameExample example);
 
     int updateByPrimaryKeySelective(Game record);
+
+    int updateByPrimaryKeyWithBLOBs(Game record);
 
     int updateByPrimaryKey(Game record);
 }

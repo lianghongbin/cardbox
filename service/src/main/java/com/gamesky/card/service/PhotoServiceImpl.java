@@ -64,7 +64,7 @@ public class PhotoServiceImpl implements PhotoService {
         PhotoExample photoExample = new PhotoExample();
         photoExample.createCriteria().andIdGreaterThan(0);
         photoExample.setLimitOffset(page.getOffset());
-        photoExample.setLimit(page.getSize());
+        photoExample.setLimit(page.getPagesize());
         photoExample.setOrderByClause("id desc");
         return photoMapper.selectByExample(photoExample);
     }

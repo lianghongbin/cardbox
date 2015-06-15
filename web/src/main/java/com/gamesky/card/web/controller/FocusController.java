@@ -1,7 +1,6 @@
 package com.gamesky.card.web.controller;
 
 import com.gamesky.card.core.Page;
-import com.gamesky.card.core.Result;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.model.Focus;
 import com.gamesky.card.service.FocusService;
@@ -61,7 +60,7 @@ public class FocusController {
     @ResponseBody
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String findAll() {
-        List<Focus> focusList = focusService.findAll();
+        List<Focus> focusList = focusService.findByEnable(true, new Page());
         return ResultGenerator.generate(focusList);
     }
 }

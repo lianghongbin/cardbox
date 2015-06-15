@@ -6,15 +6,9 @@ import com.gamesky.card.core.Page;
 import com.gamesky.card.core.exceptions.LockException;
 import com.gamesky.card.core.lock.GlobalLock;
 import com.gamesky.card.core.lock.Lockable;
-import com.gamesky.card.core.model.Card;
-import com.gamesky.card.core.model.CardExample;
-import com.gamesky.card.core.model.Code;
-import com.gamesky.card.core.model.User;
+import com.gamesky.card.core.model.*;
 import com.gamesky.card.dao.mapper.CardMapper;
-import com.gamesky.card.service.CardLock;
-import com.gamesky.card.service.CardService;
-import com.gamesky.card.service.CodeService;
-import com.gamesky.card.service.UserService;
+import com.gamesky.card.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +35,17 @@ public class CardServiceImpl implements CardService {
     @Autowired
     private UserService userService;
     @Autowired
+    private GameService gameService;
+    @Autowired
     private GlobalLock<Lockable> globalLock;
     private final static Logger logger = LoggerFactory.getLogger(CardServiceImpl.class);
 
-    public int save(Card card) {
+    public int save(CardWithBLOBs card) {
         card.setCreateTime(new Date());
+        Game game = new Game();
+        game.setId(card.getGameId());
+        game.setTotal(findCountByGame(card.getGameId()));
+        gameService.update(game);
         return cardMapper.insert(card);
     }
 
@@ -59,6 +59,12 @@ public class CardServiceImpl implements CardService {
     public int close(int id) {
         Card card = cardMapper.selectByPrimaryKey(id);
         card.setClosed(true);
+
+        Game game = new Game();
+        game.setId(card.getGameId());
+        game.setTotal(findCountByGame(card.getGameId()));
+        gameService.update(game);
+
         return cardMapper.updateByPrimaryKey(card);
     }
 
@@ -72,6 +78,11 @@ public class CardServiceImpl implements CardService {
     public int open(int id) {
         Card card = cardMapper.selectByPrimaryKey(id);
         card.setClosed(false);
+
+        Game game = new Game();
+        game.setId(card.getGameId());
+        game.setTotal(findCountByGame(card.getGameId()));
+        gameService.update(game);
         return cardMapper.updateByPrimaryKey(card);
     }
 
@@ -83,6 +94,10 @@ public class CardServiceImpl implements CardService {
      */
     @Override
     public int update(Card card) {
+        Game game = new Game();
+        game.setId(card.getGameId());
+        game.setTotal(findCountByGame(card.getGameId()));
+        gameService.update(game);
         return cardMapper.updateByPrimaryKey(card);
     }
 
@@ -105,6 +120,12 @@ public class CardServiceImpl implements CardService {
             Card card = cardMapper.selectByPrimaryKey(id);
             if (card == null || card.getClosed()) {
                 return ErrorCode.DATA_EMPTY.getCode();
+            }
+
+            List<Code> codes = codeService.findByCardAndPhone(id, phone,new Page());
+
+            if (codes != null && codes.size() > 0) {
+                return ErrorCode.ILLEGAL_OPERATE.getCode();
             }
 
             if (card.getTotal()<=card.getAssignTotal()) {
@@ -172,7 +193,7 @@ public class CardServiceImpl implements CardService {
     public List<Card> findAll(Page page) {
         CardExample cardExample = new CardExample();
         cardExample.setLimitOffset(page.getOffset());
-        cardExample.setLimit(page.getSize());
+        cardExample.setLimit(page.getPagesize());
         cardExample.setOrderByClause("id desc");
         return cardMapper.selectByExample(cardExample);
     }
@@ -211,7 +232,7 @@ public class CardServiceImpl implements CardService {
         CardExample cardExample = new CardExample();
         cardExample.createCriteria().andGameIdEqualTo(gameId).andClosedEqualTo(false);
         cardExample.setLimitOffset(page.getOffset());
-        cardExample.setLimit(page.getSize());
+        cardExample.setLimit(page.getPagesize());
         cardExample.setOrderByClause("id desc");
         return cardMapper.selectByExample(cardExample);
     }
@@ -227,5 +248,28 @@ public class CardServiceImpl implements CardService {
         CardExample cardExample = new CardExample();
         cardExample.createCriteria().andGameIdEqualTo(gameId).andClosedEqualTo(false);
         return cardMapper.countByExample(cardExample);
+    }
+
+    /**
+     * 指查找礼包
+     * @param ids 礼包ID集合
+     * @return 礼包集合
+     */
+    @Override
+    public List<Card> findByIds(List<Integer> ids) {
+        CardExample cardExample = new CardExample();
+        cardExample.createCriteria().andIdIn(ids);
+        return cardMapper.selectByExample(cardExample);
+    }
+
+    /**
+     * 查询手机用户是否已经申领过该礼品包
+     * @param cardId 礼包ID
+     * @param phone 用户手机
+     * @return true/false
+     */
+    public boolean hasAssign(int cardId, String phone) {
+        List<Code> codes = codeService.findByCardAndPhone(cardId, phone, new Page());
+        return codes != null && codes.size() > 0;
     }
 }

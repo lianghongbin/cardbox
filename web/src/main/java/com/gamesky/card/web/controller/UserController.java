@@ -1,9 +1,9 @@
 package com.gamesky.card.web.controller;
 
-import com.gamesky.card.core.Result;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.exceptions.CheckCodeInvalidException;
 import com.gamesky.card.core.exceptions.CheckCodeWrongException;
+import com.gamesky.card.core.model.User;
 import com.gamesky.card.service.CheckCodeService;
 import com.gamesky.card.service.CodeGenerator;
 import com.gamesky.card.service.UserService;
@@ -42,20 +42,20 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(String phone, String device, String checkCode) {
-        boolean result;
+        User user;
         try {
-            result = userService.login(phone, device, checkCode);
+            user = userService.login(phone, device, checkCode);
         } catch (CheckCodeInvalidException e) {
             return ResultGenerator.generateError("验证码已过期");
         } catch (CheckCodeWrongException e) {
             return ResultGenerator.generateError("验证码错误");
         }
 
-        if (!result) {
+        if (user == null) {
             return ResultGenerator.generateError("登录发生错误");
         }
 
-        return ResultGenerator.generate();
+        return ResultGenerator.generate(user);
     }
 
     @ResponseBody

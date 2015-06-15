@@ -4,7 +4,6 @@ import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.model.Game;
 import com.gamesky.card.service.GameService;
-import com.gamesky.card.service.CodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,7 +69,7 @@ public class GameController {
     public String findAll(Page page) {
         List<Game> games = gameService.findAll(page);
         int count = gameService.findCount();
-        page.setTotal(count);
+        page.setCount(count);
         return ResultGenerator.generate(page, games);
     }
 
@@ -79,7 +78,18 @@ public class GameController {
     public String recommend(Page page) {
         List<Game> games = gameService.findRecommend(page);
         int count = gameService.findCountRecommend();
-        page.setTotal(count);
+        page.setCount(count);
+        return ResultGenerator.generate(page, games);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/gamepackages", method = RequestMethod.GET)
+    public String findAll() {
+        List<String> games = gameService.findPackages();
+        Page page = new Page();
+        int count = gameService.findCount();
+        page.setCount(count);
+
         return ResultGenerator.generate(page, games);
     }
 }
