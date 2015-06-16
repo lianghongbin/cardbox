@@ -1,7 +1,6 @@
 package com.gamesky.card.core.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class FeedbackExample {
@@ -385,52 +384,52 @@ public class FeedbackExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeEqualTo(Date value) {
+        public Criteria andCreateTimeEqualTo(Long value) {
             addCriterion("create_time =", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeNotEqualTo(Date value) {
+        public Criteria andCreateTimeNotEqualTo(Long value) {
             addCriterion("create_time <>", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeGreaterThan(Date value) {
+        public Criteria andCreateTimeGreaterThan(Long value) {
             addCriterion("create_time >", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Long value) {
             addCriterion("create_time >=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeLessThan(Date value) {
+        public Criteria andCreateTimeLessThan(Long value) {
             addCriterion("create_time <", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
+        public Criteria andCreateTimeLessThanOrEqualTo(Long value) {
             addCriterion("create_time <=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeIn(List<Date> values) {
+        public Criteria andCreateTimeIn(List<Long> values) {
             addCriterion("create_time in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeNotIn(List<Date> values) {
+        public Criteria andCreateTimeNotIn(List<Long> values) {
             addCriterion("create_time not in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeBetween(Date value1, Date value2) {
+        public Criteria andCreateTimeBetween(Long value1, Long value2) {
             addCriterion("create_time between", value1, value2, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
+        public Criteria andCreateTimeNotBetween(Long value1, Long value2) {
             addCriterion("create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
@@ -445,52 +444,52 @@ public class FeedbackExample {
             return (Criteria) this;
         }
 
-        public Criteria andProcessTimeEqualTo(Date value) {
+        public Criteria andProcessTimeEqualTo(Long value) {
             addCriterion("process_time =", value, "processTime");
             return (Criteria) this;
         }
 
-        public Criteria andProcessTimeNotEqualTo(Date value) {
+        public Criteria andProcessTimeNotEqualTo(Long value) {
             addCriterion("process_time <>", value, "processTime");
             return (Criteria) this;
         }
 
-        public Criteria andProcessTimeGreaterThan(Date value) {
+        public Criteria andProcessTimeGreaterThan(Long value) {
             addCriterion("process_time >", value, "processTime");
             return (Criteria) this;
         }
 
-        public Criteria andProcessTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andProcessTimeGreaterThanOrEqualTo(Long value) {
             addCriterion("process_time >=", value, "processTime");
             return (Criteria) this;
         }
 
-        public Criteria andProcessTimeLessThan(Date value) {
+        public Criteria andProcessTimeLessThan(Long value) {
             addCriterion("process_time <", value, "processTime");
             return (Criteria) this;
         }
 
-        public Criteria andProcessTimeLessThanOrEqualTo(Date value) {
+        public Criteria andProcessTimeLessThanOrEqualTo(Long value) {
             addCriterion("process_time <=", value, "processTime");
             return (Criteria) this;
         }
 
-        public Criteria andProcessTimeIn(List<Date> values) {
+        public Criteria andProcessTimeIn(List<Long> values) {
             addCriterion("process_time in", values, "processTime");
             return (Criteria) this;
         }
 
-        public Criteria andProcessTimeNotIn(List<Date> values) {
+        public Criteria andProcessTimeNotIn(List<Long> values) {
             addCriterion("process_time not in", values, "processTime");
             return (Criteria) this;
         }
 
-        public Criteria andProcessTimeBetween(Date value1, Date value2) {
+        public Criteria andProcessTimeBetween(Long value1, Long value2) {
             addCriterion("process_time between", value1, value2, "processTime");
             return (Criteria) this;
         }
 
-        public Criteria andProcessTimeNotBetween(Date value1, Date value2) {
+        public Criteria andProcessTimeNotBetween(Long value1, Long value2) {
             addCriterion("process_time not between", value1, value2, "processTime");
             return (Criteria) this;
         }

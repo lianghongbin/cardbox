@@ -1,7 +1,5 @@
 package com.gamesky.card.core.model;
 
-import java.util.Date;
-
 public class Code {
     private Integer id;
 
@@ -17,11 +15,11 @@ public class Code {
 
     private Integer gameId;
 
-    private Date createTime;
+    private Long createTime;
 
-    private Date assignTime;
+    private Long assignTime;
 
-    private Date useTime;
+    private Long useTime;
 
     public Integer getId() {
         return id;
@@ -79,27 +77,27 @@ public class Code {
         this.gameId = gameId;
     }
 
-    public Date getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 
-    public Date getAssignTime() {
+    public Long getAssignTime() {
         return assignTime;
     }
 
-    public void setAssignTime(Date assignTime) {
+    public void setAssignTime(Long assignTime) {
         this.assignTime = assignTime;
     }
 
-    public Date getUseTime() {
+    public Long getUseTime() {
         return useTime;
     }
 
-    public void setUseTime(Date useTime) {
+    public void setUseTime(Long useTime) {
         this.useTime = useTime;
     }
 

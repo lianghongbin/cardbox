@@ -1,7 +1,5 @@
 package com.gamesky.card.core.model;
 
-import java.util.Date;
-
 public class Feedback {
     private Integer id;
 
@@ -11,9 +9,9 @@ public class Feedback {
 
     private String remark;
 
-    private Date createTime;
+    private Long createTime;
 
-    private Date processTime;
+    private Long processTime;
 
     private String phone;
 
@@ -51,19 +49,19 @@ public class Feedback {
         this.remark = remark;
     }
 
-    public Date getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 
-    public Date getProcessTime() {
+    public Long getProcessTime() {
         return processTime;
     }
 
-    public void setProcessTime(Date processTime) {
+    public void setProcessTime(Long processTime) {
         this.processTime = processTime;
     }
 

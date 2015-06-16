@@ -9,9 +9,9 @@
     <result column="used" property="used" jdbcType="BIT" />
     <result column="assigned" property="assigned" jdbcType="BIT" />
     <result column="game_id" property="gameId" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="assign_time" property="assignTime" jdbcType="TIMESTAMP" />
-    <result column="use_time" property="useTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="assign_time" property="assignTime" jdbcType="BIGINT" />
+    <result column="use_time" property="useTime" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -114,7 +114,7 @@
       )
     values (#{id,jdbcType=INTEGER}, #{cardId,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, 
       #{code,jdbcType=VARCHAR}, #{used,jdbcType=BIT}, #{assigned,jdbcType=BIT}, #{gameId,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{assignTime,jdbcType=TIMESTAMP}, #{useTime,jdbcType=TIMESTAMP}
+      #{createTime,jdbcType=BIGINT}, #{assignTime,jdbcType=BIGINT}, #{useTime,jdbcType=BIGINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Code" >
@@ -174,13 +174,13 @@
         #{gameId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
+        #{createTime,jdbcType=BIGINT},
       </if>
       <if test="assignTime != null" >
-        #{assignTime,jdbcType=TIMESTAMP},
+        #{assignTime,jdbcType=BIGINT},
       </if>
       <if test="useTime != null" >
-        #{useTime,jdbcType=TIMESTAMP},
+        #{useTime,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -215,13 +215,13 @@
         game_id = #{record.gameId,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null" >
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        create_time = #{record.createTime,jdbcType=BIGINT},
       </if>
       <if test="record.assignTime != null" >
-        assign_time = #{record.assignTime,jdbcType=TIMESTAMP},
+        assign_time = #{record.assignTime,jdbcType=BIGINT},
       </if>
       <if test="record.useTime != null" >
-        use_time = #{record.useTime,jdbcType=TIMESTAMP},
+        use_time = #{record.useTime,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -237,9 +237,9 @@
       used = #{record.used,jdbcType=BIT},
       assigned = #{record.assigned,jdbcType=BIT},
       game_id = #{record.gameId,jdbcType=INTEGER},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      assign_time = #{record.assignTime,jdbcType=TIMESTAMP},
-      use_time = #{record.useTime,jdbcType=TIMESTAMP}
+      create_time = #{record.createTime,jdbcType=BIGINT},
+      assign_time = #{record.assignTime,jdbcType=BIGINT},
+      use_time = #{record.useTime,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -266,13 +266,13 @@
         game_id = #{gameId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=BIGINT},
       </if>
       <if test="assignTime != null" >
-        assign_time = #{assignTime,jdbcType=TIMESTAMP},
+        assign_time = #{assignTime,jdbcType=BIGINT},
       </if>
       <if test="useTime != null" >
-        use_time = #{useTime,jdbcType=TIMESTAMP},
+        use_time = #{useTime,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -285,9 +285,9 @@
       used = #{used,jdbcType=BIT},
       assigned = #{assigned,jdbcType=BIT},
       game_id = #{gameId,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      assign_time = #{assignTime,jdbcType=TIMESTAMP},
-      use_time = #{useTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=BIGINT},
+      assign_time = #{assignTime,jdbcType=BIGINT},
+      use_time = #{useTime,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

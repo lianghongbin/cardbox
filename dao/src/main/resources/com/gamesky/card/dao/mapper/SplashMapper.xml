@@ -7,7 +7,7 @@
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="enabled" property="enabled" jdbcType="BIT" />
     <result column="sort" property="sort" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -108,7 +108,7 @@
       enabled, sort, create_time
       )
     values (#{id,jdbcType=INTEGER}, #{photo,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
-      #{enabled,jdbcType=BIT}, #{sort,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
+      #{enabled,jdbcType=BIT}, #{sort,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Splash" >
@@ -150,7 +150,7 @@
         #{sort,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
+        #{createTime,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -179,7 +179,7 @@
         sort = #{record.sort,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null" >
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        create_time = #{record.createTime,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -193,7 +193,7 @@
       url = #{record.url,jdbcType=VARCHAR},
       enabled = #{record.enabled,jdbcType=BIT},
       sort = #{record.sort,jdbcType=INTEGER},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+      create_time = #{record.createTime,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -214,7 +214,7 @@
         sort = #{sort,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -225,7 +225,7 @@
       url = #{url,jdbcType=VARCHAR},
       enabled = #{enabled,jdbcType=BIT},
       sort = #{sort,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

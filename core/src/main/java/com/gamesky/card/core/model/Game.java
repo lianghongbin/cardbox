@@ -1,7 +1,5 @@
 package com.gamesky.card.core.model;
 
-import java.util.Date;
-
 public class Game {
     private Integer id;
 
@@ -21,9 +19,9 @@ public class Game {
 
     private Integer sort;
 
-    private Date createTime;
+    private Long createTime;
 
-    private Date modifyTime;
+    private Long modifyTime;
 
     private String description;
 
@@ -99,19 +97,19 @@ public class Game {
         this.sort = sort;
     }
 
-    public Date getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 
-    public Date getModifyTime() {
+    public Long getModifyTime() {
         return modifyTime;
     }
 
-    public void setModifyTime(Date modifyTime) {
+    public void setModifyTime(Long modifyTime) {
         this.modifyTime = modifyTime;
     }
 

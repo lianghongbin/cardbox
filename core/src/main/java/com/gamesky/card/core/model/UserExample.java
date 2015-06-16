@@ -1,7 +1,6 @@
 package com.gamesky.card.core.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class UserExample {
@@ -675,52 +674,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeEqualTo(Date value) {
+        public Criteria andCreateTimeEqualTo(Long value) {
             addCriterion("create_time =", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeNotEqualTo(Date value) {
+        public Criteria andCreateTimeNotEqualTo(Long value) {
             addCriterion("create_time <>", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeGreaterThan(Date value) {
+        public Criteria andCreateTimeGreaterThan(Long value) {
             addCriterion("create_time >", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Long value) {
             addCriterion("create_time >=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeLessThan(Date value) {
+        public Criteria andCreateTimeLessThan(Long value) {
             addCriterion("create_time <", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
+        public Criteria andCreateTimeLessThanOrEqualTo(Long value) {
             addCriterion("create_time <=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeIn(List<Date> values) {
+        public Criteria andCreateTimeIn(List<Long> values) {
             addCriterion("create_time in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeNotIn(List<Date> values) {
+        public Criteria andCreateTimeNotIn(List<Long> values) {
             addCriterion("create_time not in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeBetween(Date value1, Date value2) {
+        public Criteria andCreateTimeBetween(Long value1, Long value2) {
             addCriterion("create_time between", value1, value2, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
+        public Criteria andCreateTimeNotBetween(Long value1, Long value2) {
             addCriterion("create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
@@ -735,52 +734,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andLastTimeEqualTo(Date value) {
+        public Criteria andLastTimeEqualTo(Long value) {
             addCriterion("last_time =", value, "lastTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastTimeNotEqualTo(Date value) {
+        public Criteria andLastTimeNotEqualTo(Long value) {
             addCriterion("last_time <>", value, "lastTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastTimeGreaterThan(Date value) {
+        public Criteria andLastTimeGreaterThan(Long value) {
             addCriterion("last_time >", value, "lastTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andLastTimeGreaterThanOrEqualTo(Long value) {
             addCriterion("last_time >=", value, "lastTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastTimeLessThan(Date value) {
+        public Criteria andLastTimeLessThan(Long value) {
             addCriterion("last_time <", value, "lastTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastTimeLessThanOrEqualTo(Date value) {
+        public Criteria andLastTimeLessThanOrEqualTo(Long value) {
             addCriterion("last_time <=", value, "lastTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastTimeIn(List<Date> values) {
+        public Criteria andLastTimeIn(List<Long> values) {
             addCriterion("last_time in", values, "lastTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastTimeNotIn(List<Date> values) {
+        public Criteria andLastTimeNotIn(List<Long> values) {
             addCriterion("last_time not in", values, "lastTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastTimeBetween(Date value1, Date value2) {
+        public Criteria andLastTimeBetween(Long value1, Long value2) {
             addCriterion("last_time between", value1, value2, "lastTime");
             return (Criteria) this;
         }
 
-        public Criteria andLastTimeNotBetween(Date value1, Date value2) {
+        public Criteria andLastTimeNotBetween(Long value1, Long value2) {
             addCriterion("last_time not between", value1, value2, "lastTime");
             return (Criteria) this;
         }

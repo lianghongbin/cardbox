@@ -1,7 +1,5 @@
 package com.gamesky.card.core.model;
 
-import java.util.Date;
-
 public class Card {
     private Integer id;
 
@@ -19,8 +17,6 @@ public class Card {
 
     private String type;
 
-    private Date expire;
-
     private Integer score;
 
     private Boolean recommend;
@@ -29,13 +25,13 @@ public class Card {
 
     private Boolean closed;
 
-    private Date createTime;
+    private Long createTime;
 
-    private Date closeTime;
+    private Long closeTime;
 
-    private Date expireTime;
+    private Long expireTime;
 
-    private Date openTime;
+    private Long openTime;
 
     public Integer getId() {
         return id;
@@ -101,14 +97,6 @@ public class Card {
         this.type = type;
     }
 
-    public Date getExpire() {
-        return expire;
-    }
-
-    public void setExpire(Date expire) {
-        this.expire = expire;
-    }
-
     public Integer getScore() {
         return score;
     }
@@ -141,35 +129,35 @@ public class Card {
         this.closed = closed;
     }
 
-    public Date getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 
-    public Date getCloseTime() {
+    public Long getCloseTime() {
         return closeTime;
     }
 
-    public void setCloseTime(Date closeTime) {
+    public void setCloseTime(Long closeTime) {
         this.closeTime = closeTime;
     }
 
-    public Date getExpireTime() {
+    public Long getExpireTime() {
         return expireTime;
     }
 
-    public void setExpireTime(Date expireTime) {
+    public void setExpireTime(Long expireTime) {
         this.expireTime = expireTime;
     }
 
-    public Date getOpenTime() {
+    public Long getOpenTime() {
         return openTime;
     }
 
-    public void setOpenTime(Date openTime) {
+    public void setOpenTime(Long openTime) {
         this.openTime = openTime;
     }
 
@@ -193,7 +181,6 @@ public class Card {
             && (this.getTotal() == null ? other.getTotal() == null : this.getTotal().equals(other.getTotal()))
             && (this.getAssignTotal() == null ? other.getAssignTotal() == null : this.getAssignTotal().equals(other.getAssignTotal()))
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
-            && (this.getExpire() == null ? other.getExpire() == null : this.getExpire().equals(other.getExpire()))
             && (this.getScore() == null ? other.getScore() == null : this.getScore().equals(other.getScore()))
             && (this.getRecommend() == null ? other.getRecommend() == null : this.getRecommend().equals(other.getRecommend()))
             && (this.getPlatform() == null ? other.getPlatform() == null : this.getPlatform().equals(other.getPlatform()))
@@ -216,7 +203,6 @@ public class Card {
         result = prime * result + ((getTotal() == null) ? 0 : getTotal().hashCode());
         result = prime * result + ((getAssignTotal() == null) ? 0 : getAssignTotal().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
-        result = prime * result + ((getExpire() == null) ? 0 : getExpire().hashCode());
         result = prime * result + ((getScore() == null) ? 0 : getScore().hashCode());
         result = prime * result + ((getRecommend() == null) ? 0 : getRecommend().hashCode());
         result = prime * result + ((getPlatform() == null) ? 0 : getPlatform().hashCode());
@@ -242,7 +228,6 @@ public class Card {
         sb.append(", total=").append(total);
         sb.append(", assignTotal=").append(assignTotal);
         sb.append(", type=").append(type);
-        sb.append(", expire=").append(expire);
         sb.append(", score=").append(score);
         sb.append(", recommend=").append(recommend);
         sb.append(", platform=").append(platform);

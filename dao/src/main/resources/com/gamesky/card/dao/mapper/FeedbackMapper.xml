@@ -6,8 +6,8 @@
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="processed" property="processed" jdbcType="BIT" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="process_time" property="processTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="process_time" property="processTime" jdbcType="BIGINT" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.gamesky.card.core.model.Feedback" extends="BaseResultMap" >
@@ -133,7 +133,7 @@
       remark, create_time, process_time, 
       phone, content)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{processed,jdbcType=BIT}, 
-      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{processTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{processTime,jdbcType=BIGINT}, 
       #{phone,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Feedback" >
@@ -178,10 +178,10 @@
         #{remark,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
+        #{createTime,jdbcType=BIGINT},
       </if>
       <if test="processTime != null" >
-        #{processTime,jdbcType=TIMESTAMP},
+        #{processTime,jdbcType=BIGINT},
       </if>
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
@@ -213,10 +213,10 @@
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null" >
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        create_time = #{record.createTime,jdbcType=BIGINT},
       </if>
       <if test="record.processTime != null" >
-        process_time = #{record.processTime,jdbcType=TIMESTAMP},
+        process_time = #{record.processTime,jdbcType=BIGINT},
       </if>
       <if test="record.phone != null" >
         phone = #{record.phone,jdbcType=VARCHAR},
@@ -235,8 +235,8 @@
       user_id = #{record.userId,jdbcType=INTEGER},
       processed = #{record.processed,jdbcType=BIT},
       remark = #{record.remark,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      process_time = #{record.processTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=BIGINT},
+      process_time = #{record.processTime,jdbcType=BIGINT},
       phone = #{record.phone,jdbcType=VARCHAR},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
@@ -249,8 +249,8 @@
       user_id = #{record.userId,jdbcType=INTEGER},
       processed = #{record.processed,jdbcType=BIT},
       remark = #{record.remark,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      process_time = #{record.processTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=BIGINT},
+      process_time = #{record.processTime,jdbcType=BIGINT},
       phone = #{record.phone,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -269,10 +269,10 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=BIGINT},
       </if>
       <if test="processTime != null" >
-        process_time = #{processTime,jdbcType=TIMESTAMP},
+        process_time = #{processTime,jdbcType=BIGINT},
       </if>
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
@@ -288,8 +288,8 @@
     set user_id = #{userId,jdbcType=INTEGER},
       processed = #{processed,jdbcType=BIT},
       remark = #{remark,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      process_time = #{processTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=BIGINT},
+      process_time = #{processTime,jdbcType=BIGINT},
       phone = #{phone,jdbcType=VARCHAR},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
@@ -299,8 +299,8 @@
     set user_id = #{userId,jdbcType=INTEGER},
       processed = #{processed,jdbcType=BIT},
       remark = #{remark,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      process_time = #{processTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=BIGINT},
+      process_time = #{processTime,jdbcType=BIGINT},
       phone = #{phone,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

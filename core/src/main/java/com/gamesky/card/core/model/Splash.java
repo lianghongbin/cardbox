@@ -1,7 +1,5 @@
 package com.gamesky.card.core.model;
 
-import java.util.Date;
-
 public class Splash {
     private Integer id;
 
@@ -13,7 +11,7 @@ public class Splash {
 
     private Integer sort;
 
-    private Date createTime;
+    private Long createTime;
 
     public Integer getId() {
         return id;
@@ -55,11 +53,11 @@ public class Splash {
         this.sort = sort;
     }
 
-    public Date getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 

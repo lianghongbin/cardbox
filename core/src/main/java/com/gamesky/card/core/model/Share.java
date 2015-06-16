@@ -1,7 +1,5 @@
 package com.gamesky.card.core.model;
 
-import java.util.Date;
-
 public class Share {
     private Integer id;
 
@@ -13,7 +11,7 @@ public class Share {
 
     private Integer score;
 
-    private Date createTime;
+    private Long createTime;
 
     public Integer getId() {
         return id;
@@ -55,11 +53,11 @@ public class Share {
         this.score = score;
     }
 
-    public Date getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 
