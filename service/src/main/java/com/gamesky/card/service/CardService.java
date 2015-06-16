@@ -70,7 +70,7 @@ public interface CardService {
      * @param page 分页条件
      * @return 卡包列表
      */
-    public List<Card> findAll(Page page);
+    public List<CardWithBLOBs> findAll(Page page);
 
     /**
      * 根据条件分页查询显示卡包
@@ -78,7 +78,7 @@ public interface CardService {
      * @param cardExample 查询条件
      * @return 卡包列表
      */
-    public List<Card> findByCondition(CardExample cardExample);
+    public List<CardWithBLOBs> findByCondition(CardExample cardExample);
 
     /**
      * 根据条件分页查询显示卡包数量
@@ -95,7 +95,7 @@ public interface CardService {
      * @param page   分页数据
      * @return 卡包列表
      */
-    public List<Card> findByGame(int gameId, Page page);
+    public List<CardWithBLOBs> findByGame(int gameId, Page page);
 
     /**
      * 查找某款游戏下的卡包类别数量
@@ -110,7 +110,7 @@ public interface CardService {
      * @param ids 礼包ID集合
      * @return 礼包集合
      */
-    public List<Card> findByIds(List<Integer> ids);
+    public List<CardWithBLOBs> findByIds(List<Integer> ids);
 
     /**
      * 查询手机用户是否已经申领过该礼品包

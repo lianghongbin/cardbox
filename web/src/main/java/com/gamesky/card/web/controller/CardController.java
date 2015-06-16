@@ -103,7 +103,7 @@ public class CardController {
     @ResponseBody
     @RequestMapping(value = "/findbygame", method = RequestMethod.GET)
     public String findByGame(int gameId, Page page) {
-        List<Card> cards = cardService.findByGame(gameId, page);
+        List<CardWithBLOBs> cards = cardService.findByGame(gameId, page);
         int count = cardService.findCountByGame(gameId);
         page.setCount(count);
         return ResultGenerator.generate(page, cards);
@@ -142,7 +142,7 @@ public class CardController {
         cardExample.setLimit(page.getPagesize());
         cardExample.setLimitOffset(page.getOffset());
 
-        List<Card> cards = cardService.findByCondition(cardExample);
+        List<CardWithBLOBs> cards = cardService.findByCondition(cardExample);
         int count = cardService.findCountByCondition(cardExample);
         page.setCount(count);
         return ResultGenerator.generate(page, cards);
@@ -158,7 +158,7 @@ public class CardController {
         cardExample.setLimit(page.getPagesize());
         cardExample.setLimitOffset(page.getOffset());
 
-        List<Card> cards = cardService.findByCondition(cardExample);
+        List<CardWithBLOBs> cards = cardService.findByCondition(cardExample);
         int count = cardService.findCountByCondition(cardExample);
         page.setCount(count);
         return ResultGenerator.generate(page, cards);
@@ -177,7 +177,7 @@ public class CardController {
             ids.add(code.getCardId());
         }
 
-        List<Card> cards = cardService.findByIds(ids);
+        List<CardWithBLOBs> cards = cardService.findByIds(ids);
         return ResultGenerator.generate(cards);
     }
 

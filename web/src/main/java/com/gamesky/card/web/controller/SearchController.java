@@ -2,8 +2,8 @@ package com.gamesky.card.web.controller;
 
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
-import com.gamesky.card.core.model.Card;
 import com.gamesky.card.core.model.CardExample;
+import com.gamesky.card.core.model.CardWithBLOBs;
 import com.gamesky.card.service.CardService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class SearchController {
         cardExample.setOrderByClause("id desc");
         cardExample.setLimit(page.getPagesize());
         cardExample.setLimitOffset(page.getOffset());
-        List<Card> cards = cardService.findByCondition(cardExample);
+        List<CardWithBLOBs> cards = cardService.findByCondition(cardExample);
         int count = cardService.findCountByCondition((cardExample));
         page.setCount(count);
 

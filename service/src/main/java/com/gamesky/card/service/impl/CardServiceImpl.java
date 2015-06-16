@@ -196,12 +196,12 @@ public class CardServiceImpl implements CardService {
      * @return 卡包列表
      */
     @Override
-    public List<Card> findAll(Page page) {
+    public List<CardWithBLOBs> findAll(Page page) {
         CardExample cardExample = new CardExample();
         cardExample.setLimitOffset(page.getOffset());
         cardExample.setLimit(page.getPagesize());
         cardExample.setOrderByClause("id desc");
-        return cardMapper.selectByExample(cardExample);
+        return cardMapper.selectByExampleWithBLOBs(cardExample);
     }
 
     /**
@@ -211,8 +211,8 @@ public class CardServiceImpl implements CardService {
      * @return 卡包列表
      */
     @Override
-    public List<Card> findByCondition(CardExample cardExample) {
-        return cardMapper.selectByExample(cardExample);
+    public List<CardWithBLOBs> findByCondition(CardExample cardExample) {
+        return cardMapper.selectByExampleWithBLOBs(cardExample);
     }
 
     /**
@@ -234,13 +234,13 @@ public class CardServiceImpl implements CardService {
      * @return 卡包列表
      */
     @Override
-    public List<Card> findByGame(int gameId, Page page) {
+    public List<CardWithBLOBs> findByGame(int gameId, Page page) {
         CardExample cardExample = new CardExample();
         cardExample.createCriteria().andGameIdEqualTo(gameId).andClosedEqualTo(false);
         cardExample.setLimitOffset(page.getOffset());
         cardExample.setLimit(page.getPagesize());
         cardExample.setOrderByClause("id desc");
-        return cardMapper.selectByExample(cardExample);
+        return cardMapper.selectByExampleWithBLOBs(cardExample);
     }
 
     /**
@@ -262,10 +262,10 @@ public class CardServiceImpl implements CardService {
      * @return 礼包集合
      */
     @Override
-    public List<Card> findByIds(List<Integer> ids) {
+    public List<CardWithBLOBs> findByIds(List<Integer> ids) {
         CardExample cardExample = new CardExample();
         cardExample.createCriteria().andIdIn(ids);
-        return cardMapper.selectByExample(cardExample);
+        return cardMapper.selectByExampleWithBLOBs(cardExample);
     }
 
     /**
