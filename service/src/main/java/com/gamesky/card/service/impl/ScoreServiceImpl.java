@@ -60,7 +60,7 @@ public class ScoreServiceImpl implements ScoreService {
         flow.setMethod(methodType.name());
         flow.setType(FlowType.IN.getValue());
         flow.setPhone(user.getPhone());
-        flow.setCreateTime(new Date());
+        flow.setCreateTime(System.currentTimeMillis());
 
         return flowService.save(flow);
     }
@@ -91,7 +91,7 @@ public class ScoreServiceImpl implements ScoreService {
         flow.setScore(score);
         flow.setType(FlowType.OUT.getValue());
         flow.setPhone(user.getPhone());
-        flow.setCreateTime(new Date());
+        flow.setCreateTime(System.currentTimeMillis());
 
         return flowService.save(flow);
     }
@@ -119,7 +119,7 @@ public class ScoreServiceImpl implements ScoreService {
                 continue;
             }
 
-            if(sameDay(flow.getCreateTime(), new Date())) {
+            if(sameDay(flow.getCreateTime(), System.currentTimeMillis())) {
                 return 0;
             }
         }
@@ -154,7 +154,7 @@ public class ScoreServiceImpl implements ScoreService {
                 continue;
             }
 
-            if(sameDay(flow.getCreateTime(), new Date())) {
+            if(sameDay(flow.getCreateTime(), System.currentTimeMillis())) {
                 return 0;
             }
         }
@@ -187,7 +187,7 @@ public class ScoreServiceImpl implements ScoreService {
                 continue;
             }
 
-            if(sameDay(flow.getCreateTime(), new Date())) {
+            if(sameDay(flow.getCreateTime(), System.currentTimeMillis())) {
                 return 0;
             }
         }
@@ -199,7 +199,7 @@ public class ScoreServiceImpl implements ScoreService {
         return this.gain(phone, score, MethodType.QQ_GAIN);
     }
 
-    private boolean sameDay(Date one, Date two) {
+    private boolean sameDay(long one, long two) {
         SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = dataFormat.format(one);
         String now = dataFormat.format(two);

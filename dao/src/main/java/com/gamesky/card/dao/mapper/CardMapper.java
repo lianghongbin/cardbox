@@ -3,9 +3,8 @@ package com.gamesky.card.dao.mapper;
 import com.gamesky.card.core.model.Card;
 import com.gamesky.card.core.model.CardExample;
 import com.gamesky.card.core.model.CardWithBLOBs;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface CardMapper {
     int countByExample(CardExample example);

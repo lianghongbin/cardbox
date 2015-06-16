@@ -59,7 +59,7 @@ public class FeedbackController {
         List<Feedback> feedbacks = feedbackService.findAll(page);
         int count = feedbackService.findCount();
         page.setCount(count);
-        return ResultGenerator.generate(page, feedbacks);
+        return ResultGenerator.generate(page, "feedbacks", feedbacks);
     }
 
     @ResponseBody
@@ -68,6 +68,6 @@ public class FeedbackController {
         List<Feedback> feedbacks = feedbackService.findByUser(phone, page);
         int count = feedbackService.findCountByUser(phone);
         page.setCount(count);
-        return ResultGenerator.generate(page, feedbacks);
+        return ResultGenerator.generate(page, "feedbacks", feedbacks);
     }
 }

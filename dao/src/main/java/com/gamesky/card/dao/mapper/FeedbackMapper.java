@@ -2,9 +2,8 @@ package com.gamesky.card.dao.mapper;
 
 import com.gamesky.card.core.model.Feedback;
 import com.gamesky.card.core.model.FeedbackExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface FeedbackMapper {
     int countByExample(FeedbackExample example);

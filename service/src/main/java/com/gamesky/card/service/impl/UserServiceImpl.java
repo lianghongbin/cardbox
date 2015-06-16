@@ -218,14 +218,14 @@ public class UserServiceImpl implements UserService {
             user.setUsername(phone);
             user.setPhone(phone);
             user.setScore(Constants.REGISTRY_SCORE);
-            user.setCreateTime(new Date());
-            user.setLastTime(new Date());
+            user.setCreateTime(System.currentTimeMillis());
+            user.setLastTime(System.currentTimeMillis());
             user.setDevice(device);
             if (this.save(user) < 1) {
                 return null;
             }
         } else {  //已经注册过的用户，更新设备及最后一次登录时间
-            user.setLastTime(new Date());
+            user.setLastTime(System.currentTimeMillis());
             user.setDevice(device);
             this.update(user);
         }

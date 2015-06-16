@@ -2,9 +2,8 @@ package com.gamesky.card.dao.mapper;
 
 import com.gamesky.card.core.model.Game;
 import com.gamesky.card.core.model.GameExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface GameMapper {
     int countByExample(GameExample example);

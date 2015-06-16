@@ -34,7 +34,7 @@ public class SearchController {
         }
 
         CardExample cardExample = new CardExample();
-        cardExample.createCriteria().andNameLike(key);
+        cardExample.createCriteria().andNameLike(key).andOpenTimeGreaterThanOrEqualTo(System.currentTimeMillis()).andExpireTimeGreaterThan(System.currentTimeMillis());
         cardExample.setOrderByClause("id desc");
         cardExample.setLimit(page.getPagesize());
         cardExample.setLimitOffset(page.getOffset());
@@ -42,6 +42,6 @@ public class SearchController {
         int count = cardService.findCountByCondition((cardExample));
         page.setCount(count);
 
-        return ResultGenerator.generate(page, cards);
+        return ResultGenerator.generate(page, "cards", cards);
     }
 }

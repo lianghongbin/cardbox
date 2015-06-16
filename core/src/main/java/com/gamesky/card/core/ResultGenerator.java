@@ -2,6 +2,9 @@ package com.gamesky.card.core;
 
 import com.google.gson.Gson;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created on 6/4/15.
  *
@@ -31,8 +34,16 @@ public class ResultGenerator {
         return toJson(new Result(data));
     }
 
-    public static String generate(Page page, Object data) {
-        return toJson(new Result(page, data));
+    public static String generate(String key, Object data) {
+        Map<String, Object> params = new HashMap<>();
+        params.put(key, data);
+        return toJson(new Result(params));
+    }
+
+    public static String generate(Page page, String key, Object data) {
+        Map<String, Object> params = new HashMap<>();
+        params.put(key, data);
+        return toJson(new Result(page, params));
     }
 
     private static String toJson(Result result) {

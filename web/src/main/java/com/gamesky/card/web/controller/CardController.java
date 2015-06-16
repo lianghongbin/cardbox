@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created on 6/10/15.
@@ -83,7 +84,7 @@ public class CardController {
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     public String find(int id) {
         Card card = cardService.find(id);
-        return ResultGenerator.generate(card);
+        return ResultGenerator.generate("card", card);
     }
 
     @ResponseBody
@@ -106,7 +107,7 @@ public class CardController {
         List<CardWithBLOBs> cards = cardService.findByGame(gameId, page);
         int count = cardService.findCountByGame(gameId);
         page.setCount(count);
-        return ResultGenerator.generate(page, cards);
+        return ResultGenerator.generate(page, "cards", cards);
     }
 
     @ResponseBody
@@ -124,7 +125,10 @@ public class CardController {
     @RequestMapping(value = "/recommend", method = RequestMethod.GET)
     public String recommend(int searchType, Page page) {
         CardExample cardExample = new CardExample();
-        CardExample.Criteria criteria = cardExample.createCriteria().andRecommendEqualTo(true).andClosedEqualTo(false);
+        CardExample.Criteria criteria = cardExample.createCriteria()
+                .andRecommendEqualTo(true).andClosedEqualTo(false)
+                .andOpenTimeGreaterThanOrEqualTo(System.currentTimeMillis())
+                .andExpireTimeGreaterThan(System.currentTimeMillis());
         switch (searchType) {
             case 1://付费
                 criteria.andTypeEqualTo(CardType.PAY.name());
@@ -145,14 +149,19 @@ public class CardController {
         List<CardWithBLOBs> cards = cardService.findByCondition(cardExample);
         int count = cardService.findCountByCondition(cardExample);
         page.setCount(count);
-        return ResultGenerator.generate(page, cards);
+        return ResultGenerator.generate(page, "cards", cards);
     }
 
     @ResponseBody
     @RequestMapping(value = "/recommendbygame", method = RequestMethod.GET)
     public String recommendByGame(int gameId, Page page) {
         CardExample cardExample = new CardExample();
-        cardExample.createCriteria().andRecommendEqualTo(true).andGameIdEqualTo(gameId).andClosedEqualTo(false);
+        cardExample.createCriteria()
+                .andRecommendEqualTo(true)
+                .andGameIdEqualTo(gameId)
+                .andClosedEqualTo(false)
+                .andOpenTimeGreaterThanOrEqualTo(System.currentTimeMillis())
+                .andExpireTimeGreaterThan(System.currentTimeMillis());
 
         cardExample.setOrderByClause("id desc");
         cardExample.setLimit(page.getPagesize());
@@ -161,24 +170,21 @@ public class CardController {
         List<CardWithBLOBs> cards = cardService.findByCondition(cardExample);
         int count = cardService.findCountByCondition(cardExample);
         page.setCount(count);
-        return ResultGenerator.generate(page, cards);
+        return ResultGenerator.generate(page, "cards", cards);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/mycard", method = RequestMethod.GET)
+    @RequestMapping(value = "/my", method = RequestMethod.GET)
     public String myCard(String phone, Page page) {
         List<Code> codes = codeService.findByPhone(phone, page);
         if (codes == null || codes.size() == 0) {
             return ResultGenerator.generate();
         }
 
-        List<Integer> ids = new ArrayList<>();
-        for (Code code : codes) {
-            ids.add(code.getCardId());
-        }
+        List<Integer> ids = codes.stream().map(Code::getCardId).collect(Collectors.toList());
 
         List<CardWithBLOBs> cards = cardService.findByIds(ids);
-        return ResultGenerator.generate(cards);
+        return ResultGenerator.generate("games", cards);
     }
 
     @ResponseBody

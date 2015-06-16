@@ -41,7 +41,7 @@ public class CardServiceImpl implements CardService {
     private final static Logger logger = LoggerFactory.getLogger(CardServiceImpl.class);
 
     public int save(CardWithBLOBs card) {
-        card.setCreateTime(new Date());
+        card.setCreateTime(System.currentTimeMillis());
         Game game = new Game();
         game.setId(card.getGameId());
         game.setTotal(findCountByGame(card.getGameId()));
@@ -58,7 +58,7 @@ public class CardServiceImpl implements CardService {
     @Override
     public int close(int id) {
         Card card = cardMapper.selectByPrimaryKey(id);
-        card.setCloseTime(new Date());
+        card.setCloseTime(System.currentTimeMillis());
         card.setClosed(true);
 
         Game game = new Game();
@@ -120,7 +120,7 @@ public class CardServiceImpl implements CardService {
 
             //校验该卡包是否有效
             CardExample cardExample = new CardExample();
-            cardExample.createCriteria().andClosedEqualTo(false).andIdEqualTo(id).andOpenTimeLessThanOrEqualTo(new Date()).andExpireTimeGreaterThan(new Date());
+            cardExample.createCriteria().andClosedEqualTo(false).andIdEqualTo(id).andOpenTimeLessThanOrEqualTo(System.currentTimeMillis()).andExpireTimeGreaterThan(System.currentTimeMillis());
             List<Card> cards = cardMapper.selectByExample(cardExample);
             if (cards == null || cards.size()==0) {
                 return ErrorCode.DATA_EMPTY.getCode();
@@ -166,7 +166,7 @@ public class CardServiceImpl implements CardService {
 
             code.setAssigned(true);
             code.setPhone(phone);
-            code.setAssignTime(new Date());
+            code.setAssignTime(System.currentTimeMillis());
             codeService.update(code);
 
             return cardMapper.updateByPrimaryKey(card);

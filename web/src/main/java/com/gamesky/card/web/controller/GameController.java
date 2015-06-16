@@ -61,7 +61,7 @@ public class GameController {
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     public String find(int id) {
         Game game = gameService.find(id);
-        return ResultGenerator.generate(game);
+        return ResultGenerator.generate("game", game);
     }
 
     @ResponseBody
@@ -70,7 +70,7 @@ public class GameController {
         List<Game> games = gameService.findAll(page);
         int count = gameService.findCount();
         page.setCount(count);
-        return ResultGenerator.generate(page, games);
+        return ResultGenerator.generate(page, "games", games);
     }
 
     @ResponseBody
@@ -79,7 +79,7 @@ public class GameController {
         List<Game> games = gameService.findRecommend(page);
         int count = gameService.findCountRecommend();
         page.setCount(count);
-        return ResultGenerator.generate(page, games);
+        return ResultGenerator.generate(page, "games", games);
     }
 
     @ResponseBody
@@ -90,6 +90,6 @@ public class GameController {
         int count = gameService.findCount();
         page.setCount(count);
 
-        return ResultGenerator.generate(page, games);
+        return ResultGenerator.generate(page, "games", games);
     }
 }

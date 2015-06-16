@@ -32,7 +32,7 @@ public class FeedbackServiceImpl implements FeedbackService {
      */
     @Override
     public int save(Feedback feedback) {
-        feedback.setCreateTime(new Date());
+        feedback.setCreateTime(System.currentTimeMillis());
         return feedbackMapper.insert(feedback);
     }
 
@@ -52,7 +52,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
         feedback.setRemark(remark);
         feedback.setProcessed(true);
-        feedback.setProcessTime(new Date());
+        feedback.setProcessTime(System.currentTimeMillis());
         return feedbackMapper.updateByPrimaryKey(feedback);
     }
 
