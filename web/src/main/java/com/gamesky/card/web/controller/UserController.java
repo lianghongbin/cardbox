@@ -55,7 +55,9 @@ public class UserController {
             return ResultGenerator.generateError("登录发生错误");
         }
 
-        return ResultGenerator.generate(user);
+        Map<String, User> params = new HashMap<>();
+        params.put("user", user);
+        return ResultGenerator.generate(params);
     }
 
     @ResponseBody

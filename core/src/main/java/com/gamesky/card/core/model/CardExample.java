@@ -825,6 +825,76 @@ public class CardExample {
             return (Criteria) this;
         }
 
+        public Criteria andPlatformIsNull() {
+            addCriterion("platform is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformIsNotNull() {
+            addCriterion("platform is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformEqualTo(String value) {
+            addCriterion("platform =", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformNotEqualTo(String value) {
+            addCriterion("platform <>", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformGreaterThan(String value) {
+            addCriterion("platform >", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformGreaterThanOrEqualTo(String value) {
+            addCriterion("platform >=", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformLessThan(String value) {
+            addCriterion("platform <", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformLessThanOrEqualTo(String value) {
+            addCriterion("platform <=", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformLike(String value) {
+            addCriterion("platform like", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformNotLike(String value) {
+            addCriterion("platform not like", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformIn(List<String> values) {
+            addCriterion("platform in", values, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformNotIn(List<String> values) {
+            addCriterion("platform not in", values, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformBetween(String value1, String value2) {
+            addCriterion("platform between", value1, value2, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformNotBetween(String value1, String value2) {
+            addCriterion("platform not between", value1, value2, "platform");
+            return (Criteria) this;
+        }
+
         public Criteria andClosedIsNull() {
             addCriterion("closed is null");
             return (Criteria) this;
@@ -1005,6 +1075,66 @@ public class CardExample {
             return (Criteria) this;
         }
 
+        public Criteria andExpireTimeIsNull() {
+            addCriterion("expire_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeIsNotNull() {
+            addCriterion("expire_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeEqualTo(Date value) {
+            addCriterion("expire_time =", value, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeNotEqualTo(Date value) {
+            addCriterion("expire_time <>", value, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeGreaterThan(Date value) {
+            addCriterion("expire_time >", value, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("expire_time >=", value, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeLessThan(Date value) {
+            addCriterion("expire_time <", value, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeLessThanOrEqualTo(Date value) {
+            addCriterion("expire_time <=", value, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeIn(List<Date> values) {
+            addCriterion("expire_time in", values, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeNotIn(List<Date> values) {
+            addCriterion("expire_time not in", values, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeBetween(Date value1, Date value2) {
+            addCriterion("expire_time between", value1, value2, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpireTimeNotBetween(Date value1, Date value2) {
+            addCriterion("expire_time not between", value1, value2, "expireTime");
+            return (Criteria) this;
+        }
+
         public Criteria andOpenTimeIsNull() {
             addCriterion("open_time is null");
             return (Criteria) this;
@@ -1082,6 +1212,11 @@ public class CardExample {
 
         public Criteria andTypeLikeInsensitive(String value) {
             addCriterion("upper(type) like", value.toUpperCase(), "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformLikeInsensitive(String value) {
+            addCriterion("upper(platform) like", value.toUpperCase(), "platform");
             return (Criteria) this;
         }
     }

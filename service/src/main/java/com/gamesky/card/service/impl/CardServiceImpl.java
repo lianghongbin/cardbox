@@ -58,6 +58,7 @@ public class CardServiceImpl implements CardService {
     @Override
     public int close(int id) {
         Card card = cardMapper.selectByPrimaryKey(id);
+        card.setCloseTime(new Date());
         card.setClosed(true);
 
         Game game = new Game();
@@ -117,10 +118,15 @@ public class CardServiceImpl implements CardService {
                 return 0;
             }
 
-            Card card = cardMapper.selectByPrimaryKey(id);
-            if (card == null || card.getClosed()) {
+            //校验该卡包是否有效
+            CardExample cardExample = new CardExample();
+            cardExample.createCriteria().andClosedEqualTo(false).andIdEqualTo(id).andOpenTimeLessThanOrEqualTo(new Date()).andExpireGreaterThan(new Date());
+            List<Card> cards = cardMapper.selectByExample(cardExample);
+            if (cards == null || cards.size()==0) {
                 return ErrorCode.DATA_EMPTY.getCode();
             }
+
+            Card card = cards.get(0);
 
             List<Code> codes = codeService.findByCardAndPhone(id, phone,new Page());
 

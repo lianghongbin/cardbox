@@ -25,11 +25,15 @@ public class Card {
 
     private Boolean recommend;
 
+    private String platform;
+
     private Boolean closed;
 
     private Date createTime;
 
     private Date closeTime;
+
+    private Date expireTime;
 
     private Date openTime;
 
@@ -121,6 +125,14 @@ public class Card {
         this.recommend = recommend;
     }
 
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
     public Boolean getClosed() {
         return closed;
     }
@@ -143,6 +155,14 @@ public class Card {
 
     public void setCloseTime(Date closeTime) {
         this.closeTime = closeTime;
+    }
+
+    public Date getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(Date expireTime) {
+        this.expireTime = expireTime;
     }
 
     public Date getOpenTime() {
@@ -176,9 +196,11 @@ public class Card {
             && (this.getExpire() == null ? other.getExpire() == null : this.getExpire().equals(other.getExpire()))
             && (this.getScore() == null ? other.getScore() == null : this.getScore().equals(other.getScore()))
             && (this.getRecommend() == null ? other.getRecommend() == null : this.getRecommend().equals(other.getRecommend()))
+            && (this.getPlatform() == null ? other.getPlatform() == null : this.getPlatform().equals(other.getPlatform()))
             && (this.getClosed() == null ? other.getClosed() == null : this.getClosed().equals(other.getClosed()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCloseTime() == null ? other.getCloseTime() == null : this.getCloseTime().equals(other.getCloseTime()))
+            && (this.getExpireTime() == null ? other.getExpireTime() == null : this.getExpireTime().equals(other.getExpireTime()))
             && (this.getOpenTime() == null ? other.getOpenTime() == null : this.getOpenTime().equals(other.getOpenTime()));
     }
 
@@ -197,9 +219,11 @@ public class Card {
         result = prime * result + ((getExpire() == null) ? 0 : getExpire().hashCode());
         result = prime * result + ((getScore() == null) ? 0 : getScore().hashCode());
         result = prime * result + ((getRecommend() == null) ? 0 : getRecommend().hashCode());
+        result = prime * result + ((getPlatform() == null) ? 0 : getPlatform().hashCode());
         result = prime * result + ((getClosed() == null) ? 0 : getClosed().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCloseTime() == null) ? 0 : getCloseTime().hashCode());
+        result = prime * result + ((getExpireTime() == null) ? 0 : getExpireTime().hashCode());
         result = prime * result + ((getOpenTime() == null) ? 0 : getOpenTime().hashCode());
         return result;
     }
@@ -221,9 +245,11 @@ public class Card {
         sb.append(", expire=").append(expire);
         sb.append(", score=").append(score);
         sb.append(", recommend=").append(recommend);
+        sb.append(", platform=").append(platform);
         sb.append(", closed=").append(closed);
         sb.append(", createTime=").append(createTime);
         sb.append(", closeTime=").append(closeTime);
+        sb.append(", expireTime=").append(expireTime);
         sb.append(", openTime=").append(openTime);
         sb.append("]");
         return sb.toString();
