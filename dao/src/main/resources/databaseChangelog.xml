@@ -182,4 +182,5 @@
             <column name="last_time" remarks="最后一次登录时间" type="datetime"/>
         </createTable>
     </changeSet>
+
 </databaseChangeLog>
