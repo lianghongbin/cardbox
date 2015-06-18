@@ -1,5 +1,6 @@
 package com.gamesky.card.web.controller;
 
+import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.exceptions.CheckCodeInvalidException;
 import com.gamesky.card.core.exceptions.CheckCodeWrongException;
@@ -102,5 +103,13 @@ public class UserController {
         Map<String,String> data = new HashMap<>();
         data.put("checkCode", code);
         return ResultGenerator.generate(data);
+    }
+
+    @ResponseBody
+    @RequestMapping("/test")
+    public String test() {
+        Page page = null;
+        page.getCount();
+        return ResultGenerator.generate();
     }
 }

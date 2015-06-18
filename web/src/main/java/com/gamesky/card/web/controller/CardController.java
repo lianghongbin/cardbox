@@ -97,11 +97,17 @@ public class CardController {
         Card card = cardService.find(id);
         List<Code> codes = codeService.findByCardAndPhone(id, phone, new Page());
         if (codes != null && codes.size() > 0) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("card", card);
-            map.put("code", codes.get(0));
+            Map<String, Object> map = null;
+            try {
+                map = BeanUtils.beanToMap(card);
+                map.put("code", codes.get(0).getCode());
+            } catch (Exception e) {
+                logger.error(e.getMessage());
+            }
+
             return ResultGenerator.generate(map);
         }
+
         return ResultGenerator.generate(card);
     }
 
@@ -252,8 +258,8 @@ public class CardController {
 
     @ResponseBody
     @RequestMapping(value = "/hasassign", method = RequestMethod.GET)
-    public String hasAssign(int cardId, String phone) {
-        boolean result = cardService.hasAssign(cardId, phone);
+    public String hasAssign(int id, String phone) {
+        boolean result = cardService.hasAssign(id, phone);
         Map<String, Integer> params = new HashMap<>();
         if (result) {
             params.put("assign", 1);
