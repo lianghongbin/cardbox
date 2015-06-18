@@ -7,6 +7,7 @@ package com.gamesky.card.core;
  */
 public interface Constants {
 
+    int LOGIN_EXPIRE_LONG = 24*60*60*365;
     int REGISTRY_SCORE = 300;
     int DAILY_SCORE = 100;
     int SHARE_WEIXIN = 10;

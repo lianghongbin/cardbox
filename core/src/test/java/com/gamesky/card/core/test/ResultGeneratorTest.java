@@ -37,7 +37,7 @@ public class ResultGeneratorTest {
         TestElement element = new TestElement();
         element.setId(1);
         Page page = new Page(20, 10, 2);
-        String result = ResultGenerator.generate(page, "element", element);
+        String result = ResultGenerator.generate(page, element);
 
         System.out.println(result);
         Assert.assertNotNull(result);

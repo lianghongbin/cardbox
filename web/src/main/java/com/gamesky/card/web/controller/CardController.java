@@ -8,8 +8,11 @@ import com.gamesky.card.core.model.Card;
 import com.gamesky.card.core.model.CardExample;
 import com.gamesky.card.core.model.CardWithBLOBs;
 import com.gamesky.card.core.model.Code;
+import com.gamesky.card.service.BeanUtils;
 import com.gamesky.card.service.CardService;
 import com.gamesky.card.service.CodeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +38,7 @@ public class CardController {
     private CardService cardService;
     @Autowired
     private CodeService codeService;
+    private static final Logger logger = LoggerFactory.getLogger(CardController.class);
 
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -84,7 +88,7 @@ public class CardController {
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     public String find(int id) {
         Card card = cardService.find(id);
-        return ResultGenerator.generate("card", card);
+        return ResultGenerator.generate(card);
     }
 
     @ResponseBody
@@ -107,7 +111,7 @@ public class CardController {
         List<CardWithBLOBs> cards = cardService.findByGame(gameId, page);
         int count = cardService.findCountByGame(gameId);
         page.setCount(count);
-        return ResultGenerator.generate(page, "cards", cards);
+        return ResultGenerator.generate(page, cards);
     }
 
     @ResponseBody
@@ -125,9 +129,10 @@ public class CardController {
     @RequestMapping(value = "/recommend", method = RequestMethod.GET)
     public String recommend(int searchType, Page page) {
         CardExample cardExample = new CardExample();
+        long current = System.currentTimeMillis();
         CardExample.Criteria criteria = cardExample.createCriteria()
                 .andRecommendEqualTo(true).andClosedEqualTo(false)
-                .andOpenTimeGreaterThanOrEqualTo(System.currentTimeMillis())
+                .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
                 .andExpireTimeGreaterThan(System.currentTimeMillis());
         switch (searchType) {
             case 1://付费
@@ -149,7 +154,47 @@ public class CardController {
         List<CardWithBLOBs> cards = cardService.findByCondition(cardExample);
         int count = cardService.findCountByCondition(cardExample);
         page.setCount(count);
-        return ResultGenerator.generate(page, "cards", cards);
+        return ResultGenerator.generate(page, cards);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public String all(Page page) {
+        CardExample cardExample = new CardExample();
+        cardExample.createCriteria()
+                .andClosedEqualTo(false)
+                .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
+                .andExpireTimeGreaterThan(System.currentTimeMillis());
+
+        cardExample.setOrderByClause("id desc");
+        cardExample.setLimit(page.getPagesize());
+        cardExample.setLimitOffset(page.getOffset());
+
+        List<CardWithBLOBs> cards = cardService.findByCondition(cardExample);
+        int count = cardService.findCountByCondition(cardExample);
+        page.setCount(count);
+        return ResultGenerator.generate(page, cards);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/undercard", method = RequestMethod.GET)
+    public String underCard(int gameId, Page page) {
+        CardExample cardExample = new CardExample();
+        cardExample.createCriteria()
+                .andRecommendEqualTo(true)
+                .andGameIdEqualTo(gameId)
+                .andClosedEqualTo(false)
+                .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
+                .andExpireTimeGreaterThan(System.currentTimeMillis());
+
+        cardExample.setOrderByClause("id desc");
+        cardExample.setLimit(page.getPagesize());
+        cardExample.setLimitOffset(page.getOffset());
+
+        List<CardWithBLOBs> cards = cardService.findByCondition(cardExample);
+        int count = cardService.findCountByCondition(cardExample);
+        page.setCount(count);
+        return ResultGenerator.generate(page, cards);
     }
 
     @ResponseBody
@@ -160,7 +205,7 @@ public class CardController {
                 .andRecommendEqualTo(true)
                 .andGameIdEqualTo(gameId)
                 .andClosedEqualTo(false)
-                .andOpenTimeGreaterThanOrEqualTo(System.currentTimeMillis())
+                .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
                 .andExpireTimeGreaterThan(System.currentTimeMillis());
 
         cardExample.setOrderByClause("id desc");
@@ -170,7 +215,7 @@ public class CardController {
         List<CardWithBLOBs> cards = cardService.findByCondition(cardExample);
         int count = cardService.findCountByCondition(cardExample);
         page.setCount(count);
-        return ResultGenerator.generate(page, "cards", cards);
+        return ResultGenerator.generate(page, cards);
     }
 
     @ResponseBody
@@ -184,7 +229,25 @@ public class CardController {
         List<Integer> ids = codes.stream().map(Code::getCardId).collect(Collectors.toList());
 
         List<CardWithBLOBs> cards = cardService.findByIds(ids);
-        return ResultGenerator.generate("games", cards);
+        List<Map> datas = new ArrayList<>();
+        for (CardWithBLOBs card : cards) {
+            try {
+                Map param = BeanUtils.beanToMap(card);
+                for (Code code : codes) {
+                    if (card.getId() == code.getCardId()) {
+                        param.put("code", code.getCode());
+                        break;
+                    }
+                }
+
+                datas.add(param);
+            } catch (Exception e) {
+                logger.error(e.getMessage());
+            }
+
+        }
+
+        return ResultGenerator.generate(datas);
     }
 
     @ResponseBody

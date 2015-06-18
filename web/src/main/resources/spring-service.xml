@@ -36,7 +36,7 @@
     <bean id="codeGenerator" class="com.gamesky.card.service.impl.DefaultCodeGenerator"/>
 
     <bean id="marshaller" class="com.gamesky.card.service.RedisMarshaller">
-        <property name="redisTemplate" ref="redisTemplate"/>
+        <property name="jedis" ref="jedis"/>
     </bean>
 
     <bean id="notifyCallable" class="com.gamesky.card.service.NotifyCallable"/>

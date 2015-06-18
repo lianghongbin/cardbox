@@ -2,7 +2,6 @@ package com.gamesky.card.service.key;
 
 import com.gamesky.card.core.Cacheable;
 import com.gamesky.card.core.Constants;
-import com.gamesky.card.core.model.User;
 
 /**
  * Created on 2015/6/11.
@@ -12,13 +11,13 @@ import com.gamesky.card.core.model.User;
 public class LoginKey implements Cacheable {
 
     private final String phone;
-    private long expire = 60;   //秒
+    private int expire = 60;   //秒
 
     public LoginKey(String phone) {
         this.phone = phone;
     }
 
-    public LoginKey(String phone, long expire) {
+    public LoginKey(String phone, int expire) {
         this(phone);
         this.expire = expire;
     }
@@ -29,7 +28,7 @@ public class LoginKey implements Cacheable {
     }
 
     @Override
-    public long expire() {
+    public int expire() {
         return expire;
     }
 }

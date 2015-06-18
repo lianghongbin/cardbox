@@ -7,5 +7,5 @@ package com.gamesky.card.core;
  */
 public interface Cacheable extends Keyable {
 
-    public long expire();   //秒
+    public int expire();   //秒
 }

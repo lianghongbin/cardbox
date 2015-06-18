@@ -82,6 +82,42 @@ public class PhotoServiceImpl implements PhotoService {
     }
 
     /**
+     * 根据游戏ID获取游戏中的图片
+     *
+     * @param gameId 游戏ID
+     * @param page   分页参数
+     * @return 图片列表
+     */
+    @Override
+    public List<Photo> findByGame(int gameId, Page page) {
+        PhotoExample photoExample = new PhotoExample();
+        photoExample.createCriteria().andTypeEqualTo("GAME")
+                .andItemIdEqualTo(gameId);
+        photoExample.setOrderByClause("id desc");
+        photoExample.setLimitOffset(page.getOffset());
+        photoExample.setLimit(page.getPagesize());
+        return photoMapper.selectByExample(photoExample);
+    }
+
+    /**
+     * 根据礼包ID获取礼包中的图片
+     *
+     * @param cardId 礼包ID
+     * @param page   分页参数
+     * @return 图片列表
+     */
+    @Override
+    public List<Photo> findByCard(int cardId, Page page) {
+        PhotoExample photoExample = new PhotoExample();
+        photoExample.createCriteria().andTypeEqualTo("CARD")
+                .andItemIdEqualTo(cardId);
+        photoExample.setOrderByClause("id desc");
+        photoExample.setLimitOffset(page.getOffset());
+        photoExample.setLimit(page.getPagesize());
+        return photoMapper.selectByExample(photoExample);
+    }
+
+    /**
      * 根据条件查询图片
      *
      * @param photoExample 查询条件

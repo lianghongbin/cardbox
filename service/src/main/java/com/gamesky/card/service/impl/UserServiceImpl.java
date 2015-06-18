@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -177,7 +176,7 @@ public class UserServiceImpl implements UserService {
     public boolean isLogin(final String phone) {
         String result;
         try {
-            result = marshaller.unmarshal(new LoginKey(phone, 24 * 60 * 60));
+            result = marshaller.unmarshal(new LoginKey(phone, Constants.LOGIN_EXPIRE_LONG));
         } catch (MarshalException e) {
             logger.error("验证用户是否登录出错：{}", e);
             return false;
@@ -231,7 +230,7 @@ public class UserServiceImpl implements UserService {
         }
 
         try {
-            marshaller.marshal(new LoginKey(phone, 24 * 60 * 60), checkCode);
+            marshaller.marshal(new LoginKey(phone, Constants.LOGIN_EXPIRE_LONG), checkCode);
         } catch (MarshalException e) {
             logger.error("用户登录出错：{}", e);
             return null;

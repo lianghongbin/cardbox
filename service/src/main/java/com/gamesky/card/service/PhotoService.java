@@ -43,6 +43,22 @@ public interface PhotoService {
     List<Photo> findAll(Page page);
 
     /**
+     * 根据游戏ID获取游戏中的图片
+     * @param gameId 游戏ID
+     * @param page 分页参数
+     * @return 图片列表
+     */
+    List<Photo> findByGame(int gameId, Page page);
+
+    /**
+     * 根据礼包ID获取礼包中的图片
+     * @param cardId 礼包ID
+     * @param page 分页参数
+     * @return 图片列表
+     */
+    List<Photo> findByCard(int cardId, Page page);
+
+    /**
      * 获取所有图片数
      * @return 图片数
      */

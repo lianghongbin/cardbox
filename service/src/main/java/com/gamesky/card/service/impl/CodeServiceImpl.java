@@ -176,7 +176,7 @@ public class CodeServiceImpl implements CodeService {
     @Override
     public List<Code> findByCardAndPhone(int cardId, String phone, Page page) {
         CodeExample codeExample = new CodeExample();
-        codeExample.createCriteria().andCardIdEqualTo(cardId).andPhoneEqualTo(phone);
+        codeExample.createCriteria().andCardIdEqualTo(cardId).andPhoneEqualTo(phone).andAssignedEqualTo(true);
         codeExample.setLimitOffset(page.getOffset());
         codeExample.setLimit(page.getPagesize());
         codeExample.setOrderByClause("use_time desc, assign_time desc");

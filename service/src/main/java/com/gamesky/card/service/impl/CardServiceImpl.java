@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -116,6 +115,11 @@ public class CardServiceImpl implements CardService {
         try {
             if (!globalLock.acquire(cardLock, 3000)) {
                 return 0;
+            }
+
+            boolean isLogin = userService.isLogin(phone);
+            if (!isLogin) {
+                return ErrorCode.NOT_LOGIN.getCode();
             }
 
             //校验该卡包是否有效
@@ -236,7 +240,11 @@ public class CardServiceImpl implements CardService {
     @Override
     public List<CardWithBLOBs> findByGame(int gameId, Page page) {
         CardExample cardExample = new CardExample();
-        cardExample.createCriteria().andGameIdEqualTo(gameId).andClosedEqualTo(false);
+        cardExample.createCriteria()
+                .andGameIdEqualTo(gameId)
+                .andClosedEqualTo(false)
+                .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
+                .andExpireTimeGreaterThan(System.currentTimeMillis());
         cardExample.setLimitOffset(page.getOffset());
         cardExample.setLimit(page.getPagesize());
         cardExample.setOrderByClause("id desc");
@@ -252,7 +260,11 @@ public class CardServiceImpl implements CardService {
     @Override
     public int findCountByGame(int gameId) {
         CardExample cardExample = new CardExample();
-        cardExample.createCriteria().andGameIdEqualTo(gameId).andClosedEqualTo(false);
+        cardExample.createCriteria()
+                .andGameIdEqualTo(gameId)
+                .andClosedEqualTo(false)
+                .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
+                .andExpireTimeGreaterThan(System.currentTimeMillis());
         return cardMapper.countByExample(cardExample);
     }
 
@@ -270,12 +282,12 @@ public class CardServiceImpl implements CardService {
 
     /**
      * 查询手机用户是否已经申领过该礼品包
-     * @param cardId 礼包ID
+     * @param id 礼包ID
      * @param phone 用户手机
      * @return true/false
      */
-    public boolean hasAssign(int cardId, String phone) {
-        List<Code> codes = codeService.findByCardAndPhone(cardId, phone, new Page());
+    public boolean hasAssign(int id, String phone) {
+        List<Code> codes = codeService.findByCardAndPhone(id, phone, new Page());
         return codes != null && codes.size() > 0;
     }
 }

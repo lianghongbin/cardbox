@@ -3,14 +3,21 @@ package com.gamesky.card.web.controller;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.model.Game;
+import com.gamesky.card.core.model.Photo;
+import com.gamesky.card.service.BeanUtils;
 import com.gamesky.card.service.GameService;
+import com.gamesky.card.service.PhotoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created on 6/10/15.
@@ -18,14 +25,15 @@ import java.util.List;
  * @Author lianghongbin
  */
 @Controller
-@RequestMapping(value = "/1_0/game", produces="application/json;charset=UTF-8")
+@RequestMapping(value = "/1_0/game", produces = "application/json;charset=UTF-8")
 public class GameController {
 
     @Autowired
     private GameService gameService;
+    @Autowired
+    private PhotoService photoService;
+    private static final Logger logger = LoggerFactory.getLogger(GameController.class);
 
-    @ResponseBody
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String save(Game game) {
         int result = gameService.save(game);
         if (result > 0) {
@@ -57,11 +65,35 @@ public class GameController {
         return ResultGenerator.generateError("删除游戏失败");
     }
 
+    @SuppressWarnings("unchecked")
     @ResponseBody
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     public String find(int id) {
         Game game = gameService.find(id);
-        return ResultGenerator.generate("game", game);
+
+        List<Photo> photos = photoService.findByGame(id, new Page());
+        Map params;
+        try {
+            params = BeanUtils.beanToMap(game);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return ResultGenerator.generateError(e.getMessage());
+        }
+
+        List<String> photoList = new ArrayList<>();
+
+        if (photos == null || photos.size() == 0) {
+            params.put("photo", photoList);
+            return ResultGenerator.generate(params);
+        } else {
+            for (Photo photo : photos) {
+                photoList.add(photo.getUrl());
+            }
+
+            params.put("photo", photoList);
+        }
+
+        return ResultGenerator.generate(params);
     }
 
     @ResponseBody
@@ -70,7 +102,7 @@ public class GameController {
         List<Game> games = gameService.findAll(page);
         int count = gameService.findCount();
         page.setCount(count);
-        return ResultGenerator.generate(page, "games", games);
+        return ResultGenerator.generate(page, games);
     }
 
     @ResponseBody
@@ -79,7 +111,7 @@ public class GameController {
         List<Game> games = gameService.findRecommend(page);
         int count = gameService.findCountRecommend();
         page.setCount(count);
-        return ResultGenerator.generate(page, "games", games);
+        return ResultGenerator.generate(page, games);
     }
 
     @ResponseBody
@@ -90,6 +122,6 @@ public class GameController {
         int count = gameService.findCount();
         page.setCount(count);
 
-        return ResultGenerator.generate(page, "games", games);
+        return ResultGenerator.generate(page, games);
     }
 }

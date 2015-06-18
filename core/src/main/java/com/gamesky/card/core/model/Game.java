@@ -19,6 +19,8 @@ public class Game {
 
     private Integer sort;
 
+    private Integer score;
+
     private Long createTime;
 
     private Long modifyTime;
@@ -97,6 +99,14 @@ public class Game {
         this.sort = sort;
     }
 
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
     public Long getCreateTime() {
         return createTime;
     }
@@ -142,6 +152,7 @@ public class Game {
             && (this.getIdentifier() == null ? other.getIdentifier() == null : this.getIdentifier().equals(other.getIdentifier()))
             && (this.getTotal() == null ? other.getTotal() == null : this.getTotal().equals(other.getTotal()))
             && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
+            && (this.getScore() == null ? other.getScore() == null : this.getScore().equals(other.getScore()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getModifyTime() == null ? other.getModifyTime() == null : this.getModifyTime().equals(other.getModifyTime()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()));
@@ -160,6 +171,7 @@ public class Game {
         result = prime * result + ((getIdentifier() == null) ? 0 : getIdentifier().hashCode());
         result = prime * result + ((getTotal() == null) ? 0 : getTotal().hashCode());
         result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
+        result = prime * result + ((getScore() == null) ? 0 : getScore().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getModifyTime() == null) ? 0 : getModifyTime().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
@@ -181,6 +193,7 @@ public class Game {
         sb.append(", identifier=").append(identifier);
         sb.append(", total=").append(total);
         sb.append(", sort=").append(sort);
+        sb.append(", score=").append(score);
         sb.append(", createTime=").append(createTime);
         sb.append(", modifyTime=").append(modifyTime);
         sb.append(", description=").append(description);
