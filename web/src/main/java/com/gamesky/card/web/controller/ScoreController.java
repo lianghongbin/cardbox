@@ -1,6 +1,7 @@
 package com.gamesky.card.web.controller;
 
 import com.gamesky.card.core.ResultGenerator;
+import com.gamesky.card.core.ReturnCode;
 import com.gamesky.card.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @Author lianghongbin
  */
 @Controller
-@RequestMapping(value = "/1_0/score", produces="application/json;charset=UTF-8")
+@RequestMapping(value = "/1_0/score", produces = "application/json;charset=UTF-8")
 public class ScoreController {
     @Autowired
     private ScoreService scoreService;
@@ -22,9 +23,9 @@ public class ScoreController {
     @ResponseBody
     @RequestMapping(value = "/daily", method = RequestMethod.GET)
     public String daily(String phone) {
-        int result = scoreService.dailySign(phone);
-        if (result > 0) {
-            return ResultGenerator.generate();
+        int score = scoreService.dailySign(phone);
+        if (score > 0) {
+            return ResultGenerator.generate(ReturnCode.SUCCESS.getCode(), String.valueOf(score));
         }
 
         return ResultGenerator.generateError("当日已经领取或者领取积分失败");
@@ -33,9 +34,9 @@ public class ScoreController {
     @ResponseBody
     @RequestMapping(value = "/weixin", method = RequestMethod.GET)
     public String weiXin(String phone) {
-        int result = scoreService.weixinShare(phone);
-        if (result > 0) {
-            return ResultGenerator.generate();
+        int score = scoreService.weixinShare(phone);
+        if (score > 0) {
+            return ResultGenerator.generate(ReturnCode.SUCCESS.getCode(), String.valueOf(score));
         }
 
         return ResultGenerator.generateError("当日微信已经分享或者领取积分失败");
@@ -44,11 +45,11 @@ public class ScoreController {
     @ResponseBody
     @RequestMapping(value = "/qq", method = RequestMethod.GET)
     public String qq(String phone) {
-        int result = scoreService.qqShare(phone);
-        if (result > 0) {
-            return ResultGenerator.generate();
+        int score = scoreService.qqShare(phone);
+        if (score > 0) {
+            return ResultGenerator.generate(ReturnCode.SUCCESS.getCode(), String.valueOf(score));
         }
 
-        return ResultGenerator.generateError("当时QQ已经分享或者领取积分失败");
+        return ResultGenerator.generateError("当日QQ已经分享或者领取积分失败");
     }
 }

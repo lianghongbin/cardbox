@@ -1,8 +1,8 @@
 package com.gamesky.card.service;
 
 import com.gamesky.card.core.Constants;
-import com.gamesky.card.core.ErrorCode;
 import com.gamesky.card.core.ResultGenerator;
+import com.gamesky.card.core.ReturnCode;
 import com.gamesky.card.core.utils.MD5Utils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -58,6 +58,6 @@ public class AuthenticateFilter extends OncePerRequestFilter {
             return;
         }
 
-        response.getWriter().print(ResultGenerator.generateError(ErrorCode.ILLEGAL_ARGUMENT));
+        response.getWriter().print(ResultGenerator.generateError(ReturnCode.ILLEGAL_ARGUMENT));
     }
 }

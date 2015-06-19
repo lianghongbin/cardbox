@@ -10,15 +10,15 @@ import com.google.gson.Gson;
 public class ResultGenerator {
 
     public static String generateError(String message) {
-        return generateError(-1, message);
+        return generate(-1, message);
     }
 
-    public static String generateError(int code, String message) {
+    public static String generate(int code, String message) {
         Result result = new Result(new Status(code, message));
         return toJson(result);
     }
 
-    public static String generateError(ErrorCode code) {
+    public static String generateError(ReturnCode code) {
         Result result = new Result(new Status(code.getCode(), code.getDesc()));
         return toJson(result);
     }

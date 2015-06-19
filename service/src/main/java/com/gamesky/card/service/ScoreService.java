@@ -32,21 +32,21 @@ public interface ScoreService {
     /**
      * 每日登录赚积分，一天只能一次
      * @param phone 用户手机
-     * @return 影响条数
+     * @return 积分数
      */
     public int dailySign(String phone);
 
     /**
      * 微信分享赚积分，一天只能一次
      * @param phone 用户手机
-     * @return 影响条数
+     * @return 积分数
      */
     public int weixinShare(String phone);
 
     /**
      * QQ分享赚积分 ，一天只能一次
      * @param phone 用户手机
-     * @return 影响条数
+     * @return 积分数
      */
     public int qqShare(String phone);
 }

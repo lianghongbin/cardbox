@@ -1,7 +1,7 @@
 package com.gamesky.card.web.controller;
 
-import com.gamesky.card.core.ErrorCode;
 import com.gamesky.card.core.ResultGenerator;
+import com.gamesky.card.core.ReturnCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -23,32 +23,32 @@ public class ErrorController {
     @ResponseBody
     @RequestMapping("/500")
     public String error500() {
-        return ResultGenerator.generateError(ErrorCode.SERVER_ERROR_500);
+        return ResultGenerator.generateError(ReturnCode.SERVER_ERROR_500);
     }
 
     @ResponseBody
     @RequestMapping("/504")
     public String error504() {
-        return ResultGenerator.generateError(ErrorCode.SERVER_ERROR_504);
+        return ResultGenerator.generateError(ReturnCode.SERVER_ERROR_504);
     }
 
 
     @ResponseBody
     @RequestMapping("/404")
     public String error404() {
-        return ResultGenerator.generateError(ErrorCode.PAGE_NOT_FOUND);
+        return ResultGenerator.generateError(ReturnCode.PAGE_NOT_FOUND);
     }
 
     @ResponseBody
     @RequestMapping("/exception")
     public String exception(Throwable e) {
         logger.error("系统异常：{}", e.getClass());
-        return ResultGenerator.generateError(ErrorCode.EXCEPTION.getCode(), "系统异常：" + e.getClass() + " --|-- " + e.toString());
+        return ResultGenerator.generate(ReturnCode.EXCEPTION.getCode(), "系统异常：" + e.getClass() + " --|-- " + e.toString());
     }
 
     @ResponseBody
     @RequestMapping("/error")
     public String error() {
-        return ResultGenerator.generateError(ErrorCode.ERROR);
+        return ResultGenerator.generateError(ReturnCode.ERROR);
     }
 }

@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -111,7 +110,12 @@ public class ScoreServiceImpl implements ScoreService {
                 score = setting.getDaily();
             }
 
-            return this.gain(phone, score, MethodType.DAILY_GAIN);
+            int result = this.gain(phone, score, MethodType.DAILY_GAIN);
+            if (result > 0) {
+                return score;
+            }
+
+            return 0;
         }
 
         for (Flow flow : flows) {
@@ -129,7 +133,12 @@ public class ScoreServiceImpl implements ScoreService {
             score = setting.getDaily();
         }
 
-        return this.gain(phone, score, MethodType.DAILY_GAIN);
+        int result = this.gain(phone, score, MethodType.DAILY_GAIN);
+        if (result > 0) {
+            return score;
+        }
+
+        return 0;
     }
 
     /**
@@ -146,7 +155,13 @@ public class ScoreServiceImpl implements ScoreService {
             if (setting != null) {
                 score = setting.getDaily();
             }
-            return this.gain(phone, score, MethodType.WEIXIN_GAIN);
+
+            int result = this.gain(phone, score, MethodType.WEIXIN_GAIN);
+            if (result > 0) {
+                return score;
+            }
+
+            return 0;
         }
 
         for (Flow flow : flows) {
@@ -162,7 +177,13 @@ public class ScoreServiceImpl implements ScoreService {
         if (setting != null) {
             score = setting.getDaily();
         }
-        return this.gain(phone, score, MethodType.WEIXIN_GAIN);
+
+        int result = this.gain(phone, score, MethodType.WEIXIN_GAIN);
+        if (result > 0) {
+            return score;
+        }
+
+        return 0;
     }
 
     /**
@@ -179,7 +200,13 @@ public class ScoreServiceImpl implements ScoreService {
             if (setting != null) {
                 score = setting.getDaily();
             }
-            return this.gain(phone, score, MethodType.QQ_GAIN);
+
+            int result = this.gain(phone, score, MethodType.QQ_GAIN);
+            if (result > 0) {
+                return score;
+            }
+
+            return 0;
         }
 
         for (Flow flow : flows) {
@@ -196,7 +223,13 @@ public class ScoreServiceImpl implements ScoreService {
         if (setting != null) {
             score = setting.getDaily();
         }
-        return this.gain(phone, score, MethodType.QQ_GAIN);
+
+        int result = this.gain(phone, score, MethodType.QQ_GAIN);
+        if (result > 0) {
+            return score;
+        }
+
+        return 0;
     }
 
     private boolean sameDay(long one, long two) {

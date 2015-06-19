@@ -1,9 +1,9 @@
 package com.gamesky.card.web.controller;
 
 import com.gamesky.card.core.CardType;
-import com.gamesky.card.core.ErrorCode;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
+import com.gamesky.card.core.ReturnCode;
 import com.gamesky.card.core.model.Card;
 import com.gamesky.card.core.model.CardExample;
 import com.gamesky.card.core.model.CardWithBLOBs;
@@ -128,7 +128,7 @@ public class CardController {
             return ResultGenerator.generate();
         }
 
-        return ResultGenerator.generateError(ErrorCode.fromCode(result));
+        return ResultGenerator.generateError(ReturnCode.fromCode(result));
     }
 
     @ResponseBody

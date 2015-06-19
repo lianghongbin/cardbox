@@ -5,8 +5,9 @@ package com.gamesky.card.core;
  *
  * @Author lianghongbin
  */
-public enum ErrorCode {
+public enum ReturnCode {
 
+    SUCCESS(0, "success"),
     GENERAL(-1, "普通错误"),
     ILLEGAL_ARGUMENT(-2, "参数错误"),
     EXCEPTION(-3, "系统异常"),
@@ -23,7 +24,7 @@ public enum ErrorCode {
     private int code;
     private String desc;
 
-    private ErrorCode(int code, String desc) {
+    private ReturnCode(int code, String desc) {
         this.code = code;
         this.desc = desc;
     }
@@ -34,10 +35,10 @@ public enum ErrorCode {
 
     public String getDesc() {return desc;}
 
-    public static ErrorCode fromCode(int code) {
-        for(ErrorCode errorCode: values()) {
-            if (errorCode.getCode() == code) {
-                return errorCode;
+    public static ReturnCode fromCode(int code) {
+        for(ReturnCode returnCode : values()) {
+            if (returnCode.getCode() == code) {
+                return returnCode;
             }
         }
 

@@ -1,8 +1,8 @@
 package com.gamesky.card.service.impl;
 
 import com.gamesky.card.core.CardType;
-import com.gamesky.card.core.ErrorCode;
 import com.gamesky.card.core.Page;
+import com.gamesky.card.core.ReturnCode;
 import com.gamesky.card.core.exceptions.LockException;
 import com.gamesky.card.core.lock.GlobalLock;
 import com.gamesky.card.core.lock.Lockable;
@@ -119,7 +119,7 @@ public class CardServiceImpl implements CardService {
 
             boolean isLogin = userService.isLogin(phone);
             if (!isLogin) {
-                return ErrorCode.NOT_LOGIN.getCode();
+                return ReturnCode.NOT_LOGIN.getCode();
             }
 
             //校验该卡包是否有效
@@ -127,7 +127,7 @@ public class CardServiceImpl implements CardService {
             cardExample.createCriteria().andClosedEqualTo(false).andIdEqualTo(id).andOpenTimeLessThanOrEqualTo(System.currentTimeMillis()).andExpireTimeGreaterThan(System.currentTimeMillis());
             List<Card> cards = cardMapper.selectByExample(cardExample);
             if (cards == null || cards.size()==0) {
-                return ErrorCode.DATA_EMPTY.getCode();
+                return ReturnCode.DATA_EMPTY.getCode();
             }
 
             Card card = cards.get(0);
@@ -135,7 +135,7 @@ public class CardServiceImpl implements CardService {
             List<Code> codes = codeService.findByCardAndPhone(id, phone,new Page());
 
             if (codes != null && codes.size() > 0) {
-                return ErrorCode.ILLEGAL_OPERATE.getCode();
+                return ReturnCode.ILLEGAL_OPERATE.getCode();
             }
 
             if (card.getTotal()<=card.getAssignTotal()) {
@@ -146,11 +146,11 @@ public class CardServiceImpl implements CardService {
                 //如果是扣分数的礼包，查看一下分数是否够，如果不够直接返回错误提示
                 User user = userService.findByPhone(phone);
                 if (user == null) {
-                    return ErrorCode.ILLEGAL_ARGUMENT.getCode();
+                    return ReturnCode.ILLEGAL_ARGUMENT.getCode();
                 }
 
                 if (card.getScore() > user.getScore()) {
-                    return ErrorCode.SCORE_NOT_ENOUGH.getCode();
+                    return ReturnCode.SCORE_NOT_ENOUGH.getCode();
                 }
 
                 user.setScore(user.getScore() - card.getScore());
@@ -165,7 +165,7 @@ public class CardServiceImpl implements CardService {
             Code code = codeService.findOne(id);
             if (code == null) {
                 logger.error("礼包激活码没有导入");
-                return ErrorCode.DATA_EMPTY.getCode();
+                return ReturnCode.DATA_EMPTY.getCode();
             }
 
             code.setAssigned(true);
