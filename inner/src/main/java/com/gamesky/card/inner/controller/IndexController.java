@@ -17,4 +17,24 @@ public class IndexController {
     public ModelAndView index() {
         return new ModelAndView("index");
     }
+
+    @RequestMapping("/top")
+    public ModelAndView top() {
+        return new ModelAndView("top");
+    }
+
+    @RequestMapping("/left")
+    public ModelAndView left() {
+        return new ModelAndView("left");
+    }
+
+    @RequestMapping("/main")
+    public ModelAndView main() {
+        return new ModelAndView("main");
+    }
+
+    @RequestMapping("/org")
+    public ModelAndView org() {
+        return new ModelAndView("design");
+    }
 }

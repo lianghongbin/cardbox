@@ -11,4 +11,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(produces="text/plain;charset=UTF-8")
 public class DashboardController {
+
 }
