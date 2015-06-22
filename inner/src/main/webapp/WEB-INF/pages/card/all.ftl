@@ -48,7 +48,7 @@
 
         <div class="crumb-wrap">
             <div class="crumb-list"><i class="icon-font"></i>首页<span class="crumb-step">&gt;</span><span
-                    class="crumb-name">游戏管理</span></div>
+                    class="crumb-name">礼包管理</span></div>
         </div>
         <div class="search-wrap">
             <div class="search-content">

@@ -60,5 +60,5 @@
     <mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>
     <mvc:resources mapping="/css/**" location="/css/" cache-period="31556926"/>
     <mvc:resources mapping="/fonts/**" location="/fonts/" cache-period="31556926"/>
-    <mvc:resources mapping="/font-awesome-4.1.0/**" location="/font-awesome-4.1.0/" cache-period="31556926"/>
+    <mvc:resources mapping="/tcal/**" location="/tcal/" cache-period="31556926"/>
 </beans>

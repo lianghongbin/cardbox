@@ -9,7 +9,7 @@ import java.beans.Transient;
  */
 public class Page {
 
-    private int count;
+    private int count = 0;
     private int pagesize;
     private int pagenum = 1;
     private int total = 1;
@@ -21,8 +21,7 @@ public class Page {
         this.total = 1;
     }
 
-    public Page(int count, int pagesize, int pagenum) {
-        this.count = count;
+    public Page(int pagesize, int pagenum) {
         this.pagesize = pagesize;
         if (pagenum < 1) {
             this.pagenum = 1;

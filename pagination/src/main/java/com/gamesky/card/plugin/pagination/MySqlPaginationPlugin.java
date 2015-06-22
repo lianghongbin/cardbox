@@ -20,9 +20,21 @@ public class MySqlPaginationPlugin extends PluginAdapter {
         return super.modelExampleClassGenerated(topLevelClass,
                 introspectedTable);
     }
+
     @Override
-    public boolean sqlMapSelectByExampleWithoutBLOBsElementGenerated(
-            XmlElement element, IntrospectedTable introspectedTable) {
+    public boolean sqlMapSelectByExampleWithBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
+        XmlElement isNotNullElement = new XmlElement("if"); //$NON-NLS-1$
+        isNotNullElement.addAttribute(new Attribute("test", "limitOffset != null and limitOffset>=0")); //$NON-NLS-1$ //$NON-NLS-2$
+//      isNotNullElement.addAttribute(new Attribute("compareValue", "0")); //$NON-NLS-1$ //$NON-NLS-2$
+        isNotNullElement.addElement(new TextElement(
+                "limit #{limitOffset}, #{limit}"));
+//      isParameterPresenteElemen.addElement(isNotNullElement);
+        element.addElement(isNotNullElement);
+        return super.sqlMapUpdateByExampleWithoutBLOBsElementGenerated(element, introspectedTable);
+    }
+
+    @Override
+    public boolean sqlMapSelectByExampleWithoutBLOBsElementGenerated( XmlElement element, IntrospectedTable introspectedTable) {
 //      XmlElement isParameterPresenteElemen = (XmlElement) element
 //              .getElements().get(element.getElements().size() - 1);
         XmlElement isNotNullElement = new XmlElement("if"); //$NON-NLS-1$
@@ -32,9 +44,10 @@ public class MySqlPaginationPlugin extends PluginAdapter {
                 "limit #{limitOffset}, #{limit}"));
 //      isParameterPresenteElemen.addElement(isNotNullElement);
         element.addElement(isNotNullElement);
-        return super.sqlMapUpdateByExampleWithoutBLOBsElementGenerated(element,
-                introspectedTable);
+        return super.sqlMapUpdateByExampleWithoutBLOBsElementGenerated(element, introspectedTable);
     }
+
+
     private void addLimit(TopLevelClass topLevelClass,
                           IntrospectedTable introspectedTable, String name) {
         CommentGenerator commentGenerator = context.getCommentGenerator();

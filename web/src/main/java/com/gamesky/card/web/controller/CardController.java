@@ -43,6 +43,7 @@ public class CardController {
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String save(CardWithBLOBs card) {
+        card.setCreateTime(System.currentTimeMillis());
         int result = cardService.save(card);
         if (result > 0) {
             return ResultGenerator.generate();

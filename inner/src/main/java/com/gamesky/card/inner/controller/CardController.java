@@ -4,13 +4,11 @@ import com.gamesky.card.core.CardType;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.ReturnCode;
-import com.gamesky.card.core.model.Card;
-import com.gamesky.card.core.model.CardExample;
-import com.gamesky.card.core.model.CardWithBLOBs;
-import com.gamesky.card.core.model.Code;
+import com.gamesky.card.core.model.*;
 import com.gamesky.card.service.BeanUtils;
 import com.gamesky.card.service.CardService;
 import com.gamesky.card.service.CodeService;
+import com.gamesky.card.service.GameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,46 +30,46 @@ import java.util.stream.Collectors;
  * @Author lianghongbin
  */
 @Controller
-@RequestMapping(value = "/1_0/card", produces = "application/json;charset=UTF-8")
+@RequestMapping(value = "/card", produces = "text/plain;charset=UTF-8")
 public class CardController {
 
     @Autowired
     private CardService cardService;
     @Autowired
+    private GameService gameService;
+    @Autowired
     private CodeService codeService;
     private static final Logger logger = LoggerFactory.getLogger(CardController.class);
 
-    @ResponseBody
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String save(CardWithBLOBs card) {
-        int result = cardService.save(card);
-        if (result > 0) {
-            return ResultGenerator.generate();
-        }
+    @RequestMapping(value = "/add")
+    public ModelAndView add() {
+        List<Game> games = gameService.findAll(new Page());
+        ModelAndView modelAndView = new ModelAndView("/card/add");
+        modelAndView.addObject("games", games);
+        CardType[] cardTypes = CardType.values();
+        modelAndView.addObject("types", cardTypes);
+        return modelAndView;
+    }
 
-        return ResultGenerator.generateError("添加卡包失败");
+    @ResponseBody
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String save(CardWithBLOBs card) {
+        card.setCreateTime(System.currentTimeMillis());
+        int result = cardService.save(card);
+        return String.valueOf(result);
     }
 
     @ResponseBody
     @RequestMapping(value = "/close", method = RequestMethod.POST)
-    public String close(int id) {
-        int result = cardService.close(id);
-        if (result > 0) {
-            return ResultGenerator.generate();
+    public String orenOrClose(int id, boolean operate) {
+        int result;
+        if (operate) {
+            result = cardService.close(id);
+        }else {
+            result = cardService.open(id);
         }
 
-        return ResultGenerator.generateError("锁死卡包失败");
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/open", method = RequestMethod.POST)
-    public String open(int id) {
-        int result = cardService.open(id);
-        if (result > 0) {
-            return ResultGenerator.generate();
-        }
-
-        return ResultGenerator.generateError("锁定卡包解锁失败");
+        return String.valueOf(result);
     }
 
     @ResponseBody

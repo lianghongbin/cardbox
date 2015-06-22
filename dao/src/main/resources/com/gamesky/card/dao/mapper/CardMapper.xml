@@ -103,6 +103,9 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+    <if test="limitOffset != null and limitOffset>=0" >
+      limit #{limitOffset}, #{limit}
+    </if>
   </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.CardExample" >
     select

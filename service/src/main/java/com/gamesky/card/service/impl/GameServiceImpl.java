@@ -92,8 +92,8 @@ public class GameServiceImpl implements GameService {
         GameExample gameExample = new GameExample();
         gameExample.setLimit(page.getPagesize());
         gameExample.setLimitOffset(page.getOffset());
-        gameExample.setOrderByClause("id desc");
-        return gameMapper.selectByExampleWithBLOBs(gameExample);
+        gameExample.setOrderByClause("recommend desc, id desc");
+        return gameMapper.selectByExample(gameExample);
     }
 
     /**
@@ -168,7 +168,7 @@ public class GameServiceImpl implements GameService {
      */
     @Override
     public List<Game> findByCondition(GameExample gameExample) {
-        return gameMapper.selectByExampleWithBLOBs(gameExample);
+        return gameMapper.selectByExample(gameExample);
     }
 
     /**

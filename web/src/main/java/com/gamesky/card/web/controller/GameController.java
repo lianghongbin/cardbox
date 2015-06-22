@@ -34,15 +34,6 @@ public class GameController {
     private PhotoService photoService;
     private static final Logger logger = LoggerFactory.getLogger(GameController.class);
 
-    public String save(Game game) {
-        int result = gameService.save(game);
-        if (result > 0) {
-            return ResultGenerator.generate();
-        }
-
-        return ResultGenerator.generateError("添加游戏失败");
-    }
-
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(Game game) {

@@ -394,6 +394,66 @@ public class GameExample {
             return (Criteria) this;
         }
 
+        public Criteria andClosedIsNull() {
+            addCriterion("closed is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedIsNotNull() {
+            addCriterion("closed is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedEqualTo(Boolean value) {
+            addCriterion("closed =", value, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedNotEqualTo(Boolean value) {
+            addCriterion("closed <>", value, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedGreaterThan(Boolean value) {
+            addCriterion("closed >", value, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("closed >=", value, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedLessThan(Boolean value) {
+            addCriterion("closed <", value, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedLessThanOrEqualTo(Boolean value) {
+            addCriterion("closed <=", value, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedIn(List<Boolean> values) {
+            addCriterion("closed in", values, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedNotIn(List<Boolean> values) {
+            addCriterion("closed not in", values, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedBetween(Boolean value1, Boolean value2) {
+            addCriterion("closed between", value1, value2, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("closed not between", value1, value2, "closed");
+            return (Criteria) this;
+        }
+
         public Criteria andIosIdIsNull() {
             addCriterion("ios_id is null");
             return (Criteria) this;
@@ -714,6 +774,76 @@ public class GameExample {
             return (Criteria) this;
         }
 
+        public Criteria andPlatformIsNull() {
+            addCriterion("platform is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformIsNotNull() {
+            addCriterion("platform is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformEqualTo(String value) {
+            addCriterion("platform =", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformNotEqualTo(String value) {
+            addCriterion("platform <>", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformGreaterThan(String value) {
+            addCriterion("platform >", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformGreaterThanOrEqualTo(String value) {
+            addCriterion("platform >=", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformLessThan(String value) {
+            addCriterion("platform <", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformLessThanOrEqualTo(String value) {
+            addCriterion("platform <=", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformLike(String value) {
+            addCriterion("platform like", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformNotLike(String value) {
+            addCriterion("platform not like", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformIn(List<String> values) {
+            addCriterion("platform in", values, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformNotIn(List<String> values) {
+            addCriterion("platform not in", values, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformBetween(String value1, String value2) {
+            addCriterion("platform between", value1, value2, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformNotBetween(String value1, String value2) {
+            addCriterion("platform not between", value1, value2, "platform");
+            return (Criteria) this;
+        }
+
         public Criteria andScoreIsNull() {
             addCriterion("score is null");
             return (Criteria) this;
@@ -916,6 +1046,11 @@ public class GameExample {
 
         public Criteria andIdentifierLikeInsensitive(String value) {
             addCriterion("upper(identifier) like", value.toUpperCase(), "identifier");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformLikeInsensitive(String value) {
+            addCriterion("upper(platform) like", value.toUpperCase(), "platform");
             return (Criteria) this;
         }
     }
