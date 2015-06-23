@@ -58,7 +58,7 @@ public interface FocusService {
      * @param page 分页参数
      * @return 列表
      */
-    public List<Focus> findByEnable(boolean enable, Page page);
+    public List<Focus> findByEnable(Boolean enable, Page page);
 
     /**
      * 根据是否有效条件，查询个数

@@ -30,6 +30,13 @@ public interface FeedbackService {
     public int process(int id, String remark);
 
     /**
+     * 删除用户反馈
+     * @param id 反馈ID
+     * @return 影响条数
+     */
+    public int remove(int id);
+
+    /**
      * 根据ID获取反馈实体
      * @param id 反馈ID
      * @return 反馈实体

@@ -29,9 +29,9 @@ public class Card {
 
     private Long closeTime;
 
-    private Long expireTime;
-
     private Long openTime;
+
+    private Long expireTime;
 
     public Integer getId() {
         return id;
@@ -145,20 +145,20 @@ public class Card {
         this.closeTime = closeTime;
     }
 
-    public Long getExpireTime() {
-        return expireTime;
-    }
-
-    public void setExpireTime(Long expireTime) {
-        this.expireTime = expireTime;
-    }
-
     public Long getOpenTime() {
         return openTime;
     }
 
     public void setOpenTime(Long openTime) {
         this.openTime = openTime;
+    }
+
+    public Long getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(Long expireTime) {
+        this.expireTime = expireTime;
     }
 
     @Override
@@ -187,8 +187,8 @@ public class Card {
             && (this.getClosed() == null ? other.getClosed() == null : this.getClosed().equals(other.getClosed()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCloseTime() == null ? other.getCloseTime() == null : this.getCloseTime().equals(other.getCloseTime()))
-            && (this.getExpireTime() == null ? other.getExpireTime() == null : this.getExpireTime().equals(other.getExpireTime()))
-            && (this.getOpenTime() == null ? other.getOpenTime() == null : this.getOpenTime().equals(other.getOpenTime()));
+            && (this.getOpenTime() == null ? other.getOpenTime() == null : this.getOpenTime().equals(other.getOpenTime()))
+            && (this.getExpireTime() == null ? other.getExpireTime() == null : this.getExpireTime().equals(other.getExpireTime()));
     }
 
     @Override
@@ -209,8 +209,8 @@ public class Card {
         result = prime * result + ((getClosed() == null) ? 0 : getClosed().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCloseTime() == null) ? 0 : getCloseTime().hashCode());
-        result = prime * result + ((getExpireTime() == null) ? 0 : getExpireTime().hashCode());
         result = prime * result + ((getOpenTime() == null) ? 0 : getOpenTime().hashCode());
+        result = prime * result + ((getExpireTime() == null) ? 0 : getExpireTime().hashCode());
         return result;
     }
 
@@ -234,8 +234,8 @@ public class Card {
         sb.append(", closed=").append(closed);
         sb.append(", createTime=").append(createTime);
         sb.append(", closeTime=").append(closeTime);
-        sb.append(", expireTime=").append(expireTime);
         sb.append(", openTime=").append(openTime);
+        sb.append(", expireTime=").append(expireTime);
         sb.append("]");
         return sb.toString();
     }

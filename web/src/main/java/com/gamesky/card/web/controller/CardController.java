@@ -76,7 +76,7 @@ public class CardController {
 
     @ResponseBody
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public String upload(Card card) {
+    public String upload(CardWithBLOBs card) {
         int result = cardService.update(card);
         if (result > 0) {
             return ResultGenerator.generate();

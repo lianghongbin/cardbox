@@ -60,7 +60,7 @@ public class CodeServiceImpl implements CodeService {
      */
     @Override
     public int update(Code code) {
-        return codeMapper.updateByPrimaryKey(code);
+        return codeMapper.updateByPrimaryKeySelective(code);
     }
 
     /**

@@ -93,12 +93,12 @@ public class CardServiceImpl implements CardService {
      * @return 影响条数
      */
     @Override
-    public int update(Card card) {
+    public int update(CardWithBLOBs card) {
         Game game = new Game();
         game.setId(card.getGameId());
         game.setTotal(findCountByGame(card.getGameId()));
         gameService.update(game);
-        return cardMapper.updateByPrimaryKey(card);
+        return cardMapper.updateByPrimaryKeySelective(card);
     }
 
     /**
@@ -200,12 +200,12 @@ public class CardServiceImpl implements CardService {
      * @return 卡包列表
      */
     @Override
-    public List<CardWithBLOBs> findAll(Page page) {
+    public List<Card> findAll(Page page) {
         CardExample cardExample = new CardExample();
         cardExample.setLimitOffset(page.getOffset());
         cardExample.setLimit(page.getPagesize());
         cardExample.setOrderByClause("id desc");
-        return cardMapper.selectByExampleWithBLOBs(cardExample);
+        return cardMapper.selectByExample(cardExample);
     }
 
     /**

@@ -11,7 +11,7 @@
     <script type="text/javascript" src="../js/libs/modernizr.min.js"></script>
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript">
-        function operate(id,gameId,closed)
+        function operate(id,closed)
         {
             confirm("你确定要对该礼包进行上线/下线操作？");
             if(closed == null) {
@@ -22,7 +22,6 @@
                 url: '/card/openorclose',// 跳转到 action
                 data: {
                     id: id,
-                    gameId: gameId,
                     operate: !closed
                 },
                 type: 'post',
@@ -127,7 +126,7 @@
                             <td>${card.openTime?number_to_datetime}</td>
                             <td>${card.expireTime?number_to_datetime}</td>
                             <td align="center">
-                                <#if card.closed><a class="link-update" href="javascript:operate(${card.id},${card.gameId},'${card.closed!false}')">上线</a><#else><a class="link-update" href="javascript:operate(${card.id},${card.gameId},'${card.closed!false}')">下线</a></#if>
+                                <#if card.closed><a class="link-update" href="javascript:operate(${card.id},'${card.closed!false}')">上线</a><#else><a class="link-update" href="javascript:operate(${card.id},'${card.closed!false}')">下线</a></#if>
                                 &nbsp;&nbsp; <a class="link-update" href="./modify?id=${card.id}">修改</a>
                             </td>
                         </tr>

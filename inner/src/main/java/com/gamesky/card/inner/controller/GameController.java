@@ -1,11 +1,8 @@
 package com.gamesky.card.inner.controller;
 
 import com.gamesky.card.core.Page;
-import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.model.Game;
 import com.gamesky.card.core.model.GameExample;
-import com.gamesky.card.core.model.Photo;
-import com.gamesky.card.service.BeanUtils;
 import com.gamesky.card.service.GameService;
 import com.gamesky.card.service.PhotoService;
 import org.apache.commons.lang3.StringUtils;
@@ -18,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created on 6/10/15.
@@ -76,7 +71,7 @@ public class GameController {
     @RequestMapping(value = "/all")
     public ModelAndView findAll(String platform, Boolean closed, String name, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
-            page.setPagesize(5);
+            page.setPagesize(15);
         }
 
         GameExample gameExample = new GameExample();
@@ -92,7 +87,7 @@ public class GameController {
             criteria.andNameLike("%" + name + "%");
         }
 
-        gameExample.setOrderByClause("recommend desc, id desc");
+        gameExample.setOrderByClause("closed asc, sort asc, recommend desc, id desc");
         gameExample.setLimitOffset(page.getOffset());
         gameExample.setLimit(page.getPagesize());
 
@@ -104,6 +99,41 @@ public class GameController {
         PaginationData paginationData = new PaginationData(page, games);
 
         ModelAndView modelAndView = new ModelAndView("game/all");
+        modelAndView.addObject("page", page);
+        modelAndView.addObject("games", games);
+        modelAndView.addObject("paginationData", paginationData);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/ranking")
+    public ModelAndView ranking(String platform, String name, Page page) {
+        if (page.getPagesize() == Integer.MAX_VALUE) {
+            page.setPagesize(50);
+        }
+
+        GameExample gameExample = new GameExample();
+        GameExample.Criteria criteria = gameExample.createCriteria();
+        criteria.andClosedEqualTo(false);
+        if (StringUtils.isNotBlank(platform)) {
+            criteria.andPlatformEqualTo(platform);
+        }
+
+        if (StringUtils.isNotBlank(StringUtils.trimToEmpty(name))) {
+            criteria.andNameLike("%" + name + "%");
+        }
+
+        gameExample.setOrderByClause("sort asc, recommend desc, id desc");
+        gameExample.setLimitOffset(page.getOffset());
+        gameExample.setLimit(page.getPagesize());
+
+        List<Game> games = gameService.findByCondition(gameExample);
+        int count = gameService.findCountByCondition(gameExample);
+
+        page.setCount(count);
+
+        PaginationData paginationData = new PaginationData(page, games);
+
+        ModelAndView modelAndView = new ModelAndView("game/ranking");
         modelAndView.addObject("page", page);
         modelAndView.addObject("games", games);
         modelAndView.addObject("paginationData", paginationData);

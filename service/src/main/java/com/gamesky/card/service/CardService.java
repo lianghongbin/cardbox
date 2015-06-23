@@ -45,7 +45,7 @@ public interface CardService {
      * @param card 卡包
      * @return 影响条数
      */
-    public int update(Card card);
+    public int update(CardWithBLOBs card);
 
     /**
      * 分发、分配一个卡
@@ -70,7 +70,7 @@ public interface CardService {
      * @param page 分页条件
      * @return 卡包列表
      */
-    public List<CardWithBLOBs> findAll(Page page);
+    public List<Card> findAll(Page page);
 
     /**
      * 根据条件分页查询显示卡包

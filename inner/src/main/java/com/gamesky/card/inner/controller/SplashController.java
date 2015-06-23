@@ -1,5 +1,6 @@
 package com.gamesky.card.inner.controller;
 
+import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.model.Splash;
 import com.gamesky.card.service.SplashService;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -17,54 +19,59 @@ import java.util.List;
  * @Author lianghongbin
  */
 @Controller
-@RequestMapping(value = "/1_0/splash", produces="application/json;charset=UTF-8")
+@RequestMapping(value = "/splash", produces = "text/plain;charset=UTF-8")
 public class SplashController {
 
     @Autowired
     private SplashService splashService;
 
+    @RequestMapping(value = "/add")
+    public ModelAndView add() {
+        return new ModelAndView("/splash/add");
+    }
+
     @ResponseBody
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/save")
     public String save(Splash splash) {
+        splash.setCreateTime(System.currentTimeMillis());
         int result = splashService.save(splash);
-        if (result == 1) {
-            return ResultGenerator.generate();
-        }
-
-        return ResultGenerator.generateError("添加启动页失败");
+        return String.valueOf(result);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String delete(int id) {
+    @RequestMapping(value = "/remove")
+    public String remove(int id) {
         int result = splashService.remove(id);
-        if (result == 1) {
-            return ResultGenerator.generate();
-        }
-
-        return ResultGenerator.generateError("删除启动页失败");
+        return String.valueOf(result);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update")
     public String update(Splash splash) {
         int result = splashService.update(splash);
-        if (result == 1) {
-            return ResultGenerator.generate();
-        }
-
-        return ResultGenerator.generateError("更新启动页失败");
+        return String.valueOf(result);
     }
 
     /**
      * 多个启动页的请求接口
+     *
      * @return json
      */
-    @ResponseBody
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public String findAll() {
-        List<Splash> splashes = splashService.findAll();
-        return ResultGenerator.generate(splashes);
+    public ModelAndView findAll(Page page) {
+        if (page.getPagesize() == Integer.MAX_VALUE) {
+            page.setPagesize(15);
+        }
+
+        List<Splash> splashes = splashService.findAll(page);
+        int count = splashService.findCount();
+        page.setCount(count);
+
+        PaginationData paginationData = new PaginationData(page, splashes);
+
+        ModelAndView modelAndView = new ModelAndView("splash/all");
+        modelAndView.addObject("paginationData", paginationData);
+        return modelAndView;
     }
 
     @ResponseBody

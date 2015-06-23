@@ -41,17 +41,23 @@ public interface SplashService {
     public List<Splash> findAll(Page page);
 
     /**
+     * 获取所有启动页数
+     * @return 启动页数
+     */
+    public int findCount();
+
+    /**
      * 获取所有启动页
      *
      * @return 启动页列表
      */
-    public List<Splash> findAll();
+    public List<Splash> findEnabledAll();
 
     /**
      * 获取所有启动页数
      * @return 启动页数
      */
-    public int findCount();
+    public int findEnabledAllCount();
 
     /**
      * 根据是否可用条件查询启动项
@@ -60,7 +66,7 @@ public interface SplashService {
      * @param page    分页参数
      * @return 启动项列表
      */
-    public List<Splash> findByEnable(boolean enabled, Page page);
+    public List<Splash> findEnabled(boolean enabled, Page page);
 
     /**
      * 获取第一个启动页
@@ -74,5 +80,5 @@ public interface SplashService {
      * @param enabled 是否可用
      * @return 启动页数量
      */
-    public int findCountByEnable(Boolean enabled);
+    public int findEnabledCount(Boolean enabled);
 }

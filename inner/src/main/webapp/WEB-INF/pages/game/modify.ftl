@@ -118,8 +118,8 @@
                     </tr>
                     <tr>
                         <th>描述：</th>
-                        <td><textarea name="description" class="common-textarea" id="description" cols="30"
-                                      style="width: 98%;" rows="10">${game.description}</textarea></td>
+                        <td><textarea name="description" class="common-textarea" id="description" cols="20"
+                                      style="width: 98%;" rows="5">${game.description}</textarea></td>
                     </tr>
                     <tr>
                         <th></th>

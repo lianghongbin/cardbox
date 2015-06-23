@@ -23,13 +23,13 @@
                 <a href="#"><i class="icon-font">&#xe003;</i>常用操作</a>
                 <ul class="sub-menu">
                     <li><a href="javascript:openUrl('/game/all')"><i class="icon-font">&#xe008;</i>游戏管理</a></li>
-                    <li><a href="javascript:openUrl('/card/all')""><i class="icon-font">&#xe005;</i>礼包管理</a></li>
-                    <li><a href="design.html"><i class="icon-font">&#xe007;</i>激活码管理</a></li>
-                    <li><a href="design.html"><i class="icon-font">&#xe006;</i>焦点图管理</a></li>
-                    <li><a href="design.html"><i class="icon-font">&#xe004;</i>排行榜管理</a></li>
-                    <li><a href="design.html"><i class="icon-font">&#xe009;</i>启动页管理</a></li>
+                    <li><a href="javascript:openUrl('/card/all')"><i class="icon-font">&#xe005;</i>礼包管理</a></li>
+                    <li><a href="javascript:openUrl('/card/all')"><i class="icon-font">&#xe007;</i>激活码管理</a></li>
+                    <li><a href="javascript:openUrl('/focus/all')"><i class="icon-font">&#xe006;</i>焦点图管理</a></li>
+                    <li><a href="javascript:openUrl('/game/ranking')"><i class="icon-font">&#xe004;</i>排行榜管理</a></li>
+                    <li><a href="javascript:openUrl('/splash/all')"><i class="icon-font">&#xe009;</i>启动页管理</a></li>
                     <li><a href="design.html"><i class="icon-font">&#xe012;</i>用户管理</a></li>
-                    <li><a href="design.html"><i class="icon-font">&#xe052;</i>用户反馈</a></li>
+                    <li><a href="javascript:openUrl('/feedback/all')"><i class="icon-font">&#xe052;</i>用户反馈</a></li>
                     <li><a href="design.html"><i class="icon-font">&#xe033;</i>图片管理</a></li>
                 </ul>
             </li>

@@ -12,7 +12,7 @@
     <script type="text/javascript">
         function operate() {
             $.ajax({
-                url: '/game/save',// 跳转到 action
+                url: '/card/save',// 跳转到 action
                 data: $('#myform').serialize(),// 你的formid,
                 type: 'post',
                 dataType: 'text',
@@ -38,8 +38,8 @@
 
     <div class="crumb-wrap">
         <div class="crumb-list"><i class="icon-font"></i>首页<span class="crumb-step">&gt;</span><a class="crumb-name"
-                                                                                                   href="./all">游戏管理</a><span
-                class="crumb-step">&gt;</span><span>游戏添加</span></div>
+                                                                                                   href="./all">礼包管理</a><span
+                class="crumb-step">&gt;</span><span>礼包添加</span></div>
     </div>
     <div class="result-wrap">
         <div class="result-content">
@@ -69,20 +69,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>礼包数量：</th>
-                        <td><input class="common-text" name="total" id="total" size="50" type="text">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><i class="require-red">*</i>已经领取数量</th>
-                        <td><input class="common-text" name="assignTotal" id="assignTotal" size="50" type="text"></td>
-                    </tr>
-                    <tr>
                         <th>礼包类别：</th>
                         <td>
                             <select name="type" id="type" class="required">
                             <#list types as type>
-                                <option value="${type.name}">${type.name}</option>
+                                <option value="${type.name()}">${type.name()}</option>
                             </#list>
                             </select>
                         </td>
@@ -90,16 +81,6 @@
                     <tr>
                         <th>分数：</th>
                         <td><input class="common-text" name="score" id="score" size="50" type="text"></td>
-                    </tr>
-                    <tr>
-                        <th>平台：</th>
-                        <td>
-                            <select name="platform" id="platform" class="required">
-                                <option value="ALL">ALL</option>
-                                <option value="android">android</option>
-                                <option value="iOS">iOS</option>
-                            </select>
-                        </td>
                     </tr>
                     <tr>
                         <th>是否推荐：</th>
@@ -121,21 +102,21 @@
                     </tr>
                     <tr>
                         <th>描述：</th>
-                        <td><textarea name="description" class="common-textarea" id="description" cols="30"
-                                      style="width: 98%;" rows="10"></textarea></td>
+                        <td><textarea name="description" class="common-textarea" id="description" cols="20"
+                                      style="width: 98%;" rows="5"></textarea></td>
                     </tr>
                     <tr>
                         <th>使用流程：</th>
-                        <td><textarea name="flow" class="common-textarea" id="flow" cols="30"
-                                      style="width: 98%;" rows="10"></textarea></td>
+                        <td><textarea name="flow" class="common-textarea" id="flow" cols="20"
+                                      style="width: 98%;" rows="5"></textarea></td>
                     </tr>
                     <tr>
                         <th>开放时间：</th>
-                        <td><input class="tcal" name="openTime" id="openTime" size="50" type="text"></td>
+                        <td><input class="tcal" name="openTimeString" id="openTimeString" size="50" type="text"></td>
                     </tr>
                     <tr>
                         <th>截止时间：</th>
-                        <td><input class="tcal" name="expireTime" id="expireTime" size="50" type="text"></td>
+                        <td><input class="tcal" name="expireTimeString" id="openTimeString" size="50" type="text"></td>
                     </tr>
                     <tr>
                         <th></th>

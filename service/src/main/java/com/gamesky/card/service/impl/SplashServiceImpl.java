@@ -50,7 +50,7 @@ public class SplashServiceImpl implements SplashService {
      */
     @Override
     public int update(Splash splash) {
-        return splashMapper.updateByPrimaryKey(splash);
+        return splashMapper.updateByPrimaryKeySelective(splash);
     }
 
     /**
@@ -64,20 +64,7 @@ public class SplashServiceImpl implements SplashService {
         SplashExample splashExample = new SplashExample();
         splashExample.setLimitOffset(page.getOffset());
         splashExample.setLimit(page.getPagesize());
-        splashExample.setOrderByClause("sort asc");
-        return splashMapper.selectByExample(splashExample);
-    }
-
-    /**
-     * 获取所有启动页
-     *
-     * @return 启动页列表
-     */
-    @Override
-    public List<Splash> findAll() {
-        SplashExample splashExample = new SplashExample();
-        splashExample.createCriteria().andEnabledEqualTo(true);
-        splashExample.setOrderByClause("sort asc");
+        splashExample.setOrderByClause("sort asc, id desc");
         return splashMapper.selectByExample(splashExample);
     }
 
@@ -94,6 +81,31 @@ public class SplashServiceImpl implements SplashService {
     }
 
     /**
+     * 获取所有可用启动页，为app提供接口服务用
+     *
+     * @return 启动页列表
+     */
+    @Override
+    public List<Splash> findEnabledAll() {
+        SplashExample splashExample = new SplashExample();
+        splashExample.createCriteria().andEnabledEqualTo(true);
+        splashExample.setOrderByClause("sort asc, id desc");
+        return splashMapper.selectByExample(splashExample);
+    }
+
+    /**
+     * 获取所有启动页数
+     *
+     * @return 启动页数
+     */
+    @Override
+    public int findEnabledAllCount() {
+        SplashExample splashExample = new SplashExample();
+        splashExample.createCriteria().andEnabledEqualTo(true);
+        return splashMapper.countByExample(splashExample);
+    }
+
+    /**
      * 根据是否可用条件查询启动项
      *
      * @param enabled 是否可用
@@ -101,7 +113,7 @@ public class SplashServiceImpl implements SplashService {
      * @return 启动项列表
      */
     @Override
-    public List<Splash> findByEnable(boolean enabled, Page page) {
+    public List<Splash> findEnabled(boolean enabled, Page page) {
         SplashExample splashExample = new SplashExample();
         splashExample.createCriteria().andEnabledEqualTo(enabled);
         splashExample.setLimit(page.getPagesize());
@@ -117,7 +129,7 @@ public class SplashServiceImpl implements SplashService {
      * @return 启动页数量
      */
     @Override
-    public int findCountByEnable(Boolean enabled) {
+    public int findEnabledCount(Boolean enabled) {
         SplashExample splashExample = new SplashExample();
 
         if (enabled != null) {

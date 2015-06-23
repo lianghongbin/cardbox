@@ -59,7 +59,6 @@
                 <tr>
                     <th width="120"><i class="require-red">*</i>名称：</th>
                     <td>
-                        <input name="id" id="id" value="${card.id}" type="hidden">
                         <input class="common-text required" id="name" name="name" value="${card.name}" size="50" type="text"/>
                     </td>
                 </tr>
@@ -71,7 +70,7 @@
                 </tr>
                 <tr>
                     <th>礼包数量：</th>
-                    <td>${card.total}
+                    <td><input class="common-text" name="total" id="total" size="30" value="${card.total}" type="text">
                          <font color="red">礼包已分发:${card.assignTotal} </font><input name="assignTotal" id="assignTotal" value="${card.assignTotal}" type="hidden"/>
                     </td>
                 </tr>

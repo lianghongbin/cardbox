@@ -52,7 +52,7 @@ public class FocusServiceImpl implements FocusService {
      */
     @Override
     public int update(Focus focus) {
-        return focusMapper.updateByPrimaryKey(focus);
+        return focusMapper.updateByPrimaryKeySelective(focus);
     }
 
     /**
@@ -99,17 +99,19 @@ public class FocusServiceImpl implements FocusService {
     /**
      * 根据是否有效条件，获取列表
      *
-     * @param enable 是否可用
+     * @param enabled 是否可用
      * @param page   分页参数
      * @return 列表
      */
     @Override
-    public List<Focus> findByEnable(boolean enable, Page page) {
+    public List<Focus> findByEnable(Boolean enabled, Page page) {
         FocusExample focusExample = new FocusExample();
-        focusExample.createCriteria().andEnabledEqualTo(enable);
+        if (enabled != null) {
+            focusExample.createCriteria().andEnabledEqualTo(enabled);
+        }
         focusExample.setLimitOffset(page.getOffset());
         focusExample.setLimit(page.getPagesize());
-        focusExample.setOrderByClause("sort asc");
+        focusExample.setOrderByClause("sort asc, enabled desc");
         return focusMapper.selectByExample(focusExample);
     }
 

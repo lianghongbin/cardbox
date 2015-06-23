@@ -8,7 +8,6 @@ import com.gamesky.card.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,7 +52,18 @@ public class FeedbackServiceImpl implements FeedbackService {
         feedback.setRemark(remark);
         feedback.setProcessed(true);
         feedback.setProcessTime(System.currentTimeMillis());
-        return feedbackMapper.updateByPrimaryKey(feedback);
+        return feedbackMapper.updateByPrimaryKeySelective(feedback);
+    }
+
+    /**
+     * 删除用户反馈
+     *
+     * @param id 反馈ID
+     * @return 影响条数
+     */
+    @Override
+    public int remove(int id) {
+        return feedbackMapper.deleteByPrimaryKey(id);
     }
 
     /**

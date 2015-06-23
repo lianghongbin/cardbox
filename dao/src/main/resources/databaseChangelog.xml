@@ -3,7 +3,7 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
 
-    <changeSet author="lianghongbin (generated)" id="1434706714720-1">
+    <changeSet author="lianghongbin (generated)" id="1435018750749-1">
         <createTable tableName="Flow">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -16,7 +16,7 @@
             <column name="create_time" remarks="获取时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1434706714720-2">
+    <changeSet author="lianghongbin (generated)" id="1435018750749-2">
         <createTable tableName="card">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -46,7 +46,7 @@
             <column name="open_time" remarks="打开时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1434706714720-3">
+    <changeSet author="lianghongbin (generated)" id="1435018750749-3">
         <createTable tableName="code">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -66,7 +66,7 @@
             <column name="use_time" remarks="使用时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1434706714720-4">
+    <changeSet author="lianghongbin (generated)" id="1435018750749-4">
         <createTable tableName="feedback">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -80,7 +80,7 @@
             <column name="phone" remarks="用户手机" type="VARCHAR(11)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1434706714720-5">
+    <changeSet author="lianghongbin (generated)" id="1435018750749-5">
         <createTable tableName="focus">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -93,7 +93,7 @@
             <column name="create_time" remarks="创建时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1434706714720-6">
+    <changeSet author="lianghongbin (generated)" id="1435018750749-6">
         <createTable tableName="game">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -113,11 +113,14 @@
             <column name="sort" remarks="排序" type="INT"/>
             <column name="platform" remarks="游戏平台" type="VARCHAR(10)"/>
             <column name="score" remarks="用户评分：1-5分" type="INT"/>
+            <column defaultValueNumeric="0" name="closed" remarks="是否上线" type="BIT">
+                <constraints nullable="false"/>
+            </column>
             <column name="create_time" remarks="添加时间" type="BIGINT"/>
             <column name="modify_time" remarks="最后修改时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1434706714720-7">
+    <changeSet author="lianghongbin (generated)" id="1435018750749-7">
         <createTable tableName="photo">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -128,7 +131,7 @@
             <column name="item_id" remarks="游戏或卡包ID" type="INT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1434706714720-8">
+    <changeSet author="lianghongbin (generated)" id="1435018750749-8">
         <createTable tableName="setting">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -141,7 +144,7 @@
             <column name="v" remarks="系统版本" type="VARCHAR(10)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1434706714720-9">
+    <changeSet author="lianghongbin (generated)" id="1435018750749-9">
         <createTable tableName="share">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -153,7 +156,7 @@
             <column name="create_time" remarks="分享时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1434706714720-10">
+    <changeSet author="lianghongbin (generated)" id="1435018750749-10">
         <createTable tableName="splash">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -165,7 +168,7 @@
             <column name="create_time" remarks="添加时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1434706714720-11">
+    <changeSet author="lianghongbin (generated)" id="1435018750749-11">
         <createTable tableName="user">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>

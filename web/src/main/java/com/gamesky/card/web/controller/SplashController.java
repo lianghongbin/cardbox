@@ -63,7 +63,7 @@ public class SplashController {
     @ResponseBody
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String findAll() {
-        List<Splash> splashes = splashService.findAll();
+        List<Splash> splashes = splashService.findEnabledAll();
         return ResultGenerator.generate(splashes);
     }
 

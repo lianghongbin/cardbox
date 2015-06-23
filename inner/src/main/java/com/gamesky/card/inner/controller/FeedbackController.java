@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -18,14 +19,14 @@ import java.util.List;
  * @Author lianghongbin
  */
 @Controller
-@RequestMapping(value = "/1_0/feedback", produces = "application/json;charset=UTF-8")
+@RequestMapping(value = "/feedback", produces = "text/plain;charset=UTF-8")
 public class FeedbackController {
 
     @Autowired
     private FeedbackService feedbackService;
 
     @ResponseBody
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Feedback feedback) {
         int result = feedbackService.save(feedback);
         if (result > 0) {
@@ -46,20 +47,29 @@ public class FeedbackController {
         return ResultGenerator.generateError("处理反馈失败");
     }
 
-    @ResponseBody
     @RequestMapping(value = "/find", method = RequestMethod.GET)
-    public String find(int id) {
+    public ModelAndView find(int id) {
         Feedback feedback = feedbackService.find(id);
-        return ResultGenerator.generate(feedback);
+        ModelAndView modelAndView = new ModelAndView("feedback/view");
+        modelAndView.addObject("feedback", feedback);
+
+        return modelAndView;
     }
 
-    @ResponseBody
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public String findAll(Page page) {
+    public ModelAndView findAll(Page page) {
+        if (page.getPagesize() == Integer.MAX_VALUE) {
+            page.setPagesize(15);
+        }
+
         List<Feedback> feedbacks = feedbackService.findAll(page);
         int count = feedbackService.findCount();
         page.setCount(count);
-        return ResultGenerator.generate(page, feedbacks);
+
+        PaginationData paginationData = new PaginationData(page, feedbacks);
+        ModelAndView modelAndView = new ModelAndView("feedback/all");
+        modelAndView.addObject("paginationData", paginationData);
+        return modelAndView;
     }
 
     @ResponseBody
@@ -69,5 +79,12 @@ public class FeedbackController {
         int count = feedbackService.findCountByUser(phone);
         page.setCount(count);
         return ResultGenerator.generate(page, feedbacks);
+    }
+
+    @ResponseBody
+    @RequestMapping("/remove")
+    public String remove(int id) {
+        int result = feedbackService.remove(id);
+        return String.valueOf(result);
     }
 }
