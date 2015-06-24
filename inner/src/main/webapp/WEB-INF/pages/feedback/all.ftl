@@ -10,6 +10,31 @@
     <link rel="stylesheet" type="text/css" href="../css/main.css"/>
     <script type="text/javascript" src="../js/libs/modernizr.min.js"></script>
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+    <script>
+        function del(id)
+        {
+            confirm("你确定要删除该反馈吗？");
+            $.ajax({
+                url: '/feedback/remove',// 跳转到 action
+                data: {
+                    id: id
+                },
+                type: 'post',
+                dataType: 'text',
+                success: function (data) {
+                    if (data == "1") {
+                        alert("删除成功");
+                        window.location.reload();
+                    } else {
+                        alert("删除失败");
+                    }
+                },
+                error: function () {
+                    alert("异常！");
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 <div class="container clearfix">
@@ -32,7 +57,7 @@
                         <tr>
                             <th>手机号</th>
                             <th>反馈内容</th>
-                            <th>处理</th>
+                            <th>已处理</th>
                             <th>处理意见</th>
                             <th width="150">反馈时间</th>
                             <th width="150">处理时间</th>
@@ -49,7 +74,7 @@
                             <td><#if feedback.precessed>${feedback.processTime?number_to_datetime}</#if></td>
                             <td>${feedback.createTime?number_to_datetime}</td>
                             <td align="center">
-                                &nbsp; <#if !feedback.precessed> <a class="link-update" href="./find">处理</a></#if>
+                                &nbsp; <#if !feedback.precessed> <a class="link-update" href="./find?id=${feedback.id}">处理</a></#if>
                                 &nbsp; <a class="link-update" href="javascript:del(${feedback.id})">删除</a>
                             </td>
                         </tr>

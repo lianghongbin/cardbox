@@ -15,6 +15,10 @@ public class Code {
 
     private Integer gameId;
 
+    private String cardName;
+
+    private String gameName;
+
     private Long createTime;
 
     private Long assignTime;
@@ -77,6 +81,22 @@ public class Code {
         this.gameId = gameId;
     }
 
+    public String getCardName() {
+        return cardName;
+    }
+
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
+    }
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
+    }
+
     public Long getCreateTime() {
         return createTime;
     }
@@ -120,6 +140,8 @@ public class Code {
             && (this.getUsed() == null ? other.getUsed() == null : this.getUsed().equals(other.getUsed()))
             && (this.getAssigned() == null ? other.getAssigned() == null : this.getAssigned().equals(other.getAssigned()))
             && (this.getGameId() == null ? other.getGameId() == null : this.getGameId().equals(other.getGameId()))
+            && (this.getCardName() == null ? other.getCardName() == null : this.getCardName().equals(other.getCardName()))
+            && (this.getGameName() == null ? other.getGameName() == null : this.getGameName().equals(other.getGameName()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getAssignTime() == null ? other.getAssignTime() == null : this.getAssignTime().equals(other.getAssignTime()))
             && (this.getUseTime() == null ? other.getUseTime() == null : this.getUseTime().equals(other.getUseTime()));
@@ -136,6 +158,8 @@ public class Code {
         result = prime * result + ((getUsed() == null) ? 0 : getUsed().hashCode());
         result = prime * result + ((getAssigned() == null) ? 0 : getAssigned().hashCode());
         result = prime * result + ((getGameId() == null) ? 0 : getGameId().hashCode());
+        result = prime * result + ((getCardName() == null) ? 0 : getCardName().hashCode());
+        result = prime * result + ((getGameName() == null) ? 0 : getGameName().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getAssignTime() == null) ? 0 : getAssignTime().hashCode());
         result = prime * result + ((getUseTime() == null) ? 0 : getUseTime().hashCode());
@@ -155,6 +179,8 @@ public class Code {
         sb.append(", used=").append(used);
         sb.append(", assigned=").append(assigned);
         sb.append(", gameId=").append(gameId);
+        sb.append(", cardName=").append(cardName);
+        sb.append(", gameName=").append(gameName);
         sb.append(", createTime=").append(createTime);
         sb.append(", assignTime=").append(assignTime);
         sb.append(", useTime=").append(useTime);

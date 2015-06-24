@@ -28,7 +28,7 @@ public interface CodeService {
      * @param id 激活码ID
      * @return 影响条数
      */
-    int delete(int id);
+    int remove(int id);
 
     /**
      * 更新我的激活码
@@ -134,4 +134,21 @@ public interface CodeService {
      * @return 激活码列表数量
      */
     int findCountByCondition(CodeExample keyExample);
+
+    /**
+     * 为某人分一个礼包的激活码
+     * @param cardId 礼包ID
+     * @param phone 手机号
+     * @return 影响条数
+     */
+    int assign(int cardId, String phone);
+
+    /**
+     * 使用某个激活码
+     * @param gameId 游戏ID
+     * @param code 激活码
+     * @param phone 手机号
+     * @return 影响条数
+     */
+    int used(int gameId, String code, String phone);
 }

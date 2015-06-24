@@ -116,18 +116,15 @@ public class UserServiceImpl implements UserService {
     /**
      * 分页查找所有用户
      *
-     * @param page          分页参数
-     * @param orderByClause 排序
+     * @param page 分页参数
      * @return 用户列表
      */
     @Override
-    public List<User> findAll(Page page, String orderByClause) {
+    public List<User> findAll(Page page) {
         UserExample userExample = new UserExample();
         userExample.setLimitOffset(page.getOffset());
         userExample.setLimit(page.getPagesize());
-        if (orderByClause != null) {
-            userExample.setOrderByClause(orderByClause);
-        }
+        userExample.setOrderByClause("id desc");
 
         return userMapper.selectByExample(userExample);
     }

@@ -48,12 +48,8 @@
                 <tbody>
                 <tr>
                     <th>所属游戏：</th>
-                    <td>
-                        <select name="gameId" id="gameId" class="required">
-                        <#list games as game>
-                            <option value="${game.id}" <#if game.id=card.gameId>selected</#if>>${game.name}</option>
-                        </#list>
-                        </select>
+                    <td>${game.name}
+                        <input name="name" value="${game.name}" type="hidden">
                     </td>
                 </tr>
                 <tr>

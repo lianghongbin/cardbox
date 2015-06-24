@@ -26,6 +26,7 @@ public class SplashController {
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String save(Splash splash) {
+        splash.setCreateTime(System.currentTimeMillis());
         int result = splashService.save(splash);
         if (result == 1) {
             return ResultGenerator.generate();

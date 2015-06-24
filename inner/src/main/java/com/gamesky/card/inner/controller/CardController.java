@@ -118,7 +118,7 @@ public class CardController {
     @RequestMapping(value = "/all")
     public ModelAndView all(Integer gameId, Boolean closed, String name, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
-            page.setPagesize(15);
+            page.setPagesize(10);
         }
 
         CardExample cardExample = new CardExample();

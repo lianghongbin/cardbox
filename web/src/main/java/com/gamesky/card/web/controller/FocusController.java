@@ -27,6 +27,7 @@ public class FocusController {
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String save(Focus focus) {
+        focus.setCreateTime(System.currentTimeMillis());
         int result = focusService.save(focus);
         if (result > 0) {
             return ResultGenerator.generate();

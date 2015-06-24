@@ -21,6 +21,10 @@ public class Page {
         this.total = 1;
     }
 
+    public Page(int pagesize) {
+        this.pagesize = pagesize;
+    }
+
     public Page(int pagesize, int pagenum) {
         this.pagesize = pagesize;
         if (pagenum < 1) {

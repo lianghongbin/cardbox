@@ -9,6 +9,8 @@
     <result column="used" property="used" jdbcType="BIT" />
     <result column="assigned" property="assigned" jdbcType="BIT" />
     <result column="game_id" property="gameId" jdbcType="INTEGER" />
+    <result column="card_name" property="cardName" jdbcType="VARCHAR" />
+    <result column="game_name" property="gameName" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="BIGINT" />
     <result column="assign_time" property="assignTime" jdbcType="BIGINT" />
     <result column="use_time" property="useTime" jdbcType="BIGINT" />
@@ -72,7 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, card_id, phone, code, used, assigned, game_id, create_time, assign_time, use_time
+    id, card_id, phone, code, used, assigned, game_id, card_name, game_name, create_time, 
+    assign_time, use_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.CodeExample" >
     select
@@ -110,12 +113,12 @@
   <insert id="insert" parameterType="com.gamesky.card.core.model.Code" >
     insert into code (id, card_id, phone, 
       code, used, assigned, game_id, 
-      create_time, assign_time, use_time
-      )
+      card_name, game_name, create_time, 
+      assign_time, use_time)
     values (#{id,jdbcType=INTEGER}, #{cardId,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, 
       #{code,jdbcType=VARCHAR}, #{used,jdbcType=BIT}, #{assigned,jdbcType=BIT}, #{gameId,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=BIGINT}, #{assignTime,jdbcType=BIGINT}, #{useTime,jdbcType=BIGINT}
-      )
+      #{cardName,jdbcType=VARCHAR}, #{gameName,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{assignTime,jdbcType=BIGINT}, #{useTime,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Code" >
     insert into code
@@ -140,6 +143,12 @@
       </if>
       <if test="gameId != null" >
         game_id,
+      </if>
+      <if test="cardName != null" >
+        card_name,
+      </if>
+      <if test="gameName != null" >
+        game_name,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -172,6 +181,12 @@
       </if>
       <if test="gameId != null" >
         #{gameId,jdbcType=INTEGER},
+      </if>
+      <if test="cardName != null" >
+        #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="gameName != null" >
+        #{gameName,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=BIGINT},
@@ -214,6 +229,12 @@
       <if test="record.gameId != null" >
         game_id = #{record.gameId,jdbcType=INTEGER},
       </if>
+      <if test="record.cardName != null" >
+        card_name = #{record.cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gameName != null" >
+        game_name = #{record.gameName,jdbcType=VARCHAR},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=BIGINT},
       </if>
@@ -237,6 +258,8 @@
       used = #{record.used,jdbcType=BIT},
       assigned = #{record.assigned,jdbcType=BIT},
       game_id = #{record.gameId,jdbcType=INTEGER},
+      card_name = #{record.cardName,jdbcType=VARCHAR},
+      game_name = #{record.gameName,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=BIGINT},
       assign_time = #{record.assignTime,jdbcType=BIGINT},
       use_time = #{record.useTime,jdbcType=BIGINT}
@@ -265,6 +288,12 @@
       <if test="gameId != null" >
         game_id = #{gameId,jdbcType=INTEGER},
       </if>
+      <if test="cardName != null" >
+        card_name = #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="gameName != null" >
+        game_name = #{gameName,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=BIGINT},
       </if>
@@ -285,6 +314,8 @@
       used = #{used,jdbcType=BIT},
       assigned = #{assigned,jdbcType=BIT},
       game_id = #{gameId,jdbcType=INTEGER},
+      card_name = #{cardName,jdbcType=VARCHAR},
+      game_name = #{gameName,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=BIGINT},
       assign_time = #{assignTime,jdbcType=BIGINT},
       use_time = #{useTime,jdbcType=BIGINT}

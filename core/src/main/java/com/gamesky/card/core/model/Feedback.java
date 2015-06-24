@@ -5,6 +5,8 @@ public class Feedback {
 
     private Integer userId;
 
+    private String content;
+
     private Boolean processed;
 
     private String remark;
@@ -14,8 +16,6 @@ public class Feedback {
     private Long processTime;
 
     private String phone;
-
-    private String content;
 
     public Integer getId() {
         return id;
@@ -31,6 +31,14 @@ public class Feedback {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Boolean getProcessed() {
@@ -73,14 +81,6 @@ public class Feedback {
         this.phone = phone;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -95,12 +95,12 @@ public class Feedback {
         Feedback other = (Feedback) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
             && (this.getProcessed() == null ? other.getProcessed() == null : this.getProcessed().equals(other.getProcessed()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getProcessTime() == null ? other.getProcessTime() == null : this.getProcessTime().equals(other.getProcessTime()))
-            && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
-            && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()));
+            && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()));
     }
 
     @Override
@@ -109,12 +109,12 @@ public class Feedback {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getContent() == null) ? 0 : getContent().hashCode());
         result = prime * result + ((getProcessed() == null) ? 0 : getProcessed().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getProcessTime() == null) ? 0 : getProcessTime().hashCode());
         result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
-        result = prime * result + ((getContent() == null) ? 0 : getContent().hashCode());
         return result;
     }
 
@@ -126,12 +126,12 @@ public class Feedback {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", userId=").append(userId);
+        sb.append(", content=").append(content);
         sb.append(", processed=").append(processed);
         sb.append(", remark=").append(remark);
         sb.append(", createTime=").append(createTime);
         sb.append(", processTime=").append(processTime);
         sb.append(", phone=").append(phone);
-        sb.append(", content=").append(content);
         sb.append("]");
         return sb.toString();
     }

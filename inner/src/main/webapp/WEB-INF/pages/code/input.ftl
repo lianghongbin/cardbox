@@ -11,32 +11,24 @@
     <script type="text/javascript" src="../tcal/tcal.js"></script>
     <script type="text/javascript">
         function operate() {
-            var $codesInput = $(":text");
-            var codes = [];
-            $codesInput.each(function(){
-                if ($(this).val().trim() != "") {
-                    codes.push($(this).val());
-                }
-            });
-
             $.ajax({
-                url: '/code/save',// 跳转到 action
+                url: '/code/batchsave',// 跳转到 action
                 data: {
                     'cardId': $("#cardId").val(),
                     'gameId': $("#gameId").val(),
                     'cardName':$("#cardName").val(),
                     'gameName':$("#gameName").val(),
-                    'codes':codes
+                    'data':$("#data").val()
                 },
                 traditional :true,
                 type: 'post',
                 dataType: 'text',
                 success: function (data) {
                     if (data == "1") {
-                        alert("激活码添加成功");
-                        window.location.href="../card/all";
+                        alert("修改成功");
+                        window.location.href = "../card/all";
                     } else {
-                        alert("激活码添加失败");
+                        alert("修改失败");
                     }
                 },
                 error: function () {
@@ -59,7 +51,7 @@
     <div class="result-wrap">
         <div class="result-title">
             <div class="result-list">
-                <a href="./input?cardId=${card.id}"><i class="icon-font"></i>批量导入</a>
+                <a href="./add?cardId=${card.id}"><i class="icon-font"></i>批量添加</a>
             </div>
         </div>
         <div class="result-content">
@@ -82,18 +74,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>激活码：</th>
+                        <th>激活码文本：</th>
                         <td>
-                            <table>
-                                <tr><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td></tr>
-                                <tr><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td></tr>
-                                <tr><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td></tr>
-                                <tr><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td></tr>
-                                <tr><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td></tr>
-                                <tr><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td><td><input class="common-text" name="codes[]" size="20" type="text"></td></tr>
-
-                            </table>
-
+                            <textarea name="data" class="common-textarea" id="data" cols="20"
+                                      style="width: 98%;" rows="15"></textarea>
                         </td>
                     </tr>
                     <tr>

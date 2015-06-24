@@ -28,6 +28,7 @@ public class FeedbackController {
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Feedback feedback) {
+        feedback.setCreateTime(System.currentTimeMillis());
         int result = feedbackService.save(feedback);
         if (result > 0) {
             return ResultGenerator.generate();
@@ -40,11 +41,7 @@ public class FeedbackController {
     @RequestMapping(value = "/process", method = RequestMethod.POST)
     public String process(int id, String remark) {
         int result = feedbackService.process(id, remark);
-        if (result > 0) {
-            return ResultGenerator.generate();
-        }
-
-        return ResultGenerator.generateError("处理反馈失败");
+        return String.valueOf(result);
     }
 
     @RequestMapping(value = "/find", method = RequestMethod.GET)

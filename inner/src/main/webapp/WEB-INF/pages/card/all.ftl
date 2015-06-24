@@ -105,6 +105,7 @@
                             <th width="30">推荐</th>
                             <th width="150">发布时间</th>
                             <th width="150">截止时间</th>
+                            <th width="100">激活码</th>
                             <th width="100">操作</th>
                         </tr>
                     <#list cards as card>
@@ -127,8 +128,12 @@
                             <td>${card.openTime?number_to_datetime}</td>
                             <td>${card.expireTime?number_to_datetime}</td>
                             <td align="center">
+                                &nbsp; <a class="link-update" href="../code/add?cardId=${card.id}">添加</a>
+                                &nbsp; <a class="link-update" href="../code/findbycard?cardId=${card.id}">查看</a>
+                            </td>
+                            <td align="center">
                                 <#if card.closed><a class="link-update" href="javascript:operate(${card.id},${card.gameId},'${card.closed!false}')">上线</a><#else><a class="link-update" href="javascript:operate(${card.id},${card.gameId},'${card.closed!false}')">下线</a></#if>
-                                &nbsp;&nbsp; <a class="link-update" href="./modify?id=${card.id}">修改</a>
+                                &nbsp; <a class="link-update" href="./modify?id=${card.id}">修改</a>
                             </td>
                         </tr>
                     </#list>

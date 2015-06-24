@@ -94,10 +94,6 @@ public class CardServiceImpl implements CardService {
      */
     @Override
     public int update(CardWithBLOBs card) {
-        Game game = new Game();
-        game.setId(card.getGameId());
-        game.setTotal(findCountByGame(card.getGameId()));
-        gameService.update(game);
         return cardMapper.updateByPrimaryKeySelective(card);
     }
 
@@ -162,16 +158,11 @@ public class CardServiceImpl implements CardService {
 
             card.setAssignTotal(card.getAssignTotal() + 1);
 
-            Code code = codeService.findOne(id);
-            if (code == null) {
+            int result = codeService.assign(id, phone);
+            if (result == 0) {
                 logger.error("礼包激活码没有导入");
                 return ReturnCode.DATA_EMPTY.getCode();
             }
-
-            code.setAssigned(true);
-            code.setPhone(phone);
-            code.setAssignTime(System.currentTimeMillis());
-            codeService.update(code);
 
             return cardMapper.updateByPrimaryKey(card);
 

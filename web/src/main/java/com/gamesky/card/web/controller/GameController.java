@@ -109,10 +109,6 @@ public class GameController {
     @RequestMapping(value = "/gamepackages", method = RequestMethod.GET)
     public String findAll() {
         List<String> games = gameService.findPackages();
-        Page page = new Page();
-        int count = gameService.findCount();
-        page.setCount(count);
-
-        return ResultGenerator.generate(page, games);
+        return ResultGenerator.generate(games);
     }
 }

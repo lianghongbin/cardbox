@@ -122,6 +122,11 @@
                             <td><a class="link-update" href="javascript:del(${code.id})">删除</a></td>
                         </tr>
                     </#list>
+                        <tr>
+                            <td colspan="9" align="center">
+                                <input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
+                            </td>
+                        </tr>
                     </table>
                     <div class="list-page">
                         <nav style="float:right;">

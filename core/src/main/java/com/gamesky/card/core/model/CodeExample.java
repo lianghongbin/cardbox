@@ -564,6 +564,146 @@ public class CodeExample {
             return (Criteria) this;
         }
 
+        public Criteria andCardNameIsNull() {
+            addCriterion("card_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameIsNotNull() {
+            addCriterion("card_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameEqualTo(String value) {
+            addCriterion("card_name =", value, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameNotEqualTo(String value) {
+            addCriterion("card_name <>", value, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameGreaterThan(String value) {
+            addCriterion("card_name >", value, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameGreaterThanOrEqualTo(String value) {
+            addCriterion("card_name >=", value, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameLessThan(String value) {
+            addCriterion("card_name <", value, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameLessThanOrEqualTo(String value) {
+            addCriterion("card_name <=", value, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameLike(String value) {
+            addCriterion("card_name like", value, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameNotLike(String value) {
+            addCriterion("card_name not like", value, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameIn(List<String> values) {
+            addCriterion("card_name in", values, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameNotIn(List<String> values) {
+            addCriterion("card_name not in", values, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameBetween(String value1, String value2) {
+            addCriterion("card_name between", value1, value2, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameNotBetween(String value1, String value2) {
+            addCriterion("card_name not between", value1, value2, "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameIsNull() {
+            addCriterion("game_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameIsNotNull() {
+            addCriterion("game_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameEqualTo(String value) {
+            addCriterion("game_name =", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameNotEqualTo(String value) {
+            addCriterion("game_name <>", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameGreaterThan(String value) {
+            addCriterion("game_name >", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameGreaterThanOrEqualTo(String value) {
+            addCriterion("game_name >=", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameLessThan(String value) {
+            addCriterion("game_name <", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameLessThanOrEqualTo(String value) {
+            addCriterion("game_name <=", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameLike(String value) {
+            addCriterion("game_name like", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameNotLike(String value) {
+            addCriterion("game_name not like", value, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameIn(List<String> values) {
+            addCriterion("game_name in", values, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameNotIn(List<String> values) {
+            addCriterion("game_name not in", values, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameBetween(String value1, String value2) {
+            addCriterion("game_name between", value1, value2, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameNotBetween(String value1, String value2) {
+            addCriterion("game_name not between", value1, value2, "gameName");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;
@@ -751,6 +891,16 @@ public class CodeExample {
 
         public Criteria andCodeLikeInsensitive(String value) {
             addCriterion("upper(code) like", value.toUpperCase(), "code");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardNameLikeInsensitive(String value) {
+            addCriterion("upper(card_name) like", value.toUpperCase(), "cardName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameNameLikeInsensitive(String value) {
+            addCriterion("upper(game_name) like", value.toUpperCase(), "gameName");
             return (Criteria) this;
         }
     }

@@ -71,7 +71,7 @@ public class GameController {
     @RequestMapping(value = "/all")
     public ModelAndView findAll(String platform, Boolean closed, String name, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
-            page.setPagesize(15);
+            page.setPagesize(10);
         }
 
         GameExample gameExample = new GameExample();

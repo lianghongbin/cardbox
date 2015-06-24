@@ -8,20 +8,22 @@
     <title>后台管理</title>
     <link rel="stylesheet" type="text/css" href="../css/common.css"/>
     <link rel="stylesheet" type="text/css" href="../css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../tcal/tcal.css" />
     <script type="text/javascript" src="../js/libs/modernizr.min.js"></script>
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="../tcal/tcal.js"></script>
     <script type="text/javascript">
-        function operate(id,closed)
+        function operate(gameId,closed)
         {
-            confirm("你确定要对该礼包进行上线/下线操作？");
+            confirm("你确定要对该游戏进行上线/下线操作？");
             if(closed == null) {
                 closed = false;
             }
 
             $.ajax({
-                url: '/card/openorclose',// 跳转到 action
+                url: '/game/openorclose',// 跳转到 action
                 data: {
-                    id: id,
+                    id: gameId,
                     operate: !closed
                 },
                 type: 'post',
@@ -39,30 +41,6 @@
                 }
             });
         }
-
-        function del(id)
-        {
-            confirm("你确定要删除该激活码吗？");
-            $.ajax({
-                url: '/code/remove',// 跳转到 action
-                data: {
-                    id: id
-                },
-                type: 'post',
-                dataType: 'text',
-                success: function (data) {
-                    if (data == "1") {
-                        alert("删除成功");
-                        window.location.reload();
-                    } else {
-                        alert("删除失败");
-                    }
-                },
-                error: function () {
-                    alert("异常！");
-                }
-            });
-        }
     </script>
 </head>
 <body>
@@ -72,15 +50,21 @@
 
         <div class="crumb-wrap">
             <div class="crumb-list"><i class="icon-font"></i>首页<span class="crumb-step">&gt;</span><span
-                    class="crumb-name">激活码管理</span></div>
+                    class="crumb-name">用户管理</span></div>
         </div>
         <div class="search-wrap">
             <div class="search-content">
                 <form action="#" method="post">
                     <table class="search-tab">
                         <tr>
-                            <th width="100">关键字搜索:</th>
-                            <td><input class="common-text" placeholder="关键字" name="key" value="" id="" type="text">
+                            <th>开始时间：</th>
+                            <td><input class="tcal" name="startDate" id="startDate" size="12" type="text"></td>
+
+                            <th>结束时间：</th>
+                            <td><input class="tcal" name="endDate" id="endDate" size="12" type="text"></td>
+
+                            <th width="120">注册手机:</th>
+                            <td><input class="common-text" placeholder="注册手机" name="phone" maxlength="11" size="15" value="" id="" type="text">
                             </td>
                             <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
                         </tr>
@@ -93,33 +77,24 @@
                 <div class="result-content">
                     <table class="result-tab" width="100%">
                         <tr>
-                            <th width="100">手机号</th>
-                            <th>激活码</th>
-                            <th>所属游戏</th>
-                            <th>所属礼包</th>
-                            <th width="50">已分发</th>
-                            <th width="50">已使用</th>
-                            <th width="150">分发时间</th>
-                            <th width="150">使用时间</th>
-                            <th>操作</th>
+                            <th>手机</th>
+                            <th>用户名</th>
+                            <th>积分</th>
+                            <th>设备类型</th>
+                            <th>设备号</th>
+                            <th width="150">注册时间</th>
+                            <th width="150">最后登录</th>
                         </tr>
-                    <#list paginationData.pageItems as code>
+                    <#list paginationData.pageItems as user>
                         <tr>
-                            <td>
-                                ${code.phone}
+                            <td>${user.phone}
                             </td>
-                            <td>
-                                ${code.code}
-                            </td>
-                            <td>
-                                ${code.gameName}
-                            </td>
-                            <td>${code.cardName}</td>
-                            <td><#if code.assigned><font color="red">是</font><#else>否</#if></td>
-                            <td><#if code.used><font color="red">是</font><#else>否</#if></td>
-                            <td><#if code.assignTime??> ${code.assignTime?number_to_datetime}</#if></td>
-                            <td><#if code.useTime??> ${code.useTime?number_to_datetime}</#if></td>
-                            <td><a class="link-update" href="javascript:del(${code.id})">删除</a></td>
+                            <td>${user.username}</td>
+                            <td>${user.score}</td>
+                            <td>${user.type}</td>
+                            <td>${user.device}</td>
+                            <td>${user.createTime?number_to_datetime}</td>
+                            <td>${user.lastTime?number_to_datetime}</td>
                         </tr>
                     </#list>
                     </table>

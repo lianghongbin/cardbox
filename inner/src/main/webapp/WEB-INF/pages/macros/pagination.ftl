@@ -95,7 +95,7 @@
  * Outputs the next page link
 -->
 <#macro next>
-	<#if (data.pageNumber >= data.pagesAvailable - 1)>
+	<#if (data.pageNumber >= data.pagesAvailable)>
 		<#local pageNumber = data.pageNumber />
 		<#local classAttr = "class=\"disabled\"" />
 	<#else>

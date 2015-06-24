@@ -60,10 +60,9 @@ public interface UserService {
      * 分页查找所有用户
      *
      * @param page          分页参数
-     * @param orderByClause 排序
      * @return 用户列表
      */
-    List<User> findAll(Page page, String orderByClause);
+    List<User> findAll(Page page);
 
     /**
      * 查找所有用户数

@@ -48,7 +48,7 @@ public class CodeServiceImpl implements CodeService {
      * @return 影响条数
      */
     @Override
-    public int delete(int id) {
+    public int remove(int id) {
         return codeMapper.deleteByPrimaryKey(id);
     }
 
@@ -244,5 +244,52 @@ public class CodeServiceImpl implements CodeService {
     @Override
     public int findCountByCondition(CodeExample codeExample) {
         return codeMapper.countByExample(codeExample);
+    }
+
+    /**
+     * 为某人分一个礼包的激活码
+     *
+     * @param cardId 礼包ID
+     * @param phone  手机号
+     * @return 影响条数
+     */
+    @Override
+    public int assign(int cardId, String phone) {
+        Code code = findOne(cardId);
+        if (code == null) {
+            return 0;
+        }
+
+        code.setAssigned(true);
+        code.setPhone(phone);
+        code.setAssignTime(System.currentTimeMillis());
+        return update(code);
+    }
+
+    /**
+     * 使用某个激活码
+     *
+     * @param gameId 游戏ID
+     * @param code   激活码
+     * @param phone  手机号
+     * @return 影响条数
+     */
+    @Override
+    public int used(int gameId, String code, String phone) {
+        CodeExample codeExample = new CodeExample();
+        codeExample.createCriteria()
+                .andGameIdEqualTo(gameId)
+                .andCodeEqualTo(code)
+                .andPhoneEqualTo(phone)
+                .andAssignedEqualTo(true);
+
+        List<Code> codes = codeMapper.selectByExample(codeExample);
+        if (codes == null || codes.size() == 0) {
+            return 0;
+        }
+
+        Code assignCode = codes.get(0);
+        assignCode.setUsed(true);
+        return update(assignCode);
     }
 }
