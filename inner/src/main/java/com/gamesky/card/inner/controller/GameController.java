@@ -3,6 +3,7 @@ package com.gamesky.card.inner.controller;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.model.Game;
 import com.gamesky.card.core.model.GameExample;
+import com.gamesky.card.service.CardService;
 import com.gamesky.card.service.GameService;
 import com.gamesky.card.service.PhotoService;
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +29,8 @@ public class GameController {
 
     @Autowired
     private GameService gameService;
+    @Autowired
+    private CardService cardService;
     @Autowired
     private PhotoService photoService;
     private static final Logger logger = LoggerFactory.getLogger(GameController.class);
@@ -148,6 +151,7 @@ public class GameController {
         game.setClosed(operate);
         int result = gameService.update(game);
 
+        cardService.validByGame(id, !operate);
         return String.valueOf(result);
     }
 }

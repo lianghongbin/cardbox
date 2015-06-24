@@ -121,6 +121,7 @@
                             <td align="center">
                                 <#if game.closed><a class="link-update" href="javascript:operate(${game.id},'${game.closed!false}')">上线</a><#else><a class="link-update" href="javascript:operate(${game.id},'${game.closed!false}')">下线</a></#if>
                                 &nbsp;&nbsp; <a class="link-update" href="./modify?id=${game.id}">修改</a>
+                                &nbsp; <a class="link-update" href="../card/input?gameId=${game.id}">添加礼包</a>
                             </td>
                         </tr>
                     </#list>

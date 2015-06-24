@@ -65,7 +65,7 @@ public interface CardService {
     public Card find(int id);
 
     /**
-     * 分页显示所有卡包
+     * 分页显示所有卡包(后台用，显示所有礼包）
      *
      * @param page 分页条件
      * @return 卡包列表
@@ -73,12 +73,35 @@ public interface CardService {
     public List<Card> findAll(Page page);
 
     /**
+     * 分页显示所有卡包数(后台用，显示所有礼包数）
+     *
+     * @return 卡包数
+     */
+    public int findCount();
+
+    /**
+     * 分页显示所有卡包（前台接口用，显示可用礼包）
+     *
+     * @param page 分页条件
+     * @return 卡包列表
+     */
+    public List<Card> findEnabledAll(Page page);
+
+    /**
+     * 分页显示所有卡包数（前台接口用，显示可用礼包数）
+     *
+     * @return 卡包数
+     */
+    public int findEnabledCount();
+
+
+    /**
      * 根据条件分页查询显示卡包
      *
      * @param cardExample 查询条件
      * @return 卡包列表
      */
-    public List<CardWithBLOBs> findByCondition(CardExample cardExample);
+    public List<Card> findByCondition(CardExample cardExample);
 
     /**
      * 根据条件分页查询显示卡包数量
@@ -95,7 +118,7 @@ public interface CardService {
      * @param page   分页数据
      * @return 卡包列表
      */
-    public List<CardWithBLOBs> findByGame(int gameId, Page page);
+    public List<Card> findByGame(int gameId, Page page);
 
     /**
      * 查找某款游戏下的卡包类别数量
@@ -106,11 +129,29 @@ public interface CardService {
     public int findCountByGame(int gameId);
 
     /**
+     * 根据游戏查找该游戏下的推荐卡包列表
+     *
+     * @param gameId 游戏ID
+     * @param page   分页数据
+     * @return 卡包列表
+     */
+    public List<Card> findRecommendByGame(int gameId, Page page);
+
+    /**
+     * 查找某款游戏下的推荐卡包类别数量
+     *
+     * @param gameId 游戏ID
+     * @return 卡包类别数量
+     */
+    public int findRecommendCountByGame(int gameId);
+
+
+    /**
      * 指查找礼包
      * @param ids 礼包ID集合
      * @return 礼包集合
      */
-    public List<CardWithBLOBs> findByIds(List<Integer> ids);
+    public List<Card> findByIds(List<Integer> ids);
 
     /**
      * 查询手机用户是否已经申领过该礼品包
@@ -119,4 +160,42 @@ public interface CardService {
      * @return true/false
      */
     public boolean hasAssign(int cardId, String phone);
+
+    /**
+     * 随游戏的上线、下线，相应的礼包置为有效或无效状态
+     * @param gameId 游戏ID
+     * @param valid 是否有效
+     * @return 影响条数
+     */
+    public int validByGame(int gameId, boolean valid);
+
+    /**
+     * 根据条件查找推荐礼包
+     * @param type 条件
+     * @param page 分页
+     * @return 礼包列表
+     */
+    public List<Card> recommend(int type, Page page);
+
+    /**
+     * 根据条件查找推荐礼包数
+     * @param type 条件
+     * @return 礼包数
+     */
+    public int recommendCount(int type);
+
+    /**
+     * 根据条件查找礼包
+     * @param key 查询关键字
+     * @param page 分页
+     * @return 礼包列表
+     */
+    List<Card> findByKey(String key, Page page);
+
+    /**
+     * 根据条件查找礼包数
+     * @param key 查询关键字
+     * @return 礼包数
+     */
+    int findCountByKey(String key);
 }

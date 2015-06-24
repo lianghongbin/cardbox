@@ -111,12 +111,15 @@ public class GameServiceImpl implements GameService {
     /**
      * 获取所有的游戏包名
      *
+     * @param data 包名列表
      * @return 游戏包名列表
      */
     @Override
-    public List<String> findPackages() {
+    public List<String> findPackages(List<String> data) {
         GameExample gameExample = new GameExample();
-        gameExample.createCriteria().andIdGreaterThan(0);
+        gameExample.createCriteria()
+                .andIdGreaterThan(0)
+                .andIdentifierIn(data);
         gameExample.setOrderByClause("id desc");
         List<Game> games = gameMapper.selectByExample(gameExample);
         if (games == null || games.size() == 0) {

@@ -12,5 +12,6 @@ public enum MethodType {
     WEIXIN_GAIN,     //微信分享赚取
     QQ_GAIN,         //QQ空间分享赚取
     RECOMMEND_GAIN,   //推荐用户赚取
+    DOWNLOAD_GAIN,      //下载游戏赚取
     CONSUME
 }

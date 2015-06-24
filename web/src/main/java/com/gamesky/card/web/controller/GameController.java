@@ -7,6 +7,8 @@ import com.gamesky.card.core.model.Photo;
 import com.gamesky.card.service.BeanUtils;
 import com.gamesky.card.service.GameService;
 import com.gamesky.card.service.PhotoService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -107,8 +110,11 @@ public class GameController {
 
     @ResponseBody
     @RequestMapping(value = "/gamepackages", method = RequestMethod.GET)
-    public String findAll() {
-        List<String> games = gameService.findPackages();
+    public String findAll(String data) {
+        Type collectionType = new TypeToken<List<String>>() {}.getType();
+        Gson gson = new Gson();
+        List<String> listData = gson.fromJson(data, collectionType);
+        List<String> games = gameService.findPackages(listData);
         return ResultGenerator.generate(games);
     }
 }

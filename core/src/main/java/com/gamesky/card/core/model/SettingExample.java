@@ -434,6 +434,66 @@ public class SettingExample {
             return (Criteria) this;
         }
 
+        public Criteria andDownloadIsNull() {
+            addCriterion("download is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadIsNotNull() {
+            addCriterion("download is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadEqualTo(Integer value) {
+            addCriterion("download =", value, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadNotEqualTo(Integer value) {
+            addCriterion("download <>", value, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadGreaterThan(Integer value) {
+            addCriterion("download >", value, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadGreaterThanOrEqualTo(Integer value) {
+            addCriterion("download >=", value, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadLessThan(Integer value) {
+            addCriterion("download <", value, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadLessThanOrEqualTo(Integer value) {
+            addCriterion("download <=", value, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadIn(List<Integer> values) {
+            addCriterion("download in", values, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadNotIn(List<Integer> values) {
+            addCriterion("download not in", values, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadBetween(Integer value1, Integer value2) {
+            addCriterion("download between", value1, value2, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadNotBetween(Integer value1, Integer value2) {
+            addCriterion("download not between", value1, value2, "download");
+            return (Criteria) this;
+        }
+
         public Criteria andRegistryIsNull() {
             addCriterion("registry is null");
             return (Criteria) this;
@@ -561,6 +621,66 @@ public class SettingExample {
 
         public Criteria andVNotBetween(String value1, String value2) {
             addCriterion("v not between", value1, value2, "v");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("create_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("create_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeEqualTo(Long value) {
+            addCriterion("create_time =", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotEqualTo(Long value) {
+            addCriterion("create_time <>", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThan(Long value) {
+            addCriterion("create_time >", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Long value) {
+            addCriterion("create_time >=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThan(Long value) {
+            addCriterion("create_time <", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThanOrEqualTo(Long value) {
+            addCriterion("create_time <=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIn(List<Long> values) {
+            addCriterion("create_time in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotIn(List<Long> values) {
+            addCriterion("create_time not in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeBetween(Long value1, Long value2) {
+            addCriterion("create_time between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotBetween(Long value1, Long value2) {
+            addCriterion("create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
 

@@ -232,10 +232,79 @@ public class ScoreServiceImpl implements ScoreService {
         return 0;
     }
 
+    private int download(String phone) {
+        List<Flow> flows = flowService.findByPhone(phone, new Page());
+        int score = Constants.DOWNLOAD_SCORE;
+        Setting setting;
+        if (flows == null || flows.size() == 0) {
+            setting = settingService.find("1_0");
+            if (setting != null) {
+                score = setting.getDownload();
+            }
+
+            int result = this.gain(phone, score, MethodType.DOWNLOAD_GAIN);
+            if (result > 0) {
+                return score;
+            }
+
+            return 0;
+        }
+
+        for (Flow flow : flows) {
+            if (!flow.getMethod().equals(MethodType.DOWNLOAD_GAIN.name())) {
+                continue;
+            }
+
+            if(sameDay(flow.getCreateTime(), System.currentTimeMillis())) {
+                return 0;
+            }
+        }
+
+        setting = settingService.find("1_0");
+        if (setting != null) {
+            score = setting.getDownload();
+        }
+
+        int result = this.gain(phone, score, MethodType.DOWNLOAD_GAIN);
+        if (result > 0) {
+            return score;
+        }
+
+        return 0;
+    }
+
     private boolean sameDay(long one, long two) {
         SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = dataFormat.format(one);
         String now = dataFormat.format(two);
         return date.equals(now);
+    }
+
+    /**
+     * 获取积分
+     *
+     * @param phone 手机号
+     * @param type  获取类别
+     * @return 积分
+     */
+    @Override
+    public int acquire(String phone, String type) {
+        if (type.equalsIgnoreCase("weixin")) {
+            return weixinShare(phone);
+        }
+
+        if (type.equalsIgnoreCase("qq")) {
+            return qqShare(phone);
+        }
+
+        if (type.equalsIgnoreCase("login")) {
+            return dailySign(phone);
+        }
+
+        if (type.equalsIgnoreCase("download")) {
+            return download(phone);
+        }
+
+        return 0;
     }
 }

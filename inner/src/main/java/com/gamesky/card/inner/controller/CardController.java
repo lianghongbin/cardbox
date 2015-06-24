@@ -54,6 +54,17 @@ public class CardController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/input")
+    public ModelAndView input(int gameId) {
+        Game game = gameService.find(gameId);
+        ModelAndView modelAndView = new ModelAndView("/card/input");
+        modelAndView.addObject("game", game);
+        CardType[] cardTypes = CardType.values();
+
+        modelAndView.addObject("types", cardTypes);
+        return modelAndView;
+    }
+
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(String openTimeString, String expireTimeString, CardWithBLOBs card) {
@@ -141,7 +152,7 @@ public class CardController {
         cardExample.setLimit(page.getPagesize());
         cardExample.setLimitOffset(page.getOffset());
 
-        List<CardWithBLOBs> cards = cardService.findByCondition(cardExample);
+        List<Card> cards = cardService.findByCondition(cardExample);
         int count = cardService.findCountByCondition(cardExample);
         page.setCount(count);
 
@@ -167,9 +178,9 @@ public class CardController {
 
         List<Integer> ids = codes.stream().map(Code::getCardId).collect(Collectors.toList());
 
-        List<CardWithBLOBs> cards = cardService.findByIds(ids);
+        List<Card> cards = cardService.findByIds(ids);
         List<Map> datas = new ArrayList<>();
-        for (CardWithBLOBs card : cards) {
+        for (Card card : cards) {
             try {
                 Map param = BeanUtils.beanToMap(card);
                 for (Code code : codes) {

@@ -2,6 +2,7 @@ package com.gamesky.card.web.controller;
 
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
+import com.gamesky.card.core.model.Card;
 import com.gamesky.card.core.model.CardExample;
 import com.gamesky.card.core.model.CardWithBLOBs;
 import com.gamesky.card.service.CardService;
@@ -32,17 +33,8 @@ public class SearchController {
             return ResultGenerator.generate();
         }
 
-        CardExample cardExample = new CardExample();
-        cardExample.createCriteria()
-                .andNameLike("%" + key + "%")
-                .andClosedEqualTo(false)
-                .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
-                .andExpireTimeGreaterThan(System.currentTimeMillis());
-        cardExample.setOrderByClause("id desc");
-        cardExample.setLimit(page.getPagesize());
-        cardExample.setLimitOffset(page.getOffset());
-        List<CardWithBLOBs> cards = cardService.findByCondition(cardExample);
-        int count = cardService.findCountByCondition((cardExample));
+        List<Card> cards = cardService.findByKey(key, page);
+        int count = cardService.findCountByKey(key);
         page.setCount(count);
 
         return ResultGenerator.generate(page, cards);

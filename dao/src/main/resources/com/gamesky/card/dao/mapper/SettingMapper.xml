@@ -7,8 +7,10 @@
     <result column="weixin" property="weixin" jdbcType="INTEGER" />
     <result column="qq" property="qq" jdbcType="INTEGER" />
     <result column="daily" property="daily" jdbcType="INTEGER" />
+    <result column="download" property="download" jdbcType="INTEGER" />
     <result column="registry" property="registry" jdbcType="INTEGER" />
     <result column="v" property="v" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, us, weixin, qq, daily, registry, v
+    id, us, weixin, qq, daily, download, registry, v, create_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.SettingExample" >
     select
@@ -106,11 +108,13 @@
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Setting" >
     insert into setting (id, us, weixin, 
-      qq, daily, registry, 
-      v)
+      qq, daily, download, 
+      registry, v, create_time
+      )
     values (#{id,jdbcType=INTEGER}, #{us,jdbcType=VARCHAR}, #{weixin,jdbcType=INTEGER}, 
-      #{qq,jdbcType=INTEGER}, #{daily,jdbcType=INTEGER}, #{registry,jdbcType=INTEGER}, 
-      #{v,jdbcType=VARCHAR})
+      #{qq,jdbcType=INTEGER}, #{daily,jdbcType=INTEGER}, #{download,jdbcType=INTEGER}, 
+      #{registry,jdbcType=INTEGER}, #{v,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Setting" >
     insert into setting
@@ -130,11 +134,17 @@
       <if test="daily != null" >
         daily,
       </if>
+      <if test="download != null" >
+        download,
+      </if>
       <if test="registry != null" >
         registry,
       </if>
       <if test="v != null" >
         v,
+      </if>
+      <if test="createTime != null" >
+        create_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -153,11 +163,17 @@
       <if test="daily != null" >
         #{daily,jdbcType=INTEGER},
       </if>
+      <if test="download != null" >
+        #{download,jdbcType=INTEGER},
+      </if>
       <if test="registry != null" >
         #{registry,jdbcType=INTEGER},
       </if>
       <if test="v != null" >
         #{v,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -185,11 +201,17 @@
       <if test="record.daily != null" >
         daily = #{record.daily,jdbcType=INTEGER},
       </if>
+      <if test="record.download != null" >
+        download = #{record.download,jdbcType=INTEGER},
+      </if>
       <if test="record.registry != null" >
         registry = #{record.registry,jdbcType=INTEGER},
       </if>
       <if test="record.v != null" >
         v = #{record.v,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -203,8 +225,10 @@
       weixin = #{record.weixin,jdbcType=INTEGER},
       qq = #{record.qq,jdbcType=INTEGER},
       daily = #{record.daily,jdbcType=INTEGER},
+      download = #{record.download,jdbcType=INTEGER},
       registry = #{record.registry,jdbcType=INTEGER},
-      v = #{record.v,jdbcType=VARCHAR}
+      v = #{record.v,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -224,11 +248,17 @@
       <if test="daily != null" >
         daily = #{daily,jdbcType=INTEGER},
       </if>
+      <if test="download != null" >
+        download = #{download,jdbcType=INTEGER},
+      </if>
       <if test="registry != null" >
         registry = #{registry,jdbcType=INTEGER},
       </if>
       <if test="v != null" >
         v = #{v,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -239,8 +269,10 @@
       weixin = #{weixin,jdbcType=INTEGER},
       qq = #{qq,jdbcType=INTEGER},
       daily = #{daily,jdbcType=INTEGER},
+      download = #{download,jdbcType=INTEGER},
       registry = #{registry,jdbcType=INTEGER},
-      v = #{v,jdbcType=VARCHAR}
+      v = #{v,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

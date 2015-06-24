@@ -894,6 +894,66 @@ public class CardExample {
             return (Criteria) this;
         }
 
+        public Criteria andValidIsNull() {
+            addCriterion("valid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidIsNotNull() {
+            addCriterion("valid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidEqualTo(Boolean value) {
+            addCriterion("valid =", value, "valid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidNotEqualTo(Boolean value) {
+            addCriterion("valid <>", value, "valid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidGreaterThan(Boolean value) {
+            addCriterion("valid >", value, "valid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("valid >=", value, "valid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidLessThan(Boolean value) {
+            addCriterion("valid <", value, "valid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidLessThanOrEqualTo(Boolean value) {
+            addCriterion("valid <=", value, "valid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidIn(List<Boolean> values) {
+            addCriterion("valid in", values, "valid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidNotIn(List<Boolean> values) {
+            addCriterion("valid not in", values, "valid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidBetween(Boolean value1, Boolean value2) {
+            addCriterion("valid between", value1, value2, "valid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValidNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("valid not between", value1, value2, "valid");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;
@@ -1014,66 +1074,6 @@ public class CardExample {
             return (Criteria) this;
         }
 
-        public Criteria andOpenTimeIsNull() {
-            addCriterion("open_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andOpenTimeIsNotNull() {
-            addCriterion("open_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andOpenTimeEqualTo(Long value) {
-            addCriterion("open_time =", value, "openTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andOpenTimeNotEqualTo(Long value) {
-            addCriterion("open_time <>", value, "openTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andOpenTimeGreaterThan(Long value) {
-            addCriterion("open_time >", value, "openTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andOpenTimeGreaterThanOrEqualTo(Long value) {
-            addCriterion("open_time >=", value, "openTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andOpenTimeLessThan(Long value) {
-            addCriterion("open_time <", value, "openTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andOpenTimeLessThanOrEqualTo(Long value) {
-            addCriterion("open_time <=", value, "openTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andOpenTimeIn(List<Long> values) {
-            addCriterion("open_time in", values, "openTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andOpenTimeNotIn(List<Long> values) {
-            addCriterion("open_time not in", values, "openTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andOpenTimeBetween(Long value1, Long value2) {
-            addCriterion("open_time between", value1, value2, "openTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andOpenTimeNotBetween(Long value1, Long value2) {
-            addCriterion("open_time not between", value1, value2, "openTime");
-            return (Criteria) this;
-        }
-
         public Criteria andExpireTimeIsNull() {
             addCriterion("expire_time is null");
             return (Criteria) this;
@@ -1131,6 +1131,66 @@ public class CardExample {
 
         public Criteria andExpireTimeNotBetween(Long value1, Long value2) {
             addCriterion("expire_time not between", value1, value2, "expireTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenTimeIsNull() {
+            addCriterion("open_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenTimeIsNotNull() {
+            addCriterion("open_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenTimeEqualTo(Long value) {
+            addCriterion("open_time =", value, "openTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenTimeNotEqualTo(Long value) {
+            addCriterion("open_time <>", value, "openTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenTimeGreaterThan(Long value) {
+            addCriterion("open_time >", value, "openTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenTimeGreaterThanOrEqualTo(Long value) {
+            addCriterion("open_time >=", value, "openTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenTimeLessThan(Long value) {
+            addCriterion("open_time <", value, "openTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenTimeLessThanOrEqualTo(Long value) {
+            addCriterion("open_time <=", value, "openTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenTimeIn(List<Long> values) {
+            addCriterion("open_time in", values, "openTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenTimeNotIn(List<Long> values) {
+            addCriterion("open_time not in", values, "openTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenTimeBetween(Long value1, Long value2) {
+            addCriterion("open_time between", value1, value2, "openTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOpenTimeNotBetween(Long value1, Long value2) {
+            addCriterion("open_time not between", value1, value2, "openTime");
             return (Criteria) this;
         }
 

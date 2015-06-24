@@ -72,9 +72,10 @@ public interface GameService {
 
     /**
      * 获取所有的游戏包名
+     * @param data 包名列表
      * @return 游戏包名列表
      */
-    List<String> findPackages();
+    List<String> findPackages(List<String> data);
 
     /**
      * 取出推荐列表

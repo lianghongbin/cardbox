@@ -45,10 +45,11 @@ public class CardWithBLOBs extends Card {
             && (this.getRecommend() == null ? other.getRecommend() == null : this.getRecommend().equals(other.getRecommend()))
             && (this.getPlatform() == null ? other.getPlatform() == null : this.getPlatform().equals(other.getPlatform()))
             && (this.getClosed() == null ? other.getClosed() == null : this.getClosed().equals(other.getClosed()))
+            && (this.getValid() == null ? other.getValid() == null : this.getValid().equals(other.getValid()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCloseTime() == null ? other.getCloseTime() == null : this.getCloseTime().equals(other.getCloseTime()))
-            && (this.getOpenTime() == null ? other.getOpenTime() == null : this.getOpenTime().equals(other.getOpenTime()))
             && (this.getExpireTime() == null ? other.getExpireTime() == null : this.getExpireTime().equals(other.getExpireTime()))
+            && (this.getOpenTime() == null ? other.getOpenTime() == null : this.getOpenTime().equals(other.getOpenTime()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
             && (this.getFlow() == null ? other.getFlow() == null : this.getFlow().equals(other.getFlow()));
     }
@@ -69,10 +70,11 @@ public class CardWithBLOBs extends Card {
         result = prime * result + ((getRecommend() == null) ? 0 : getRecommend().hashCode());
         result = prime * result + ((getPlatform() == null) ? 0 : getPlatform().hashCode());
         result = prime * result + ((getClosed() == null) ? 0 : getClosed().hashCode());
+        result = prime * result + ((getValid() == null) ? 0 : getValid().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCloseTime() == null) ? 0 : getCloseTime().hashCode());
-        result = prime * result + ((getOpenTime() == null) ? 0 : getOpenTime().hashCode());
         result = prime * result + ((getExpireTime() == null) ? 0 : getExpireTime().hashCode());
+        result = prime * result + ((getOpenTime() == null) ? 0 : getOpenTime().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         result = prime * result + ((getFlow() == null) ? 0 : getFlow().hashCode());
         return result;

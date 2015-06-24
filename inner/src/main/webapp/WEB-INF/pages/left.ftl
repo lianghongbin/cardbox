@@ -30,13 +30,13 @@
                     <li><a href="javascript:openUrl('/splash/all')"><i class="icon-font">&#xe009;</i>启动页管理</a></li>
                     <li><a href="javascript:openUrl('/user/all')"><i class="icon-font">&#xe012;</i>用户管理</a></li>
                     <li><a href="javascript:openUrl('/feedback/all')"><i class="icon-font">&#xe052;</i>用户反馈</a></li>
-                    <li><a href="design.html"><i class="icon-font">&#xe033;</i>图片管理</a></li>
+                    <li><a href="javascript:openUrl('/photo/all')"><i class="icon-font">&#xe033;</i>图片管理</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#"><i class="icon-font">&#xe018;</i>系统管理</a>
                 <ul class="sub-menu">
-                    <li><a href="system.html"><i class="icon-font">&#xe017;</i>系统设置</a></li>
+                    <li><a href="javascript:openUrl('/system/all')"><i class="icon-font">&#xe017;</i>系统设置</a></li>
                 </ul>
             </li>
         </ul>

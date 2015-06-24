@@ -55,4 +55,27 @@ public class SettingServiceImpl implements SettingService {
 
         return settingList.get(0);
     }
+
+    /**
+     * 获取所有系统保存信息
+     *
+     * @return 系统信息列表
+     */
+    @Override
+    public List<Setting> findAll() {
+        SettingExample settingExample = new SettingExample();
+
+        return settingMapper.selectByExample(settingExample);
+    }
+
+    /**
+     * 添加系统配置信息
+     *
+     * @param setting 系统配置信息
+     * @return 影响条数
+     */
+    @Override
+    public int save(Setting setting) {
+        return settingMapper.insert(setting);
+    }
 }

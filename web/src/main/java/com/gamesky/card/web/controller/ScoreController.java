@@ -21,35 +21,13 @@ public class ScoreController {
     private ScoreService scoreService;
 
     @ResponseBody
-    @RequestMapping(value = "/daily", method = RequestMethod.GET)
-    public String daily(String phone) {
-        int score = scoreService.dailySign(phone);
+    @RequestMapping("/acquire")
+    public String acquire(String phone, String type) {
+        int score = scoreService.acquire(phone, type);
         if (score > 0) {
             return ResultGenerator.generate(ReturnCode.SUCCESS.getCode(), String.valueOf(score));
         }
 
-        return ResultGenerator.generateError("当日已经领取或者领取积分失败");
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/weixin", method = RequestMethod.GET)
-    public String weiXin(String phone) {
-        int score = scoreService.weixinShare(phone);
-        if (score > 0) {
-            return ResultGenerator.generate(ReturnCode.SUCCESS.getCode(), String.valueOf(score));
-        }
-
-        return ResultGenerator.generateError("当日微信已经分享或者领取积分失败");
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/qq", method = RequestMethod.GET)
-    public String qq(String phone) {
-        int score = scoreService.qqShare(phone);
-        if (score > 0) {
-            return ResultGenerator.generate(ReturnCode.SUCCESS.getCode(), String.valueOf(score));
-        }
-
-        return ResultGenerator.generateError("当日QQ已经分享或者领取积分失败");
+        return ResultGenerator.generateError("已经领取过积分或者获取积分失败");
     }
 }

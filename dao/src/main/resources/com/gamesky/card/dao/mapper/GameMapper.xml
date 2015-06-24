@@ -6,6 +6,7 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="icon" property="icon" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="closed" property="closed" jdbcType="BIT" />
     <result column="ios_id" property="iosId" jdbcType="VARCHAR" />
     <result column="recommend" property="recommend" jdbcType="BIT" />
     <result column="identifier" property="identifier" jdbcType="VARCHAR" />
@@ -13,7 +14,6 @@
     <result column="sort" property="sort" jdbcType="INTEGER" />
     <result column="platform" property="platform" jdbcType="VARCHAR" />
     <result column="score" property="score" jdbcType="INTEGER" />
-    <result column="closed" property="closed" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="BIGINT" />
     <result column="modify_time" property="modifyTime" jdbcType="BIGINT" />
   </resultMap>
@@ -79,8 +79,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, icon, url, ios_id, recommend, identifier, total, sort, platform, score, 
-    closed, create_time, modify_time
+    id, name, icon, url, closed, ios_id, recommend, identifier, total, sort, platform, 
+    score, create_time, modify_time
   </sql>
   <sql id="Blob_Column_List" >
     description
@@ -141,17 +141,15 @@
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Game" >
     insert into game (id, name, icon, 
-      url, ios_id, recommend, 
+      url, closed, ios_id, recommend, 
       identifier, total, sort, 
-      platform, score, closed, 
-      create_time, modify_time, description
-      )
+      platform, score, create_time, 
+      modify_time, description)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{iosId,jdbcType=VARCHAR}, #{recommend,jdbcType=BIT}, 
+      #{url,jdbcType=VARCHAR}, #{closed,jdbcType=BIT}, #{iosId,jdbcType=VARCHAR}, #{recommend,jdbcType=BIT}, 
       #{identifier,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, 
-      #{platform,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{closed,jdbcType=BIT}, 
-      #{createTime,jdbcType=BIGINT}, #{modifyTime,jdbcType=BIGINT}, #{description,jdbcType=LONGVARCHAR}
-      )
+      #{platform,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=BIGINT}, #{description,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Game" >
     insert into game
@@ -167,6 +165,9 @@
       </if>
       <if test="url != null" >
         url,
+      </if>
+      <if test="closed != null" >
+        closed,
       </if>
       <if test="iosId != null" >
         ios_id,
@@ -188,9 +189,6 @@
       </if>
       <if test="score != null" >
         score,
-      </if>
-      <if test="closed != null" >
-        closed,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -215,6 +213,9 @@
       <if test="url != null" >
         #{url,jdbcType=VARCHAR},
       </if>
+      <if test="closed != null" >
+        #{closed,jdbcType=BIT},
+      </if>
       <if test="iosId != null" >
         #{iosId,jdbcType=VARCHAR},
       </if>
@@ -235,9 +236,6 @@
       </if>
       <if test="score != null" >
         #{score,jdbcType=INTEGER},
-      </if>
-      <if test="closed != null" >
-        #{closed,jdbcType=BIT},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=BIGINT},
@@ -271,6 +269,9 @@
       <if test="record.url != null" >
         url = #{record.url,jdbcType=VARCHAR},
       </if>
+      <if test="record.closed != null" >
+        closed = #{record.closed,jdbcType=BIT},
+      </if>
       <if test="record.iosId != null" >
         ios_id = #{record.iosId,jdbcType=VARCHAR},
       </if>
@@ -292,9 +293,6 @@
       <if test="record.score != null" >
         score = #{record.score,jdbcType=INTEGER},
       </if>
-      <if test="record.closed != null" >
-        closed = #{record.closed,jdbcType=BIT},
-      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=BIGINT},
       </if>
@@ -315,6 +313,7 @@
       name = #{record.name,jdbcType=VARCHAR},
       icon = #{record.icon,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
+      closed = #{record.closed,jdbcType=BIT},
       ios_id = #{record.iosId,jdbcType=VARCHAR},
       recommend = #{record.recommend,jdbcType=BIT},
       identifier = #{record.identifier,jdbcType=VARCHAR},
@@ -322,7 +321,6 @@
       sort = #{record.sort,jdbcType=INTEGER},
       platform = #{record.platform,jdbcType=VARCHAR},
       score = #{record.score,jdbcType=INTEGER},
-      closed = #{record.closed,jdbcType=BIT},
       create_time = #{record.createTime,jdbcType=BIGINT},
       modify_time = #{record.modifyTime,jdbcType=BIGINT},
       description = #{record.description,jdbcType=LONGVARCHAR}
@@ -336,6 +334,7 @@
       name = #{record.name,jdbcType=VARCHAR},
       icon = #{record.icon,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
+      closed = #{record.closed,jdbcType=BIT},
       ios_id = #{record.iosId,jdbcType=VARCHAR},
       recommend = #{record.recommend,jdbcType=BIT},
       identifier = #{record.identifier,jdbcType=VARCHAR},
@@ -343,7 +342,6 @@
       sort = #{record.sort,jdbcType=INTEGER},
       platform = #{record.platform,jdbcType=VARCHAR},
       score = #{record.score,jdbcType=INTEGER},
-      closed = #{record.closed,jdbcType=BIT},
       create_time = #{record.createTime,jdbcType=BIGINT},
       modify_time = #{record.modifyTime,jdbcType=BIGINT}
     <if test="_parameter != null" >
@@ -361,6 +359,9 @@
       </if>
       <if test="url != null" >
         url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="closed != null" >
+        closed = #{closed,jdbcType=BIT},
       </if>
       <if test="iosId != null" >
         ios_id = #{iosId,jdbcType=VARCHAR},
@@ -383,9 +384,6 @@
       <if test="score != null" >
         score = #{score,jdbcType=INTEGER},
       </if>
-      <if test="closed != null" >
-        closed = #{closed,jdbcType=BIT},
-      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=BIGINT},
       </if>
@@ -403,6 +401,7 @@
     set name = #{name,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
+      closed = #{closed,jdbcType=BIT},
       ios_id = #{iosId,jdbcType=VARCHAR},
       recommend = #{recommend,jdbcType=BIT},
       identifier = #{identifier,jdbcType=VARCHAR},
@@ -410,7 +409,6 @@
       sort = #{sort,jdbcType=INTEGER},
       platform = #{platform,jdbcType=VARCHAR},
       score = #{score,jdbcType=INTEGER},
-      closed = #{closed,jdbcType=BIT},
       create_time = #{createTime,jdbcType=BIGINT},
       modify_time = #{modifyTime,jdbcType=BIGINT},
       description = #{description,jdbcType=LONGVARCHAR}
@@ -421,6 +419,7 @@
     set name = #{name,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
+      closed = #{closed,jdbcType=BIT},
       ios_id = #{iosId,jdbcType=VARCHAR},
       recommend = #{recommend,jdbcType=BIT},
       identifier = #{identifier,jdbcType=VARCHAR},
@@ -428,7 +427,6 @@
       sort = #{sort,jdbcType=INTEGER},
       platform = #{platform,jdbcType=VARCHAR},
       score = #{score,jdbcType=INTEGER},
-      closed = #{closed,jdbcType=BIT},
       create_time = #{createTime,jdbcType=BIGINT},
       modify_time = #{modifyTime,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
