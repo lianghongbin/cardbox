@@ -102,7 +102,7 @@
                             <th width="30">评分</th>
                             <th width="30">推荐</th>
                             <th width="150">发布时间</th>
-                            <th width="150">操作</th>
+                            <th width="210">操作</th>
                         </tr>
                     <#list games as game>
                         <tr>
@@ -122,6 +122,7 @@
                                 <#if game.closed><a class="link-update" href="javascript:operate(${game.id},'${game.closed!false}')">上线</a><#else><a class="link-update" href="javascript:operate(${game.id},'${game.closed!false}')">下线</a></#if>
                                 &nbsp;&nbsp; <a class="link-update" href="./modify?id=${game.id}">修改</a>
                                 &nbsp; <a class="link-update" href="../card/input?gameId=${game.id}">添加礼包</a>
+                                &nbsp; <a class="link-update" href="../photo/game?gameId=${game.id}">图片管理</a>
                             </td>
                         </tr>
                     </#list>

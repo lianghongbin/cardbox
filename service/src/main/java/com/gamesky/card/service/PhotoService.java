@@ -26,7 +26,7 @@ public interface PhotoService {
      * @param id 图片ID
      * @return 影响条数
      */
-    int delete(int id);
+    int remove(int id);
 
     /**
      * 修改一个图片

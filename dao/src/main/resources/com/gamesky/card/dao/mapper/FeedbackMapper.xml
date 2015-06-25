@@ -4,14 +4,12 @@
   <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.Feedback" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="processed" property="processed" jdbcType="BIT" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="BIGINT" />
     <result column="process_time" property="processTime" jdbcType="BIGINT" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.gamesky.card.core.model.Feedback" extends="BaseResultMap" >
-    <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -72,30 +70,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, user_id, processed, remark, create_time, process_time, phone
+    id, user_id, content, processed, remark, create_time, process_time, phone
   </sql>
-  <sql id="Blob_Column_List" >
-    content
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.gamesky.card.core.model.FeedbackExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from feedback
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-    <if test="limitOffset != null and limitOffset>=0" >
-      limit #{limitOffset}, #{limit}
-    </if>
-  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.FeedbackExample" >
     select
     <if test="distinct" >
@@ -113,11 +89,9 @@
       limit #{limitOffset}, #{limit}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from feedback
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -132,12 +106,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Feedback" >
-    insert into feedback (id, user_id, processed, 
-      remark, create_time, process_time, 
-      phone, content)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{processed,jdbcType=BIT}, 
-      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{processTime,jdbcType=BIGINT}, 
-      #{phone,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
+    insert into feedback (id, user_id, content, 
+      processed, remark, create_time, 
+      process_time, phone)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
+      #{processed,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{processTime,jdbcType=BIGINT}, #{phone,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Feedback" >
     insert into feedback
@@ -147,6 +121,9 @@
       </if>
       <if test="userId != null" >
         user_id,
+      </if>
+      <if test="content != null" >
+        content,
       </if>
       <if test="processed != null" >
         processed,
@@ -163,9 +140,6 @@
       <if test="phone != null" >
         phone,
       </if>
-      <if test="content != null" >
-        content,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -173,6 +147,9 @@
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
       </if>
       <if test="processed != null" >
         #{processed,jdbcType=BIT},
@@ -188,9 +165,6 @@
       </if>
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null" >
-        #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -209,6 +183,9 @@
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
       <if test="record.processed != null" >
         processed = #{record.processed,jdbcType=BIT},
       </if>
@@ -224,24 +201,7 @@
       <if test="record.phone != null" >
         phone = #{record.phone,jdbcType=VARCHAR},
       </if>
-      <if test="record.content != null" >
-        content = #{record.content,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update feedback
-    set id = #{record.id,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      processed = #{record.processed,jdbcType=BIT},
-      remark = #{record.remark,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=BIGINT},
-      process_time = #{record.processTime,jdbcType=BIGINT},
-      phone = #{record.phone,jdbcType=VARCHAR},
-      content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -250,6 +210,7 @@
     update feedback
     set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
       processed = #{record.processed,jdbcType=BIT},
       remark = #{record.remark,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=BIGINT},
@@ -264,6 +225,9 @@
     <set >
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="processed != null" >
         processed = #{processed,jdbcType=BIT},
@@ -280,26 +244,13 @@
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gamesky.card.core.model.Feedback" >
-    update feedback
-    set user_id = #{userId,jdbcType=INTEGER},
-      processed = #{processed,jdbcType=BIT},
-      remark = #{remark,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=BIGINT},
-      process_time = #{processTime,jdbcType=BIGINT},
-      phone = #{phone,jdbcType=VARCHAR},
-      content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Feedback" >
     update feedback
     set user_id = #{userId,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
       processed = #{processed,jdbcType=BIT},
       remark = #{remark,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=BIGINT},

@@ -106,7 +106,7 @@
                             <th width="150">发布时间</th>
                             <th width="150">截止时间</th>
                             <th width="100">激活码</th>
-                            <th width="100">操作</th>
+                            <th width="150">操作</th>
                         </tr>
                     <#list cards as card>
                         <tr>
@@ -134,6 +134,7 @@
                             <td align="center">
                                 <#if card.closed><a class="link-update" href="javascript:operate(${card.id},${card.gameId},'${card.closed!false}')">上线</a><#else><a class="link-update" href="javascript:operate(${card.id},${card.gameId},'${card.closed!false}')">下线</a></#if>
                                 &nbsp; <a class="link-update" href="./modify?id=${card.id}">修改</a>
+                                &nbsp; <a class="link-update" href="../photo/card?cardId=${card.id}">图片管理</a>
                             </td>
                         </tr>
                     </#list>

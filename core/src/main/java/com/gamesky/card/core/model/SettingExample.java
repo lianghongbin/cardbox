@@ -434,66 +434,6 @@ public class SettingExample {
             return (Criteria) this;
         }
 
-        public Criteria andDownloadIsNull() {
-            addCriterion("download is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDownloadIsNotNull() {
-            addCriterion("download is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDownloadEqualTo(Integer value) {
-            addCriterion("download =", value, "download");
-            return (Criteria) this;
-        }
-
-        public Criteria andDownloadNotEqualTo(Integer value) {
-            addCriterion("download <>", value, "download");
-            return (Criteria) this;
-        }
-
-        public Criteria andDownloadGreaterThan(Integer value) {
-            addCriterion("download >", value, "download");
-            return (Criteria) this;
-        }
-
-        public Criteria andDownloadGreaterThanOrEqualTo(Integer value) {
-            addCriterion("download >=", value, "download");
-            return (Criteria) this;
-        }
-
-        public Criteria andDownloadLessThan(Integer value) {
-            addCriterion("download <", value, "download");
-            return (Criteria) this;
-        }
-
-        public Criteria andDownloadLessThanOrEqualTo(Integer value) {
-            addCriterion("download <=", value, "download");
-            return (Criteria) this;
-        }
-
-        public Criteria andDownloadIn(List<Integer> values) {
-            addCriterion("download in", values, "download");
-            return (Criteria) this;
-        }
-
-        public Criteria andDownloadNotIn(List<Integer> values) {
-            addCriterion("download not in", values, "download");
-            return (Criteria) this;
-        }
-
-        public Criteria andDownloadBetween(Integer value1, Integer value2) {
-            addCriterion("download between", value1, value2, "download");
-            return (Criteria) this;
-        }
-
-        public Criteria andDownloadNotBetween(Integer value1, Integer value2) {
-            addCriterion("download not between", value1, value2, "download");
-            return (Criteria) this;
-        }
-
         public Criteria andRegistryIsNull() {
             addCriterion("registry is null");
             return (Criteria) this;
@@ -621,6 +561,66 @@ public class SettingExample {
 
         public Criteria andVNotBetween(String value1, String value2) {
             addCriterion("v not between", value1, value2, "v");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadIsNull() {
+            addCriterion("download is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadIsNotNull() {
+            addCriterion("download is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadEqualTo(Integer value) {
+            addCriterion("download =", value, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadNotEqualTo(Integer value) {
+            addCriterion("download <>", value, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadGreaterThan(Integer value) {
+            addCriterion("download >", value, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadGreaterThanOrEqualTo(Integer value) {
+            addCriterion("download >=", value, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadLessThan(Integer value) {
+            addCriterion("download <", value, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadLessThanOrEqualTo(Integer value) {
+            addCriterion("download <=", value, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadIn(List<Integer> values) {
+            addCriterion("download in", values, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadNotIn(List<Integer> values) {
+            addCriterion("download not in", values, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadBetween(Integer value1, Integer value2) {
+            addCriterion("download between", value1, value2, "download");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownloadNotBetween(Integer value1, Integer value2) {
+            addCriterion("download not between", value1, value2, "download");
             return (Criteria) this;
         }
 

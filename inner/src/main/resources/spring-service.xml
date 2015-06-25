@@ -51,11 +51,21 @@
         </property>
     </bean>
 
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
-
-    <bean id="uploadMarshaller" class="com.gamesky.card.service.LocalFileMarshaller">
-        <property name="uploadDir" value="/upload/"/>
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding">
+            <value>UTF-8</value>
+        </property>
+        <property name="maxUploadSize">
+            <value>32505856</value><!-- 上传文件大小限制为31M，31*1024*1024 -->
+        </property>
+        <property name="maxInMemorySize">
+            <value>4096</value>
+        </property>
     </bean>
+
+
+    <bean id="uploadMarshaller" class="com.gamesky.card.service.LocalFileMarshaller"/>
 
     <bean id="globalLock" class="com.gamesky.card.service.RedisGlobalLock">
         <property name="jedis" ref="jedis"/>

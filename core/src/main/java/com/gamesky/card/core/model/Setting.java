@@ -11,11 +11,11 @@ public class Setting {
 
     private Integer daily;
 
-    private Integer download;
-
     private Integer registry;
 
     private String v;
+
+    private Integer download;
 
     private Long createTime;
 
@@ -59,14 +59,6 @@ public class Setting {
         this.daily = daily;
     }
 
-    public Integer getDownload() {
-        return download;
-    }
-
-    public void setDownload(Integer download) {
-        this.download = download;
-    }
-
     public Integer getRegistry() {
         return registry;
     }
@@ -81,6 +73,14 @@ public class Setting {
 
     public void setV(String v) {
         this.v = v;
+    }
+
+    public Integer getDownload() {
+        return download;
+    }
+
+    public void setDownload(Integer download) {
+        this.download = download;
     }
 
     public Long getCreateTime() {
@@ -108,9 +108,9 @@ public class Setting {
             && (this.getWeixin() == null ? other.getWeixin() == null : this.getWeixin().equals(other.getWeixin()))
             && (this.getQq() == null ? other.getQq() == null : this.getQq().equals(other.getQq()))
             && (this.getDaily() == null ? other.getDaily() == null : this.getDaily().equals(other.getDaily()))
-            && (this.getDownload() == null ? other.getDownload() == null : this.getDownload().equals(other.getDownload()))
             && (this.getRegistry() == null ? other.getRegistry() == null : this.getRegistry().equals(other.getRegistry()))
             && (this.getV() == null ? other.getV() == null : this.getV().equals(other.getV()))
+            && (this.getDownload() == null ? other.getDownload() == null : this.getDownload().equals(other.getDownload()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
     }
 
@@ -123,9 +123,9 @@ public class Setting {
         result = prime * result + ((getWeixin() == null) ? 0 : getWeixin().hashCode());
         result = prime * result + ((getQq() == null) ? 0 : getQq().hashCode());
         result = prime * result + ((getDaily() == null) ? 0 : getDaily().hashCode());
-        result = prime * result + ((getDownload() == null) ? 0 : getDownload().hashCode());
         result = prime * result + ((getRegistry() == null) ? 0 : getRegistry().hashCode());
         result = prime * result + ((getV() == null) ? 0 : getV().hashCode());
+        result = prime * result + ((getDownload() == null) ? 0 : getDownload().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         return result;
     }
@@ -141,9 +141,9 @@ public class Setting {
         sb.append(", weixin=").append(weixin);
         sb.append(", qq=").append(qq);
         sb.append(", daily=").append(daily);
-        sb.append(", download=").append(download);
         sb.append(", registry=").append(registry);
         sb.append(", v=").append(v);
+        sb.append(", download=").append(download);
         sb.append(", createTime=").append(createTime);
         sb.append("]");
         return sb.toString();

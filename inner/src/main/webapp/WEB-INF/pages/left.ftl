@@ -30,7 +30,6 @@
                     <li><a href="javascript:openUrl('/splash/all')"><i class="icon-font">&#xe009;</i>启动页管理</a></li>
                     <li><a href="javascript:openUrl('/user/all')"><i class="icon-font">&#xe012;</i>用户管理</a></li>
                     <li><a href="javascript:openUrl('/feedback/all')"><i class="icon-font">&#xe052;</i>用户反馈</a></li>
-                    <li><a href="javascript:openUrl('/photo/all')"><i class="icon-font">&#xe033;</i>图片管理</a></li>
                 </ul>
             </li>
             <li>

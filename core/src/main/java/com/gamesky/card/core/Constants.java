@@ -18,4 +18,7 @@ public interface Constants {
     String CHECK_CODE_KEY_PREFIX = "check_code_key-";
     String USER_LOGIN_KEY_PREFIX = "user_login_key-";
     String TOKEN_KEY    = "token";
+
+    String UPLOAD_DIR = "upload";
+    String PHOTO_URL_PREFIX = "http://kk.7k7k.com";
 }

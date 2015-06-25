@@ -38,7 +38,7 @@ public class PhotoServiceImpl implements PhotoService {
      * @return 影响条数
      */
     @Override
-    public int delete(int id) {
+    public int remove(int id) {
         return photoMapper.deleteByPrimaryKey(id);
     }
 

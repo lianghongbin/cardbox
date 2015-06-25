@@ -54,8 +54,7 @@
     </div>
     <div class="result-wrap">
         <div class="result-content">
-            <form id="myform" name="myform"
-            ">
+            <form id="myform" name="myform">
             <table class="insert-tab" width="100%">
                 <tbody>
                 <tr>

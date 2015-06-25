@@ -5,7 +5,7 @@ package com.gamesky.card.core.exceptions;
  *
  * @Author lianghongbin
  */
-public class MarshalException extends Throwable {
+public class MarshalException extends Exception {
 
     public MarshalException() {
         super();
