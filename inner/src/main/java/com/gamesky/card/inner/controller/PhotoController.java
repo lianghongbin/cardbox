@@ -5,6 +5,7 @@ import com.gamesky.card.core.Keyable;
 import com.gamesky.card.core.Marshaller;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.model.Card;
+import com.gamesky.card.core.model.CardWithBLOBs;
 import com.gamesky.card.core.model.Game;
 import com.gamesky.card.core.model.Photo;
 import com.gamesky.card.service.CardService;
@@ -37,7 +38,7 @@ import java.util.Random;
  * @Author lianghongbin
  */
 @Controller
-@RequestMapping(value = "/photo", produces="text/plain;charset=UTF-8")
+@RequestMapping(value = "/photo", produces = "text/plain;charset=UTF-8")
 public class PhotoController {
 
     @Autowired
@@ -96,8 +97,7 @@ public class PhotoController {
         Object item;
         if (type.equalsIgnoreCase("game")) {
             item = gameService.find(id);
-        }
-        else {
+        } else {
             item = cardService.find(id);
         }
 
@@ -109,9 +109,9 @@ public class PhotoController {
     }
 
     @ResponseBody
-    @RequestMapping(value="/upload",method= RequestMethod.POST)
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String upload(HttpServletRequest request) {
-        String responseStr="";
+        String responseStr = "";
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         File dir = new File(request.getSession().getServletContext().getRealPath(Constants.UPLOAD_DIR));
         if (!dir.exists()) {
@@ -133,8 +133,8 @@ public class PhotoController {
             File uploadFile = new File(dir, newFileName);
 
             try {
-                marshaller.marshal(()->uploadFile.getAbsolutePath(), mf.getBytes());
-                responseStr="上传成功";
+                marshaller.marshal(uploadFile::getAbsolutePath, mf.getBytes());
+                responseStr = "上传成功";
 
                 int id = Integer.parseInt(request.getParameter("id"));
                 String type = request.getParameter("type");
@@ -145,11 +145,60 @@ public class PhotoController {
 
                 photoService.save(photo);
             } catch (Exception e) {
-                responseStr="上传失败";
+                responseStr = "上传失败";
                 logger.error("文件{}上传失败", fileName);
                 logger.error(e.getMessage());
             }
         }
+
+        return responseStr;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/icon", method = RequestMethod.POST)
+    public String icon(HttpServletRequest request) {
+        String responseStr;
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        File dir = new File(request.getSession().getServletContext().getRealPath(Constants.UPLOAD_DIR));
+        if (!dir.exists()) {
+            if (!dir.mkdirs()) {
+                return "创建上传文件夹失败";
+            }
+        }
+
+        MultipartFile mf = multipartRequest.getFile("icon");
+        String fileName = mf.getOriginalFilename();
+        String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+        // 重命名文件
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        String newFileName = df.format(new Date()) + "_" + new Random().nextInt(1000) + "." + fileExt;
+        File uploadFile = new File(dir, newFileName);
+
+        try {
+            marshaller.marshal(uploadFile::getAbsolutePath, mf.getBytes());
+
+            int id = Integer.parseInt(request.getParameter("id"));
+            String type = request.getParameter("type");
+            String url = Constants.PHOTO_URL_PREFIX + "/" + Constants.UPLOAD_DIR + "/" + newFileName;
+            if (type.equalsIgnoreCase("game")) {
+                Game game = new Game();
+                game.setId(id);
+                game.setIcon(url);
+                gameService.update(game);
+            } else {
+                CardWithBLOBs card = new CardWithBLOBs();
+                card.setId(id);
+                card.setIcon(url);
+                cardService.update(card);
+            }
+
+            responseStr = "上传成功";
+        } catch (Exception e) {
+            responseStr = "上传失败";
+            logger.error("文件{}上传失败", fileName);
+            logger.error(e.getMessage());
+        }
+
 
         return responseStr;
     }
