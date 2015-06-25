@@ -37,6 +37,8 @@
                             <th>微信分享得分</th>
                             <th>QQ分享得分</th>
                             <th>下载游戏得分</th>
+                            <th>关于我们</th>
+                            <th>启动公告</th>
                             <th width="150">添加时间</th>
                         </tr>
                     <#list settings as setting>

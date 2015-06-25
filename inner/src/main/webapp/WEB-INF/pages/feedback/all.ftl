@@ -56,6 +56,7 @@
                     <table class="result-tab" width="100%">
                         <tr>
                             <th>手机号</th>
+                            <th>联系方式</th>
                             <th>反馈内容</th>
                             <th>已处理</th>
                             <th>处理意见</th>
@@ -67,6 +68,9 @@
                         <tr>
                             <td>
                                 ${feedback.phone}
+                            </td>
+                            <td>
+                            ${feedback.contact}
                             </td>
                             <td>${feedback.content}</td>
                             <td><#if feedback.processed>是<#else>否</#if> </td>

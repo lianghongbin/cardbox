@@ -92,6 +92,16 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>关于我们：</th>
+                    <td><textarea name="us" class="common-textarea" id="us" cols="20"
+                                  style="width: 98%;" rows="5"></textarea></td>
+                </tr>
+                <tr>
+                    <th>启动公告：</th>
+                    <td><textarea name="announce" class="common-textarea" id="announce" cols="20"
+                                  style="width: 98%;" rows="5"></textarea></td>
+                </tr>
+                <tr>
                     <th></th>
                     <td>
                         <input class="btn btn-primary btn6 mr10" id="uploadSubmit" value="提交" onclick="return operate()"

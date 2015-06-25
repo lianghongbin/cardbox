@@ -7,6 +7,8 @@ public class Feedback {
 
     private String content;
 
+    private String contact;
+
     private Boolean processed;
 
     private String remark;
@@ -39,6 +41,14 @@ public class Feedback {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public Boolean getProcessed() {
@@ -96,6 +106,7 @@ public class Feedback {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
+            && (this.getContact() == null ? other.getContact() == null : this.getContact().equals(other.getContact()))
             && (this.getProcessed() == null ? other.getProcessed() == null : this.getProcessed().equals(other.getProcessed()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -110,6 +121,7 @@ public class Feedback {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         result = prime * result + ((getContent() == null) ? 0 : getContent().hashCode());
+        result = prime * result + ((getContact() == null) ? 0 : getContact().hashCode());
         result = prime * result + ((getProcessed() == null) ? 0 : getProcessed().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -127,6 +139,7 @@ public class Feedback {
         sb.append(", id=").append(id);
         sb.append(", userId=").append(userId);
         sb.append(", content=").append(content);
+        sb.append(", contact=").append(contact);
         sb.append(", processed=").append(processed);
         sb.append(", remark=").append(remark);
         sb.append(", createTime=").append(createTime);

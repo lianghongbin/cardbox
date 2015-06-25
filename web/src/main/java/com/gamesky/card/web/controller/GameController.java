@@ -109,12 +109,21 @@ public class GameController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/gamepackages", method = RequestMethod.GET)
+    @RequestMapping(value = "/my", method = RequestMethod.GET)
     public String findAll(String data) {
         Type collectionType = new TypeToken<List<String>>() {}.getType();
         Gson gson = new Gson();
         List<String> listData = gson.fromJson(data, collectionType);
-        List<String> games = gameService.findPackages(listData);
+        List<Game> games = gameService.findByPackages(listData);
         return ResultGenerator.generate(games);
+    }
+
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<>();
+        list.add("abc");
+        list.add("bcd");
+
+        Gson gson = new Gson();
+        System.out.println(gson.toJson(list));
     }
 }

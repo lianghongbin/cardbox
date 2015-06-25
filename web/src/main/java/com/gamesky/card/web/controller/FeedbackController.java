@@ -28,6 +28,7 @@ public class FeedbackController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String save(Feedback feedback) {
         feedback.setCreateTime(System.currentTimeMillis());
+        feedback.setProcessed(false);
         int result = feedbackService.save(feedback);
         if (result > 0) {
             return ResultGenerator.generate();

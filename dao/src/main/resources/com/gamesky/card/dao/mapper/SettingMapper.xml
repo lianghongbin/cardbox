@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.Setting" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="us" property="us" jdbcType="VARCHAR" />
+    <result column="announce" property="announce" jdbcType="VARCHAR" />
     <result column="weixin" property="weixin" jdbcType="INTEGER" />
     <result column="qq" property="qq" jdbcType="INTEGER" />
     <result column="daily" property="daily" jdbcType="INTEGER" />
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, us, weixin, qq, daily, registry, v, download, create_time
+    id, us, announce, weixin, qq, daily, registry, v, download, create_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.SettingExample" >
     select
@@ -107,14 +108,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Setting" >
-    insert into setting (id, us, weixin, 
-      qq, daily, registry, 
-      v, download, create_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{us,jdbcType=VARCHAR}, #{weixin,jdbcType=INTEGER}, 
-      #{qq,jdbcType=INTEGER}, #{daily,jdbcType=INTEGER}, #{registry,jdbcType=INTEGER}, 
-      #{v,jdbcType=VARCHAR}, #{download,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}
-      )
+    insert into setting (id, us, announce, 
+      weixin, qq, daily, 
+      registry, v, download, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{us,jdbcType=VARCHAR}, #{announce,jdbcType=VARCHAR}, 
+      #{weixin,jdbcType=INTEGER}, #{qq,jdbcType=INTEGER}, #{daily,jdbcType=INTEGER}, 
+      #{registry,jdbcType=INTEGER}, #{v,jdbcType=VARCHAR}, #{download,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Setting" >
     insert into setting
@@ -124,6 +125,9 @@
       </if>
       <if test="us != null" >
         us,
+      </if>
+      <if test="announce != null" >
+        announce,
       </if>
       <if test="weixin != null" >
         weixin,
@@ -153,6 +157,9 @@
       </if>
       <if test="us != null" >
         #{us,jdbcType=VARCHAR},
+      </if>
+      <if test="announce != null" >
+        #{announce,jdbcType=VARCHAR},
       </if>
       <if test="weixin != null" >
         #{weixin,jdbcType=INTEGER},
@@ -192,6 +199,9 @@
       <if test="record.us != null" >
         us = #{record.us,jdbcType=VARCHAR},
       </if>
+      <if test="record.announce != null" >
+        announce = #{record.announce,jdbcType=VARCHAR},
+      </if>
       <if test="record.weixin != null" >
         weixin = #{record.weixin,jdbcType=INTEGER},
       </if>
@@ -222,6 +232,7 @@
     update setting
     set id = #{record.id,jdbcType=INTEGER},
       us = #{record.us,jdbcType=VARCHAR},
+      announce = #{record.announce,jdbcType=VARCHAR},
       weixin = #{record.weixin,jdbcType=INTEGER},
       qq = #{record.qq,jdbcType=INTEGER},
       daily = #{record.daily,jdbcType=INTEGER},
@@ -238,6 +249,9 @@
     <set >
       <if test="us != null" >
         us = #{us,jdbcType=VARCHAR},
+      </if>
+      <if test="announce != null" >
+        announce = #{announce,jdbcType=VARCHAR},
       </if>
       <if test="weixin != null" >
         weixin = #{weixin,jdbcType=INTEGER},
@@ -266,6 +280,7 @@
   <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Setting" >
     update setting
     set us = #{us,jdbcType=VARCHAR},
+      announce = #{announce,jdbcType=VARCHAR},
       weixin = #{weixin,jdbcType=INTEGER},
       qq = #{qq,jdbcType=INTEGER},
       daily = #{daily,jdbcType=INTEGER},

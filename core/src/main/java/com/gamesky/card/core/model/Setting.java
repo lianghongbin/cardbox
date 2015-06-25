@@ -5,6 +5,8 @@ public class Setting {
 
     private String us;
 
+    private String announce;
+
     private Integer weixin;
 
     private Integer qq;
@@ -33,6 +35,14 @@ public class Setting {
 
     public void setUs(String us) {
         this.us = us;
+    }
+
+    public String getAnnounce() {
+        return announce;
+    }
+
+    public void setAnnounce(String announce) {
+        this.announce = announce;
     }
 
     public Integer getWeixin() {
@@ -105,6 +115,7 @@ public class Setting {
         Setting other = (Setting) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getUs() == null ? other.getUs() == null : this.getUs().equals(other.getUs()))
+            && (this.getAnnounce() == null ? other.getAnnounce() == null : this.getAnnounce().equals(other.getAnnounce()))
             && (this.getWeixin() == null ? other.getWeixin() == null : this.getWeixin().equals(other.getWeixin()))
             && (this.getQq() == null ? other.getQq() == null : this.getQq().equals(other.getQq()))
             && (this.getDaily() == null ? other.getDaily() == null : this.getDaily().equals(other.getDaily()))
@@ -120,6 +131,7 @@ public class Setting {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getUs() == null) ? 0 : getUs().hashCode());
+        result = prime * result + ((getAnnounce() == null) ? 0 : getAnnounce().hashCode());
         result = prime * result + ((getWeixin() == null) ? 0 : getWeixin().hashCode());
         result = prime * result + ((getQq() == null) ? 0 : getQq().hashCode());
         result = prime * result + ((getDaily() == null) ? 0 : getDaily().hashCode());
@@ -138,6 +150,7 @@ public class Setting {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", us=").append(us);
+        sb.append(", announce=").append(announce);
         sb.append(", weixin=").append(weixin);
         sb.append(", qq=").append(qq);
         sb.append(", daily=").append(daily);

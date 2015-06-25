@@ -254,6 +254,76 @@ public class SettingExample {
             return (Criteria) this;
         }
 
+        public Criteria andAnnounceIsNull() {
+            addCriterion("announce is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnounceIsNotNull() {
+            addCriterion("announce is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnounceEqualTo(String value) {
+            addCriterion("announce =", value, "announce");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnounceNotEqualTo(String value) {
+            addCriterion("announce <>", value, "announce");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnounceGreaterThan(String value) {
+            addCriterion("announce >", value, "announce");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnounceGreaterThanOrEqualTo(String value) {
+            addCriterion("announce >=", value, "announce");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnounceLessThan(String value) {
+            addCriterion("announce <", value, "announce");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnounceLessThanOrEqualTo(String value) {
+            addCriterion("announce <=", value, "announce");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnounceLike(String value) {
+            addCriterion("announce like", value, "announce");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnounceNotLike(String value) {
+            addCriterion("announce not like", value, "announce");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnounceIn(List<String> values) {
+            addCriterion("announce in", values, "announce");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnounceNotIn(List<String> values) {
+            addCriterion("announce not in", values, "announce");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnounceBetween(String value1, String value2) {
+            addCriterion("announce between", value1, value2, "announce");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnounceNotBetween(String value1, String value2) {
+            addCriterion("announce not between", value1, value2, "announce");
+            return (Criteria) this;
+        }
+
         public Criteria andWeixinIsNull() {
             addCriterion("weixin is null");
             return (Criteria) this;
@@ -686,6 +756,11 @@ public class SettingExample {
 
         public Criteria andUsLikeInsensitive(String value) {
             addCriterion("upper(us) like", value.toUpperCase(), "us");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnounceLikeInsensitive(String value) {
+            addCriterion("upper(announce) like", value.toUpperCase(), "announce");
             return (Criteria) this;
         }
 

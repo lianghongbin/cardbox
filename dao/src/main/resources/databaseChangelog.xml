@@ -3,7 +3,7 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
 
-    <changeSet author="lianghongbin (generated)" id="1435018750749-1">
+    <changeSet author="lianghongbin (generated)" id="1435228689754-1">
         <createTable tableName="Flow">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -16,7 +16,7 @@
             <column name="create_time" remarks="获取时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435018750749-2">
+    <changeSet author="lianghongbin (generated)" id="1435228689754-2">
         <createTable tableName="card">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -30,7 +30,9 @@
             <column name="description" remarks="礼包描述" type="TEXT"/>
             <column name="flow" remarks="领取流程" type="TEXT"/>
             <column name="total" remarks="总礼包数量" type="INT"/>
-            <column name="assign_total" remarks="分发出去数量" type="INT"/>
+            <column defaultValueNumeric="0" name="assign_total" remarks="分发出去数量" type="INT">
+                <constraints nullable="false"/>
+            </column>
             <column name="type" remarks="礼品卡类别" type="VARCHAR(20)"/>
             <column name="score" remarks="兑换所需分数" type="INT"/>
             <column defaultValueNumeric="0" name="recommend" remarks="是否推荐" type="BIT(1)">
@@ -40,13 +42,16 @@
             <column defaultValueNumeric="0" name="closed" remarks="卡是否被锁" type="BIT(1)">
                 <constraints nullable="false"/>
             </column>
+            <column defaultValueNumeric="1" name="valid" remarks="是否有效：当游戏被下线时，置为无效" type="BIT">
+                <constraints nullable="false"/>
+            </column>
             <column name="create_time" remarks="添加时间" type="BIGINT"/>
             <column name="close_time" remarks="锁定时间" type="BIGINT"/>
-            <column name="expire_time" remarks="到期时间" type="BIGINT"/>
             <column name="open_time" remarks="打开时间" type="BIGINT"/>
+            <column name="expire_time" remarks="到期时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435018750749-3">
+    <changeSet author="lianghongbin (generated)" id="1435228689754-3">
         <createTable tableName="code">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -61,26 +66,31 @@
                 <constraints nullable="false"/>
             </column>
             <column name="game_id" remarks="所属游戏ID" type="INT"/>
+            <column name="card_name" remarks="礼包名称" type="VARCHAR(50)"/>
+            <column name="game_name" remarks="游戏名称" type="VARCHAR(50)"/>
             <column name="create_time" remarks="添加时间" type="BIGINT"/>
             <column name="assign_time" remarks="分发时间" type="BIGINT"/>
             <column name="use_time" remarks="使用时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435018750749-4">
+    <changeSet author="lianghongbin (generated)" id="1435228689754-4">
         <createTable tableName="feedback">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
             </column>
             <column name="user_id" remarks="反馈人ID" type="INT"/>
-            <column name="content" remarks="反馈内容" type="TEXT"/>
-            <column defaultValueNumeric="0" name="processed" remarks="是否处理过" type="BIT(1)"/>
+            <column defaultValue="" name="content" remarks="反馈内容" type="VARCHAR(255)"/>
+            <column name="contact" remarks="联系方式" type="VARCHAR(50)"/>
+            <column defaultValueNumeric="0" name="processed" remarks="是否处理过" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
             <column name="remark" remarks="处理备注" type="VARCHAR(255)"/>
             <column name="create_time" remarks="反馈时间" type="BIGINT"/>
             <column name="process_time" remarks="处理时间" type="BIGINT"/>
             <column name="phone" remarks="用户手机" type="VARCHAR(11)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435018750749-5">
+    <changeSet author="lianghongbin (generated)" id="1435228689754-5">
         <createTable tableName="focus">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -93,7 +103,7 @@
             <column name="create_time" remarks="创建时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435018750749-6">
+    <changeSet author="lianghongbin (generated)" id="1435228689754-6">
         <createTable tableName="game">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -105,12 +115,14 @@
             <column name="description" remarks="小游戏描述" type="TEXT"/>
             <column name="url" remarks="小游戏下载地址" type="VARCHAR(255)"/>
             <column name="ios_id" remarks="苹果下载ID" type="VARCHAR(20)"/>
-            <column defaultValueNumeric="0" name="recommend" remarks="是否推荐" type="BIT(1)">
+            <column defaultValueNumeric="0" name="recommend" remarks="是否推荐" type="BIT">
                 <constraints nullable="false"/>
             </column>
             <column name="identifier" remarks="游戏唯一包名" type="VARCHAR(100)"/>
             <column name="total" remarks="该游戏拥有礼包款数" type="INT"/>
-            <column name="sort" remarks="排序" type="INT"/>
+            <column defaultValueNumeric="0" name="sort" remarks="排序" type="INT">
+                <constraints nullable="false"/>
+            </column>
             <column name="platform" remarks="游戏平台" type="VARCHAR(10)"/>
             <column name="score" remarks="用户评分：1-5分" type="INT"/>
             <column defaultValueNumeric="0" name="closed" remarks="是否上线" type="BIT">
@@ -120,7 +132,7 @@
             <column name="modify_time" remarks="最后修改时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435018750749-7">
+    <changeSet author="lianghongbin (generated)" id="1435228689754-7">
         <createTable tableName="photo">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -131,20 +143,23 @@
             <column name="item_id" remarks="游戏或卡包ID" type="INT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435018750749-8">
+    <changeSet author="lianghongbin (generated)" id="1435228689754-8">
         <createTable tableName="setting">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="us" remarks="关于我们" type="TINYTEXT"/>
+            <column defaultValue="" name="us" remarks="关于我们" type="VARCHAR(255)"/>
+            <column name="announce" remarks="启动公告" type="VARCHAR(255)"/>
             <column name="weixin" remarks="每天分享微信得分" type="INT"/>
             <column name="qq" remarks="每天分享QQ得分" type="INT"/>
             <column name="daily" remarks="每天登录得分" type="INT"/>
             <column name="registry" remarks="注册得分" type="INT"/>
             <column name="v" remarks="系统版本" type="VARCHAR(10)"/>
+            <column name="download" remarks="下载游戏得分" type="INT"/>
+            <column name="create_time" remarks="创建时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435018750749-9">
+    <changeSet author="lianghongbin (generated)" id="1435228689754-9">
         <createTable tableName="share">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -156,7 +171,7 @@
             <column name="create_time" remarks="分享时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435018750749-10">
+    <changeSet author="lianghongbin (generated)" id="1435228689754-10">
         <createTable tableName="splash">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -168,7 +183,7 @@
             <column name="create_time" remarks="添加时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435018750749-11">
+    <changeSet author="lianghongbin (generated)" id="1435228689754-11">
         <createTable tableName="user">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>

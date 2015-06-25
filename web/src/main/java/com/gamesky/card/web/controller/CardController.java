@@ -1,11 +1,9 @@
 package com.gamesky.card.web.controller;
 
-import com.gamesky.card.core.CardType;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.ReturnCode;
 import com.gamesky.card.core.model.Card;
-import com.gamesky.card.core.model.CardExample;
 import com.gamesky.card.core.model.CardWithBLOBs;
 import com.gamesky.card.core.model.Code;
 import com.gamesky.card.service.BeanUtils;
@@ -135,7 +133,6 @@ public class CardController {
     @ResponseBody
     @RequestMapping(value = "/recommend", method = RequestMethod.GET)
     public String recommend(int searchType, Page page) {
-
 
         List<Card> cards = cardService.recommend(searchType, page);
         int count = cardService.recommendCount(searchType);

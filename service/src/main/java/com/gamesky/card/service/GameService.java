@@ -78,6 +78,14 @@ public interface GameService {
     List<String> findPackages(List<String> data);
 
     /**
+     * 获取所有的游戏
+     * @param data 包名列表
+     * @return 游戏列表
+     */
+    List<Game> findByPackages(List<String> data);
+
+
+    /**
      * 取出推荐列表
      *
      * @param page 分页参数

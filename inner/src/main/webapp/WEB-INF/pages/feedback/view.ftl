@@ -54,6 +54,12 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>联系方式：</th>
+                    <td>
+                    ${feedback.contact}
+                    </td>
+                </tr>
+                <tr>
                     <th>反馈内容：</th>
                     <td>
                     ${feedback.content}

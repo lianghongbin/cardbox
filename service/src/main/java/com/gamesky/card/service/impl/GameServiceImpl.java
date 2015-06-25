@@ -118,7 +118,7 @@ public class GameServiceImpl implements GameService {
     public List<String> findPackages(List<String> data) {
         GameExample gameExample = new GameExample();
         gameExample.createCriteria()
-                .andIdGreaterThan(0)
+                .andClosedEqualTo(false)
                 .andIdentifierIn(data);
         gameExample.setOrderByClause("id desc");
         List<Game> games = gameMapper.selectByExample(gameExample);
@@ -132,6 +132,22 @@ public class GameServiceImpl implements GameService {
         }
 
         return packages;
+    }
+
+    /**
+     * 获取所有的游戏
+     *
+     * @param data 包名列表
+     * @return 游戏列表
+     */
+    @Override
+    public List<Game> findByPackages(List<String> data) {
+        GameExample gameExample = new GameExample();
+        gameExample.createCriteria()
+                .andClosedEqualTo(false)
+                .andIdentifierIn(data);
+        gameExample.setOrderByClause("id desc");
+        return gameMapper.selectByExample(gameExample);
     }
 
     /**
