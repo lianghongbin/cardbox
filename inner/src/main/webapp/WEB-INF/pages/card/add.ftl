@@ -101,7 +101,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>描述：</th>
+                        <th>礼包描述：</th>
                         <td><textarea name="description" class="common-textarea" id="description" cols="20"
                                       style="width: 98%;" rows="5"></textarea></td>
                     </tr>
