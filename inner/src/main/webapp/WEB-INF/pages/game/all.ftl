@@ -13,7 +13,9 @@
     <script type="text/javascript">
         function operate(gameId,closed)
         {
-            confirm("你确定要对该游戏进行上线/下线操作？");
+            if(!confirm("你确定要对该游戏进行上线/下线操作？")){
+                return false;
+            }
             if(closed == null) {
                 closed = false;
             }
@@ -32,6 +34,29 @@
                         window.location.reload();
                     } else {
                         alert("修改失败");
+                    }
+                },
+                error: function () {
+                    alert("异常！");
+                }
+            });
+        }
+
+        function saveSort(id, sort) {
+            $.ajax({
+                url: '/game/update',// 跳转到 action
+                data: {
+                    id: id,
+                    sort: sort
+                },
+                type: 'post',
+                dataType: 'text',
+                success: function (data) {
+                    if (data == "1") {
+                        alert("排序修改成功");
+                        window.location.reload();
+                    } else {
+                        alert("排序修改失败");
                     }
                 },
                 error: function () {
@@ -86,15 +111,12 @@
                 <div class="result-title">
                     <div class="result-list">
                         <a href="./add"><i class="icon-font"></i>新增游戏</a>
-                        <a id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
-                        <a id="updateOrd" href="javascript:void(0)"><i class="icon-font"></i>更新排序</a>
                     </div>
                 </div>
                 <div class="result-content">
                     <table class="result-tab" width="100%">
                         <tr>
-                            <th class="tc" width="30"><input class="allChoose" name="" type="checkbox"></th>
-                            <th width="30">排序</th>
+                            <th width="40">排序</th>
                             <th>名称</th>
                             <th>状态</th>
                             <th>平台</th>
@@ -106,9 +128,8 @@
                         </tr>
                     <#list games as game>
                         <tr>
-                            <td class="tc"><input name="id[]" value="${game.id}" type="checkbox"></td>
-                            <td><input name="ids[]" value="${game.id}" type="hidden">
-                                <input class="common-input sort-input" name="sort" value="${game.sort}" type="text">
+                            <td>
+                                <input size="3" name="sort" value="${game.sort}" type="text" onblur="javascript:saveSort(${game.id}, this.value)">
                             </td>
                             <td title="${game.name}"><a href="./view?id=${game.id}" title="${game.name}">${game.name}</a>
                             </td>

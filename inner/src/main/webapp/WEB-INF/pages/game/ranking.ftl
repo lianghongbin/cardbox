@@ -13,7 +13,10 @@
     <script type="text/javascript">
         function operate(gameId,closed)
         {
-            confirm("你确定要对该游戏进行上线/下线操作？");
+            if(!confirm("你确定要对该游戏进行上线/下线操作？")){
+                return false;
+            }
+
             if(closed == null) {
                 closed = false;
             }
@@ -40,9 +43,7 @@
             });
         }
 
-        function saveSort(id, index) {
-            var sort = $(":text").eq(index+1).val();
-
+        function saveSort(id, sort) {
             $.ajax({
                 url: '/game/update',// 跳转到 action
                 data: {
@@ -53,10 +54,10 @@
                 dataType: 'text',
                 success: function (data) {
                     if (data == "1") {
-                        alert("修改成功");
+                        alert("排序修改成功");
                         window.location.reload();
                     } else {
-                        alert("修改失败");
+                        alert("排序修改失败");
                     }
                 },
                 error: function () {
@@ -104,8 +105,6 @@
                 <div class="result-title">
                     <div class="result-list">
                         <a href="./add"><i class="icon-font"></i>新增游戏</a>
-                        <a id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
-                        <a id="updateOrd" href="javascript:void(0)"><i class="icon-font"></i>更新排序</a>
                     </div>
                 </div>
                 <div class="result-content">
@@ -119,12 +118,12 @@
                             <th width="30">评分</th>
                             <th width="30">推荐</th>
                             <th width="150">发布时间</th>
-                            <th width="80">操作</th>
+                            <th width="80" style="display: none">操作</th>
                         </tr>
                     <#list games as game>
                         <tr>
                             <td>
-                                <input class="common-input sort-input" name="sort" value="${game.sort}" type="text">
+                                <input class="common-input sort-input" name="sort" value="${game.sort}" type="text" onblur="javascript:saveSort(${game.id}, this.value)">
                             </td>
                             <td title="${game.name}"><a href="./view?id=${game.id}" title="${game.name}">${game.name}</a>
                             </td>
@@ -134,7 +133,7 @@
                             <td>${game.score}</td>
                             <td><#if game.recommend><font color="red">推荐</font><#else>正常</#if></td>
                             <td>${game.createTime?number_to_datetime}</td>
-                            <td align="center">
+                            <td align="center" style="display: none">
                                 <a class="link-update" href="javascript:saveSort(${game.id}, ${game_index})">保存排序</a>
                             </td>
                         </tr>

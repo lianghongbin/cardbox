@@ -68,6 +68,9 @@ public class CardController {
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(String openTimeString, String expireTimeString, CardWithBLOBs card) {
+        card.setValid(true);
+        card.setTotal(0);
+        card.setAssignTotal(0);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date date = sdf.parse(openTimeString);

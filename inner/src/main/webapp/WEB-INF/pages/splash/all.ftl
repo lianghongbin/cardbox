@@ -13,7 +13,9 @@
     <script type="text/javascript">
         function operate(id,enabled)
         {
-            confirm("你确定要对该启动页进行上线/下线操作？");
+            if(!confirm("你确定要对该启动页进行上线/下线操作？")) {
+                return false;
+            }
             if(enabled == null) {
                 enabled = false;
             }
@@ -42,7 +44,9 @@
 
         function del(id)
         {
-            confirm("你确定要删除该启动页吗？");
+            if(!confirm("你确定要删除该启动页吗？")) {
+                return false;
+            }
             $.ajax({
                 url: '/splash/remove',// 跳转到 action
                 data: {
@@ -87,6 +91,29 @@
                 }
             });
         }
+
+        function saveSort(id, sort) {
+            $.ajax({
+                url: '/splash/update',// 跳转到 action
+                data: {
+                    id: id,
+                    sort: sort
+                },
+                type: 'post',
+                dataType: 'text',
+                success: function (data) {
+                    if (data == "1") {
+                        alert("排序修改成功");
+                        window.location.reload();
+                    } else {
+                        alert("排序修改失败");
+                    }
+                },
+                error: function () {
+                    alert("异常！");
+                }
+            });
+        }
     </script>
 </head>
 <body>
@@ -103,8 +130,6 @@
                 <div class="result-title">
                     <div class="result-list">
                         <a href="./add"><i class="icon-font"></i>新增启动页</a>
-                        <a id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
-                        <a id="updateOrd" href="javascript:void(0)"><i class="icon-font"></i>更新排序</a>
                     </div>
                 </div>
                 <div class="result-content">
@@ -120,7 +145,7 @@
                     <#list paginationData.pageItems as splash>
                         <tr>
                             <td>
-                                <input class="common-input sort-input" name="sort" value="${splash.sort}" type="text">
+                                <input class="common-input sort-input" name="sort" value="${splash.sort}" type="text" onblur="javascript:saveSort(${splash.id}, this.value)">
                             </td>
                             <td>
                                 ${splash.url}

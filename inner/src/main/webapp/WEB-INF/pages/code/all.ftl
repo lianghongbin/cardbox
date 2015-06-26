@@ -13,7 +13,9 @@
     <script type="text/javascript">
         function operate(id,closed)
         {
-            confirm("你确定要对该礼包进行上线/下线操作？");
+            if(!confirm("你确定要对该礼包进行上线/下线操作？")){
+                return false;
+            }
             if(closed == null) {
                 closed = false;
             }
@@ -42,7 +44,9 @@
 
         function del(id)
         {
-            confirm("你确定要删除该激活码吗？");
+            if(!confirm("你确定要删除该激活码吗？")) {
+                return false;
+            }
             $.ajax({
                 url: '/code/remove',// 跳转到 action
                 data: {

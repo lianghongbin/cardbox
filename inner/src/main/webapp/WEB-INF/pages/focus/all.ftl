@@ -13,7 +13,10 @@
     <script type="text/javascript">
         function operate(id,enabled)
         {
-            confirm("你确定要对该焦点图进行上线/下线操作？");
+            if (!confirm("你确定要对该焦点图进行上线/下线操作？")) {
+                return false;
+            }
+
             if(enabled == null) {
                 enabled = false;
             }
@@ -42,7 +45,10 @@
 
         function del(id)
         {
-            confirm("你确定要删除该焦点图吗？");
+            if(!confirm("你确定要删除该焦点图吗？")) {
+                return false;
+            }
+
             $.ajax({
                 url: '/focus/remove',// 跳转到 action
                 data: {
@@ -56,6 +62,30 @@
                         window.location.reload();
                     } else {
                         alert("删除失败");
+                    }
+                },
+                error: function () {
+                    alert("异常！");
+                }
+            });
+        }
+
+
+        function saveSort(id, sort) {
+            $.ajax({
+                url: '/focus/update',// 跳转到 action
+                data: {
+                    id: id,
+                    sort: sort
+                },
+                type: 'post',
+                dataType: 'text',
+                success: function (data) {
+                    if (data == "1") {
+                        alert("排序修改成功");
+                        window.location.reload();
+                    } else {
+                        alert("排序修改失败");
                     }
                 },
                 error: function () {
@@ -79,14 +109,11 @@
                 <div class="result-title">
                     <div class="result-list">
                         <a href="./add"><i class="icon-font"></i>新增焦点图</a>
-                        <a id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
-                        <a id="updateOrd" href="javascript:void(0)"><i class="icon-font"></i>更新排序</a>
                     </div>
                 </div>
                 <div class="result-content">
                     <table class="result-tab" width="100%">
                         <tr>
-                            <th class="tc" width="30"><input class="allChoose" name="" type="checkbox"></th>
                             <th>排序</th>
                             <th>类别</th>
                             <th>Item ID</th>
@@ -97,9 +124,8 @@
                         </tr>
                     <#list paginationData.pageItems as focus>
                         <tr>
-                            <td class="tc"><input name="id[]" value="${focus.id}" type="checkbox"></td>
-                            <td><input name="ids[]" value="${game.id}" type="hidden">
-                                <input class="common-input sort-input" name="sort" value="${focus.sort}" type="text">
+                            <td>
+                                <input class="common-input sort-input" name="sort" value="${focus.sort}" type="text"  onblur="javascript:saveSort(${focus.id}, this.value)">
                             </td>
                             <td>
                                 ${focus.type}

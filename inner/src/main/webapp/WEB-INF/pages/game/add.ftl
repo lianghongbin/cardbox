@@ -45,14 +45,14 @@
                 <table class="insert-tab" width="100%">
                     <tbody>
                     <tr>
-                        <th width="120"><i class="require-red">*</i>名称：</th>
+                        <th width="120">名称：</th>
                         <td>
                             <input name="id" id="id" value="${game.id}" type="hidden">
                             <input class="common-text required" id="name" name="name" size="50" type="text"/>
                         </td>
                     </tr>
                     <tr>
-                        <th><i class="require-red">*</i>图标：</th>
+                        <th>图标：</th>
                         <td>
                             <input class="common-text required" id="icon" name="icon" size="50" type="text"/>
                         </td>
@@ -63,7 +63,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th><i class="require-red">*</i>iOS ID</th>
+                        <th>iOS ID</th>
                         <td><input class="common-text" name="iosId" id="iosId" size="50" type="text"></td>
                     </tr>
                     <tr>
@@ -80,7 +80,7 @@
                     </tr>
                     <tr>
                         <th>排序：</th>
-                        <td><input class="common-text" name="sort" id="sort" size="50" type="text"></td>
+                        <td><input class="common-text" name="sort" id="sort" size="50" value="0" type="text"></td>
                     </tr>
                     <tr>
                         <th>平台：</th>

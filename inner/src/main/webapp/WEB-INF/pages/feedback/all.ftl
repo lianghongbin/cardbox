@@ -13,7 +13,10 @@
     <script>
         function del(id)
         {
-            confirm("你确定要删除该反馈吗？");
+            if(!confirm("你确定要删除该反馈吗？")) {
+                return false;
+            }
+
             $.ajax({
                 url: '/feedback/remove',// 跳转到 action
                 data: {
@@ -47,11 +50,7 @@
         </div>
         <div class="result-wrap">
             <form name="myform" id="myform" method="post">
-                <div class="result-title">
-                    <div class="result-list">
-                        <a id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
-                    </div>
-                </div>
+
                 <div class="result-content">
                     <table class="result-tab" width="100%">
                         <tr>

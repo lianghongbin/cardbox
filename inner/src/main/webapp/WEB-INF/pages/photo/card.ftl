@@ -13,7 +13,9 @@
     <script type="text/javascript">
         function del(id)
         {
-            confirm("你确定要删除该游戏的图片吗？");
+            if(!confirm("你确定要删除该游戏的图片吗？")){
+                return false;
+            }
             $.ajax({
                 url: '/photo/remove',// 跳转到 action
                 data: {
@@ -53,8 +55,6 @@
                 <div class="result-title">
                     <div class="result-list">
                         <a href="./add?id=${card.id}&type=CARD"><i class="icon-font"></i>新增图片</a>
-                        <a id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
-                        <a id="updateOrd" href="javascript:void(0)"><i class="icon-font"></i>更新排序</a>
                     </div>
                 </div>
 

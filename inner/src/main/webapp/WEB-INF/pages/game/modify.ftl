@@ -45,7 +45,7 @@
                 <table class="insert-tab" width="100%">
                     <tbody>
                     <tr>
-                        <th width="120"><i class="require-red">*</i>名称：</th>
+                        <th width="120">名称：</th>
                         <td>
                             <input name="id" id="id" value="${game.id}" type="hidden">
                             <input class="common-text required" id="name" name="name" size="50" value="${game.name}"
@@ -53,7 +53,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th><i class="require-red">*</i>图标：</th>
+                        <th>图标：</th>
                         <td>
                             <img src="${game.icon}"/>
                         </td>
@@ -64,7 +64,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th><i class="require-red">*</i>iOS ID</th>
+                        <th>iOS ID</th>
                         <td><input class="common-text" name="iosId" id="iosId" size="50" value="${game.iosId}"
                                    type="text"></td>
                     </tr>

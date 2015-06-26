@@ -53,7 +53,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th width="120"><i class="require-red">*</i>名称：</th>
+                    <th width="120">名称：</th>
                     <td>
                         <input name="id" id="id" value="${card.id}" type="hidden">
                         <input class="common-text required" id="name" name="name" value="${card.name}" size="50" type="text"/>

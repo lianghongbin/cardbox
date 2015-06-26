@@ -43,6 +43,7 @@ public class GameController {
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Game game) {
+        game.setTotal(0);
         game.setCreateTime(System.currentTimeMillis());
         int result = gameService.save(game);
         return String.valueOf(result);

@@ -53,15 +53,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <th width="120"><i class="require-red">*</i>名称：</th>
+                        <th width="120">名称：</th>
                         <td>
                             <input class="common-text required" id="name" name="name" size="50" type="text"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><i class="require-red">*</i>图标：</th>
-                        <td>
-                            <input class="common-text required" id="icon" name="icon" size="50" type="text"/>
                         </td>
                     </tr>
                     <tr>

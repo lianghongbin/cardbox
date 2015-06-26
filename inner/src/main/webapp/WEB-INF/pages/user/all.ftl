@@ -15,7 +15,10 @@
     <script type="text/javascript">
         function operate(gameId,closed)
         {
-            confirm("你确定要对该游戏进行上线/下线操作？");
+            if(!confirm("你确定要对该游戏进行上线/下线操作？")){
+                return false;
+            }
+
             if(closed == null) {
                 closed = false;
             }

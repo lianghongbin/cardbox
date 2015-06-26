@@ -13,7 +13,10 @@
     <script type="text/javascript">
         function operate(id,gameId,closed)
         {
-            confirm("你确定要对该礼包进行上线/下线操作？");
+            if(!confirm("你确定要对该礼包进行上线/下线操作？")) {
+                return false;
+            }
+
             if(closed == null) {
                 closed = false;
             }
@@ -87,14 +90,11 @@
                 <div class="result-title">
                     <div class="result-list">
                         <a href="./add"><i class="icon-font"></i>新增礼包</a>
-                        <a id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
-                        <a id="updateOrd" href="javascript:void(0)"><i class="icon-font"></i>更新排序</a>
                     </div>
                 </div>
                 <div class="result-content">
                     <table class="result-tab" width="100%">
                         <tr>
-                            <th class="tc" width="30"><input class="allChoose" name="" type="checkbox"></th>
                             <th>礼包ID</th>
                             <th>游戏名称</th>
                             <th>礼包名称</th>
@@ -110,7 +110,6 @@
                         </tr>
                     <#list cards as card>
                         <tr>
-                            <td class="tc"><input name="id[]" value="${card.id}" type="checkbox"></td>
                             <td>
                                 ${card.id}
                             </td>

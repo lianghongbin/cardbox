@@ -40,7 +40,7 @@
                 <tr>
                     <th>图标：</th>
                     <td>
-                    ${card.icon}
+                    <img src="{card.icon}"/>
                     </td>
                 </tr>
                 <tr>
