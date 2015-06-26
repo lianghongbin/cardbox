@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,10 +44,8 @@ public class SystemController {
         return ResultGenerator.generate(setting.getAnnounce());
     }
 
-    @ResponseBody
     @RequestMapping(value = "/us", method = RequestMethod.GET)
-    public String us() {
-        Setting setting = settingService.find("1_0");
-        return ResultGenerator.generate(setting.getUs());
+    public ModelAndView us() {
+        return new ModelAndView("aboutus");
     }
 }

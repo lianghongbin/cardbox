@@ -1,6 +1,5 @@
 package com.gamesky.card.web.controller;
 
-import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.exceptions.CheckCodeInvalidException;
 import com.gamesky.card.core.exceptions.CheckCodeWrongException;
@@ -105,11 +104,16 @@ public class UserController {
         return ResultGenerator.generate(data);
     }
 
+    /**
+     * 根据用户手机，查看用户信息
+     * @param phone 手机号
+     * @return 用户信息
+     */
     @ResponseBody
-    @RequestMapping("/test")
-    public String test() {
-        Page page = null;
-        page.getCount();
-        return ResultGenerator.generate();
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    public String find(String phone) {
+        User user = userService.findByPhone(phone);
+
+        return ResultGenerator.generate(user);
     }
 }

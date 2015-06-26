@@ -42,4 +42,21 @@ public class ScoreController {
 
         return ResultGenerator.generate(map);
     }
+
+    /**
+     * 根据用户手机号查看用户的积分
+     * @param phone 用户手机号
+     * @return 积分
+     */
+    @ResponseBody
+    @RequestMapping("/userscore")
+    public String score(String phone) {
+        User user = userService.findByPhone(phone);
+        int score = 0;
+        if (user != null) {
+            score = user.getScore();
+        }
+
+        return ResultGenerator.generate(score);
+    }
 }
