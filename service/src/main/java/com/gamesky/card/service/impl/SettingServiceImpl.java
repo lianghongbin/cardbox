@@ -35,6 +35,7 @@ public class SettingServiceImpl implements SettingService {
             return settingMapper.insert(setting);
         }
 
+        setting.setV(null);
         return settingMapper.updateByPrimaryKeySelective(setting);
     }
 

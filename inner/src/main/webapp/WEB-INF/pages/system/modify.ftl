@@ -10,16 +10,16 @@
     <script type="text/javascript">
         function operate() {
             $.ajax({
-                url: '/system/save',// 跳转到 action
+                url: '/system/update',// 跳转到 action
                 data: $('#myform').serialize(),// 你的formid,
                 type: 'post',
                 dataType: 'text',
                 success: function (data) {
                     if (data == "1") {
-                        alert("添加成功");
+                        alert("修改成功");
                         window.location = "/system/all";
                     } else {
-                        alert("添加失败");
+                        alert("修改失败");
                     }
                 },
                 error: function () {
@@ -46,49 +46,49 @@
                 <tbody>
                 <tr>
                     <th width="120">版本：</th>
-                    <td>
-                        <input class="common-text required" id="v" name="v" size="50" type="text"/>
+                    <td><input name="id" id="id" value="${setting.id}" type="hidden">
+                        <input class="common-text required" id="v" name="v" value="${setting.v}" readonly size="50" type="text"/>
                     </td>
                 </tr>
                 <tr>
                     <th>每天登录得分：</th>
                     <td>
-                        <input class="common-text required" id="daily" name="daily" size="50" type="text"/>
+                        <input class="common-text required" id="daily" name="daily" value="${setting.daily}" size="50" type="text"/>
                     </td>
                 </tr>
                 <tr>
                     <th>注册得分：</th>
                     <td>
-                        <input class="common-text required" id="registry" name="registry" size="50" type="text"/>
+                        <input class="common-text required" id="registry" name="registry" value="${setting.registry}" size="50" type="text"/>
                     </td>
                 </tr>
                 <tr>
                     <th>微信分享得分：</th>
                     <td>
-                        <input class="common-text required" id="weixin" name="weixin" size="50" type="text"/>
+                        <input class="common-text required" id="weixin" name="weixin" size="50" value="${setting.weixin}" type="text"/>
                     </td>
                 </tr>
                 <tr>
                     <th>QQ分享得分：</th>
                     <td>
-                        <input class="common-text required" id="qq" name="qq" size="50" type="text"/>
+                        <input class="common-text required" id="qq" name="qq" value="${setting.qq}" size="50" type="text"/>
                     </td>
                 </tr>
                 <tr>
                     <th>下载游戏得分：</th>
                     <td>
-                        <input class="common-text required" id="download" name="download" size="50" type="text"/>
+                        <input class="common-text required" id="download" name="download" value="${setting.download}" size="50" type="text"/>
                     </td>
                 </tr>
                 <tr>
                     <th>关于我们：</th>
                     <td><textarea name="us" class="common-textarea" id="us" cols="20"
-                                  style="width: 98%;" rows="5"></textarea></td>
+                                  style="width: 98%;" rows="5">${setting.us}</textarea></td>
                 </tr>
                 <tr>
                     <th>启动公告：</th>
                     <td><textarea name="announce" class="common-textarea" id="announce" cols="20"
-                                  style="width: 98%;" rows="5"></textarea></td>
+                                  style="width: 98%;" rows="5">${setting.announce}</textarea></td>
                 </tr>
                 <tr>
                     <th></th>

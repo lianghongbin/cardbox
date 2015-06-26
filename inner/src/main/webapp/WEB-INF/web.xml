@@ -100,4 +100,8 @@
         <error-code>404</error-code>
         <location>/error/404</location>
     </error-page>
+
+    <welcome-file-list>
+        <welcome-file>/</welcome-file>
+    </welcome-file-list>
 </web-app>

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>『豪情』后台管理</title>
+    <title>后台管理</title>
     <link href="css/admin_login.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -27,7 +27,6 @@
             </form>
         </div>
     </div>
-    <p class="admin_copyright"><a tabindex="5" href="http://www.mycodes.net/" target="_blank">返回首页</a> &copy; 2014 Powered by <a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>
 </div>
 </body>
 </html>

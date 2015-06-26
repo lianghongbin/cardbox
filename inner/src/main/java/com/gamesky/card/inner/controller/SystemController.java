@@ -49,4 +49,17 @@ public class SystemController {
         int result = settingService.save(setting);
         return String.valueOf(result);
     }
+
+    @RequestMapping("/modify")
+    public ModelAndView modify(String v) {
+        Setting setting = settingService.find(v);
+        return new ModelAndView("system/modify", "setting", setting);
+    }
+
+    @ResponseBody
+    @RequestMapping("/update")
+    public String update(Setting setting) {
+        int result = settingService.saveOrUpload(setting);
+        return String.valueOf(result);
+    }
 }

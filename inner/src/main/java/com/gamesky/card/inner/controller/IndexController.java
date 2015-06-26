@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(produces="text/plain;charset=UTF-8")
 public class IndexController {
 
-    @RequestMapping("/index")
+    @RequestMapping("/")
     public ModelAndView index() {
         return new ModelAndView("index");
     }
