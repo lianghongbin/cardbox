@@ -11,19 +11,21 @@
     <script type="text/javascript" src="../js/libs/modernizr.min.js"></script>
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript">
-        function operate(gameId,closed)
+        function operate(id,gameId,closed)
         {
-            if(!confirm("你确定要对该游戏进行上线/下线操作？")){
+            if(!confirm("你确定要对该礼包进行上线/下线操作？")) {
                 return false;
             }
+
             if(closed == null) {
                 closed = false;
             }
 
             $.ajax({
-                url: '/game/openorclose',// 跳转到 action
+                url: '/card/openorclose',// 跳转到 action
                 data: {
-                    id: gameId,
+                    id: id,
+                    gameId: gameId,
                     operate: !closed
                 },
                 type: 'post',
@@ -43,15 +45,12 @@
         }
 
         function saveSort(id, sort) {
-            if(sort.trim() == "") {
-                return false;
-            }
 
             $.ajax({
-                url: '/game/update',// 跳转到 action
+                url: '/card/updatesort',// 跳转到 action
                 data: {
                     id: id,
-                    sort: sort.trim()
+                    sort: sort
                 },
                 type: 'post',
                 dataType: 'text',
@@ -76,21 +75,21 @@
     <div class="main-wrap">
 
         <div class="crumb-wrap">
-            <div class="crumb-list"><i class="icon-font"></i>首页<span class="crumb-step">&gt;</span><span
-                    class="crumb-name">游戏管理</span></div>
+            <div class="crumb-list"><i class="icon-font"></i>首页<span class="crumb-step">&gt;</span>
+                <span class="crumb-name">定时礼包</span></div>
         </div>
         <div class="search-wrap">
             <div class="search-content">
                 <form action="#" method="post">
                     <table class="search-tab">
                         <tr>
-                            <th width="120">游戏平台:</th>
+                            <th width="120">游戏名称:</th>
                             <td>
-                                <select name="platform" id="">
+                                <select name="gameId" id="">
                                     <option value="">全部</option>
-                                    <option value="ALL">ALL</option>
-                                    <option value="android">android</option>
-                                    <option value="iOS">iOS</option>
+                                    <#list games as game>
+                                    <option value="${game.id}">${game.name}</option>
+                                    </#list>
                                 </select>
                             </td>
                             <th width="70">游戏状态:</th>
@@ -101,8 +100,8 @@
                                     <option value="true">未上线</option>
                                 </select>
                             </td>
-                            <th width="120">游戏名称:</th>
-                            <td><input class="common-text" placeholder="游戏名称" name="name" value="" id="" type="text">
+                            <th width="120">礼包名称:</th>
+                            <td><input class="common-text" placeholder="礼包名称" name="name" value="" id="" type="text">
                             </td>
                             <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
                         </tr>
@@ -114,40 +113,55 @@
             <form name="myform" id="myform" method="post">
                 <div class="result-title">
                     <div class="result-list">
-                        <a href="./add"><i class="icon-font"></i>新增游戏</a>
+                        <a href="./add"><i class="icon-font"></i>新增礼包</a>
+                        <a href="./all"><i class="icon-font"></i>正常礼包</a>
+                        <a href="./expire"><i class="icon-font"></i>过期礼包</a>
                     </div>
                 </div>
                 <div class="result-content">
                     <table class="result-tab" width="100%">
                         <tr>
-                            <th width="40">排序</th>
-                            <th>名称</th>
+                            <th width="50">礼包ID</th>
+                            <th width="50">排序</th>
+                            <th>游戏名称</th>
+                            <th>礼包名称</th>
                             <th>状态</th>
-                            <th>平台</th>
-                            <th>礼包数</th>
-                            <th width="30">评分</th>
+                            <th width="50">礼包数</th>
+                            <th width="50">库存量</th>
+                            <th width="60">类别</th>
                             <th width="30">推荐</th>
                             <th width="150">发布时间</th>
-                            <th width="210">操作</th>
+                            <th width="150">截止时间</th>
+                            <th width="100">激活码</th>
+                            <th width="150">操作</th>
                         </tr>
-                    <#list games as game>
+                    <#list paginationData.pageItems as card>
                         <tr>
                             <td>
-                                <input size="3" name="sort" value="${game.sort}" type="text" onblur="javascript:saveSort(${game.id}, this.value)">
+                                ${card.id}
                             </td>
-                            <td title="${game.name}"><a href="./view?id=${game.id}" title="${game.name}">${game.name}</a>
+                            <td>
+                                <input size="3" name="sort" value="${card.sort}"  type="text" onblur="javascript:saveSort(${card.id}, this.value.trim())">
                             </td>
-                            <td><#if game.closed>下线<#else><font color="red">上线</font></#if> </td>
-                            <td>${game.platform}</td>
-                            <td>${game.total}</td>
-                            <td>${game.score}</td>
-                            <td><#if game.recommend><font color="red">推荐</font><#else>正常</#if></td>
-                            <td>${game.createTime?number_to_datetime}</td>
+                            <td title="${card.gameName}">
+                                <a href="../game/view?id=${card.gameId}" title="${card.gameName}">${card.gameName}</a>
+                            </td>
+                            <td title="${card.name}">
+                                <a href="./view?id=${card.id}" title="${card.name}">${card.name}</a>
+                            </td>
+                            <td><#if card.closed>下线<#else><font color="red">上线</font></#if> </td>
+                            <td>${card.total}</td>
+                            <td>${card.total-card.assignTotal}</td>
+                            <td>${card.type}</td>
+                            <td><#if card.recommend><font color="red">推荐</font><#else>正常</#if></td>
+                            <td>${card.openTime?number_to_datetime}</td>
+                            <td>${card.expireTime?number_to_datetime}</td>
                             <td align="center">
-                                <#if game.closed><a class="link-update" href="javascript:operate(${game.id},'${game.closed!false}')">上线</a><#else><a class="link-update" href="javascript:operate(${game.id},'${game.closed!false}')">下线</a></#if>
-                                &nbsp;&nbsp; <a class="link-update" href="./modify?id=${game.id}">修改</a>
-                                &nbsp; <a class="link-update" href="../card/input?gameId=${game.id}">添加礼包</a>
-                                &nbsp; <a class="link-update" href="../photo/game?gameId=${game.id}">图片管理</a>
+                                &nbsp; <a class="link-update" href="../code/findbycard?cardId=${card.id}">查看</a>
+                            </td>
+                            <td align="center">
+                                &nbsp; <a class="link-update" href="./modify?id=${card.id}">修改</a>
+                                &nbsp; <a class="link-update" href="../photo/card?cardId=${card.id}">图片管理</a>
                             </td>
                         </tr>
                     </#list>

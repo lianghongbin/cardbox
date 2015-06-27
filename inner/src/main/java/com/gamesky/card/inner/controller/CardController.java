@@ -1,6 +1,7 @@
 package com.gamesky.card.inner.controller;
 
 import com.gamesky.card.core.CardType;
+import com.gamesky.card.core.Constants;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.model.*;
@@ -67,15 +68,13 @@ public class CardController {
 
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(String openTimeString, String expireTimeString, CardWithBLOBs card) {
-        card.setValid(true);
-        card.setTotal(0);
-        card.setAssignTotal(0);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    public String save(String start, String end, CardWithBLOBs card) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
-            Date date = sdf.parse(openTimeString);
+            Date date = sdf.parse(start);
             card.setOpenTime(date.getTime());
-            date = sdf.parse(expireTimeString);
+            date = sdf.parse(end);
             card.setExpireTime(date.getTime());
         } catch (ParseException e) {
             e.printStackTrace();
@@ -84,6 +83,9 @@ public class CardController {
         Game game = gameService.find(card.getGameId());
         card.setGameName(game.getName());
         card.setAssignTotal(0);
+        card.setIcon(Constants.DEFAULT_ICON);
+        card.setTotal(0);
+        card.setValid(!game.getClosed());
         card.setCreateTime(System.currentTimeMillis());
         int result = cardService.save(card);
         return String.valueOf(result);
@@ -104,15 +106,29 @@ public class CardController {
 
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String upload(String openTimeString, String expireTimeString, CardWithBLOBs card) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-mm-dd");
+    public String upload(String start, String end, CardWithBLOBs card) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
-            Date date = simpleDateFormat.parse(openTimeString);
+            Date date = simpleDateFormat.parse(start);
             card.setOpenTime(date.getTime());
-            date = simpleDateFormat.parse(expireTimeString);
+            date = simpleDateFormat.parse(end);
             card.setExpireTime(date.getTime());
         } catch (ParseException ignored) {
         }
+
+        Game game = gameService.find(card.getGameId());
+        card.setGameName(game.getName());
+        int result = cardService.update(card);
+        if (result > 0) {
+            return "1";
+        }
+
+        return "更新卡包失败";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/updatesort")
+    public String uploadSort(CardWithBLOBs card) {
         int result = cardService.update(card);
         if (result > 0) {
             return "1";
@@ -132,7 +148,7 @@ public class CardController {
     @RequestMapping(value = "/all")
     public ModelAndView all(Integer gameId, Boolean closed, String name, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
-            page.setPagesize(10);
+            page.setPagesize(15);
         }
 
         CardExample cardExample = new CardExample();
@@ -151,7 +167,7 @@ public class CardController {
         criteria.andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
                 .andExpireTimeGreaterThan(System.currentTimeMillis());
 
-        cardExample.setOrderByClause("closed asc, recommend desc, id desc");
+        cardExample.setOrderByClause("sort asc, closed asc, recommend desc, id desc");
         cardExample.setLimit(page.getPagesize());
         cardExample.setLimitOffset(page.getOffset());
 
@@ -165,11 +181,87 @@ public class CardController {
         PaginationData paginationData = new PaginationData(page, cards);
         modelAndView.addObject("paginationData", paginationData);
         modelAndView.addObject("page", page);
-        modelAndView.addObject("cards", cards);
         modelAndView.addObject("games", games);
         return modelAndView;
     }
 
+    @RequestMapping(value = "/expire")
+     public ModelAndView expire(Integer gameId, Boolean closed, String name, Page page) {
+        if (page.getPagesize() == Integer.MAX_VALUE) {
+            page.setPagesize(15);
+        }
+
+        CardExample cardExample = new CardExample();
+        CardExample.Criteria criteria = cardExample.createCriteria();
+
+        if (gameId != null) {
+            criteria.andGameIdEqualTo(gameId);
+        }
+        if (closed != null) {
+            criteria.andClosedEqualTo(closed);
+        }
+        if (StringUtils.isNotBlank(StringUtils.trimToEmpty(name))) {
+            criteria.andNameLike("%" + name + "%");
+        }
+
+        criteria.andExpireTimeLessThanOrEqualTo(System.currentTimeMillis());
+
+        cardExample.setOrderByClause("sort asc, closed asc, recommend desc, id desc");
+        cardExample.setLimit(page.getPagesize());
+        cardExample.setLimitOffset(page.getOffset());
+
+        List<Card> cards = cardService.findByCondition(cardExample);
+        int count = cardService.findCountByCondition(cardExample);
+        page.setCount(count);
+
+        List<Game> games = gameService.findAll(new Page());
+
+        ModelAndView modelAndView = new ModelAndView("/card/expire");
+        PaginationData paginationData = new PaginationData(page, cards);
+        modelAndView.addObject("paginationData", paginationData);
+        modelAndView.addObject("page", page);
+        modelAndView.addObject("games", games);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/schdule")
+    public ModelAndView schdule(Integer gameId, Boolean closed, String name, Page page) {
+        if (page.getPagesize() == Integer.MAX_VALUE) {
+            page.setPagesize(15);
+        }
+
+        CardExample cardExample = new CardExample();
+        CardExample.Criteria criteria = cardExample.createCriteria();
+
+        if (gameId != null) {
+            criteria.andGameIdEqualTo(gameId);
+        }
+        if (closed != null) {
+            criteria.andClosedEqualTo(closed);
+        }
+        if (StringUtils.isNotBlank(StringUtils.trimToEmpty(name))) {
+            criteria.andNameLike("%" + name + "%");
+        }
+
+        criteria.andOpenTimeGreaterThan(System.currentTimeMillis());
+
+        cardExample.setOrderByClause("sort asc, closed asc, recommend desc, id desc");
+        cardExample.setLimit(page.getPagesize());
+        cardExample.setLimitOffset(page.getOffset());
+
+        List<Card> cards = cardService.findByCondition(cardExample);
+        int count = cardService.findCountByCondition(cardExample);
+        page.setCount(count);
+
+        List<Game> games = gameService.findAll(new Page());
+
+        ModelAndView modelAndView = new ModelAndView("/card/schdule");
+        PaginationData paginationData = new PaginationData(page, cards);
+        modelAndView.addObject("paginationData", paginationData);
+        modelAndView.addObject("page", page);
+        modelAndView.addObject("games", games);
+        return modelAndView;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/my", method = RequestMethod.GET)

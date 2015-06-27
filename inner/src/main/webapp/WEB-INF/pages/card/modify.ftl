@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../tcal/tcal.css" />
     <script type="text/javascript" src="../js/libs/modernizr.min.js"></script>
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="../tcal/tcal.js"></script>
+    <script type="text/javascript" src="../laydate/laydate.js"></script>
     <script type="text/javascript">
         function operate() {
             $.ajax({
@@ -46,29 +46,19 @@
             <form id="myform" name="myform">
             <table class="insert-tab" width="100%">
                 <tbody>
-                <tr>
-                    <th>所属游戏：</th>
-                    <td>${game.name}
-                        <input name="name" value="${game.name}" type="hidden">
-                    </td>
-                </tr>
+                <th><i class="require-red">*</i>所属游戏：</th>
+                <td>
+                    <select name="gameId" id="gameId" class="required">
+                    <#list games as game>
+                        <option value="${game.id}" <#if game.id==card.gameId>selected</#if>>${game.name}</option>
+                    </#list>
+                    </select>
+                </td>
                 <tr>
                     <th width="120">名称：</th>
                     <td>
                         <input name="id" id="id" value="${card.id}" type="hidden">
                         <input class="common-text required" id="name" name="name" value="${card.name}" size="50" type="text"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th><i class="require-red">*</i>图标：</th>
-                    <td>
-                        <img src="${card.icon}"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>礼包数量：</th>
-                    <td>${card.total}
-                         <font color="red">礼包已分发:${card.assignTotal} </font><input name="assignTotal" id="assignTotal" value="${card.assignTotal}" type="hidden"/>
                     </td>
                 </tr>
                 <tr>
@@ -83,7 +73,7 @@
                 </tr>
                 <tr>
                     <th>分数：</th>
-                    <td><input class="common-text" name="score" id="score" value="${card.score}" size="50" type="text"></td>
+                    <td><input class="common-text" name="score" id="score" value="${card.score}" size="20" type="text"></td>
                 </tr>
                 <tr>
                     <th>是否推荐：</th>
@@ -115,11 +105,15 @@
                 </tr>
                 <tr>
                     <th>开放时间：</th>
-                    <td><input class="tcal" name="openTimeString" value="${card.openTime?number_to_datetime}" id="openTimeString" size="50" type="text"></td>
+                    <td>
+                        <input class="laydate-icon" name="start" id="start" value="${card.openTime?number_to_datetime}" style="width:200px;">
+                    </td>
                 </tr>
                 <tr>
                     <th>截止时间：</th>
-                    <td><input class="tcal" name="expireTimeString" value="${card.expireTime?number_to_datetime}" id="openTimeString" size="50" type="text"></td>
+                    <td>
+                        <input class="laydate-icon" name="end" id="end" value="${card.expireTime?number_to_datetime}" style="width:200px;">
+                    </td>
                 </tr>
                 <tr>
                     <th></th>
@@ -136,5 +130,33 @@
 
 </div>
 <!--/main-->
+
+<script>
+    var start = {
+        elem: '#start',
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: laydate.now(), //设定最小日期为当前日期
+        max: '2099-06-16 23:59:59', //最大日期
+        istime: true,
+        istoday: false,
+        choose: function(datas){
+            end.min = datas; //开始日选好后，重置结束日的最小日期
+            end.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+    var end = {
+        elem: '#end',
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: laydate.now(),
+        max: '2099-06-16 23:59:59',
+        istime: true,
+        istoday: false,
+        choose: function(datas){
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
+    };
+    laydate(start);
+    laydate(end);
+</script>
 </body>
 </html>

@@ -5,10 +5,9 @@
     <title>后台管理</title>
     <link rel="stylesheet" type="text/css" href="../css/common.css"/>
     <link rel="stylesheet" type="text/css" href="../css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="../tcal/tcal.css" />
     <script type="text/javascript" src="../js/libs/modernizr.min.js"></script>
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="../tcal/tcal.js"></script>
+    <script type="text/javascript" src="../laydate/laydate.js"></script>
     <script type="text/javascript">
         function operate() {
             $.ajax({
@@ -47,19 +46,27 @@
                 <table class="insert-tab" width="100%">
                     <tbody>
                     <tr>
-                        <th>所属游戏：</th>
+                        <th><i class="require-red">*</i>所属游戏：</th>
                         <td>${game.name}
                             <input name="gameId" id="gameId" value="${game.id}" type="hidden">
                         </td>
                     </tr>
                     <tr>
-                        <th width="120">名称：</th>
+                        <th width="120"><i class="require-red">*</i>名称：</th>
                         <td>
                             <input class="common-text required" id="name" name="name" size="50" type="text"/>
                         </td>
                     </tr>
+                    <th><i class="require-red">*</i>平台：</th>
+                    <td>
+                        <select name="platform" id="platform" class="required">
+                            <option value="ALL">ALL</option>
+                            <option value="android">android</option>
+                            <option value="iOS">iOS</option>
+                        </select>
+                    </td>
                     <tr>
-                        <th>礼包类别：</th>
+                        <th><i class="require-red">*</i>礼包类别：</th>
                         <td>
                             <select name="type" id="type" class="required">
                             <#list types as type>
@@ -69,11 +76,15 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>分数：</th>
-                        <td><input class="common-text" name="score" id="score" size="50" type="text"></td>
+                        <th><i class="require-red">*</i>排序：</th>
+                        <td><input class="common-text" name="sort" id="sort" value="0" size="20" type="text"></td>
                     </tr>
                     <tr>
-                        <th>是否推荐：</th>
+                        <th><i class="require-red">*</i>分数：</th>
+                        <td><input class="common-text" name="score" id="score" size="20" type="text"></td>
+                    </tr>
+                    <tr>
+                        <th><i class="require-red">*</i>是否推荐：</th>
                         <td>
                             <select name="recommend" id="recommend" class="required">
                                 <option value="true">推荐</option>
@@ -82,31 +93,35 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>是否上线：</th>
+                        <th><i class="require-red">*</i>是否上线：</th>
                         <td>
                             <select name="closed" id="closed" class="required">
                                 <option value="false">上线</option>
-                                <option value="true">关闭</option>
+                                <option value="true" selected>关闭</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <th>描述：</th>
+                        <th><i class="require-red">*</i>描述：</th>
                         <td><textarea name="description" class="common-textarea" id="description" cols="20"
                                       style="width: 98%;" rows="5"></textarea></td>
                     </tr>
                     <tr>
-                        <th>使用流程：</th>
+                        <th><i class="require-red">*</i>使用流程：</th>
                         <td><textarea name="flow" class="common-textarea" id="flow" cols="20"
                                       style="width: 98%;" rows="5"></textarea></td>
                     </tr>
                     <tr>
-                        <th>开放时间：</th>
-                        <td><input class="tcal" name="openTimeString" id="openTimeString" size="50" type="text"></td>
+                        <th><i class="require-red">*</i>开放时间：</th>
+                        <td>
+                            <input class="laydate-icon" name="start" id="start" style="width:200px;">
+                        </td>
                     </tr>
                     <tr>
-                        <th>截止时间：</th>
-                        <td><input class="tcal" name="expireTimeString" id="openTimeString" size="50" type="text"></td>
+                        <th><i class="require-red">*</i>截止时间：</th>
+                        <td>
+                            <input class="laydate-icon" name="end" id="end" style="width:200px;">
+                        </td>
                     </tr>
                     <tr>
                         <th></th>
@@ -123,5 +138,34 @@
 
 </div>
 <!--/main-->
+
+
+<script>
+    var start = {
+        elem: '#start',
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: laydate.now(), //设定最小日期为当前日期
+        max: '2099-06-16 23:59:59', //最大日期
+        istime: true,
+        istoday: false,
+        choose: function(datas){
+            end.min = datas; //开始日选好后，重置结束日的最小日期
+            end.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+    var end = {
+        elem: '#end',
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: laydate.now(),
+        max: '2099-06-16 23:59:59',
+        istime: true,
+        istoday: false,
+        choose: function(datas){
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
+    };
+    laydate(start);
+    laydate(end);
+</script>
 </body>
 </html>

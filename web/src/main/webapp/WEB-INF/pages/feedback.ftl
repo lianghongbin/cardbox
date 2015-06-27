@@ -34,9 +34,9 @@
 <body>
 <div class="tit">问题反馈</div>
 <div class="pad15">
-<form name="form1" action="" id="forms">
-        <input type="text" name="email" class="inp email" placeholder="填写邮箱地址！" />
-        <textarea name="words">问题描述...</textarea>
+<form name="form1" action="http://kk.7k7k.com/1_0/feedback/save" id="forms" method="post">
+        <input type="text" name="contact" class="inp email" placeholder="填写邮箱地址！" />
+        <textarea name="content">问题描述...</textarea>
         <input type="submit" value="提交建议" />
 </form>
         <p>您所提交的问题，我们将会在3个工作日内通过您所留下的邮箱地址进行回复，其中有效建议将会有一份额外的惊喜奖励，感谢您的宝贵建议！</p>

@@ -57,7 +57,6 @@ public class CardServiceImpl implements CardService {
     @Override
     public int close(int id) {
         Card card = cardMapper.selectByPrimaryKey(id);
-        card.setCloseTime(System.currentTimeMillis());
         card.setClosed(true);
 
         Game game = new Game();

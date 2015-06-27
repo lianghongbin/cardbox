@@ -26,13 +26,13 @@ public class FeedbackController {
     private FeedbackService feedbackService;
 
     @ResponseBody
-    @RequestMapping(value = "/page")
+    @RequestMapping(value = "/add")
     public ModelAndView page() {
         return new ModelAndView("feedback");
     }
 
     @ResponseBody
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Feedback feedback) {
         feedback.setCreateTime(System.currentTimeMillis());
         feedback.setProcessed(false);

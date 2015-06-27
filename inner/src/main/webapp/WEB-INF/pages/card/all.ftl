@@ -43,6 +43,30 @@
                 }
             });
         }
+
+        function saveSort(id, sort) {
+
+            $.ajax({
+                url: '/card/updatesort',// 跳转到 action
+                data: {
+                    id: id,
+                    sort: sort
+                },
+                type: 'post',
+                dataType: 'text',
+                success: function (data) {
+                    if (data == "1") {
+                        alert("排序修改成功");
+                        window.location.reload();
+                    } else {
+                        alert("排序修改失败");
+                    }
+                },
+                error: function () {
+                    alert("异常！");
+                }
+            });
+        }
     </script>
 </head>
 <body>
@@ -90,12 +114,15 @@
                 <div class="result-title">
                     <div class="result-list">
                         <a href="./add"><i class="icon-font"></i>新增礼包</a>
+                        <a href="./expire"><i class="icon-font"></i>过期礼包</a>
+                        <a href="./schdule"><i class="icon-font"></i>定时礼包</a>
                     </div>
                 </div>
                 <div class="result-content">
                     <table class="result-tab" width="100%">
                         <tr>
-                            <th>礼包ID</th>
+                            <th width="50">礼包ID</th>
+                            <th width="50">排序</th>
                             <th>游戏名称</th>
                             <th>礼包名称</th>
                             <th>状态</th>
@@ -108,10 +135,13 @@
                             <th width="100">激活码</th>
                             <th width="150">操作</th>
                         </tr>
-                    <#list cards as card>
+                    <#list paginationData.pageItems as card>
                         <tr>
                             <td>
                                 ${card.id}
+                            </td>
+                            <td>
+                                <input size="3" name="sort" value="${card.sort}"  type="text" onblur="javascript:saveSort(${card.id}, this.value.trim())">
                             </td>
                             <td title="${card.gameName}">
                                 <a href="../game/view?id=${card.gameId}" title="${card.gameName}">${card.gameName}</a>

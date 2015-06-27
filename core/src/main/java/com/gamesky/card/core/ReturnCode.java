@@ -18,6 +18,7 @@ public enum ReturnCode {
     NOT_LOGIN(-8, "未登录操作"),
     SERVER_ERROR_500(-500, "服务器异常"),
     SERVER_ERROR_504(-504, "请求方式不支持"),
+    BAD_REQUEST(-400, "错误的请求格式"),
     PAGE_NOT_FOUND(-404, "访问的接口不存在"),
     UNKNOWN_ERROR(-1000, "未知错误");
 

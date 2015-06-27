@@ -21,4 +21,6 @@ public interface Constants {
 
     String UPLOAD_DIR = "upload";
     String PHOTO_URL_PREFIX = "http://kk.7k7k.com";
+
+    String DEFAULT_ICON = "http://kk.7k7k.com/icon.jpg";
 }

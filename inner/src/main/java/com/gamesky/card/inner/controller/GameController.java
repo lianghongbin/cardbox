@@ -41,9 +41,10 @@ public class GameController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/save")
     public String save(Game game) {
         game.setTotal(0);
+        game.setIcon("");
         game.setCreateTime(System.currentTimeMillis());
         int result = gameService.save(game);
         return String.valueOf(result);
@@ -52,6 +53,7 @@ public class GameController {
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(Game game) {
+        game.setModifyTime(System.currentTimeMillis());
         int result = gameService.update(game);
         return String.valueOf(result);
     }

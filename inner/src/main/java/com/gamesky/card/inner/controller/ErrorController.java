@@ -40,6 +40,12 @@ public class ErrorController {
     }
 
     @ResponseBody
+    @RequestMapping("/400")
+    public String error400() {
+        return ResultGenerator.generateError(ReturnCode.BAD_REQUEST);
+    }
+
+    @ResponseBody
     @RequestMapping("/exception")
     public String exception(Throwable e) {
         logger.error("系统异常：{}", e.getClass());

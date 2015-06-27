@@ -16,14 +16,14 @@
                 dataType: 'text',
                 success: function (data) {
                     if (data == "1") {
-                        alert("添加成功");
+                        alert("游戏添加成功");
                         window.location.reload();
                     } else {
-                        alert("添加失败");
+                        alert("游戏添加失败");
                     }
                 },
-                error: function () {
-                    alert("异常！");
+                error: function (XMLHttpRequest) {
+                    alert("异常请求状态：" +　XMLHttpRequest.status);
                 }
             });
         }
@@ -45,20 +45,13 @@
                 <table class="insert-tab" width="100%">
                     <tbody>
                     <tr>
-                        <th width="120">名称：</th>
+                        <th width="120"><i class="require-red">*</i>名称：</th>
                         <td>
-                            <input name="id" id="id" value="${game.id}" type="hidden">
                             <input class="common-text required" id="name" name="name" size="50" type="text"/>
                         </td>
                     </tr>
                     <tr>
-                        <th>图标：</th>
-                        <td>
-                            <input class="common-text required" id="icon" name="icon" size="50" type="text"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>下载地址：</th>
+                        <th><i class="require-red">*</i>下载地址：</th>
                         <td><input class="common-text" name="url" id="url" size="50" type="text">
                         </td>
                     </tr>
@@ -71,19 +64,21 @@
                         <td><input class="common-text" name="identifier" id="identifier" size="50" type="text"></td>
                     </tr>
                     <tr>
-                        <th>礼包数：</th>
-                        <td><input class="common-text" name="total" id="total" size="50" type="text"></td>
+                        <th><i class="require-red">*</i>评分：</th>
+                        <td><select name="score" id="score">
+                            <#assign step = 0/>
+                            <#list 1..10 as num>
+                                <#assign step=step + 0.5/>
+                            <option value=${step}>${step}</option>
+                            </#list>
+                        </select> </td>
                     </tr>
                     <tr>
-                        <th>评分：</th>
-                        <td><input class="common-text" name="score" id="score" size="50" type="text"></td>
-                    </tr>
-                    <tr>
-                        <th>排序：</th>
+                        <th><i class="require-red">*</i>排序：</th>
                         <td><input class="common-text" name="sort" id="sort" size="50" value="0" type="text"></td>
                     </tr>
                     <tr>
-                        <th>平台：</th>
+                        <th><i class="require-red">*</i>平台：</th>
                         <td>
                             <select name="platform" id="platform" class="required">
                                 <option value="ALL">ALL</option>
@@ -93,25 +88,25 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>是否推荐：</th>
+                        <th><i class="require-red">*</i>是否推荐：</th>
                         <td>
                             <select name="recommend" id="recommend" class="required">
-                                <option value="true">推荐</option>
+                                <option value="true" selected>推荐</option>
                                 <option value="false">不推荐</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <th>是否上线：</th>
+                        <th><i class="require-red">*</i>是否上线：</th>
                         <td>
                             <select name="closed" id="closed" class="required">
                                 <option value="false">上线</option>
-                                <option value="true">关闭</option>
-                            </select>
+                                <option value="true" selected>关闭</option>
+                            </select> <span class="require-red">(新增游戏建议先关闭，完善之后再开启上线)</span>
                         </td>
                     </tr>
                     <tr>
-                        <th>描述：</th>
+                        <th><i class="require-red">*</i>描述：</th>
                         <td><textarea name="description" class="common-textarea" id="description" cols="20"
                                       style="width: 98%;" rows="5"></textarea></td>
                     </tr>
