@@ -1,6 +1,7 @@
 package com.gamesky.card.service.impl;
 
 import com.gamesky.card.core.Page;
+import com.gamesky.card.core.Platform;
 import com.gamesky.card.core.model.Game;
 import com.gamesky.card.core.model.GameExample;
 import com.gamesky.card.dao.mapper.GameMapper;
@@ -153,16 +154,26 @@ public class GameServiceImpl implements GameService {
     /**
      * 取出推荐列表
      *
+     * @param platform 平台类型
      * @param page 分页参数
      * @return 游戏列表
      */
     @Override
-    public List<Game> findRecommend(Page page) {
+    public List<Game> findRecommend(String platform, Page page) {
         GameExample gameExample = new GameExample();
-        gameExample.createCriteria().andRecommendEqualTo(true);
+        GameExample.Criteria criteria = gameExample.createCriteria();
+        criteria.andClosedEqualTo(false)
+                .andRecommendEqualTo(true);
+        if (!platform.equalsIgnoreCase("ALL")) {
+            List<String> platforms = new ArrayList<>();
+            platforms.add("ALL");
+            platforms.add(platform);
+            criteria.andPlatformIn(platforms);
+        }
+
         gameExample.setLimit(page.getPagesize());
         gameExample.setLimitOffset(page.getOffset());
-        gameExample.setOrderByClause("recommend desc, sort asc");
+        gameExample.setOrderByClause("sort asc");
 
         return gameMapper.selectByExampleWithBLOBs(gameExample);
     }
@@ -170,12 +181,22 @@ public class GameServiceImpl implements GameService {
     /**
      * 取出推荐的游戏个数
      *
+     * @param platform 平台类型
      * @return 游戏数量
      */
     @Override
-    public int findCountRecommend() {
+    public int findCountRecommend(String platform) {
         GameExample gameExample = new GameExample();
-        gameExample.createCriteria().andRecommendEqualTo(true);
+        GameExample.Criteria criteria = gameExample.createCriteria();
+        criteria.andClosedEqualTo(false)
+                .andRecommendEqualTo(true);
+        if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
+            List<String> platforms = new ArrayList<>();
+            platforms.add(Platform.ALL.name());
+            platforms.add(platform);
+            criteria.andPlatformIn(platforms);
+        }
+
         return gameMapper.countByExample(gameExample);
     }
 

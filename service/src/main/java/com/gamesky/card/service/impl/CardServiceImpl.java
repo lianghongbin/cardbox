@@ -2,6 +2,7 @@ package com.gamesky.card.service.impl;
 
 import com.gamesky.card.core.CardType;
 import com.gamesky.card.core.Page;
+import com.gamesky.card.core.Platform;
 import com.gamesky.card.core.ReturnCode;
 import com.gamesky.card.core.exceptions.LockException;
 import com.gamesky.card.core.lock.GlobalLock;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,7 +45,7 @@ public class CardServiceImpl implements CardService {
         card.setCreateTime(System.currentTimeMillis());
         Game game = new Game();
         game.setId(card.getGameId());
-        game.setTotal(findCountByGame(card.getGameId()));
+        game.setTotal(findCountByGame(card.getGameId(), Platform.ALL.name()));
         gameService.update(game);
         return cardMapper.insert(card);
     }
@@ -77,7 +79,7 @@ public class CardServiceImpl implements CardService {
 
         Game game = new Game();
         game.setId(card.getGameId());
-        game.setTotal(findCountByGame(card.getGameId()));
+        game.setTotal(findCountByGame(card.getGameId(), Platform.ALL.name()));
         gameService.update(game);
 
         return cardMapper.updateByPrimaryKey(card);
@@ -96,7 +98,7 @@ public class CardServiceImpl implements CardService {
 
         Game game = new Game();
         game.setId(card.getGameId());
-        game.setTotal(findCountByGame(card.getGameId()));
+        game.setTotal(findCountByGame(card.getGameId(), Platform.ALL.name()));
         gameService.update(game);
         return cardMapper.updateByPrimaryKey(card);
     }
@@ -214,7 +216,7 @@ public class CardServiceImpl implements CardService {
         CardExample cardExample = new CardExample();
         cardExample.setLimitOffset(page.getOffset());
         cardExample.setLimit(page.getPagesize());
-        cardExample.setOrderByClause("id desc");
+        cardExample.setOrderByClause("sort asc, recommend desc, id desc");
         return cardMapper.selectByExample(cardExample);
     }
 
@@ -234,12 +236,12 @@ public class CardServiceImpl implements CardService {
                 .andValidEqualTo(true);
         cardExample.setLimitOffset(page.getOffset());
         cardExample.setLimit(page.getPagesize());
-        cardExample.setOrderByClause("id desc");
+        cardExample.setOrderByClause("sort asc, recommend desc, id desc");
         return cardMapper.selectByExample(cardExample);
     }
 
     /**
-     * 分页显示所有卡包数(后台用，显示所有礼包数）
+     * 分页显示所有有效卡包数(后台用，显示所有礼包数）
      *
      * @return 卡包数
      */
@@ -295,17 +297,24 @@ public class CardServiceImpl implements CardService {
      * @return 卡包列表
      */
     @Override
-    public List<Card> findByGame(int gameId, Page page) {
+    public List<Card> findByGame(int gameId, String platform, Page page) {
         CardExample cardExample = new CardExample();
-        cardExample.createCriteria()
-                .andGameIdEqualTo(gameId)
+        CardExample.Criteria criteria = cardExample.createCriteria();
+        criteria.andGameIdEqualTo(gameId)
                 .andClosedEqualTo(false)
                 .andValidEqualTo(true)
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
                 .andExpireTimeGreaterThan(System.currentTimeMillis());
+        if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
+            List<String> platforms = new ArrayList<>();
+            platforms.add(Platform.ALL.name());
+            platforms.add(platform);
+            criteria.andPlatformIn(platforms);
+        }
+
         cardExample.setLimitOffset(page.getOffset());
         cardExample.setLimit(page.getPagesize());
-        cardExample.setOrderByClause("id desc");
+        cardExample.setOrderByClause("sort asc, recommend desc, id desc");
         return cardMapper.selectByExample(cardExample);
     }
 
@@ -316,14 +325,21 @@ public class CardServiceImpl implements CardService {
      * @return 卡包类别数量
      */
     @Override
-    public int findCountByGame(int gameId) {
+    public int findCountByGame(int gameId, String platform) {
         CardExample cardExample = new CardExample();
-        cardExample.createCriteria()
-                .andGameIdEqualTo(gameId)
+        CardExample.Criteria criteria = cardExample.createCriteria();
+        criteria.andGameIdEqualTo(gameId)
                 .andClosedEqualTo(false)
                 .andValidEqualTo(true)
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
                 .andExpireTimeGreaterThan(System.currentTimeMillis());
+        if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
+            List<String> platforms = new ArrayList<>();
+            platforms.add(Platform.ALL.name());
+            platforms.add(platform);
+            criteria.andPlatformIn(platforms);
+        }
+
         return cardMapper.countByExample(cardExample);
     }
 
@@ -336,20 +352,25 @@ public class CardServiceImpl implements CardService {
      * @return 卡包列表
      */
     @Override
-    public List<Card> findRecommendByGame(int gameId, Page page) {
+    public List<Card> findRecommendByGame(int gameId, String platform, Page page) {
         CardExample cardExample = new CardExample();
-        cardExample.createCriteria()
-                .andRecommendEqualTo(true)
-                .andGameIdEqualTo(gameId)
+        CardExample.Criteria criteria = cardExample.createCriteria();
+        criteria.andGameIdEqualTo(gameId)
                 .andClosedEqualTo(false)
                 .andValidEqualTo(true)
+                .andRecommendEqualTo(true)
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
                 .andExpireTimeGreaterThan(System.currentTimeMillis());
+        if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
+            List<String> platforms = new ArrayList<>();
+            platforms.add(Platform.ALL.name());
+            platforms.add(platform);
+            criteria.andPlatformIn(platforms);
+        }
 
-        cardExample.setOrderByClause("id desc");
-        cardExample.setLimit(page.getPagesize());
         cardExample.setLimitOffset(page.getOffset());
-
+        cardExample.setLimit(page.getPagesize());
+        cardExample.setOrderByClause("sort asc, id desc");
         return cardMapper.selectByExample(cardExample);
     }
 
@@ -360,15 +381,21 @@ public class CardServiceImpl implements CardService {
      * @return 卡包类别数量
      */
     @Override
-    public int findRecommendCountByGame(int gameId) {
+    public int findRecommendCountByGame(int gameId, String platform) {
         CardExample cardExample = new CardExample();
-        cardExample.createCriteria()
-                .andRecommendEqualTo(true)
-                .andGameIdEqualTo(gameId)
+        CardExample.Criteria criteria = cardExample.createCriteria();
+        criteria.andGameIdEqualTo(gameId)
                 .andClosedEqualTo(false)
                 .andValidEqualTo(true)
+                .andRecommendEqualTo(true)
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
                 .andExpireTimeGreaterThan(System.currentTimeMillis());
+        if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
+            List<String> platforms = new ArrayList<>();
+            platforms.add(Platform.ALL.name());
+            platforms.add(platform);
+            criteria.andPlatformIn(platforms);
+        }
 
         return cardMapper.countByExample(cardExample);
     }
@@ -422,7 +449,7 @@ public class CardServiceImpl implements CardService {
      * @return 礼包列表
      */
     @Override
-    public List<Card> recommend(int type, Page page) {
+    public List<Card> recommend(int type, String platform, Page page) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria()
                 .andRecommendEqualTo(true)
@@ -443,7 +470,14 @@ public class CardServiceImpl implements CardService {
             default:
         }
 
-        cardExample.setOrderByClause("recommend desc, id desc");
+        if (platform.equalsIgnoreCase(Platform.ALL.name())) {
+            List<String> platforms = new ArrayList<>();
+            platforms.add(Platform.ALL.name());
+            platforms.add(platform);
+            criteria.andPlatformIn(platforms);
+        }
+
+        cardExample.setOrderByClause("sort asc, id desc");
         cardExample.setLimit(page.getPagesize());
         cardExample.setLimitOffset(page.getOffset());
 
@@ -457,7 +491,7 @@ public class CardServiceImpl implements CardService {
      * @return 礼包数
      */
     @Override
-    public int recommendCount(int type) {
+    public int recommendCount(int type, String platform) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria()
                 .andRecommendEqualTo(true)
@@ -476,6 +510,13 @@ public class CardServiceImpl implements CardService {
                 criteria.andTypeEqualTo(CardType.SCORE.name());
                 break;
             default:
+        }
+
+        if (platform.equalsIgnoreCase(Platform.ALL.name())) {
+            List<String> platforms = new ArrayList<>();
+            platforms.add(Platform.ALL.name());
+            platforms.add(platform);
+            criteria.andPlatformIn(platforms);
         }
 
         return cardMapper.countByExample(cardExample);
@@ -497,7 +538,7 @@ public class CardServiceImpl implements CardService {
                 .andValidEqualTo(true)
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
                 .andExpireTimeGreaterThan(System.currentTimeMillis());
-        cardExample.setOrderByClause("recommend desc, id desc");
+        cardExample.setOrderByClause("sort asc, recommend desc, id desc");
         cardExample.setLimit(page.getPagesize());
         cardExample.setLimitOffset(page.getOffset());
 

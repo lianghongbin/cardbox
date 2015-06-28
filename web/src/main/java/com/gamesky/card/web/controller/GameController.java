@@ -101,9 +101,9 @@ public class GameController {
 
     @ResponseBody
     @RequestMapping(value = "/recommend", method = RequestMethod.GET)
-    public String recommend(Page page) {
-        List<Game> games = gameService.findRecommend(page);
-        int count = gameService.findCountRecommend();
+    public String recommend(String platform, Page page) {
+        List<Game> games = gameService.findRecommend(platform, page);
+        int count = gameService.findCountRecommend(platform);
         page.setCount(count);
         return ResultGenerator.generate(page, games);
     }

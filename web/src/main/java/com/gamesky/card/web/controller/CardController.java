@@ -112,9 +112,9 @@ public class CardController {
 
     @ResponseBody
     @RequestMapping(value = "/findbygame", method = RequestMethod.GET)
-    public String findByGame(int gameId, Page page) {
-        List<Card> cards = cardService.findByGame(gameId, page);
-        int count = cardService.findCountByGame(gameId);
+    public String findByGame(int gameId, String platform, Page page) {
+        List<Card> cards = cardService.findByGame(gameId, platform, page);
+        int count = cardService.findCountByGame(gameId, platform);
         page.setCount(count);
         return ResultGenerator.generate(page, cards);
     }
@@ -132,10 +132,10 @@ public class CardController {
 
     @ResponseBody
     @RequestMapping(value = "/recommend", method = RequestMethod.GET)
-    public String recommend(int searchType, Page page) {
+    public String recommend(int searchType, String platform, Page page) {
 
-        List<Card> cards = cardService.recommend(searchType, page);
-        int count = cardService.recommendCount(searchType);
+        List<Card> cards = cardService.recommend(searchType, platform, page);
+        int count = cardService.recommendCount(searchType, platform);
         page.setCount(count);
         return ResultGenerator.generate(page, cards);
     }
@@ -152,18 +152,18 @@ public class CardController {
 
     @ResponseBody
     @RequestMapping(value = "/undercard", method = RequestMethod.GET)
-    public String underCard(int gameId, Page page) {
-        List<Card> cards = cardService.findRecommendByGame(gameId, page);
-        int count = cardService.findRecommendCountByGame(gameId);
+    public String underCard(int gameId, String platform, Page page) {
+        List<Card> cards = cardService.findRecommendByGame(gameId, platform, page);
+        int count = cardService.findRecommendCountByGame(gameId, platform);
         page.setCount(count);
         return ResultGenerator.generate(page, cards);
     }
 
     @ResponseBody
     @RequestMapping(value = "/recommendbygame", method = RequestMethod.GET)
-    public String recommendByGame(int gameId, Page page) {
-        List<Card> cards = cardService.findRecommendByGame(gameId, page);
-        int count = cardService.findRecommendCountByGame(gameId);
+    public String recommendByGame(int gameId, String platform, Page page) {
+        List<Card> cards = cardService.findRecommendByGame(gameId, platform, page);
+        int count = cardService.findRecommendCountByGame(gameId, platform);
         page.setCount(count);
         return ResultGenerator.generate(page, cards);
     }

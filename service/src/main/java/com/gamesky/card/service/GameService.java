@@ -88,16 +88,17 @@ public interface GameService {
     /**
      * 取出推荐列表
      *
+     * @param platform 平台类型
      * @param page 分页参数
      * @return 游戏列表
      */
-    List<Game> findRecommend(Page page);
+    List<Game> findRecommend(String platform, Page page);
 
     /**
      * 取出推荐的游戏个数
      * @return 游戏数量
      */
-    int findCountRecommend();
+    int findCountRecommend(String platform);
 
     /**
      * 根据条件获取游戏列表

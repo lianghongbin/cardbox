@@ -125,7 +125,7 @@ public interface CardService {
      * @param page   分页数据
      * @return 卡包列表
      */
-    public List<Card> findByGame(int gameId, Page page);
+    public List<Card> findByGame(int gameId, String platform, Page page);
 
     /**
      * 查找某款游戏下的卡包类别数量
@@ -133,7 +133,7 @@ public interface CardService {
      * @param gameId 游戏ID
      * @return 卡包类别数量
      */
-    public int findCountByGame(int gameId);
+    public int findCountByGame(int gameId, String platform);
 
     /**
      * 根据游戏查找该游戏下的推荐卡包列表
@@ -142,7 +142,7 @@ public interface CardService {
      * @param page   分页数据
      * @return 卡包列表
      */
-    public List<Card> findRecommendByGame(int gameId, Page page);
+    public List<Card> findRecommendByGame(int gameId, String platform, Page page);
 
     /**
      * 查找某款游戏下的推荐卡包类别数量
@@ -150,7 +150,7 @@ public interface CardService {
      * @param gameId 游戏ID
      * @return 卡包类别数量
      */
-    public int findRecommendCountByGame(int gameId);
+    public int findRecommendCountByGame(int gameId, String platform);
 
 
     /**
@@ -182,14 +182,14 @@ public interface CardService {
      * @param page 分页
      * @return 礼包列表
      */
-    public List<Card> recommend(int type, Page page);
+    public List<Card> recommend(int type, String platform, Page page);
 
     /**
      * 根据条件查找推荐礼包数
      * @param type 条件
      * @return 礼包数
      */
-    public int recommendCount(int type);
+    public int recommendCount(int type, String platform);
 
     /**
      * 根据条件查找礼包
