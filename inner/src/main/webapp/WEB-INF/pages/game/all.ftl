@@ -128,7 +128,7 @@
                             <th width="30">评分</th>
                             <th width="30">推荐</th>
                             <th width="150">发布时间</th>
-                            <th width="210">操作</th>
+                            <th width="250">操作</th>
                         </tr>
                     <#list games as game>
                         <tr>

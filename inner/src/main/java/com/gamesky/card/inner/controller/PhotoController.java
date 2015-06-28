@@ -11,6 +11,7 @@ import com.gamesky.card.core.model.Photo;
 import com.gamesky.card.service.CardService;
 import com.gamesky.card.service.GameService;
 import com.gamesky.card.service.PhotoService;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created on 6/25/15.
@@ -111,7 +109,6 @@ public class PhotoController {
     @ResponseBody
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String upload(HttpServletRequest request) {
-        String responseStr = "";
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         File dir = new File(request.getSession().getServletContext().getRealPath(Constants.UPLOAD_DIR));
         if (!dir.exists()) {
@@ -122,6 +119,7 @@ public class PhotoController {
 
         Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
         String fileName;
+        List<String> photos = new ArrayList<>();
         for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
             // 上传文件
             MultipartFile mf = entity.getValue();
@@ -134,30 +132,32 @@ public class PhotoController {
 
             try {
                 marshaller.marshal(uploadFile::getAbsolutePath, mf.getBytes());
-                responseStr = "上传成功";
 
                 int id = Integer.parseInt(request.getParameter("id"));
                 String type = request.getParameter("type");
                 Photo photo = new Photo();
                 photo.setItemId(id);
-                photo.setUrl(Constants.PHOTO_URL_PREFIX + "/" + Constants.UPLOAD_DIR + "/" + newFileName);
+                String url = Constants.PHOTO_URL_PREFIX + "/" + Constants.UPLOAD_DIR + "/" + newFileName;
+                photo.setUrl(url);
                 photo.setType(type);
 
                 photoService.save(photo);
+
+                photos.add(url);
             } catch (Exception e) {
-                responseStr = "上传失败";
                 logger.error("文件{}上传失败", fileName);
                 logger.error(e.getMessage());
             }
         }
 
-        return responseStr;
+        Gson gson = new Gson();
+        return gson.toJson(photos);
     }
 
+    //单图片上传
     @ResponseBody
-    @RequestMapping(value = "/icon", method = RequestMethod.POST)
-    public String icon(HttpServletRequest request) {
-        String responseStr;
+    @RequestMapping(value = "/single", method = RequestMethod.POST)
+    public String single(HttpServletRequest request) {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         File dir = new File(request.getSession().getServletContext().getRealPath(Constants.UPLOAD_DIR));
         if (!dir.exists()) {
@@ -166,7 +166,7 @@ public class PhotoController {
             }
         }
 
-        MultipartFile mf = multipartRequest.getFile("icon");
+        MultipartFile mf = multipartRequest.getFile("file");
         String fileName = mf.getOriginalFilename();
         String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
         // 重命名文件
@@ -177,29 +177,13 @@ public class PhotoController {
         try {
             marshaller.marshal(uploadFile::getAbsolutePath, mf.getBytes());
 
-            int id = Integer.parseInt(request.getParameter("id"));
-            String type = request.getParameter("type");
-            String url = Constants.PHOTO_URL_PREFIX + "/" + Constants.UPLOAD_DIR + "/" + newFileName;
-            if (type.equalsIgnoreCase("game")) {
-                Game game = new Game();
-                game.setId(id);
-                game.setIcon(url);
-                gameService.update(game);
-            } else {
-                CardWithBLOBs card = new CardWithBLOBs();
-                card.setId(id);
-                card.setIcon(url);
-                cardService.update(card);
-            }
-
-            responseStr = "上传成功";
+            return Constants.PHOTO_URL_PREFIX + "/" + Constants.UPLOAD_DIR + "/" + newFileName;
         } catch (Exception e) {
-            responseStr = "上传失败";
             logger.error("文件{}上传失败", fileName);
             logger.error(e.getMessage());
         }
 
 
-        return responseStr;
+        return "";
     }
 }

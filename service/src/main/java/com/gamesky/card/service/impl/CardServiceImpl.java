@@ -49,6 +49,22 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
+     * 删除一个礼包
+     *
+     * @param id 礼包ID
+     * @return 影响条数
+     */
+    @Override
+    public int remove(int id) {
+        codeService.removeByCard(id);
+        Card card = cardMapper.selectByPrimaryKey(id);
+        Game game = gameService.find(card.getGameId());
+        game.setTotal(game.getTotal() - 1);
+        gameService.update(game);
+        return cardMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
      * 锁死卡包
      *
      * @param id 卡包ID

@@ -64,10 +64,7 @@
                             <td>游戏名称</td>
                             <td>${game.name}</td>
                         </tr>
-                        <tr>
-                            <td>ICON</td>
-                            <td><img src="${game.icon}"></td>
-                        </tr>
+
                         <tr>
                             <td width="100">图片</td>
                             <td>

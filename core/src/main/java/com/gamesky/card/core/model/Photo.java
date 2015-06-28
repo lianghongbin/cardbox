@@ -5,8 +5,6 @@ public class Photo {
 
     private String type;
 
-    private String name;
-
     private String url;
 
     private Integer itemId;
@@ -25,14 +23,6 @@ public class Photo {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getUrl() {
@@ -65,7 +55,6 @@ public class Photo {
         Photo other = (Photo) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
             && (this.getItemId() == null ? other.getItemId() == null : this.getItemId().equals(other.getItemId()));
     }
@@ -76,7 +65,6 @@ public class Photo {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
         result = prime * result + ((getItemId() == null) ? 0 : getItemId().hashCode());
         return result;
@@ -90,7 +78,6 @@ public class Photo {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", type=").append(type);
-        sb.append(", name=").append(name);
         sb.append(", url=").append(url);
         sb.append(", itemId=").append(itemId);
         sb.append("]");

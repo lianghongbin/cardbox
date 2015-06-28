@@ -8,6 +8,8 @@
     <script type="text/javascript" src="../js/libs/modernizr.min.js"></script>
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="../laydate/laydate.js"></script>
+    <script src="/uploadify/jquery.uploadify.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="/uploadify/uploadify.css">
     <script type="text/javascript">
         function operate() {
             $.ajax({
@@ -28,6 +30,26 @@
                 }
             });
         }
+
+        $(function () {
+            $("#iconFile").uploadify({
+                method: 'post',
+                swf: '/uploadify/uploadify.swf',  // uploadify.swf在项目中的路径
+                uploader: '/photo/single',  // 后台UploadController处理上传的方法
+                fileObjName: 'file',         // The name of the file object to use in your server-side script
+                successTimeout: 30,                 // The number of seconds to wait for Flash to detect the server's response after the file has finished uploading
+                removeCompleted: false,              // Remove queue items from the queue when they are done uploading
+                fileSizeLimit: '50MB',
+                buttonText: '选择文件',
+                queueID: 'iconQueue',
+                multi: false,
+                onUploadSuccess: function (file, data, response) {
+                    $("#icon").val(data);
+                    $("#imgId").attr('src', data);
+                    $("#show").show();
+                }
+            });
+        });
     </script>
 </head>
 <body>
@@ -49,26 +71,48 @@
                         <th><i class="require-red">*</i>所属游戏：</th>
                         <td>
                             <select name="gameId" id="gameId" class="required">
-                                <#list games as game>
+                            <#list games as game>
                                 <option value="${game.id}">${game.name}</option>
-                                </#list>
+                            </#list>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <th width="120"><i class="require-red">*</i>名称：</th>
                         <td>
+                            <input name="icon" id="icon" type="hidden">
                             <input class="common-text required" id="name" name="name" size="50" type="text"/>
                         </td>
                     </tr>
-                    <th><i class="require-red">*</i>平台：</th>
-                    <td>
-                        <select name="platform" id="platform" class="required">
-                            <option value="ALL">ALL</option>
-                            <option value="android">android</option>
-                            <option value="iOS">iOS</option>
-                        </select>
-                    </td>
+                    <tr id="show" style="display: none">
+                        <th>配图：</th>
+                        <td>
+                            <img id="imgId" src=""/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>ICON：</th>
+                        <td>
+                            <table class="insert-tab">
+                                <tr>
+                                    <td width="200"><input id="iconFile" name="iconFile" type="file"></td>
+                                    <td>
+                                        <div id="iconQueue"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><i class="require-red">*</i>平台：</th>
+                        <td>
+                            <select name="platform" id="platform" class="required">
+                                <option value="ALL">ALL</option>
+                                <option value="android">android</option>
+                                <option value="iOS">iOS</option>
+                            </select>
+                        </td>
+                    </tr>
                     <tr>
                         <th><i class="require-red">*</i>礼包类别：</th>
                         <td>
@@ -130,7 +174,8 @@
                     <tr>
                         <th></th>
                         <td>
-                            <input class="btn btn-primary btn6 mr10" id="uploadSubmit" value="提交" onclick="return operate()" type="button">
+                            <input class="btn btn-primary btn6 mr10" id="uploadSubmit" value="提交"
+                                   onclick="return operate()" type="button">
                             <input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
                         </td>
                     </tr>
@@ -151,7 +196,7 @@
         max: '2099-06-16 23:59:59', //最大日期
         istime: true,
         istoday: false,
-        choose: function(datas){
+        choose: function (datas) {
             end.min = datas; //开始日选好后，重置结束日的最小日期
             end.start = datas //将结束日的初始值设定为开始日
         }
@@ -163,7 +208,7 @@
         max: '2099-06-16 23:59:59',
         istime: true,
         istoday: false,
-        choose: function(datas){
+        choose: function (datas) {
             start.max = datas; //结束日选好后，重置开始日的最大日期
         }
     };

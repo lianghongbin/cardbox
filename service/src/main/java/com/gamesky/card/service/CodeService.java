@@ -31,6 +31,13 @@ public interface CodeService {
     int remove(int id);
 
     /**
+     * 根据礼包ID，删除该礼包下的所有激活码
+     * @param cardId 礼包ID
+     * @return 影响条数
+     */
+    int removeByCard(int cardId);
+
+    /**
      * 更新我的激活码
      *
      * @param code 激活码

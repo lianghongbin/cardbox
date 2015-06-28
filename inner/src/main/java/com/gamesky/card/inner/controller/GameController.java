@@ -1,5 +1,6 @@
 package com.gamesky.card.inner.controller;
 
+import com.gamesky.card.core.Constants;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.model.Game;
 import com.gamesky.card.core.model.GameExample;
@@ -44,7 +45,9 @@ public class GameController {
     @RequestMapping(value = "/save")
     public String save(Game game) {
         game.setTotal(0);
-        game.setIcon("");
+        if (StringUtils.isBlank(game.getIcon())) {
+            game.setIcon(Constants.DEFAULT_ICON);
+        }
         game.setCreateTime(System.currentTimeMillis());
         int result = gameService.save(game);
         return String.valueOf(result);
@@ -93,7 +96,7 @@ public class GameController {
             criteria.andNameLike("%" + name + "%");
         }
 
-        gameExample.setOrderByClause("closed asc, sort asc, recommend desc, id desc");
+        gameExample.setOrderByClause("sort asc, closed asc, recommend desc, id desc");
         gameExample.setLimitOffset(page.getOffset());
         gameExample.setLimit(page.getPagesize());
 

@@ -27,7 +27,6 @@
                     <li><a href="javascript:openUrl('/code/all')"><i class="icon-font">&#xe007;</i>激活码管理</a></li>
                     <li><a href="javascript:openUrl('/focus/all')"><i class="icon-font">&#xe006;</i>焦点图管理</a></li>
                     <li><a href="javascript:openUrl('/game/ranking')"><i class="icon-font">&#xe004;</i>排行榜管理</a></li>
-                    <li><a href="javascript:openUrl('/splash/all')"><i class="icon-font">&#xe009;</i>启动页管理</a></li>
                     <li><a href="javascript:openUrl('/user/all')"><i class="icon-font">&#xe012;</i>用户管理</a></li>
                     <li><a href="javascript:openUrl('/feedback/all')"><i class="icon-font">&#xe052;</i>用户反馈</a></li>
                 </ul>

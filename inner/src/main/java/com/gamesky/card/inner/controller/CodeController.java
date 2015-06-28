@@ -88,6 +88,7 @@ public class CodeController {
             codeExample.or().andGameNameLike("%" + key + "%");
             codeExample.or().andCardNameLike("%" + key + "%");
             codeExample.or().andCodeLike("%" + key + "%");
+            codeExample.or().andPhoneLike("%" + key + "%");
         }
 
         codeExample.setOrderByClause("id desc");

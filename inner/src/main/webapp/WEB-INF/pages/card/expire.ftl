@@ -115,7 +115,7 @@
                     <div class="result-list">
                         <a href="./add"><i class="icon-font"></i>新增礼包</a>
                         <a href="./all"><i class="icon-font"></i>正常礼包</a>
-                        <a href="./schdule"><i class="icon-font"></i>定时礼包</a>
+                        <a href="./schedule"><i class="icon-font"></i>定时礼包</a>
                     </div>
                 </div>
                 <div class="result-content">

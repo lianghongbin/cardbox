@@ -102,11 +102,6 @@
         </div>
         <div class="result-wrap">
             <form name="myform" id="myform" method="post">
-                <div class="result-title">
-                    <div class="result-list">
-                        <a href="./add"><i class="icon-font"></i>新增游戏</a>
-                    </div>
-                </div>
                 <div class="result-content">
                     <table class="result-tab" width="100%">
                         <tr>

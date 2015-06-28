@@ -24,6 +24,13 @@ public interface CardService {
     public int save(CardWithBLOBs card);
 
     /**
+     * 删除一个礼包
+     * @param id 礼包ID
+     * @return 影响条数
+     */
+    public int remove(int id);
+
+    /**
      * 锁死卡包
      *
      * @param id 卡包ID

@@ -1,9 +1,6 @@
 package com.gamesky.card.inner.controller;
 
-import com.gamesky.card.core.CardType;
-import com.gamesky.card.core.Constants;
-import com.gamesky.card.core.Page;
-import com.gamesky.card.core.ResultGenerator;
+import com.gamesky.card.core.*;
 import com.gamesky.card.core.model.*;
 import com.gamesky.card.service.BeanUtils;
 import com.gamesky.card.service.CardService;
@@ -13,18 +10,21 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -42,6 +42,9 @@ public class CardController {
     private GameService gameService;
     @Autowired
     private CodeService codeService;
+    @Autowired
+    @Qualifier("uploadMarshaller")
+    private Marshaller<Keyable, Serializable> marshaller;
     private static final Logger logger = LoggerFactory.getLogger(CardController.class);
 
     @RequestMapping(value = "/add")
@@ -83,7 +86,9 @@ public class CardController {
         Game game = gameService.find(card.getGameId());
         card.setGameName(game.getName());
         card.setAssignTotal(0);
-        card.setIcon(Constants.DEFAULT_ICON);
+        if (StringUtils.isBlank(card.getIcon())) {
+            card.setIcon(Constants.DEFAULT_ICON);
+        }
         card.setTotal(0);
         card.setValid(!game.getClosed());
         card.setCreateTime(System.currentTimeMillis());
@@ -224,8 +229,8 @@ public class CardController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/schdule")
-    public ModelAndView schdule(Integer gameId, Boolean closed, String name, Page page) {
+    @RequestMapping(value = "/schedule")
+    public ModelAndView schedule(Integer gameId, Boolean closed, String name, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
             page.setPagesize(15);
         }
@@ -304,6 +309,13 @@ public class CardController {
         card.setClosed(operate);
         int result = cardService.update(card);
 
+        return String.valueOf(result);
+    }
+
+    @ResponseBody
+    @RequestMapping("/remove")
+    public String remove(int id) {
+        int result = cardService.remove(id);
         return String.valueOf(result);
     }
 }

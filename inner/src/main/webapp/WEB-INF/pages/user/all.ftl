@@ -8,10 +8,9 @@
     <title>后台管理</title>
     <link rel="stylesheet" type="text/css" href="../css/common.css"/>
     <link rel="stylesheet" type="text/css" href="../css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="../tcal/tcal.css" />
     <script type="text/javascript" src="../js/libs/modernizr.min.js"></script>
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="../tcal/tcal.js"></script>
+    <script type="text/javascript" src="../laydate/laydate.js"></script>
     <script type="text/javascript">
         function operate(gameId,closed)
         {
@@ -61,10 +60,10 @@
                     <table class="search-tab">
                         <tr>
                             <th>开始时间：</th>
-                            <td><input class="tcal" name="startDate" id="startDate" size="12" type="text"></td>
+                            <td><input class="laydate-icon" name="startDate" id="startDate" style="width:200px;"></td>
 
                             <th>结束时间：</th>
-                            <td><input class="tcal" name="endDate" id="endDate" size="12" type="text"></td>
+                            <td><input class="laydate-icon" name="endDate" id="endDate" style="width:200px;"></td>
 
                             <th width="120">注册手机:</th>
                             <td><input class="common-text" placeholder="注册手机" name="phone" maxlength="11" size="15" value="" id="" type="text">
@@ -87,6 +86,7 @@
                             <th>设备号</th>
                             <th width="150">注册时间</th>
                             <th width="150">最后登录</th>
+                            <th width="80">操作</th>
                         </tr>
                     <#list paginationData.pageItems as user>
                         <tr>
@@ -98,6 +98,7 @@
                             <td>${user.device}</td>
                             <td>${user.createTime?number_to_datetime}</td>
                             <td>${user.lastTime?number_to_datetime}</td>
+                            <td><a class="link-update" href="./modify?phone=${user.phone}">加分</a></td>
                         </tr>
                     </#list>
                     </table>
@@ -116,6 +117,34 @@
         </div>
     </div>
     <!--/main-->
+
+    <script>
+        var start = {
+            elem: '#startDate',
+            format: 'YYYY-MM-DD hh:mm:ss',
+            min: '2015-06-01 00:00:00', //设定最小日期为当前日期
+            max: '2099-06-16 23:59:59', //最大日期
+            istime: true,
+            istoday: false,
+            choose: function(datas){
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+        var end = {
+            elem: '#endDate',
+            format: 'YYYY-MM-DD hh:mm:ss',
+            min: '2015-06-01 00:00:00',
+            max: '2099-06-16 23:59:59',
+            istime: true,
+            istoday: false,
+            choose: function(datas){
+                start.max = datas; //结束日选好后，重置开始日的最大日期
+            }
+        };
+        laydate(start);
+        laydate(end);
+    </script>
 </div>
 </body>
 </html>

@@ -55,6 +55,11 @@ public class FocusServiceImpl implements FocusService {
         return focusMapper.updateByPrimaryKeySelective(focus);
     }
 
+    @Override
+    public Focus find(int id) {
+        return focusMapper.selectByPrimaryKey(id);
+    }
+
     /**
      * 取出所有焦点图
      *
@@ -109,9 +114,10 @@ public class FocusServiceImpl implements FocusService {
         if (enabled != null) {
             focusExample.createCriteria().andEnabledEqualTo(enabled);
         }
+
         focusExample.setLimitOffset(page.getOffset());
         focusExample.setLimit(page.getPagesize());
-        focusExample.setOrderByClause("sort asc, enabled desc");
+        focusExample.setOrderByClause("enabled desc, sort asc");
         return focusMapper.selectByExample(focusExample);
     }
 
@@ -121,9 +127,11 @@ public class FocusServiceImpl implements FocusService {
      * @return 个数
      */
     @Override
-    public int findCountByEnable(boolean enable) {
+    public int findCountByEnable(Boolean enabled) {
         FocusExample focusExample = new FocusExample();
-        focusExample.createCriteria().andEnabledEqualTo(enable);
+        if (enabled != null) {
+            focusExample.createCriteria().andEnabledEqualTo(enabled);
+        }
         return focusMapper.countByExample(focusExample);
     }
 }

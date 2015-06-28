@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/uploadify/uploadify.css">
     <script type="text/javascript">
         $(function () {
-            $("#file").uploadify({
+            $("#photo").uploadify({
                 method: 'post',
                 swf: '/uploadify/uploadify.swf',  // uploadify.swf在项目中的路径
                 uploader: '/photo/upload',  // 后台UploadController处理上传的方法
@@ -25,28 +25,18 @@
                 formData: {
                     id: $("#id").val(),
                     type: $("#type").val()
+                },
+                onUploadSuccess: function (file, data, response) {
+                    var dataJson = jQuery.parseJSON(data);
+                    $.each(dataJson, function (idx, obj) {
+                        $("#imgId").append("<img src=" + obj + "><br>");
+                    });
+
+                    $("#show").show();
                 }
             });
         });
 
-        $(function () {
-            $("#icon").uploadify({
-                method: 'post',
-                swf: '/uploadify/uploadify.swf',  // uploadify.swf在项目中的路径
-                uploader: '/photo/icon',  // 后台UploadController处理上传的方法
-                fileObjName: 'icon',         // The name of the file object to use in your server-side script
-                successTimeout: 30,                 // The number of seconds to wait for Flash to detect the server's response after the file has finished uploading
-                removeCompleted: false,              // Remove queue items from the queue when they are done uploading
-                fileSizeLimit: '50MB',
-                buttonText: '选择文件',
-                queueID: 'iconQueue',
-                multi: false,
-                formData: {
-                    id: $("#id").val(),
-                    type: $("#type").val()
-                }});
-        })
-        ;
     </script>
 </head>
 <body>
@@ -57,7 +47,7 @@
     <div class="crumb-wrap">
         <div class="crumb-list"><i class="icon-font"></i>首页<span class="crumb-step">&gt;</span>
         <#if type?lower_case == "game">
-        <a class="crumb-name" href="./game?gameId=${item.id}">游戏图片管理</a>
+            <a class="crumb-name" href="./game?gameId=${item.id}">游戏图片管理</a>
         <#else>
             <a class="crumb-name" href="./card?cardId=${item.id}">礼包图片管理</a>
         </#if>
@@ -82,35 +72,16 @@
                         ${item.name}
                         </td>
                     </tr>
-                    <#if item.icon??>
-                    <tr>
-                        <th>ICON</th>
+                    <tr id="show" style="display:none">
+                        <th>图片</th>
                         <td>
-                            <img src="${item.icon}">
+                            <div id="imgId"></div>
                         </td>
                     </tr>
-                    </#if>
                     <tr>
-                        <th>
-                        <#if item.icon??>
-                            替换ICON
-                        <#else>
-                            添加ICON
-                        </#if>
-                        </th>
+                        <th>上传</th>
                         <td>
-                            <table class="insert-tab">
-                                <tr>
-                                    <td width="200"><input id="icon" name="icon" type="file"></td><td><div id="iconQueue"></div></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th>上传图片</th>
-                        <td>
-                            <input id="file" name="file" type="file">
+                            <input id="photo" name="photo" type="file">
                         </td>
                     </tr>
                     <tr>
@@ -122,7 +93,11 @@
                     <tr>
                         <th></th>
                         <td>
-                            <input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
+                        <#if type=="GAME">
+                            <a class="btn btn-primary btn6 mr10" href="./game?gameId=${item.id}">返回</a>
+                        <#else >
+                            <a class="btn btn-primary btn6 mr10" href="./card?cardId=${item.id}">返回</a>
+                        </#if>
                         </td>
                     </tr>
 

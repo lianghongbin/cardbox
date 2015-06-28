@@ -115,29 +115,24 @@
                     <table class="result-tab" width="100%">
                         <tr>
                             <th>排序</th>
-                            <th>类别</th>
-                            <th>Item ID</th>
                             <th>状态</th>
                             <th>图片</th>
+                            <th>URL</th>
                             <th width="150">添加时间</th>
-                            <th width="100">操作</th>
+                            <th width="120">操作</th>
                         </tr>
                     <#list paginationData.pageItems as focus>
                         <tr>
                             <td>
                                 <input class="common-input sort-input" name="sort" value="${focus.sort}" type="text"  onblur="javascript:saveSort(${focus.id}, this.value)">
                             </td>
-                            <td>
-                                ${focus.type}
-                            </td>
-                            <td>
-                            ${focus.itemId}
-                            </td>
                             <td><#if focus.enabled>线上<#else><font color="red">下线</font></#if> </td>
                             <td><img src="${focus.photo}"></td>
+                            <td>${focus.url}</td>
                             <td>${focus.createTime?number_to_datetime}</td>
                             <td align="center">
                                 <#if focus.enabled><a class="link-update" href="javascript:operate(${focus.id},'${focus.enabled!false}')">下线</a><#else><a class="link-update" href="javascript:operate(${focus.id},'${focus.enabled!false}')">上线</a></#if>
+                                &nbsp; <a class="link-update" href="./modify?id=${focus.id}">修改</a>
                                 &nbsp; <a class="link-update" href="javascript:del(${focus.id})">删除</a>
                             </td>
                         </tr>

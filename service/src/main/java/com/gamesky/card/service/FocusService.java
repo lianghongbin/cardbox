@@ -33,6 +33,8 @@ public interface FocusService {
      */
     public int update(Focus focus);
 
+    Focus find(int id);
+
     /**
      * 取出所有焦点图
      * @param page 分页参数
@@ -54,16 +56,16 @@ public interface FocusService {
 
     /**
      * 根据是否有效条件，获取列表
-     * @param enable 是否可用
+     * @param enabled 是否可用
      * @param page 分页参数
      * @return 列表
      */
-    public List<Focus> findByEnable(Boolean enable, Page page);
+    public List<Focus> findByEnable(Boolean enabled, Page page);
 
     /**
      * 根据是否有效条件，查询个数
-     * @param enable 是否有效
+     * @param enabled 是否有效
      * @return 个数
      */
-    public int findCountByEnable(boolean enable);
+    public int findCountByEnable(Boolean enabled);
 }

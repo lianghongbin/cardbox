@@ -53,6 +53,19 @@ public class CodeServiceImpl implements CodeService {
     }
 
     /**
+     * 根据礼包ID，删除该礼包下的所有激活码
+     *
+     * @param cardId 礼包ID
+     * @return 影响条数
+     */
+    @Override
+    public int removeByCard(int cardId) {
+        CodeExample codeExample = new CodeExample();
+        codeExample.createCriteria().andCardIdEqualTo(cardId);
+        return codeMapper.deleteByExample(codeExample);
+    }
+
+    /**
      * 更新我的激活码
      *
      * @param code 激活码

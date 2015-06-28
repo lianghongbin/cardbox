@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.Photo" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="item_id" property="itemId" jdbcType="INTEGER" />
   </resultMap>
@@ -67,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, type, name, url, item_id
+    id, type, url, item_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.PhotoExample" >
     select
@@ -103,10 +102,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Photo" >
-    insert into photo (id, type, name, 
-      url, item_id)
-    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{itemId,jdbcType=INTEGER})
+    insert into photo (id, type, url, 
+      item_id)
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{itemId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Photo" >
     insert into photo
@@ -116,9 +115,6 @@
       </if>
       <if test="type != null" >
         type,
-      </if>
-      <if test="name != null" >
-        name,
       </if>
       <if test="url != null" >
         url,
@@ -133,9 +129,6 @@
       </if>
       <if test="type != null" >
         #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
       </if>
       <if test="url != null" >
         #{url,jdbcType=VARCHAR},
@@ -160,9 +153,6 @@
       <if test="record.type != null" >
         type = #{record.type,jdbcType=VARCHAR},
       </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
-      </if>
       <if test="record.url != null" >
         url = #{record.url,jdbcType=VARCHAR},
       </if>
@@ -178,7 +168,6 @@
     update photo
     set id = #{record.id,jdbcType=INTEGER},
       type = #{record.type,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
       item_id = #{record.itemId,jdbcType=INTEGER}
     <if test="_parameter != null" >
@@ -190,9 +179,6 @@
     <set >
       <if test="type != null" >
         type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="url != null" >
         url = #{url,jdbcType=VARCHAR},
@@ -206,7 +192,6 @@
   <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Photo" >
     update photo
     set type = #{type,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       item_id = #{itemId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
