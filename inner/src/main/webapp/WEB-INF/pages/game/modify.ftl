@@ -44,7 +44,7 @@
                 multi: false,
                 onUploadSuccess: function (file, data, response) {
                     $("#icon").val(data);
-                    $("#imgId").attr('src', data);
+                    $("#imgId").html("<img src=" + data + ">");
                     $("#show").show();
                 }
             });
@@ -78,7 +78,7 @@
                     <tr>
                         <th>图标：</th>
                         <td>
-                            <img id="imgId" src="${game.icon}"/>
+                            <span id="imgId"><img src="${game.icon}"/></span>
                         </td>
                     </tr>
                     <tr>

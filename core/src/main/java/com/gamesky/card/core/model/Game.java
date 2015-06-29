@@ -21,7 +21,7 @@ public class Game {
 
     private String platform;
 
-    private Integer score;
+    private Float score;
 
     private Boolean closed;
 
@@ -111,11 +111,11 @@ public class Game {
         this.platform = platform;
     }
 
-    public Integer getScore() {
+    public Float getScore() {
         return score;
     }
 
-    public void setScore(Integer score) {
+    public void setScore(Float score) {
         this.score = score;
     }
 

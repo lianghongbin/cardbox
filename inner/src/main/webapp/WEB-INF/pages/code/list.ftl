@@ -11,38 +11,12 @@
     <script type="text/javascript" src="../js/libs/modernizr.min.js"></script>
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript">
-        function operate(id,closed)
-        {
-            confirm("你确定要对该礼包进行上线/下线操作？");
-            if(closed == null) {
-                closed = false;
-            }
-
-            $.ajax({
-                url: '/card/openorclose',// 跳转到 action
-                data: {
-                    id: id,
-                    operate: !closed
-                },
-                type: 'post',
-                dataType: 'text',
-                success: function (data) {
-                    if (data == "1") {
-                        alert("修改成功");
-                        window.location.reload();
-                    } else {
-                        alert("修改失败");
-                    }
-                },
-                error: function () {
-                    alert("异常！");
-                }
-            });
-        }
-
         function del(id)
         {
-            confirm("你确定要删除该激活码吗？");
+            if(!confirm("你确定要删除该激活码吗？")) {
+                return false;
+            }
+
             $.ajax({
                 url: '/code/remove',// 跳转到 action
                 data: {
@@ -80,7 +54,8 @@
                     <table class="search-tab">
                         <tr>
                             <th width="100">关键字搜索:</th>
-                            <td><input class="common-text" placeholder="关键字" name="key" value="" id="" type="text">
+                            <td><input type="hidden" name="cardId" id="cardId" value="${cardId}">
+                                <input class="common-text" placeholder="关键字" name="key" value="" id="" type="text">
                             </td>
                             <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
                         </tr>

@@ -116,13 +116,13 @@ public class FocusServiceImpl implements FocusService {
 
         focusExample.setLimitOffset(page.getOffset());
         focusExample.setLimit(page.getPagesize());
-        focusExample.setOrderByClause("sort asc， enabled desc");
+        focusExample.setOrderByClause("sort asc, enabled desc");
         return focusMapper.selectByExample(focusExample);
     }
 
     /**
      * 根据是否有效条件，查询个数d
-     * @param enable 是否有效
+     * @param enabled 是否有效
      * @return 个数
      */
     @Override

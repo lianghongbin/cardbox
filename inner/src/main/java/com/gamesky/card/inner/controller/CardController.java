@@ -15,16 +15,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -260,7 +259,7 @@ public class CardController {
 
         List<Game> games = gameService.findAll(new Page());
 
-        ModelAndView modelAndView = new ModelAndView("/card/schdule");
+        ModelAndView modelAndView = new ModelAndView("/card/schedule");
         PaginationData paginationData = new PaginationData(page, cards);
         modelAndView.addObject("paginationData", paginationData);
         modelAndView.addObject("page", page);

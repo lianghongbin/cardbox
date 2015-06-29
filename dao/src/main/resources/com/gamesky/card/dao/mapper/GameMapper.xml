@@ -12,7 +12,7 @@
     <result column="total" property="total" jdbcType="INTEGER" />
     <result column="sort" property="sort" jdbcType="INTEGER" />
     <result column="platform" property="platform" jdbcType="VARCHAR" />
-    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="REAL" />
     <result column="closed" property="closed" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="BIGINT" />
     <result column="modify_time" property="modifyTime" jdbcType="BIGINT" />
@@ -143,15 +143,13 @@
     insert into game (id, name, icon, 
       url, ios_id, recommend, 
       identifier, total, sort, 
-      platform, score, closed, 
-      create_time, modify_time, description
-      )
+      platform, score, closed, create_time, 
+      modify_time, description)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR}, #{iosId,jdbcType=VARCHAR}, #{recommend,jdbcType=BIT}, 
       #{identifier,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, 
-      #{platform,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{closed,jdbcType=BIT}, 
-      #{createTime,jdbcType=BIGINT}, #{modifyTime,jdbcType=BIGINT}, #{description,jdbcType=LONGVARCHAR}
-      )
+      #{platform,jdbcType=VARCHAR}, #{score,jdbcType=REAL}, #{closed,jdbcType=BIT}, #{createTime,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=BIGINT}, #{description,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Game" >
     insert into game
@@ -234,7 +232,7 @@
         #{platform,jdbcType=VARCHAR},
       </if>
       <if test="score != null" >
-        #{score,jdbcType=INTEGER},
+        #{score,jdbcType=REAL},
       </if>
       <if test="closed != null" >
         #{closed,jdbcType=BIT},
@@ -290,7 +288,7 @@
         platform = #{record.platform,jdbcType=VARCHAR},
       </if>
       <if test="record.score != null" >
-        score = #{record.score,jdbcType=INTEGER},
+        score = #{record.score,jdbcType=REAL},
       </if>
       <if test="record.closed != null" >
         closed = #{record.closed,jdbcType=BIT},
@@ -321,7 +319,7 @@
       total = #{record.total,jdbcType=INTEGER},
       sort = #{record.sort,jdbcType=INTEGER},
       platform = #{record.platform,jdbcType=VARCHAR},
-      score = #{record.score,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=REAL},
       closed = #{record.closed,jdbcType=BIT},
       create_time = #{record.createTime,jdbcType=BIGINT},
       modify_time = #{record.modifyTime,jdbcType=BIGINT},
@@ -342,7 +340,7 @@
       total = #{record.total,jdbcType=INTEGER},
       sort = #{record.sort,jdbcType=INTEGER},
       platform = #{record.platform,jdbcType=VARCHAR},
-      score = #{record.score,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=REAL},
       closed = #{record.closed,jdbcType=BIT},
       create_time = #{record.createTime,jdbcType=BIGINT},
       modify_time = #{record.modifyTime,jdbcType=BIGINT}
@@ -381,7 +379,7 @@
         platform = #{platform,jdbcType=VARCHAR},
       </if>
       <if test="score != null" >
-        score = #{score,jdbcType=INTEGER},
+        score = #{score,jdbcType=REAL},
       </if>
       <if test="closed != null" >
         closed = #{closed,jdbcType=BIT},
@@ -409,7 +407,7 @@
       total = #{total,jdbcType=INTEGER},
       sort = #{sort,jdbcType=INTEGER},
       platform = #{platform,jdbcType=VARCHAR},
-      score = #{score,jdbcType=INTEGER},
+      score = #{score,jdbcType=REAL},
       closed = #{closed,jdbcType=BIT},
       create_time = #{createTime,jdbcType=BIGINT},
       modify_time = #{modifyTime,jdbcType=BIGINT},
@@ -427,7 +425,7 @@
       total = #{total,jdbcType=INTEGER},
       sort = #{sort,jdbcType=INTEGER},
       platform = #{platform,jdbcType=VARCHAR},
-      score = #{score,jdbcType=INTEGER},
+      score = #{score,jdbcType=REAL},
       closed = #{closed,jdbcType=BIT},
       create_time = #{createTime,jdbcType=BIGINT},
       modify_time = #{modifyTime,jdbcType=BIGINT}

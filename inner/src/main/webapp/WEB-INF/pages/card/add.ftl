@@ -20,7 +20,7 @@
                 success: function (data) {
                     if (data == "1") {
                         alert("添加成功");
-                        window.location.reload();
+                        window.location.href = "./all";
                     } else {
                         alert("添加失败");
                     }
@@ -45,7 +45,7 @@
                 multi: false,
                 onUploadSuccess: function (file, data, response) {
                     $("#icon").val(data);
-                    $("#imgId").attr('src', data);
+                    $("#imgId").html("<img src=" + data + ">");
                     $("#show").show();
                 }
             });
@@ -87,7 +87,7 @@
                     <tr id="show" style="display: none">
                         <th>配图：</th>
                         <td>
-                            <img id="imgId" src=""/>
+                            <span id="imgId"></span>
                         </td>
                     </tr>
                     <tr>
@@ -129,7 +129,7 @@
                     </tr>
                     <tr>
                         <th><i class="require-red">*</i>消耗数：</th>
-                        <td><input class="common-text" name="score" id="score" size="20" type="text"></td>
+                        <td><input class="common-text" name="score" id="score" size="20" value="0" type="text"></td>
                     </tr>
                     <tr>
                         <th><i class="require-red">*</i>是否推荐：</th>

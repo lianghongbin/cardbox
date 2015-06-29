@@ -15,6 +15,7 @@
     <result column="platform" property="platform" jdbcType="VARCHAR" />
     <result column="closed" property="closed" jdbcType="BIT" />
     <result column="valid" property="valid" jdbcType="BIT" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="BIGINT" />
     <result column="close_time" property="closeTime" jdbcType="BIGINT" />
     <result column="open_time" property="openTime" jdbcType="BIGINT" />
@@ -84,7 +85,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, game_id, game_name, name, icon, total, assign_total, type, score, recommend, 
-    platform, closed, valid, create_time, close_time, open_time, expire_time
+    platform, closed, valid, sort, create_time, close_time, open_time, expire_time
   </sql>
   <sql id="Blob_Column_List" >
     description, flow
@@ -148,16 +149,16 @@
       name, icon, total, 
       assign_total, type, score, 
       recommend, platform, closed, 
-      valid, create_time, close_time, 
-      open_time, expire_time, description, 
-      flow)
+      valid, sort, create_time, 
+      close_time, open_time, expire_time, 
+      description, flow)
     values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=INTEGER}, #{gameName,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, 
       #{assignTotal,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, 
       #{recommend,jdbcType=BIT}, #{platform,jdbcType=VARCHAR}, #{closed,jdbcType=BIT}, 
-      #{valid,jdbcType=BIT}, #{createTime,jdbcType=BIGINT}, #{closeTime,jdbcType=BIGINT}, 
-      #{openTime,jdbcType=BIGINT}, #{expireTime,jdbcType=BIGINT}, #{description,jdbcType=LONGVARCHAR}, 
-      #{flow,jdbcType=LONGVARCHAR})
+      #{valid,jdbcType=BIT}, #{sort,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}, 
+      #{closeTime,jdbcType=BIGINT}, #{openTime,jdbcType=BIGINT}, #{expireTime,jdbcType=BIGINT}, 
+      #{description,jdbcType=LONGVARCHAR}, #{flow,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.CardWithBLOBs" >
     insert into card
@@ -200,6 +201,9 @@
       </if>
       <if test="valid != null" >
         valid,
+      </if>
+      <if test="sort != null" >
+        sort,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -259,6 +263,9 @@
       </if>
       <if test="valid != null" >
         #{valid,jdbcType=BIT},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=BIGINT},
@@ -328,6 +335,9 @@
       <if test="record.valid != null" >
         valid = #{record.valid,jdbcType=BIT},
       </if>
+      <if test="record.sort != null" >
+        sort = #{record.sort,jdbcType=INTEGER},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=BIGINT},
       </if>
@@ -366,6 +376,7 @@
       platform = #{record.platform,jdbcType=VARCHAR},
       closed = #{record.closed,jdbcType=BIT},
       valid = #{record.valid,jdbcType=BIT},
+      sort = #{record.sort,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=BIGINT},
       close_time = #{record.closeTime,jdbcType=BIGINT},
       open_time = #{record.openTime,jdbcType=BIGINT},
@@ -391,6 +402,7 @@
       platform = #{record.platform,jdbcType=VARCHAR},
       closed = #{record.closed,jdbcType=BIT},
       valid = #{record.valid,jdbcType=BIT},
+      sort = #{record.sort,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=BIGINT},
       close_time = #{record.closeTime,jdbcType=BIGINT},
       open_time = #{record.openTime,jdbcType=BIGINT},
@@ -438,6 +450,9 @@
       <if test="valid != null" >
         valid = #{valid,jdbcType=BIT},
       </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=BIGINT},
       </if>
@@ -473,6 +488,7 @@
       platform = #{platform,jdbcType=VARCHAR},
       closed = #{closed,jdbcType=BIT},
       valid = #{valid,jdbcType=BIT},
+      sort = #{sort,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=BIGINT},
       close_time = #{closeTime,jdbcType=BIGINT},
       open_time = #{openTime,jdbcType=BIGINT},
@@ -495,6 +511,7 @@
       platform = #{platform,jdbcType=VARCHAR},
       closed = #{closed,jdbcType=BIT},
       valid = #{valid,jdbcType=BIT},
+      sort = #{sort,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=BIGINT},
       close_time = #{closeTime,jdbcType=BIGINT},
       open_time = #{openTime,jdbcType=BIGINT},

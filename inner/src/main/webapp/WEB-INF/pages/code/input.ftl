@@ -23,10 +23,10 @@
                 dataType: 'text',
                 success: function (data) {
                     if (data == "1") {
-                        alert("修改成功");
+                        alert("激活码添加成功");
                         window.location.href = "../card/all";
                     } else {
-                        alert("修改失败");
+                        alert("激活码添加失败");
                     }
                 },
                 error: function () {

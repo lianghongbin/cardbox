@@ -44,7 +44,7 @@
                 multi: false,
                 onUploadSuccess : function(file, data, response) {
                     $("#photo").val(data);
-                    $("#imgId").attr('src',data);
+                    $("#imgId").html("<img src=" + data + ">");
                     $("#show").show();
                 }
             });
@@ -75,7 +75,7 @@
                 <tr id="show" style="display: none">
                     <th>配图：</th>
                     <td>
-                        <img id="imgId" src=""/>
+                        <span id="imgId"></span>
                     </td>
                 </tr>
                 <tr>

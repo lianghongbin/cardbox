@@ -49,7 +49,7 @@
                     }
 
                     $("#icon").val(data);
-                    $("#imgId").attr('src', data);
+                    $("#imgId").html("<img src=" + data + ">");
                 }
             });
         });
@@ -91,7 +91,7 @@
                         <td>
                             <input name="id" id="id" value="${card.id}" type="hidden">
                             <input name="icon" id="icon" value="${card.icon}" type="hidden">
-                            <img id="imgId" src="${card.icon}">
+                            <span id="imgId"><img src="${card.icon}"></span>
                         </td>
                     </tr>
                     <tr>

@@ -27,6 +27,8 @@ public class Card {
 
     private Boolean valid;
 
+    private Integer sort;
+
     private Long createTime;
 
     private Long closeTime;
@@ -139,6 +141,14 @@ public class Card {
         this.valid = valid;
     }
 
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
     public Long getCreateTime() {
         return createTime;
     }
@@ -196,6 +206,7 @@ public class Card {
             && (this.getPlatform() == null ? other.getPlatform() == null : this.getPlatform().equals(other.getPlatform()))
             && (this.getClosed() == null ? other.getClosed() == null : this.getClosed().equals(other.getClosed()))
             && (this.getValid() == null ? other.getValid() == null : this.getValid().equals(other.getValid()))
+            && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getCloseTime() == null ? other.getCloseTime() == null : this.getCloseTime().equals(other.getCloseTime()))
             && (this.getOpenTime() == null ? other.getOpenTime() == null : this.getOpenTime().equals(other.getOpenTime()))
@@ -219,6 +230,7 @@ public class Card {
         result = prime * result + ((getPlatform() == null) ? 0 : getPlatform().hashCode());
         result = prime * result + ((getClosed() == null) ? 0 : getClosed().hashCode());
         result = prime * result + ((getValid() == null) ? 0 : getValid().hashCode());
+        result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getCloseTime() == null) ? 0 : getCloseTime().hashCode());
         result = prime * result + ((getOpenTime() == null) ? 0 : getOpenTime().hashCode());
@@ -245,6 +257,7 @@ public class Card {
         sb.append(", platform=").append(platform);
         sb.append(", closed=").append(closed);
         sb.append(", valid=").append(valid);
+        sb.append(", sort=").append(sort);
         sb.append(", createTime=").append(createTime);
         sb.append(", closeTime=").append(closeTime);
         sb.append(", openTime=").append(openTime);

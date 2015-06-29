@@ -15,7 +15,7 @@
     <div class="crumb-wrap">
         <div class="crumb-list"><i class="icon-font"></i>首页<span class="crumb-step">&gt;</span><a class="crumb-name"
                                                                                                    href="./all">游戏管理</a><span
-                class="crumb-step">&gt;</span><span>游戏修改</span></div>
+                class="crumb-step">&gt;</span><span>游戏详情</span></div>
     </div>
     <div class="result-wrap">
         <div class="result-content">
