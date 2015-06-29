@@ -77,39 +77,29 @@
             <form id="myform" name="myform">
             <table class="insert-tab" width="100%">
                 <tbody>
+                <#if item.type=="GAME">
                 <tr>
-                    <th>所属类别：</th>
+                    <th>所属游戏：</th>
                     <td>
-                        <input type="radio" name="type" value="GAME"
-                               onclick="onChange('GAME')" checked> GAME &nbsp;&nbsp;
-
-                        <input type="radio" name="type" value="CARD"
-                               onclick="onChange('CARD')"> CARD
+                        ${item.name}
                     </td>
                 </tr>
+                </#if>
+                <#if item.type=="CARD">
                 <tr>
-                    <th>关联ITEM：</th>
+                    <th>所属礼包：</th>
                     <td>
-                        <div id="itemGame">
-                            关联游戏：<select name="itemId" id="itemId" class="required">
-                        <#list games as game>
-                            <option value="${game.id}">${game.name}</option>
-                        </#list>
-                        </select>
-                        </div>
+                    ${item.name}
 
-                        <div id="itemCard" STYLE="display: none">
-                            关联礼包：<select name="itemId" id="itemId" class="required">
-                        <#list cards as card>
-                            <option value="${card.id}">${card.name}</option>
-                        </#list>
-                        </select>
-                        </div>
                     </td>
                 </tr>
+                </#if>
+
                 <tr>
                     <th width="120">排序：</th>
                     <td>
+                        <input type="hidden" name="itemId" value="${item.id}"/>
+                        <input type="hidden" name="type" value="${item.type}"/>
                         <input class="common-text required" id="sort" name="sort" value="0" size="20" type="text"/>
                     </td>
                 </tr>

@@ -24,7 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -177,7 +179,7 @@ public class PhotoController {
         try {
             marshaller.marshal(uploadFile::getAbsolutePath, mf.getBytes());
 
-            return Constants.PHOTO_URL_PREFIX + "/" + Constants.UPLOAD_DIR + "/" + newFileName;
+            return Constants.PHOTO_URL_PREFIX + Constants.UPLOAD_DIR + newFileName;
         } catch (Exception e) {
             logger.error("文件{}上传失败", fileName);
             logger.error(e.getMessage());

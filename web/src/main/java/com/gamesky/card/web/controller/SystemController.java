@@ -41,6 +41,9 @@ public class SystemController {
     @RequestMapping(value = "/announce", method = RequestMethod.GET)
     public String announce() {
         Setting setting = settingService.find("1_0");
+        if (setting == null) {
+            return ResultGenerator.generate("");
+        }
         return ResultGenerator.generate(setting.getAnnounce());
     }
 

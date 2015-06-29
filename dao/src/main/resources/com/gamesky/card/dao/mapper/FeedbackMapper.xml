@@ -3,7 +3,6 @@
 <mapper namespace="com.gamesky.card.dao.mapper.FeedbackMapper" >
   <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.Feedback" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="contact" property="contact" jdbcType="VARCHAR" />
     <result column="processed" property="processed" jdbcType="BIT" />
@@ -71,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, user_id, content, contact, processed, remark, create_time, process_time, phone
+    id, content, contact, processed, remark, create_time, process_time, phone
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.FeedbackExample" >
     select
@@ -107,23 +106,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Feedback" >
-    insert into feedback (id, user_id, content, 
-      contact, processed, remark, 
-      create_time, process_time, phone
-      )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
-      #{contact,jdbcType=VARCHAR}, #{processed,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=BIGINT}, #{processTime,jdbcType=BIGINT}, #{phone,jdbcType=VARCHAR}
-      )
+    insert into feedback (id, content, contact, 
+      processed, remark, create_time, 
+      process_time, phone)
+    values (#{id,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
+      #{processed,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{processTime,jdbcType=BIGINT}, #{phone,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Feedback" >
     insert into feedback
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
-      </if>
-      <if test="userId != null" >
-        user_id,
       </if>
       <if test="content != null" >
         content,
@@ -150,9 +144,6 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
       </if>
       <if test="content != null" >
         #{content,jdbcType=VARCHAR},
@@ -189,9 +180,6 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.userId != null" >
-        user_id = #{record.userId,jdbcType=INTEGER},
-      </if>
       <if test="record.content != null" >
         content = #{record.content,jdbcType=VARCHAR},
       </if>
@@ -221,7 +209,6 @@
   <update id="updateByExample" parameterType="map" >
     update feedback
     set id = #{record.id,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
       content = #{record.content,jdbcType=VARCHAR},
       contact = #{record.contact,jdbcType=VARCHAR},
       processed = #{record.processed,jdbcType=BIT},
@@ -236,9 +223,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.gamesky.card.core.model.Feedback" >
     update feedback
     <set >
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
       <if test="content != null" >
         content = #{content,jdbcType=VARCHAR},
       </if>
@@ -265,8 +249,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Feedback" >
     update feedback
-    set user_id = #{userId,jdbcType=INTEGER},
-      content = #{content,jdbcType=VARCHAR},
+    set content = #{content,jdbcType=VARCHAR},
       contact = #{contact,jdbcType=VARCHAR},
       processed = #{processed,jdbcType=BIT},
       remark = #{remark,jdbcType=VARCHAR},

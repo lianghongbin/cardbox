@@ -8,6 +8,7 @@ package com.gamesky.card.core;
  */
 public enum FocusType {
 
+    PAGE,
     GAME,
     CARD;
 }

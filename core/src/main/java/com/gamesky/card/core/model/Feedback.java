@@ -3,8 +3,6 @@ package com.gamesky.card.core.model;
 public class Feedback {
     private Integer id;
 
-    private Integer userId;
-
     private String content;
 
     private String contact;
@@ -25,14 +23,6 @@ public class Feedback {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public String getContent() {
@@ -104,7 +94,6 @@ public class Feedback {
         }
         Feedback other = (Feedback) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
             && (this.getContact() == null ? other.getContact() == null : this.getContact().equals(other.getContact()))
             && (this.getProcessed() == null ? other.getProcessed() == null : this.getProcessed().equals(other.getProcessed()))
@@ -119,7 +108,6 @@ public class Feedback {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         result = prime * result + ((getContent() == null) ? 0 : getContent().hashCode());
         result = prime * result + ((getContact() == null) ? 0 : getContact().hashCode());
         result = prime * result + ((getProcessed() == null) ? 0 : getProcessed().hashCode());
@@ -137,7 +125,6 @@ public class Feedback {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", userId=").append(userId);
         sb.append(", content=").append(content);
         sb.append(", contact=").append(contact);
         sb.append(", processed=").append(processed);

@@ -60,8 +60,8 @@ public class FocusController {
 
     @ResponseBody
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public String findAll() {
-        List<Focus> focusList = focusService.findByEnabled(true, new Page());
+    public String findAll(String platform) {
+        List<Focus> focusList = focusService.findByEnabled(true, platform, new Page());
         return ResultGenerator.generate(focusList);
     }
 }

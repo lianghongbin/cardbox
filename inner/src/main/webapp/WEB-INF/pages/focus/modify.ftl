@@ -66,6 +66,14 @@
             <table class="insert-tab" width="100%">
                 <tbody>
                 <tr>
+                    <th>类别</th>
+                    <td>${focus.type}</td>
+                </tr>
+                <tr>
+                    <th>类别名称</th>
+                    <td>${item.name}</td>
+                </tr>
+                <tr>
                     <th width="120">排序：</th>
                     <td>
                         <input class="common-text required" id="sort" name="sort" value="${focus.sort}" size="20" type="text"/>

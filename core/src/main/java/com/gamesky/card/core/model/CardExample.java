@@ -1074,66 +1074,6 @@ public class CardExample {
             return (Criteria) this;
         }
 
-        public Criteria andCloseTimeIsNull() {
-            addCriterion("close_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCloseTimeIsNotNull() {
-            addCriterion("close_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCloseTimeEqualTo(Long value) {
-            addCriterion("close_time =", value, "closeTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCloseTimeNotEqualTo(Long value) {
-            addCriterion("close_time <>", value, "closeTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCloseTimeGreaterThan(Long value) {
-            addCriterion("close_time >", value, "closeTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCloseTimeGreaterThanOrEqualTo(Long value) {
-            addCriterion("close_time >=", value, "closeTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCloseTimeLessThan(Long value) {
-            addCriterion("close_time <", value, "closeTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCloseTimeLessThanOrEqualTo(Long value) {
-            addCriterion("close_time <=", value, "closeTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCloseTimeIn(List<Long> values) {
-            addCriterion("close_time in", values, "closeTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCloseTimeNotIn(List<Long> values) {
-            addCriterion("close_time not in", values, "closeTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCloseTimeBetween(Long value1, Long value2) {
-            addCriterion("close_time between", value1, value2, "closeTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCloseTimeNotBetween(Long value1, Long value2) {
-            addCriterion("close_time not between", value1, value2, "closeTime");
-            return (Criteria) this;
-        }
-
         public Criteria andOpenTimeIsNull() {
             addCriterion("open_time is null");
             return (Criteria) this;

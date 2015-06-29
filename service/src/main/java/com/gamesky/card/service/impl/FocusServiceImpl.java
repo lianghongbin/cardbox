@@ -1,6 +1,7 @@
 package com.gamesky.card.service.impl;
 
 import com.gamesky.card.core.Page;
+import com.gamesky.card.core.Platform;
 import com.gamesky.card.core.model.Focus;
 import com.gamesky.card.core.model.FocusExample;
 import com.gamesky.card.dao.mapper.FocusMapper;
@@ -8,6 +9,7 @@ import com.gamesky.card.service.FocusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -103,15 +105,24 @@ public class FocusServiceImpl implements FocusService {
     /**
      * 根据是否有效条件，获取列表
      *
-     * @param enabled 是否可用
-     * @param page   分页参数
+     * @param enabled  是否可用
+     * @param platform 设备类别
+     * @param page     分页参数
      * @return 列表
      */
     @Override
-    public List<Focus> findByEnabled(Boolean enabled, Page page) {
+    public List<Focus> findByEnabled(Boolean enabled, String platform, Page page) {
         FocusExample focusExample = new FocusExample();
+        FocusExample.Criteria criteria = focusExample.createCriteria();
         if (enabled != null) {
-            focusExample.createCriteria().andEnabledEqualTo(enabled);
+            criteria.andEnabledEqualTo(enabled);
+        }
+
+        if (!Platform.ALL.name().equalsIgnoreCase(platform)) {
+            List<String> platforms = new ArrayList<>();
+            platforms.add(Platform.ALL.name());
+            platforms.add(platform);
+            criteria.andPlatformIn(platforms);
         }
 
         focusExample.setLimitOffset(page.getOffset());
@@ -122,15 +133,26 @@ public class FocusServiceImpl implements FocusService {
 
     /**
      * 根据是否有效条件，查询个数d
-     * @param enabled 是否有效
+     *
+     * @param enabled  是否有效
+     * @param platform 设备类别
      * @return 个数
      */
     @Override
-    public int findCountByEnabled(Boolean enabled) {
+    public int findCountByEnabled(Boolean enabled, String platform) {
         FocusExample focusExample = new FocusExample();
+        FocusExample.Criteria criteria = focusExample.createCriteria();
         if (enabled != null) {
-            focusExample.createCriteria().andEnabledEqualTo(enabled);
+            criteria.andEnabledEqualTo(enabled);
         }
+
+        if (!Platform.ALL.name().equalsIgnoreCase(platform)) {
+            List<String> platforms = new ArrayList<>();
+            platforms.add(Platform.ALL.name());
+            platforms.add(platform);
+            criteria.andPlatformIn(platforms);
+        }
+
         return focusMapper.countByExample(focusExample);
     }
 }

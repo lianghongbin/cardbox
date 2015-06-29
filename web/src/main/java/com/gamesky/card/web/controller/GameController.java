@@ -109,7 +109,7 @@ public class GameController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/my", method = RequestMethod.GET)
+    @RequestMapping(value = "/my")
     public String findAll(String data) {
         Type collectionType = new TypeToken<List<String>>() {}.getType();
         Gson gson = new Gson();

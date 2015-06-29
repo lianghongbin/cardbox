@@ -15,6 +15,8 @@ public class Focus {
 
     private Boolean enabled;
 
+    private String platform;
+
     private Long createTime;
 
     public Integer getId() {
@@ -73,6 +75,14 @@ public class Focus {
         this.enabled = enabled;
     }
 
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
     public Long getCreateTime() {
         return createTime;
     }
@@ -100,6 +110,7 @@ public class Focus {
             && (this.getItemId() == null ? other.getItemId() == null : this.getItemId().equals(other.getItemId()))
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
             && (this.getEnabled() == null ? other.getEnabled() == null : this.getEnabled().equals(other.getEnabled()))
+            && (this.getPlatform() == null ? other.getPlatform() == null : this.getPlatform().equals(other.getPlatform()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
     }
 
@@ -114,6 +125,7 @@ public class Focus {
         result = prime * result + ((getItemId() == null) ? 0 : getItemId().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
         result = prime * result + ((getEnabled() == null) ? 0 : getEnabled().hashCode());
+        result = prime * result + ((getPlatform() == null) ? 0 : getPlatform().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         return result;
     }
@@ -131,6 +143,7 @@ public class Focus {
         sb.append(", itemId=").append(itemId);
         sb.append(", url=").append(url);
         sb.append(", enabled=").append(enabled);
+        sb.append(", platform=").append(platform);
         sb.append(", createTime=").append(createTime);
         sb.append("]");
         return sb.toString();

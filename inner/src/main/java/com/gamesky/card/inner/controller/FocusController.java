@@ -1,9 +1,6 @@
 package com.gamesky.card.inner.controller;
 
-import com.gamesky.card.core.FocusType;
-import com.gamesky.card.core.Keyable;
-import com.gamesky.card.core.Marshaller;
-import com.gamesky.card.core.Page;
+import com.gamesky.card.core.*;
 import com.gamesky.card.core.model.Card;
 import com.gamesky.card.core.model.Focus;
 import com.gamesky.card.core.model.Game;
@@ -57,16 +54,50 @@ public class FocusController {
         return modelAndView;
     }
 
+    @RequestMapping("/input")
+    public ModelAndView input(int id, String type) {
+
+        Object item;
+        if ("GAME".equalsIgnoreCase(type)) {
+            item = gameService.find(id);
+        }
+        else {
+            item = cardService.find(id);
+        }
+
+
+        ModelAndView modelAndView = new ModelAndView("focus/input");
+        modelAndView.addObject("item", item);
+
+        FocusType[] focusTypes = FocusType.values();
+        modelAndView.addObject("types", focusTypes);
+
+        return modelAndView;
+    }
+
     @RequestMapping("/modify")
     public ModelAndView modify(int id) {
         Focus focus = focusService.find(id);
-        return new ModelAndView("focus/modify", "focus", focus);
+        Object item;
+        if (focus.getType().equalsIgnoreCase("GAME")) {
+            item = gameService.find(focus.getItemId());
+        }
+        else {
+            item = cardService.find(focus.getItemId());
+        }
+
+        ModelAndView modelAndView = new ModelAndView("focus/modify", "focus", focus);
+        modelAndView.addObject("item", item);
+
+        return modelAndView;
     }
 
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Focus focus) {
         focus.setCreateTime(System.currentTimeMillis());
+        Game game = gameService.find(focus.getItemId());
+        focus.setPlatform(game.getPlatform());
         int result = focusService.save(focus);
         if (result > 0) {
             return "1";
@@ -99,7 +130,7 @@ public class FocusController {
             page.setPagesize(15);
         }
 
-        List<Focus> focusList = focusService.findByEnabled(null, new Page());
+        List<Focus> focusList = focusService.findByEnabled(null, Platform.ALL.name(), new Page());
         PaginationData paginationData = new PaginationData(page, focusList);
 
         ModelAndView modelAndView = new ModelAndView("focus/all");

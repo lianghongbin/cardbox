@@ -31,8 +31,6 @@ public class Card {
 
     private Long createTime;
 
-    private Long closeTime;
-
     private Long openTime;
 
     private Long expireTime;
@@ -157,14 +155,6 @@ public class Card {
         this.createTime = createTime;
     }
 
-    public Long getCloseTime() {
-        return closeTime;
-    }
-
-    public void setCloseTime(Long closeTime) {
-        this.closeTime = closeTime;
-    }
-
     public Long getOpenTime() {
         return openTime;
     }
@@ -208,7 +198,6 @@ public class Card {
             && (this.getValid() == null ? other.getValid() == null : this.getValid().equals(other.getValid()))
             && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getCloseTime() == null ? other.getCloseTime() == null : this.getCloseTime().equals(other.getCloseTime()))
             && (this.getOpenTime() == null ? other.getOpenTime() == null : this.getOpenTime().equals(other.getOpenTime()))
             && (this.getExpireTime() == null ? other.getExpireTime() == null : this.getExpireTime().equals(other.getExpireTime()));
     }
@@ -232,7 +221,6 @@ public class Card {
         result = prime * result + ((getValid() == null) ? 0 : getValid().hashCode());
         result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getCloseTime() == null) ? 0 : getCloseTime().hashCode());
         result = prime * result + ((getOpenTime() == null) ? 0 : getOpenTime().hashCode());
         result = prime * result + ((getExpireTime() == null) ? 0 : getExpireTime().hashCode());
         return result;
@@ -259,7 +247,6 @@ public class Card {
         sb.append(", valid=").append(valid);
         sb.append(", sort=").append(sort);
         sb.append(", createTime=").append(createTime);
-        sb.append(", closeTime=").append(closeTime);
         sb.append(", openTime=").append(openTime);
         sb.append(", expireTime=").append(expireTime);
         sb.append("]");
