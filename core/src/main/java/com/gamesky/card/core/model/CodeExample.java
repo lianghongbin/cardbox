@@ -504,66 +504,6 @@ public class CodeExample {
             return (Criteria) this;
         }
 
-        public Criteria andGameIdIsNull() {
-            addCriterion("game_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdIsNotNull() {
-            addCriterion("game_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdEqualTo(Integer value) {
-            addCriterion("game_id =", value, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdNotEqualTo(Integer value) {
-            addCriterion("game_id <>", value, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdGreaterThan(Integer value) {
-            addCriterion("game_id >", value, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("game_id >=", value, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdLessThan(Integer value) {
-            addCriterion("game_id <", value, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdLessThanOrEqualTo(Integer value) {
-            addCriterion("game_id <=", value, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdIn(List<Integer> values) {
-            addCriterion("game_id in", values, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdNotIn(List<Integer> values) {
-            addCriterion("game_id not in", values, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdBetween(Integer value1, Integer value2) {
-            addCriterion("game_id between", value1, value2, "gameId");
-            return (Criteria) this;
-        }
-
-        public Criteria andGameIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("game_id not between", value1, value2, "gameId");
-            return (Criteria) this;
-        }
-
         public Criteria andCardNameIsNull() {
             addCriterion("card_name is null");
             return (Criteria) this;
@@ -701,6 +641,66 @@ public class CodeExample {
 
         public Criteria andGameNameNotBetween(String value1, String value2) {
             addCriterion("game_name not between", value1, value2, "gameName");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdIsNull() {
+            addCriterion("game_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdIsNotNull() {
+            addCriterion("game_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdEqualTo(Integer value) {
+            addCriterion("game_id =", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdNotEqualTo(Integer value) {
+            addCriterion("game_id <>", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdGreaterThan(Integer value) {
+            addCriterion("game_id >", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("game_id >=", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdLessThan(Integer value) {
+            addCriterion("game_id <", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdLessThanOrEqualTo(Integer value) {
+            addCriterion("game_id <=", value, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdIn(List<Integer> values) {
+            addCriterion("game_id in", values, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdNotIn(List<Integer> values) {
+            addCriterion("game_id not in", values, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdBetween(Integer value1, Integer value2) {
+            addCriterion("game_id between", value1, value2, "gameId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("game_id not between", value1, value2, "gameId");
             return (Criteria) this;
         }
 

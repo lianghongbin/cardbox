@@ -5,11 +5,11 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="VARCHAR" />
     <result column="photo" property="photo" jdbcType="VARCHAR" />
-    <result column="sort" property="sort" jdbcType="INTEGER" />
-    <result column="item_id" property="itemId" jdbcType="INTEGER" />
     <result column="url" property="url" jdbcType="VARCHAR" />
-    <result column="enabled" property="enabled" jdbcType="BIT" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
     <result column="platform" property="platform" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="INTEGER" />
+    <result column="enabled" property="enabled" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, type, photo, sort, item_id, url, enabled, platform, create_time
+    id, type, photo, url, sort, platform, item_id, enabled, create_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.FocusExample" >
     select
@@ -108,12 +108,12 @@
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Focus" >
     insert into focus (id, type, photo, 
-      sort, item_id, url, 
-      enabled, platform, create_time
+      url, sort, platform, 
+      item_id, enabled, create_time
       )
     values (#{id,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
-      #{sort,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, 
-      #{enabled,jdbcType=BIT}, #{platform,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}
+      #{url,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{platform,jdbcType=VARCHAR}, 
+      #{itemId,jdbcType=INTEGER}, #{enabled,jdbcType=BIT}, #{createTime,jdbcType=BIGINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Focus" >
@@ -128,20 +128,20 @@
       <if test="photo != null" >
         photo,
       </if>
+      <if test="url != null" >
+        url,
+      </if>
       <if test="sort != null" >
         sort,
+      </if>
+      <if test="platform != null" >
+        platform,
       </if>
       <if test="itemId != null" >
         item_id,
       </if>
-      <if test="url != null" >
-        url,
-      </if>
       <if test="enabled != null" >
         enabled,
-      </if>
-      <if test="platform != null" >
-        platform,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -157,20 +157,20 @@
       <if test="photo != null" >
         #{photo,jdbcType=VARCHAR},
       </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
       <if test="sort != null" >
         #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="platform != null" >
+        #{platform,jdbcType=VARCHAR},
       </if>
       <if test="itemId != null" >
         #{itemId,jdbcType=INTEGER},
       </if>
-      <if test="url != null" >
-        #{url,jdbcType=VARCHAR},
-      </if>
       <if test="enabled != null" >
         #{enabled,jdbcType=BIT},
-      </if>
-      <if test="platform != null" >
-        #{platform,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=BIGINT},
@@ -195,20 +195,20 @@
       <if test="record.photo != null" >
         photo = #{record.photo,jdbcType=VARCHAR},
       </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
       <if test="record.sort != null" >
         sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.platform != null" >
+        platform = #{record.platform,jdbcType=VARCHAR},
       </if>
       <if test="record.itemId != null" >
         item_id = #{record.itemId,jdbcType=INTEGER},
       </if>
-      <if test="record.url != null" >
-        url = #{record.url,jdbcType=VARCHAR},
-      </if>
       <if test="record.enabled != null" >
         enabled = #{record.enabled,jdbcType=BIT},
-      </if>
-      <if test="record.platform != null" >
-        platform = #{record.platform,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=BIGINT},
@@ -223,11 +223,11 @@
     set id = #{record.id,jdbcType=INTEGER},
       type = #{record.type,jdbcType=VARCHAR},
       photo = #{record.photo,jdbcType=VARCHAR},
-      sort = #{record.sort,jdbcType=INTEGER},
-      item_id = #{record.itemId,jdbcType=INTEGER},
       url = #{record.url,jdbcType=VARCHAR},
-      enabled = #{record.enabled,jdbcType=BIT},
+      sort = #{record.sort,jdbcType=INTEGER},
       platform = #{record.platform,jdbcType=VARCHAR},
+      item_id = #{record.itemId,jdbcType=INTEGER},
+      enabled = #{record.enabled,jdbcType=BIT},
       create_time = #{record.createTime,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -242,20 +242,20 @@
       <if test="photo != null" >
         photo = #{photo,jdbcType=VARCHAR},
       </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
       <if test="sort != null" >
         sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="platform != null" >
+        platform = #{platform,jdbcType=VARCHAR},
       </if>
       <if test="itemId != null" >
         item_id = #{itemId,jdbcType=INTEGER},
       </if>
-      <if test="url != null" >
-        url = #{url,jdbcType=VARCHAR},
-      </if>
       <if test="enabled != null" >
         enabled = #{enabled,jdbcType=BIT},
-      </if>
-      <if test="platform != null" >
-        platform = #{platform,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=BIGINT},
@@ -267,11 +267,11 @@
     update focus
     set type = #{type,jdbcType=VARCHAR},
       photo = #{photo,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=INTEGER},
-      item_id = #{itemId,jdbcType=INTEGER},
       url = #{url,jdbcType=VARCHAR},
-      enabled = #{enabled,jdbcType=BIT},
+      sort = #{sort,jdbcType=INTEGER},
       platform = #{platform,jdbcType=VARCHAR},
+      item_id = #{itemId,jdbcType=INTEGER},
+      enabled = #{enabled,jdbcType=BIT},
       create_time = #{createTime,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>

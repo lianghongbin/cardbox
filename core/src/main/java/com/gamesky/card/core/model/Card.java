@@ -25,15 +25,15 @@ public class Card {
 
     private Boolean closed;
 
-    private Boolean valid;
-
     private Integer sort;
+
+    private Boolean valid;
 
     private Long createTime;
 
-    private Long openTime;
-
     private Long expireTime;
+
+    private Long openTime;
 
     public Integer getId() {
         return id;
@@ -131,20 +131,20 @@ public class Card {
         this.closed = closed;
     }
 
-    public Boolean getValid() {
-        return valid;
-    }
-
-    public void setValid(Boolean valid) {
-        this.valid = valid;
-    }
-
     public Integer getSort() {
         return sort;
     }
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public Boolean getValid() {
+        return valid;
+    }
+
+    public void setValid(Boolean valid) {
+        this.valid = valid;
     }
 
     public Long getCreateTime() {
@@ -155,20 +155,20 @@ public class Card {
         this.createTime = createTime;
     }
 
-    public Long getOpenTime() {
-        return openTime;
-    }
-
-    public void setOpenTime(Long openTime) {
-        this.openTime = openTime;
-    }
-
     public Long getExpireTime() {
         return expireTime;
     }
 
     public void setExpireTime(Long expireTime) {
         this.expireTime = expireTime;
+    }
+
+    public Long getOpenTime() {
+        return openTime;
+    }
+
+    public void setOpenTime(Long openTime) {
+        this.openTime = openTime;
     }
 
     @Override
@@ -195,11 +195,11 @@ public class Card {
             && (this.getRecommend() == null ? other.getRecommend() == null : this.getRecommend().equals(other.getRecommend()))
             && (this.getPlatform() == null ? other.getPlatform() == null : this.getPlatform().equals(other.getPlatform()))
             && (this.getClosed() == null ? other.getClosed() == null : this.getClosed().equals(other.getClosed()))
-            && (this.getValid() == null ? other.getValid() == null : this.getValid().equals(other.getValid()))
             && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
+            && (this.getValid() == null ? other.getValid() == null : this.getValid().equals(other.getValid()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getOpenTime() == null ? other.getOpenTime() == null : this.getOpenTime().equals(other.getOpenTime()))
-            && (this.getExpireTime() == null ? other.getExpireTime() == null : this.getExpireTime().equals(other.getExpireTime()));
+            && (this.getExpireTime() == null ? other.getExpireTime() == null : this.getExpireTime().equals(other.getExpireTime()))
+            && (this.getOpenTime() == null ? other.getOpenTime() == null : this.getOpenTime().equals(other.getOpenTime()));
     }
 
     @Override
@@ -218,11 +218,11 @@ public class Card {
         result = prime * result + ((getRecommend() == null) ? 0 : getRecommend().hashCode());
         result = prime * result + ((getPlatform() == null) ? 0 : getPlatform().hashCode());
         result = prime * result + ((getClosed() == null) ? 0 : getClosed().hashCode());
-        result = prime * result + ((getValid() == null) ? 0 : getValid().hashCode());
         result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
+        result = prime * result + ((getValid() == null) ? 0 : getValid().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getOpenTime() == null) ? 0 : getOpenTime().hashCode());
         result = prime * result + ((getExpireTime() == null) ? 0 : getExpireTime().hashCode());
+        result = prime * result + ((getOpenTime() == null) ? 0 : getOpenTime().hashCode());
         return result;
     }
 
@@ -244,11 +244,11 @@ public class Card {
         sb.append(", recommend=").append(recommend);
         sb.append(", platform=").append(platform);
         sb.append(", closed=").append(closed);
-        sb.append(", valid=").append(valid);
         sb.append(", sort=").append(sort);
+        sb.append(", valid=").append(valid);
         sb.append(", createTime=").append(createTime);
-        sb.append(", openTime=").append(openTime);
         sb.append(", expireTime=").append(expireTime);
+        sb.append(", openTime=").append(openTime);
         sb.append("]");
         return sb.toString();
     }

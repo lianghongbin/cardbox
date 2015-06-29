@@ -14,11 +14,11 @@
     <result column="recommend" property="recommend" jdbcType="BIT" />
     <result column="platform" property="platform" jdbcType="VARCHAR" />
     <result column="closed" property="closed" jdbcType="BIT" />
-    <result column="valid" property="valid" jdbcType="BIT" />
     <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="valid" property="valid" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="BIGINT" />
-    <result column="open_time" property="openTime" jdbcType="BIGINT" />
     <result column="expire_time" property="expireTime" jdbcType="BIGINT" />
+    <result column="open_time" property="openTime" jdbcType="BIGINT" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.gamesky.card.core.model.CardWithBLOBs" extends="BaseResultMap" >
     <result column="description" property="description" jdbcType="LONGVARCHAR" />
@@ -84,7 +84,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, game_id, game_name, name, icon, total, assign_total, type, score, recommend, 
-    platform, closed, valid, sort, create_time, open_time, expire_time
+    platform, closed, sort, valid, create_time, expire_time, open_time
   </sql>
   <sql id="Blob_Column_List" >
     description, flow
@@ -148,15 +148,15 @@
       name, icon, total, 
       assign_total, type, score, 
       recommend, platform, closed, 
-      valid, sort, create_time, 
-      open_time, expire_time, description, 
+      sort, valid, create_time, 
+      expire_time, open_time, description, 
       flow)
     values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=INTEGER}, #{gameName,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, 
       #{assignTotal,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, 
       #{recommend,jdbcType=BIT}, #{platform,jdbcType=VARCHAR}, #{closed,jdbcType=BIT}, 
-      #{valid,jdbcType=BIT}, #{sort,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}, 
-      #{openTime,jdbcType=BIGINT}, #{expireTime,jdbcType=BIGINT}, #{description,jdbcType=LONGVARCHAR}, 
+      #{sort,jdbcType=INTEGER}, #{valid,jdbcType=BIT}, #{createTime,jdbcType=BIGINT}, 
+      #{expireTime,jdbcType=BIGINT}, #{openTime,jdbcType=BIGINT}, #{description,jdbcType=LONGVARCHAR}, 
       #{flow,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.CardWithBLOBs" >
@@ -198,20 +198,20 @@
       <if test="closed != null" >
         closed,
       </if>
-      <if test="valid != null" >
-        valid,
-      </if>
       <if test="sort != null" >
         sort,
+      </if>
+      <if test="valid != null" >
+        valid,
       </if>
       <if test="createTime != null" >
         create_time,
       </if>
-      <if test="openTime != null" >
-        open_time,
-      </if>
       <if test="expireTime != null" >
         expire_time,
+      </if>
+      <if test="openTime != null" >
+        open_time,
       </if>
       <if test="description != null" >
         description,
@@ -257,20 +257,20 @@
       <if test="closed != null" >
         #{closed,jdbcType=BIT},
       </if>
-      <if test="valid != null" >
-        #{valid,jdbcType=BIT},
-      </if>
       <if test="sort != null" >
         #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null" >
+        #{valid,jdbcType=BIT},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=BIGINT},
       </if>
-      <if test="openTime != null" >
-        #{openTime,jdbcType=BIGINT},
-      </if>
       <if test="expireTime != null" >
         #{expireTime,jdbcType=BIGINT},
+      </if>
+      <if test="openTime != null" >
+        #{openTime,jdbcType=BIGINT},
       </if>
       <if test="description != null" >
         #{description,jdbcType=LONGVARCHAR},
@@ -325,20 +325,20 @@
       <if test="record.closed != null" >
         closed = #{record.closed,jdbcType=BIT},
       </if>
-      <if test="record.valid != null" >
-        valid = #{record.valid,jdbcType=BIT},
-      </if>
       <if test="record.sort != null" >
         sort = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.valid != null" >
+        valid = #{record.valid,jdbcType=BIT},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=BIGINT},
       </if>
-      <if test="record.openTime != null" >
-        open_time = #{record.openTime,jdbcType=BIGINT},
-      </if>
       <if test="record.expireTime != null" >
         expire_time = #{record.expireTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.openTime != null" >
+        open_time = #{record.openTime,jdbcType=BIGINT},
       </if>
       <if test="record.description != null" >
         description = #{record.description,jdbcType=LONGVARCHAR},
@@ -365,11 +365,11 @@
       recommend = #{record.recommend,jdbcType=BIT},
       platform = #{record.platform,jdbcType=VARCHAR},
       closed = #{record.closed,jdbcType=BIT},
-      valid = #{record.valid,jdbcType=BIT},
       sort = #{record.sort,jdbcType=INTEGER},
+      valid = #{record.valid,jdbcType=BIT},
       create_time = #{record.createTime,jdbcType=BIGINT},
-      open_time = #{record.openTime,jdbcType=BIGINT},
       expire_time = #{record.expireTime,jdbcType=BIGINT},
+      open_time = #{record.openTime,jdbcType=BIGINT},
       description = #{record.description,jdbcType=LONGVARCHAR},
       flow = #{record.flow,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
@@ -390,11 +390,11 @@
       recommend = #{record.recommend,jdbcType=BIT},
       platform = #{record.platform,jdbcType=VARCHAR},
       closed = #{record.closed,jdbcType=BIT},
-      valid = #{record.valid,jdbcType=BIT},
       sort = #{record.sort,jdbcType=INTEGER},
+      valid = #{record.valid,jdbcType=BIT},
       create_time = #{record.createTime,jdbcType=BIGINT},
-      open_time = #{record.openTime,jdbcType=BIGINT},
-      expire_time = #{record.expireTime,jdbcType=BIGINT}
+      expire_time = #{record.expireTime,jdbcType=BIGINT},
+      open_time = #{record.openTime,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -435,20 +435,20 @@
       <if test="closed != null" >
         closed = #{closed,jdbcType=BIT},
       </if>
-      <if test="valid != null" >
-        valid = #{valid,jdbcType=BIT},
-      </if>
       <if test="sort != null" >
         sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null" >
+        valid = #{valid,jdbcType=BIT},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=BIGINT},
       </if>
-      <if test="openTime != null" >
-        open_time = #{openTime,jdbcType=BIGINT},
-      </if>
       <if test="expireTime != null" >
         expire_time = #{expireTime,jdbcType=BIGINT},
+      </if>
+      <if test="openTime != null" >
+        open_time = #{openTime,jdbcType=BIGINT},
       </if>
       <if test="description != null" >
         description = #{description,jdbcType=LONGVARCHAR},
@@ -472,11 +472,11 @@
       recommend = #{recommend,jdbcType=BIT},
       platform = #{platform,jdbcType=VARCHAR},
       closed = #{closed,jdbcType=BIT},
-      valid = #{valid,jdbcType=BIT},
       sort = #{sort,jdbcType=INTEGER},
+      valid = #{valid,jdbcType=BIT},
       create_time = #{createTime,jdbcType=BIGINT},
-      open_time = #{openTime,jdbcType=BIGINT},
       expire_time = #{expireTime,jdbcType=BIGINT},
+      open_time = #{openTime,jdbcType=BIGINT},
       description = #{description,jdbcType=LONGVARCHAR},
       flow = #{flow,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
@@ -494,11 +494,11 @@
       recommend = #{recommend,jdbcType=BIT},
       platform = #{platform,jdbcType=VARCHAR},
       closed = #{closed,jdbcType=BIT},
-      valid = #{valid,jdbcType=BIT},
       sort = #{sort,jdbcType=INTEGER},
+      valid = #{valid,jdbcType=BIT},
       create_time = #{createTime,jdbcType=BIGINT},
-      open_time = #{openTime,jdbcType=BIGINT},
-      expire_time = #{expireTime,jdbcType=BIGINT}
+      expire_time = #{expireTime,jdbcType=BIGINT},
+      open_time = #{openTime,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

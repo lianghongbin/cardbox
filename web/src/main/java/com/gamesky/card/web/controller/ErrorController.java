@@ -42,8 +42,8 @@ public class ErrorController {
     @ResponseBody
     @RequestMapping("/exception")
     public String exception(Throwable e) {
-        logger.error("系统异常：{}", e.getClass());
-        return ResultGenerator.generate(ReturnCode.EXCEPTION.getCode(), "系统异常：" + e.getClass() + " --|-- " + e.toString());
+        logger.error("system error：{}", e.getClass());
+        return ResultGenerator.generate(ReturnCode.EXCEPTION.getCode(), "system exception");
     }
 
     @ResponseBody

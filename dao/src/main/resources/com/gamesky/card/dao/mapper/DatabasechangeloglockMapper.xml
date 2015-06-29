@@ -74,7 +74,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from DATABASECHANGELOGLOCK
+    from databasechangeloglock
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,27 +88,27 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from DATABASECHANGELOGLOCK
+    from databasechangeloglock
     where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from DATABASECHANGELOGLOCK
+    delete from databasechangeloglock
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.gamesky.card.core.model.DatabasechangeloglockExample" >
-    delete from DATABASECHANGELOGLOCK
+    delete from databasechangeloglock
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Databasechangeloglock" >
-    insert into DATABASECHANGELOGLOCK (ID, LOCKED, LOCKGRANTED, 
+    insert into databasechangeloglock (ID, LOCKED, LOCKGRANTED, 
       LOCKEDBY)
     values (#{id,jdbcType=INTEGER}, #{locked,jdbcType=BIT}, #{lockgranted,jdbcType=TIMESTAMP}, 
       #{lockedby,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Databasechangeloglock" >
-    insert into DATABASECHANGELOGLOCK
+    insert into databasechangeloglock
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
@@ -139,13 +139,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.gamesky.card.core.model.DatabasechangeloglockExample" resultType="java.lang.Integer" >
-    select count(*) from DATABASECHANGELOGLOCK
+    select count(*) from databasechangeloglock
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update DATABASECHANGELOGLOCK
+    update databasechangeloglock
     <set >
       <if test="record.id != null" >
         ID = #{record.id,jdbcType=INTEGER},
@@ -165,7 +165,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update DATABASECHANGELOGLOCK
+    update databasechangeloglock
     set ID = #{record.id,jdbcType=INTEGER},
       LOCKED = #{record.locked,jdbcType=BIT},
       LOCKGRANTED = #{record.lockgranted,jdbcType=TIMESTAMP},
@@ -175,7 +175,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.gamesky.card.core.model.Databasechangeloglock" >
-    update DATABASECHANGELOGLOCK
+    update databasechangeloglock
     <set >
       <if test="locked != null" >
         LOCKED = #{locked,jdbcType=BIT},
@@ -190,7 +190,7 @@
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Databasechangeloglock" >
-    update DATABASECHANGELOGLOCK
+    update databasechangeloglock
     set LOCKED = #{locked,jdbcType=BIT},
       LOCKGRANTED = #{lockgranted,jdbcType=TIMESTAMP},
       LOCKEDBY = #{lockedby,jdbcType=VARCHAR}
