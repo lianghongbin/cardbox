@@ -394,66 +394,6 @@ public class GameExample {
             return (Criteria) this;
         }
 
-        public Criteria andClosedIsNull() {
-            addCriterion("closed is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andClosedIsNotNull() {
-            addCriterion("closed is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andClosedEqualTo(Boolean value) {
-            addCriterion("closed =", value, "closed");
-            return (Criteria) this;
-        }
-
-        public Criteria andClosedNotEqualTo(Boolean value) {
-            addCriterion("closed <>", value, "closed");
-            return (Criteria) this;
-        }
-
-        public Criteria andClosedGreaterThan(Boolean value) {
-            addCriterion("closed >", value, "closed");
-            return (Criteria) this;
-        }
-
-        public Criteria andClosedGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("closed >=", value, "closed");
-            return (Criteria) this;
-        }
-
-        public Criteria andClosedLessThan(Boolean value) {
-            addCriterion("closed <", value, "closed");
-            return (Criteria) this;
-        }
-
-        public Criteria andClosedLessThanOrEqualTo(Boolean value) {
-            addCriterion("closed <=", value, "closed");
-            return (Criteria) this;
-        }
-
-        public Criteria andClosedIn(List<Boolean> values) {
-            addCriterion("closed in", values, "closed");
-            return (Criteria) this;
-        }
-
-        public Criteria andClosedNotIn(List<Boolean> values) {
-            addCriterion("closed not in", values, "closed");
-            return (Criteria) this;
-        }
-
-        public Criteria andClosedBetween(Boolean value1, Boolean value2) {
-            addCriterion("closed between", value1, value2, "closed");
-            return (Criteria) this;
-        }
-
-        public Criteria andClosedNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("closed not between", value1, value2, "closed");
-            return (Criteria) this;
-        }
-
         public Criteria andIosIdIsNull() {
             addCriterion("ios_id is null");
             return (Criteria) this;
@@ -854,53 +794,113 @@ public class GameExample {
             return (Criteria) this;
         }
 
-        public Criteria andScoreEqualTo(Float value) {
+        public Criteria andScoreEqualTo(Integer value) {
             addCriterion("score =", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreNotEqualTo(Float value) {
+        public Criteria andScoreNotEqualTo(Integer value) {
             addCriterion("score <>", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreGreaterThan(Float value) {
+        public Criteria andScoreGreaterThan(Integer value) {
             addCriterion("score >", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreGreaterThanOrEqualTo(Float value) {
+        public Criteria andScoreGreaterThanOrEqualTo(Integer value) {
             addCriterion("score >=", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreLessThan(Float value) {
+        public Criteria andScoreLessThan(Integer value) {
             addCriterion("score <", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreLessThanOrEqualTo(Float value) {
+        public Criteria andScoreLessThanOrEqualTo(Integer value) {
             addCriterion("score <=", value, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreIn(List<Float> values) {
+        public Criteria andScoreIn(List<Integer> values) {
             addCriterion("score in", values, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreNotIn(List<Float> values) {
+        public Criteria andScoreNotIn(List<Integer> values) {
             addCriterion("score not in", values, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreBetween(Float value1, Float value2) {
+        public Criteria andScoreBetween(Integer value1, Integer value2) {
             addCriterion("score between", value1, value2, "score");
             return (Criteria) this;
         }
 
-        public Criteria andScoreNotBetween(Float value1, Float value2) {
+        public Criteria andScoreNotBetween(Integer value1, Integer value2) {
             addCriterion("score not between", value1, value2, "score");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedIsNull() {
+            addCriterion("closed is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedIsNotNull() {
+            addCriterion("closed is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedEqualTo(Boolean value) {
+            addCriterion("closed =", value, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedNotEqualTo(Boolean value) {
+            addCriterion("closed <>", value, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedGreaterThan(Boolean value) {
+            addCriterion("closed >", value, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("closed >=", value, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedLessThan(Boolean value) {
+            addCriterion("closed <", value, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedLessThanOrEqualTo(Boolean value) {
+            addCriterion("closed <=", value, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedIn(List<Boolean> values) {
+            addCriterion("closed in", values, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedNotIn(List<Boolean> values) {
+            addCriterion("closed not in", values, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedBetween(Boolean value1, Boolean value2) {
+            addCriterion("closed between", value1, value2, "closed");
+            return (Criteria) this;
+        }
+
+        public Criteria andClosedNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("closed not between", value1, value2, "closed");
             return (Criteria) this;
         }
 

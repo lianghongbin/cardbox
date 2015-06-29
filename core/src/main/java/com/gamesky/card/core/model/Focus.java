@@ -7,8 +7,6 @@ public class Focus {
 
     private String photo;
 
-    private String url;
-
     private Integer sort;
 
     private Integer itemId;
@@ -39,14 +37,6 @@ public class Focus {
 
     public void setPhoto(String photo) {
         this.photo = photo;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public Integer getSort() {
@@ -96,7 +86,6 @@ public class Focus {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
             && (this.getPhoto() == null ? other.getPhoto() == null : this.getPhoto().equals(other.getPhoto()))
-            && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
             && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
             && (this.getItemId() == null ? other.getItemId() == null : this.getItemId().equals(other.getItemId()))
             && (this.getEnabled() == null ? other.getEnabled() == null : this.getEnabled().equals(other.getEnabled()))
@@ -110,7 +99,6 @@ public class Focus {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         result = prime * result + ((getPhoto() == null) ? 0 : getPhoto().hashCode());
-        result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
         result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
         result = prime * result + ((getItemId() == null) ? 0 : getItemId().hashCode());
         result = prime * result + ((getEnabled() == null) ? 0 : getEnabled().hashCode());
@@ -127,7 +115,6 @@ public class Focus {
         sb.append(", id=").append(id);
         sb.append(", type=").append(type);
         sb.append(", photo=").append(photo);
-        sb.append(", url=").append(url);
         sb.append(", sort=").append(sort);
         sb.append(", itemId=").append(itemId);
         sb.append(", enabled=").append(enabled);

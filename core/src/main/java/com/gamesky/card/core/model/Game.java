@@ -9,8 +9,6 @@ public class Game {
 
     private String url;
 
-    private Boolean closed;
-
     private String iosId;
 
     private Boolean recommend;
@@ -23,7 +21,9 @@ public class Game {
 
     private String platform;
 
-    private Float score;
+    private Integer score;
+
+    private Boolean closed;
 
     private Long createTime;
 
@@ -61,14 +61,6 @@ public class Game {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public Boolean getClosed() {
-        return closed;
-    }
-
-    public void setClosed(Boolean closed) {
-        this.closed = closed;
     }
 
     public String getIosId() {
@@ -119,12 +111,20 @@ public class Game {
         this.platform = platform;
     }
 
-    public Float getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(Float score) {
+    public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public Boolean getClosed() {
+        return closed;
+    }
+
+    public void setClosed(Boolean closed) {
+        this.closed = closed;
     }
 
     public Long getCreateTime() {
@@ -167,7 +167,6 @@ public class Game {
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getIcon() == null ? other.getIcon() == null : this.getIcon().equals(other.getIcon()))
             && (this.getUrl() == null ? other.getUrl() == null : this.getUrl().equals(other.getUrl()))
-            && (this.getClosed() == null ? other.getClosed() == null : this.getClosed().equals(other.getClosed()))
             && (this.getIosId() == null ? other.getIosId() == null : this.getIosId().equals(other.getIosId()))
             && (this.getRecommend() == null ? other.getRecommend() == null : this.getRecommend().equals(other.getRecommend()))
             && (this.getIdentifier() == null ? other.getIdentifier() == null : this.getIdentifier().equals(other.getIdentifier()))
@@ -175,6 +174,7 @@ public class Game {
             && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
             && (this.getPlatform() == null ? other.getPlatform() == null : this.getPlatform().equals(other.getPlatform()))
             && (this.getScore() == null ? other.getScore() == null : this.getScore().equals(other.getScore()))
+            && (this.getClosed() == null ? other.getClosed() == null : this.getClosed().equals(other.getClosed()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getModifyTime() == null ? other.getModifyTime() == null : this.getModifyTime().equals(other.getModifyTime()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()));
@@ -188,7 +188,6 @@ public class Game {
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getIcon() == null) ? 0 : getIcon().hashCode());
         result = prime * result + ((getUrl() == null) ? 0 : getUrl().hashCode());
-        result = prime * result + ((getClosed() == null) ? 0 : getClosed().hashCode());
         result = prime * result + ((getIosId() == null) ? 0 : getIosId().hashCode());
         result = prime * result + ((getRecommend() == null) ? 0 : getRecommend().hashCode());
         result = prime * result + ((getIdentifier() == null) ? 0 : getIdentifier().hashCode());
@@ -196,6 +195,7 @@ public class Game {
         result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
         result = prime * result + ((getPlatform() == null) ? 0 : getPlatform().hashCode());
         result = prime * result + ((getScore() == null) ? 0 : getScore().hashCode());
+        result = prime * result + ((getClosed() == null) ? 0 : getClosed().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getModifyTime() == null) ? 0 : getModifyTime().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
@@ -212,7 +212,6 @@ public class Game {
         sb.append(", name=").append(name);
         sb.append(", icon=").append(icon);
         sb.append(", url=").append(url);
-        sb.append(", closed=").append(closed);
         sb.append(", iosId=").append(iosId);
         sb.append(", recommend=").append(recommend);
         sb.append(", identifier=").append(identifier);
@@ -220,6 +219,7 @@ public class Game {
         sb.append(", sort=").append(sort);
         sb.append(", platform=").append(platform);
         sb.append(", score=").append(score);
+        sb.append(", closed=").append(closed);
         sb.append(", createTime=").append(createTime);
         sb.append(", modifyTime=").append(modifyTime);
         sb.append(", description=").append(description);

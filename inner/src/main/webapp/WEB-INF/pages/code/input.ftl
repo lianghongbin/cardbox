@@ -49,7 +49,7 @@
     <div class="result-wrap">
         <div class="result-title">
             <div class="result-list">
-                <a href="./add?cardId=${card.id}"><i class="icon-font"></i>批量添加</a>
+                <a href="./add?cardId=${card.id}"><i class="icon-font"></i>单条添加</a>
             </div>
         </div>
         <div class="result-content">

@@ -13,11 +13,11 @@ public class Code {
 
     private Boolean assigned;
 
+    private Integer gameId;
+
     private String cardName;
 
     private String gameName;
-
-    private Integer gameId;
 
     private Long createTime;
 
@@ -73,6 +73,14 @@ public class Code {
         this.assigned = assigned;
     }
 
+    public Integer getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(Integer gameId) {
+        this.gameId = gameId;
+    }
+
     public String getCardName() {
         return cardName;
     }
@@ -87,14 +95,6 @@ public class Code {
 
     public void setGameName(String gameName) {
         this.gameName = gameName;
-    }
-
-    public Integer getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(Integer gameId) {
-        this.gameId = gameId;
     }
 
     public Long getCreateTime() {
@@ -139,9 +139,9 @@ public class Code {
             && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()))
             && (this.getUsed() == null ? other.getUsed() == null : this.getUsed().equals(other.getUsed()))
             && (this.getAssigned() == null ? other.getAssigned() == null : this.getAssigned().equals(other.getAssigned()))
+            && (this.getGameId() == null ? other.getGameId() == null : this.getGameId().equals(other.getGameId()))
             && (this.getCardName() == null ? other.getCardName() == null : this.getCardName().equals(other.getCardName()))
             && (this.getGameName() == null ? other.getGameName() == null : this.getGameName().equals(other.getGameName()))
-            && (this.getGameId() == null ? other.getGameId() == null : this.getGameId().equals(other.getGameId()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getAssignTime() == null ? other.getAssignTime() == null : this.getAssignTime().equals(other.getAssignTime()))
             && (this.getUseTime() == null ? other.getUseTime() == null : this.getUseTime().equals(other.getUseTime()));
@@ -157,9 +157,9 @@ public class Code {
         result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
         result = prime * result + ((getUsed() == null) ? 0 : getUsed().hashCode());
         result = prime * result + ((getAssigned() == null) ? 0 : getAssigned().hashCode());
+        result = prime * result + ((getGameId() == null) ? 0 : getGameId().hashCode());
         result = prime * result + ((getCardName() == null) ? 0 : getCardName().hashCode());
         result = prime * result + ((getGameName() == null) ? 0 : getGameName().hashCode());
-        result = prime * result + ((getGameId() == null) ? 0 : getGameId().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getAssignTime() == null) ? 0 : getAssignTime().hashCode());
         result = prime * result + ((getUseTime() == null) ? 0 : getUseTime().hashCode());
@@ -178,9 +178,9 @@ public class Code {
         sb.append(", code=").append(code);
         sb.append(", used=").append(used);
         sb.append(", assigned=").append(assigned);
+        sb.append(", gameId=").append(gameId);
         sb.append(", cardName=").append(cardName);
         sb.append(", gameName=").append(gameName);
-        sb.append(", gameId=").append(gameId);
         sb.append(", createTime=").append(createTime);
         sb.append(", assignTime=").append(assignTime);
         sb.append(", useTime=").append(useTime);

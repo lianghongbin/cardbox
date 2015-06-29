@@ -1,8 +1,10 @@
 package com.gamesky.card.inner.controller;
 
-import com.gamesky.card.core.*;
+import com.gamesky.card.core.FocusType;
+import com.gamesky.card.core.Keyable;
+import com.gamesky.card.core.Marshaller;
+import com.gamesky.card.core.Page;
 import com.gamesky.card.core.model.Card;
-import com.gamesky.card.core.model.CardWithBLOBs;
 import com.gamesky.card.core.model.Focus;
 import com.gamesky.card.core.model.Game;
 import com.gamesky.card.service.CardService;
@@ -16,17 +18,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created on 6/10/15.
@@ -104,7 +99,7 @@ public class FocusController {
             page.setPagesize(15);
         }
 
-        List<Focus> focusList = focusService.findByEnable(null, new Page());
+        List<Focus> focusList = focusService.findByEnabled(null, new Page());
         PaginationData paginationData = new PaginationData(page, focusList);
 
         ModelAndView modelAndView = new ModelAndView("focus/all");

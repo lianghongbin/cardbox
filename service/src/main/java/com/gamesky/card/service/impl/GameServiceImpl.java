@@ -147,7 +147,7 @@ public class GameServiceImpl implements GameService {
         gameExample.createCriteria()
                 .andClosedEqualTo(false)
                 .andIdentifierIn(data);
-        gameExample.setOrderByClause("id desc");
+        gameExample.setOrderByClause("sort asc, recommend desc, id desc");
         return gameMapper.selectByExample(gameExample);
     }
 
@@ -164,16 +164,16 @@ public class GameServiceImpl implements GameService {
         GameExample.Criteria criteria = gameExample.createCriteria();
         criteria.andClosedEqualTo(false)
                 .andRecommendEqualTo(true);
-        if (!platform.equalsIgnoreCase("ALL")) {
+        if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
             List<String> platforms = new ArrayList<>();
-            platforms.add("ALL");
+            platforms.add(Platform.ALL.name());
             platforms.add(platform);
             criteria.andPlatformIn(platforms);
         }
 
         gameExample.setLimit(page.getPagesize());
         gameExample.setLimitOffset(page.getOffset());
-        gameExample.setOrderByClause("sort asc");
+        gameExample.setOrderByClause("sort asc, id desc");
 
         return gameMapper.selectByExampleWithBLOBs(gameExample);
     }

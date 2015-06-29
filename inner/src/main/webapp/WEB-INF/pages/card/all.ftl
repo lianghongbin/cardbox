@@ -157,7 +157,7 @@
                             <td>${card.openTime?number_to_datetime}</td>
                             <td>${card.expireTime?number_to_datetime}</td>
                             <td align="center">
-                                &nbsp; <a class="link-update" href="../code/add?cardId=${card.id}">添加</a>
+                                &nbsp; <a class="link-update" href="../code/input?cardId=${card.id}">添加</a>
                                 &nbsp; <a class="link-update" href="../code/findbycard?cardId=${card.id}">查看</a>
                             </td>
                             <td align="center">

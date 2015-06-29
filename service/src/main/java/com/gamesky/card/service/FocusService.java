@@ -60,12 +60,12 @@ public interface FocusService {
      * @param page 分页参数
      * @return 列表
      */
-    public List<Focus> findByEnable(Boolean enabled, Page page);
+    public List<Focus> findByEnabled(Boolean enabled, Page page);
 
     /**
      * 根据是否有效条件，查询个数
      * @param enabled 是否有效
      * @return 个数
      */
-    public int findCountByEnable(Boolean enabled);
+    public int findCountByEnabled(Boolean enabled);
 }

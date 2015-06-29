@@ -128,7 +128,7 @@
                         <td><input class="common-text" name="sort" id="sort" value="0" size="20" type="text"></td>
                     </tr>
                     <tr>
-                        <th><i class="require-red">*</i>分数：</th>
+                        <th><i class="require-red">*</i>消耗数：</th>
                         <td><input class="common-text" name="score" id="score" size="20" type="text"></td>
                     </tr>
                     <tr>

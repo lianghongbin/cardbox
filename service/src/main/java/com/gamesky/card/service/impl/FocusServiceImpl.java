@@ -69,10 +69,9 @@ public class FocusServiceImpl implements FocusService {
     @Override
     public List<Focus> findAll(Page page) {
         FocusExample focusExample = new FocusExample();
-        focusExample.createCriteria().andIdGreaterThan(0);
         focusExample.setLimitOffset(page.getOffset());
         focusExample.setLimit(page.getPagesize());
-        focusExample.setOrderByClause("sort asc");
+        focusExample.setOrderByClause("sort asc, enabled desc");
         return focusMapper.selectByExample(focusExample);
     }
 
@@ -85,7 +84,7 @@ public class FocusServiceImpl implements FocusService {
     public List<Focus> findAll() {
         FocusExample focusExample = new FocusExample();
         focusExample.createCriteria().andEnabledEqualTo(true);
-        focusExample.setOrderByClause("sort asc");
+        focusExample.setOrderByClause("sort asc, enabled desc");
         return focusMapper.selectByExample(focusExample);
     }
 
@@ -109,7 +108,7 @@ public class FocusServiceImpl implements FocusService {
      * @return 列表
      */
     @Override
-    public List<Focus> findByEnable(Boolean enabled, Page page) {
+    public List<Focus> findByEnabled(Boolean enabled, Page page) {
         FocusExample focusExample = new FocusExample();
         if (enabled != null) {
             focusExample.createCriteria().andEnabledEqualTo(enabled);
@@ -117,17 +116,17 @@ public class FocusServiceImpl implements FocusService {
 
         focusExample.setLimitOffset(page.getOffset());
         focusExample.setLimit(page.getPagesize());
-        focusExample.setOrderByClause("enabled desc, sort asc");
+        focusExample.setOrderByClause("sort asc， enabled desc");
         return focusMapper.selectByExample(focusExample);
     }
 
     /**
-     * 根据是否有效条件，查询个数
+     * 根据是否有效条件，查询个数d
      * @param enable 是否有效
      * @return 个数
      */
     @Override
-    public int findCountByEnable(Boolean enabled) {
+    public int findCountByEnabled(Boolean enabled) {
         FocusExample focusExample = new FocusExample();
         if (enabled != null) {
             focusExample.createCriteria().andEnabledEqualTo(enabled);

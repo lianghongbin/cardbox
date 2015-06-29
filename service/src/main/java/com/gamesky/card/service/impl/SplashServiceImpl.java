@@ -118,7 +118,7 @@ public class SplashServiceImpl implements SplashService {
         splashExample.createCriteria().andEnabledEqualTo(enabled);
         splashExample.setLimit(page.getPagesize());
         splashExample.setLimitOffset(page.getOffset());
-        splashExample.setOrderByClause("sort asc");
+        splashExample.setOrderByClause("sort asc, id desc");
         return splashMapper.selectByExample(splashExample);
     }
 
@@ -150,7 +150,7 @@ public class SplashServiceImpl implements SplashService {
     public Splash findOne() {
         SplashExample splashExample = new SplashExample();
         splashExample.createCriteria().andEnabledEqualTo(true);
-        splashExample.setOrderByClause("sort asc");
+        splashExample.setOrderByClause("sort asc, id desc");
         List<Splash> splashs = splashMapper.selectByExample(splashExample);
         if (splashs == null || splashs.size() == 0) {
             return null;
