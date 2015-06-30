@@ -149,6 +149,41 @@ public class GameController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/sort")
+    public ModelAndView sort(String platform, String name, Page page) {
+        if (page.getPagesize() == Integer.MAX_VALUE) {
+            page.setPagesize(50);
+        }
+
+        GameExample gameExample = new GameExample();
+        GameExample.Criteria criteria = gameExample.createCriteria();
+        criteria.andClosedEqualTo(false);
+        if (StringUtils.isNotBlank(platform)) {
+            criteria.andPlatformEqualTo(platform);
+        }
+
+        if (StringUtils.isNotBlank(StringUtils.trimToEmpty(name))) {
+            criteria.andNameLike("%" + name + "%");
+        }
+
+        gameExample.setOrderByClause("sort asc, recommend desc, id desc");
+        gameExample.setLimitOffset(page.getOffset());
+        gameExample.setLimit(page.getPagesize());
+
+        List<Game> games = gameService.findByCondition(gameExample);
+        int count = gameService.findCountByCondition(gameExample);
+
+        page.setCount(count);
+
+        PaginationData paginationData = new PaginationData(page, games);
+
+        ModelAndView modelAndView = new ModelAndView("game/ranking");
+        modelAndView.addObject("page", page);
+        modelAndView.addObject("games", games);
+        modelAndView.addObject("paginationData", paginationData);
+        return modelAndView;
+    }
+
     @ResponseBody
     @RequestMapping("/openorclose")
     public String openOrClose(int id, boolean operate) {

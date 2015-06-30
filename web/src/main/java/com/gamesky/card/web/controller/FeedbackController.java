@@ -31,17 +31,16 @@ public class FeedbackController {
         return new ModelAndView("feedback");
     }
 
-    @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(Feedback feedback) {
+    public ModelAndView save(Feedback feedback) {
         feedback.setCreateTime(System.currentTimeMillis());
         feedback.setProcessed(false);
         int result = feedbackService.save(feedback);
         if (result > 0) {
-            return ResultGenerator.generate();
+            return new ModelAndView("success");
         }
 
-        return ResultGenerator.generateError("添加反馈失败");
+        return new ModelAndView("fail");
     }
 
     @ResponseBody
