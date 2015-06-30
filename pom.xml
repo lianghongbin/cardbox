@@ -285,6 +285,8 @@
                 <redis.maxTotal>100</redis.maxTotal>
                 <redis.maxWaitMillis>3000</redis.maxWaitMillis>
                 <redis.testOnBorrow>true</redis.testOnBorrow>
+                <photo.host>http://localhost:8080</photo.host>
+                <photo.uploadDir>/Users/lianghongbin/Pictures</photo.uploadDir>
             </properties>
         </profile>
         <profile>
@@ -312,6 +314,8 @@
                 <redis.maxTotal>500</redis.maxTotal>
                 <redis.maxWaitMillis>3000</redis.maxWaitMillis>
                 <redis.testOnBorrow>true</redis.testOnBorrow>
+                <photo.host>http://kk.7k7kimg.cn</photo.host>
+                <photo.uploadDir>/data/cardbox/upload</photo.uploadDir>
             </properties>
         </profile>
 

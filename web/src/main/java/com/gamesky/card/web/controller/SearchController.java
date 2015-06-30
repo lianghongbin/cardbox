@@ -28,13 +28,13 @@ public class SearchController {
 
     @ResponseBody
     @RequestMapping(value = "/key")
-    public String searchByKey(String key, Page page) {
+    public String searchByKey(String key, String platform, Page page) {
         if (StringUtils.isBlank(key)) {
             return ResultGenerator.generate();
         }
 
-        List<Card> cards = cardService.findByKey(key, page);
-        int count = cardService.findCountByKey(key);
+        List<Card> cards = cardService.findByKey(key, platform, page);
+        int count = cardService.findCountByKey(key, platform);
         page.setCount(count);
 
         return ResultGenerator.generate(page, cards);

@@ -20,7 +20,7 @@ public interface Constants {
     String TOKEN_KEY    = "token";
 
     String UPLOAD_DIR = "/upload/";
-    String PHOTO_URL_PREFIX = "http://img.kk.7k7k.com";
+    String PHOTO_URL_PREFIX = "http://kk.7k7kimg.cn";
 
-    String DEFAULT_ICON = "http://img.kk.7k7k.com/icon.jpg";
+    String DEFAULT_ICON = "http://kk.7k7kimg.cn/icon.jpg";
 }

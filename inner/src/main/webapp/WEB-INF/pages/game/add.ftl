@@ -44,7 +44,7 @@
                 multi: false,
                 onUploadSuccess: function (file, data, response) {
                     $("#icon").val(data);
-                    $("#imgId").html("<img src=" + data + ">");
+                    $("#imgId").html("<img src=" + data + " width=160 height=160>");
                     $("#show").show();
                 }
             });

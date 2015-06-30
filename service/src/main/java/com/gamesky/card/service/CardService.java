@@ -197,12 +197,12 @@ public interface CardService {
      * @param page 分页
      * @return 礼包列表
      */
-    List<Card> findByKey(String key, Page page);
+    List<Card> findByKey(String key, String platform, Page page);
 
     /**
      * 根据条件查找礼包数
      * @param key 查询关键字
      * @return 礼包数
      */
-    int findCountByKey(String key);
+    int findCountByKey(String key, String platform);
 }

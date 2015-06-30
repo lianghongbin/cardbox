@@ -37,7 +37,6 @@ import java.util.*;
  *
  * @Author lianghongbin
  */
-@Controller
 @RequestMapping(value = "/photo", produces = "text/plain;charset=UTF-8")
 public class PhotoController {
 
@@ -47,11 +46,23 @@ public class PhotoController {
     private GameService gameService;
     @Autowired
     private CardService cardService;
+
+    private String uploadDir;
+    private String host;
+    private Marshaller<Keyable, Serializable> marshaller;
     private static final Logger logger = LoggerFactory.getLogger(PhotoController.class);
 
-    @Autowired
-    @Qualifier("uploadMarshaller")
-    private Marshaller<Keyable, Serializable> marshaller;
+    public void setUploadDir(String uploadDir) {
+        this.uploadDir = uploadDir;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public void setMarshaller(Marshaller<Keyable, Serializable> marshaller) {
+        this.marshaller = marshaller;
+    }
 
     @RequestMapping("/game")
     public ModelAndView game(int gameId, Page page) {
@@ -112,7 +123,10 @@ public class PhotoController {
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String upload(HttpServletRequest request) {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-        File dir = new File(request.getSession().getServletContext().getRealPath(Constants.UPLOAD_DIR));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        String dateDir = dateFormat.format(new Date());
+        File dir = new File(uploadDir, dateDir);
+
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
                 return "创建上传文件夹失败";
@@ -129,7 +143,7 @@ public class PhotoController {
             String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
             // 重命名文件
             SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-            String newFileName = df.format(new Date()) + "_" + new Random().nextInt(1000) + "." + fileExt;
+            String newFileName = new Random().nextInt(1000) + df.format(new Date()) + "." + fileExt;
             File uploadFile = new File(dir, newFileName);
 
             try {
@@ -139,7 +153,7 @@ public class PhotoController {
                 String type = request.getParameter("type");
                 Photo photo = new Photo();
                 photo.setItemId(id);
-                String url = Constants.PHOTO_URL_PREFIX + "/" + Constants.UPLOAD_DIR + "/" + newFileName;
+                String url = host + "/" + dateDir + "/" + newFileName;
                 photo.setUrl(url);
                 photo.setType(type);
 
@@ -161,7 +175,10 @@ public class PhotoController {
     @RequestMapping(value = "/single", method = RequestMethod.POST)
     public String single(HttpServletRequest request) {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-        File dir = new File(request.getSession().getServletContext().getRealPath(Constants.UPLOAD_DIR));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        String dateDir = dateFormat.format(new Date());
+        File dir = new File(uploadDir, dateDir);
+
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
                 return "创建上传文件夹失败";
@@ -173,13 +190,13 @@ public class PhotoController {
         String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
         // 重命名文件
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-        String newFileName = df.format(new Date()) + "_" + new Random().nextInt(1000) + "." + fileExt;
+        String newFileName = new Random().nextInt(1000) + df.format(new Date()) + "." + fileExt;
         File uploadFile = new File(dir, newFileName);
 
         try {
             marshaller.marshal(uploadFile::getAbsolutePath, mf.getBytes());
 
-            return Constants.PHOTO_URL_PREFIX + Constants.UPLOAD_DIR + newFileName;
+            return host + "/" +dateDir + "/" + newFileName;
         } catch (Exception e) {
             logger.error("文件{}上传失败", fileName);
             logger.error(e.getMessage());

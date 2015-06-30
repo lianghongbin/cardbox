@@ -525,19 +525,28 @@ public class CardServiceImpl implements CardService {
     /**
      * 根据条件查找礼包
      *
-     * @param key  查询关键字
-     * @param page 分页
+     * @param key      查询关键字
+     * @param platform 平台类型
+     * @param page     分页
      * @return 礼包列表
      */
     @Override
-    public List<Card> findByKey(String key, Page page) {
+    public List<Card> findByKey(String key, String platform, Page page) {
         CardExample cardExample = new CardExample();
-        cardExample.createCriteria()
-                .andNameLike("%" + key + "%")
+        CardExample.Criteria criteria = cardExample.createCriteria();
+        criteria.andNameLike("%" + key + "%")
                 .andClosedEqualTo(false)
                 .andValidEqualTo(true)
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
                 .andExpireTimeGreaterThan(System.currentTimeMillis());
+
+        if (platform.equalsIgnoreCase(Platform.ALL.name())) {
+            List<String> platforms = new ArrayList<>();
+            platforms.add(Platform.ALL.name());
+            platforms.add(platform);
+            criteria.andPlatformIn(platforms);
+        }
+
         cardExample.setOrderByClause("sort asc, recommend desc, id desc");
         cardExample.setLimit(page.getPagesize());
         cardExample.setLimitOffset(page.getOffset());
@@ -549,18 +558,25 @@ public class CardServiceImpl implements CardService {
      * 根据条件查找礼包数
      *
      * @param key 查询关键字
+     *            @param platform 平台类型
      * @return 礼包数
      */
     @Override
-    public int findCountByKey(String key) {
+    public int findCountByKey(String key, String platform) {
         CardExample cardExample = new CardExample();
-        cardExample.createCriteria()
-                .andNameLike("%" + key + "%")
+        CardExample.Criteria criteria = cardExample.createCriteria();
+        criteria.andNameLike("%" + key + "%")
                 .andClosedEqualTo(false)
                 .andValidEqualTo(true)
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
                 .andExpireTimeGreaterThan(System.currentTimeMillis());
 
+        if (platform.equalsIgnoreCase(Platform.ALL.name())) {
+            List<String> platforms = new ArrayList<>();
+            platforms.add(Platform.ALL.name());
+            platforms.add(platform);
+            criteria.andPlatformIn(platforms);
+        }
 
         return cardMapper.countByExample(cardExample);
     }

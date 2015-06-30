@@ -135,7 +135,7 @@
                             ${focus.name}
                             </td>
                             <td><#if focus.enabled>线上<#else><font color="red">下线</font></#if> </td>
-                            <td><img src="${focus.photo}"></td>
+                            <td><img src="${focus.photo}" width="160" height="160"></td>
                             <td>${focus.url}</td>
                             <td>${focus.createTime?number_to_datetime}</td>
                             <td align="center">
