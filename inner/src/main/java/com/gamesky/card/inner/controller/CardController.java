@@ -83,14 +83,13 @@ public class CardController {
         }
 
         Game game = gameService.find(card.getGameId());
-        game.setTotal(game.getTotal() + 1);
-        gameService.update(game);
 
-        card.setGameName(game.getName());
-        card.setAssignTotal(0);
         if (StringUtils.isBlank(card.getIcon())) {
             card.setIcon(Constants.DEFAULT_ICON);
         }
+
+        card.setGameName(game.getName());
+        card.setAssignTotal(0);
         card.setTotal(0);
         card.setValid(!game.getClosed());
         card.setCreateTime(System.currentTimeMillis());

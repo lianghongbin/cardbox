@@ -18,7 +18,7 @@
                 success: function (data) {
                     if (data == "1") {
                         alert("添加成功");
-                        window.location.reload();
+                        window.location.href = "./all";
                     } else {
                         alert("添加失败");
                     }
@@ -80,8 +80,8 @@
                         <td><input class="common-text" name="sort" id="sort" value="0" size="20" type="text"></td>
                     </tr>
                     <tr>
-                        <th><i class="require-red">*</i>分数：</th>
-                        <td><input class="common-text" name="score" id="score" size="20" type="text"></td>
+                        <th><i class="require-red">*</i>消耗数：</th>
+                        <td><input class="common-text" name="score" id="score" value="0" size="20" type="text"></td>
                     </tr>
                     <tr>
                         <th><i class="require-red">*</i>是否推荐：</th>

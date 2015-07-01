@@ -6,9 +6,12 @@ import com.gamesky.card.core.ReturnCode;
 import com.gamesky.card.core.model.Card;
 import com.gamesky.card.core.model.CardWithBLOBs;
 import com.gamesky.card.core.model.Code;
+import com.gamesky.card.core.model.User;
 import com.gamesky.card.service.BeanUtils;
 import com.gamesky.card.service.CardService;
 import com.gamesky.card.service.CodeService;
+import com.gamesky.card.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,8 @@ public class CardController {
     private CardService cardService;
     @Autowired
     private CodeService codeService;
+    @Autowired
+    private UserService userService;
     private static final Logger logger = LoggerFactory.getLogger(CardController.class);
 
     @ResponseBody
@@ -122,12 +127,16 @@ public class CardController {
     @ResponseBody
     @RequestMapping(value = "/assign", method = RequestMethod.GET)
     public String assign(int id, String phone) {
-        int result = cardService.assign(id, phone);
-        if (result > 0) {
-            return ResultGenerator.generate();
+        String result = cardService.assign(id, phone);
+        if (StringUtils.startsWith(result, "-")) {
+            return ResultGenerator.generateError(ReturnCode.fromCode(Integer.parseInt(result)));
         }
 
-        return ResultGenerator.generateError(ReturnCode.fromCode(result));
+        User user = userService.findByPhone(phone);
+        Map<String, Object> params = new HashMap<>();
+        params.put("code", result);
+        params.put("score", user.getScore());
+        return ResultGenerator.generate(params);
     }
 
     @ResponseBody

@@ -146,9 +146,9 @@ public interface CodeService {
      * 为某人分一个礼包的激活码
      * @param cardId 礼包ID
      * @param phone 手机号
-     * @return 影响条数
+     * @return 申请到的激活码
      */
-    int assign(int cardId, String phone);
+    String assign(int cardId, String phone);
 
     /**
      * 使用某个激活码

@@ -115,4 +115,20 @@ public interface GameService {
      * @return 游戏数量
      */
     int findCountByCondition(GameExample gameExample);
+
+    /**
+     * 添加礼包数量
+     * @param id 游戏ID
+     * @param count 添加数量
+     * @return 影响条数
+     */
+    public int increaseTotal(int id, int count);
+
+    /**
+     * 减少礼包数量
+     * @param id 游戏ID
+     * @param count 减少数量
+     * @return 影响条数
+     */
+    public int reduceTotal(int id, int count);
 }

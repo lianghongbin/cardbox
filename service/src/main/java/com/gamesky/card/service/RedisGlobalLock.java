@@ -3,6 +3,7 @@ package com.gamesky.card.service;
 import com.gamesky.card.core.exceptions.LockException;
 import com.gamesky.card.core.lock.GlobalLock;
 import com.gamesky.card.core.lock.Lockable;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -14,9 +15,17 @@ public class RedisGlobalLock<T extends Lockable> implements GlobalLock<T> {
 
     private Jedis jedis;
     private boolean locked = false;
+    private JedisConnectionFactory connectionFactory;
 
-    public void setJedis(Jedis jedis) {
-        this.jedis = jedis;
+    public void setJedisConnectionFactory(JedisConnectionFactory jedisConnectionFactory) {
+        this.connectionFactory = jedisConnectionFactory;
+    }
+
+    private Jedis getJedis(){
+        if(jedis == null){
+            return connectionFactory.getShardInfo().createResource();
+        }
+        return jedis;
     }
 
     @Override
@@ -32,17 +41,17 @@ public class RedisGlobalLock<T extends Lockable> implements GlobalLock<T> {
             long expires = System.currentTimeMillis() + t.expire() + 1;
             String expiresStr = String.valueOf(expires);
 
-            if (jedis.setnx(t.key(), expiresStr) == 1) {
+            if (getJedis().setnx(t.key(), expiresStr) == 1) {
                 // acquire acquired
                 locked = true;
                 return true;
             }
 
-            String currentValueStr = jedis.get(t.key());
+            String currentValueStr = getJedis().get(t.key());
             if (currentValueStr != null && Long.parseLong(currentValueStr) < System.currentTimeMillis()) {
                 // acquire is expired
 
-                String oldValueStr = jedis.getSet(t.key(), expiresStr);
+                String oldValueStr = getJedis().getSet(t.key(), expiresStr);
                 if (oldValueStr != null && oldValueStr.equals(currentValueStr)) {
                     // acquire acquired
                     locked = true;
@@ -63,7 +72,7 @@ public class RedisGlobalLock<T extends Lockable> implements GlobalLock<T> {
     @Override
     public synchronized void release(T t) {
         if (locked) {
-            jedis.del(t.key());
+            getJedis().del(t.key());
             locked = false;
         }
     }

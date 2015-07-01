@@ -61,7 +61,7 @@ public interface CardService {
      * @param phone 分配给用户（手机唯一）
      * @return 影响条数
      */
-    public int assign(int id, String phone);
+    public String assign(int id, String phone);
 
     /**
      * 根据卡包ID，查找卡包
@@ -205,4 +205,36 @@ public interface CardService {
      * @return 礼包数
      */
     int findCountByKey(String key, String platform);
+
+    /**
+     * 增加激活码数量
+     * @param id 礼包ID
+     * @param count 增加数量
+     * @return 影响条数
+     */
+    int increaseTotal(int id, int count);
+
+    /**
+     * 增加激活码数量
+     * @param id 礼包ID
+     * @param count 增加数量
+     * @return 影响条数
+     */
+    int reduceTotal(int id, int count);
+
+    /**
+     * 添加已分发激活码数量
+     * @param id 礼包ID
+     * @param count 减少数量
+     * @return 影响条数
+     */
+    int increaseAssignTotal(int id, int count);
+
+    /**
+     * 减少激活码总数量
+     *
+     * @param count 减少数量
+     * @return 影响条数
+     */
+    public int reduceAssignTotal(int id, int count);
 }

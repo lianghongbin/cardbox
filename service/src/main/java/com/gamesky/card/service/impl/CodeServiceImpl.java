@@ -7,6 +7,7 @@ import com.gamesky.card.core.lock.Lockable;
 import com.gamesky.card.core.model.Code;
 import com.gamesky.card.core.model.CodeExample;
 import com.gamesky.card.dao.mapper.CodeMapper;
+import com.gamesky.card.service.CardService;
 import com.gamesky.card.service.CodeLock;
 import com.gamesky.card.service.CodeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class CodeServiceImpl implements CodeService {
     @Autowired
     private CodeMapper codeMapper;
     @Autowired
+    private CardService cardService;
+    @Autowired
     private GlobalLock<Lockable> globalLock;
     ;
 
@@ -38,6 +41,7 @@ public class CodeServiceImpl implements CodeService {
      */
     @Override
     public int save(Code code) {
+        cardService.increaseTotal(code.getCardId(), 1);
         return codeMapper.insert(code);
     }
 
@@ -49,6 +53,7 @@ public class CodeServiceImpl implements CodeService {
      */
     @Override
     public int remove(int id) {
+        cardService.reduceTotal(id, 1);
         return codeMapper.deleteByPrimaryKey(id);
     }
 
@@ -267,16 +272,18 @@ public class CodeServiceImpl implements CodeService {
      * @return 影响条数
      */
     @Override
-    public int assign(int cardId, String phone) {
+    public String assign(int cardId, String phone) {
         Code code = findOne(cardId);
         if (code == null) {
-            return 0;
+            return null;
         }
 
         code.setAssigned(true);
         code.setPhone(phone);
         code.setAssignTime(System.currentTimeMillis());
-        return update(code);
+        update(code);
+
+        return code.getCode();
     }
 
     /**

@@ -5,7 +5,7 @@ package com.gamesky.card.core.exceptions;
  *
  * @Author lianghongbin
  */
-public class CheckCodeWrongException  extends Throwable {
+public class CheckCodeWrongException  extends Exception {
 
     public CheckCodeWrongException() {
         super();

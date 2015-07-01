@@ -4,7 +4,6 @@ import com.gamesky.card.core.CardType;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.Platform;
 import com.gamesky.card.core.ReturnCode;
-import com.gamesky.card.core.exceptions.LockException;
 import com.gamesky.card.core.lock.GlobalLock;
 import com.gamesky.card.core.lock.Lockable;
 import com.gamesky.card.core.model.*;
@@ -42,11 +41,7 @@ public class CardServiceImpl implements CardService {
     private final static Logger logger = LoggerFactory.getLogger(CardServiceImpl.class);
 
     public int save(CardWithBLOBs card) {
-        card.setCreateTime(System.currentTimeMillis());
-        Game game = new Game();
-        game.setId(card.getGameId());
-        game.setTotal(findCountByGame(card.getGameId(), Platform.ALL.name()));
-        gameService.update(game);
+        gameService.increaseTotal(card.getGameId(), 1);
         return cardMapper.insert(card);
     }
 
@@ -60,9 +55,8 @@ public class CardServiceImpl implements CardService {
     public int remove(int id) {
         codeService.removeByCard(id);
         Card card = cardMapper.selectByPrimaryKey(id);
-        Game game = gameService.find(card.getGameId());
-        game.setTotal(game.getTotal() - 1);
-        gameService.update(game);
+
+        gameService.reduceTotal(card.getGameId(), 1);
         return cardMapper.deleteByPrimaryKey(id);
     }
 
@@ -115,24 +109,24 @@ public class CardServiceImpl implements CardService {
     }
 
     /**
-     * 分发、分配一个卡给某个用户
+     * 分发、分配一个激活码给某个用户
      *
      * @param id    卡包ID
      * @param phone 用户手机
      * @return 影响条数
      */
     @Override
-    public int assign(final int id, String phone) {
+    public String assign(final int id, String phone) {
         CardLock cardLock = new CardLock(id);
 
         try {
             if (!globalLock.acquire(cardLock, 3000)) {
-                return 0;
+                return String.valueOf(-1);
             }
 
             boolean isLogin = userService.isLogin(phone);
             if (!isLogin) {
-                return ReturnCode.NOT_LOGIN.getCode();
+                return String.valueOf(ReturnCode.NOT_LOGIN.getCode());
             }
 
             //校验该卡包是否有效
@@ -145,7 +139,7 @@ public class CardServiceImpl implements CardService {
                     .andExpireTimeGreaterThan(System.currentTimeMillis());
             List<Card> cards = cardMapper.selectByExample(cardExample);
             if (cards == null || cards.size() == 0) {
-                return ReturnCode.DATA_EMPTY.getCode();
+                return String.valueOf(ReturnCode.DATA_EMPTY.getCode());
             }
 
             Card card = cards.get(0);
@@ -153,22 +147,23 @@ public class CardServiceImpl implements CardService {
             List<Code> codes = codeService.findByCardAndPhone(id, phone, new Page());
 
             if (codes != null && codes.size() > 0) {
-                return ReturnCode.ILLEGAL_OPERATE.getCode();
+                return String.valueOf(ReturnCode.ILLEGAL_OPERATE.getCode());
             }
 
             if (card.getTotal() <= card.getAssignTotal()) {
-                return -1;
+                logger.error("没有可使用的激活码");
+                return String.valueOf(ReturnCode.DATA_EMPTY.getCode());
             }
 
             if (card.getType().equalsIgnoreCase(CardType.SCORE.name())) {
                 //如果是扣分数的礼包，查看一下分数是否够，如果不够直接返回错误提示
                 User user = userService.findByPhone(phone);
                 if (user == null) {
-                    return ReturnCode.ILLEGAL_ARGUMENT.getCode();
+                    return String.valueOf(ReturnCode.ILLEGAL_ARGUMENT.getCode());
                 }
 
                 if (card.getScore() > user.getScore()) {
-                    return ReturnCode.SCORE_NOT_ENOUGH.getCode();
+                    return String.valueOf(ReturnCode.SCORE_NOT_ENOUGH.getCode());
                 }
 
                 user.setScore(user.getScore() - card.getScore());
@@ -177,18 +172,17 @@ public class CardServiceImpl implements CardService {
                 logger.info("需要付费领取礼包");
             }
 
-            card.setAssignTotal(card.getAssignTotal() + 1);
-
-            int result = codeService.assign(id, phone);
-            if (result == 0) {
-                logger.error("礼包激活码没有导入");
-                return ReturnCode.DATA_EMPTY.getCode();
+            String code = codeService.assign(id, phone);
+            if (code == null) {
+                logger.error("没有可使用的激活码");
+                return String.valueOf(ReturnCode.DATA_EMPTY.getCode());
             }
 
-            return cardMapper.updateByPrimaryKey(card);
-
-        } catch (LockException e) {
-            return 0;
+            increaseAssignTotal(card.getId(), 1);
+            return code;
+        } catch (Exception e) {
+            logger.error("获得他局锁失败：{}", e);
+            return String.valueOf(-1);
         } finally {
             globalLock.release(cardLock);
         }
@@ -579,5 +573,60 @@ public class CardServiceImpl implements CardService {
         }
 
         return cardMapper.countByExample(cardExample);
+    }
+
+    /**
+     * 增加激活码总数量
+     *
+     * @param id    礼包ID
+     * @param count 增加数量
+     * @return 影响条数
+     */
+    @Override
+    public int increaseTotal(int id, int count) {
+        CardWithBLOBs card = cardMapper.selectByPrimaryKey(id);
+        card.setTotal(card.getTotal() + Math.abs(count));
+        return cardMapper.updateByPrimaryKeySelective(card);
+    }
+
+    /**
+     * 减少激活码总数量
+     *
+     * @param id    礼包ID
+     * @param count 增加数量
+     * @return 影响条数
+     */
+    @Override
+    public int reduceTotal(int id, int count) {
+        CardWithBLOBs card = cardMapper.selectByPrimaryKey(id);
+        card.setTotal(card.getTotal() - Math.abs(count));
+        return cardMapper.updateByPrimaryKeySelective(card);
+    }
+
+    /**
+     * 添加激活码总数量
+     *
+     * @param count 添加数量
+     * @return 影响条数
+     */
+    @Override
+    public int increaseAssignTotal(int id, int count) {
+        CardWithBLOBs card = cardMapper.selectByPrimaryKey(id);
+        card.setAssignTotal(card.getAssignTotal() + Math.abs(count));
+        return cardMapper.updateByPrimaryKeySelective(card);
+    }
+
+    /**
+     * 减少激活码总数量
+     *
+     * @param id 礼包ID
+     * @param count 减少数量
+     * @return 影响条数
+     */
+    @Override
+    public int reduceAssignTotal(int id, int count) {
+        CardWithBLOBs card = cardMapper.selectByPrimaryKey(id);
+        card.setAssignTotal(card.getAssignTotal() - Math.abs(count));
+        return cardMapper.updateByPrimaryKeySelective(card);
     }
 }

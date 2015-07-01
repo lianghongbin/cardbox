@@ -50,7 +50,6 @@ public class CodeController {
     @RequestMapping(value = "/save")
     public String save(String[] codes, String cardName, String gameName, int gameId, int cardId) {
 
-        int count = 0;
         for (String code : codes) {
             if (StringUtils.isNoneBlank(code)) {
                 Code tmp = new Code();
@@ -63,16 +62,9 @@ public class CodeController {
                 tmp.setAssigned(false);
                 tmp.setCreateTime(System.currentTimeMillis());
 
-                int result = codeService.save(tmp);
-                count += result;
+                codeService.save(tmp);
             }
         }
-
-        Card card = cardService.find(cardId);
-        CardWithBLOBs cardWithBLOBs = new CardWithBLOBs();
-        cardWithBLOBs.setId(cardId);
-        cardWithBLOBs.setTotal(card.getTotal() + count);
-        cardService.update(cardWithBLOBs);
 
         return String.valueOf("1");
     }
@@ -113,13 +105,6 @@ public class CodeController {
     @ResponseBody
     @RequestMapping("/remove")
     public String remove(int id) {
-        Code code = codeService.find(id);
-        Card card = cardService.find(code.getCardId());
-
-        CardWithBLOBs cardWithBLOBs = new CardWithBLOBs();
-        cardWithBLOBs.setId(card.getId());
-        cardWithBLOBs.setTotal(card.getTotal() - 1);
-        cardService.update(cardWithBLOBs);
 
         int result = codeService.remove(id);
         return String.valueOf(result);

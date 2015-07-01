@@ -5,7 +5,7 @@ package com.gamesky.card.core.exceptions;
  *
  * @Author lianghongbin
  */
-    public class LockException extends Throwable {
+    public class LockException extends Exception {
 
         public LockException() {
             super();

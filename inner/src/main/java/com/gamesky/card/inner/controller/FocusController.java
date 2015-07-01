@@ -77,17 +77,14 @@ public class FocusController {
 
     @RequestMapping("/modify")
     public ModelAndView modify(int id) {
-        Focus focus = focusService.find(id);
-        Object item;
-        if (focus.getType().equalsIgnoreCase("GAME")) {
-            item = gameService.find(focus.getItemId());
-        }
-        else {
-            item = cardService.find(focus.getItemId());
-        }
 
+        List<Game> games = gameService.findAll(new Page());
+        List<Card> cards = cardService.findAll(new Page());
+
+        Focus focus = focusService.find(id);
         ModelAndView modelAndView = new ModelAndView("focus/modify", "focus", focus);
-        modelAndView.addObject("item", item);
+        modelAndView.addObject("games", games);
+        modelAndView.addObject("cards", cards);
 
         return modelAndView;
     }

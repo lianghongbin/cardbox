@@ -68,6 +68,6 @@
     <bean id="uploadMarshaller" class="com.gamesky.card.service.LocalFileMarshaller"/>
 
     <bean id="globalLock" class="com.gamesky.card.service.RedisGlobalLock">
-        <property name="jedis" ref="jedis"/>
+        <property name="jedisConnectionFactory" ref="jedisConnectionFactory"/>
     </bean>
 </beans>
