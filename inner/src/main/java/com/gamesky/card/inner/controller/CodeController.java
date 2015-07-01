@@ -92,7 +92,7 @@ public class CodeController {
         page.setCount(count);
 
         List<Game> games = gameService.findAll(new Page());
-        List<Card> cards = cardService.findAll(new Page());
+        List<CardWithBLOBs> cards = cardService.findAll(new Page());
 
         ModelAndView modelAndView = new ModelAndView("/code/all");
         PaginationData paginationData = new PaginationData(page, codes);

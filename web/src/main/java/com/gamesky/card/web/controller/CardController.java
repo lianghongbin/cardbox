@@ -118,7 +118,7 @@ public class CardController {
     @ResponseBody
     @RequestMapping(value = "/findbygame", method = RequestMethod.GET)
     public String findByGame(int gameId, String platform, Page page) {
-        List<Card> cards = cardService.findByGame(gameId, platform, page);
+        List<CardWithBLOBs> cards = cardService.findByGame(gameId, platform, page);
         int count = cardService.findCountByGame(gameId, platform);
         page.setCount(count);
         return ResultGenerator.generate(page, cards);
@@ -135,7 +135,7 @@ public class CardController {
         User user = userService.findByPhone(phone);
         Map<String, Object> params = new HashMap<>();
         params.put("code", result);
-        params.put("score", user.getScore());
+        params.put("total", user.getScore());
         return ResultGenerator.generate(params);
     }
 
@@ -143,7 +143,7 @@ public class CardController {
     @RequestMapping(value = "/recommend", method = RequestMethod.GET)
     public String recommend(int searchType, String platform, Page page) {
 
-        List<Card> cards = cardService.recommend(searchType, platform, page);
+        List<CardWithBLOBs> cards = cardService.recommend(searchType, platform, page);
         int count = cardService.recommendCount(searchType, platform);
         page.setCount(count);
         return ResultGenerator.generate(page, cards);
@@ -153,7 +153,7 @@ public class CardController {
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String all(Page page) {
 
-        List<Card> cards = cardService.findEnabledAll(page);
+        List<CardWithBLOBs> cards = cardService.findEnabledAll(page);
         int count = cardService.findEnabledCount();
         page.setCount(count);
         return ResultGenerator.generate(page, cards);
@@ -162,7 +162,7 @@ public class CardController {
     @ResponseBody
     @RequestMapping(value = "/undercard", method = RequestMethod.GET)
     public String underCard(int gameId, String platform, Page page) {
-        List<Card> cards = cardService.findRecommendByGame(gameId, platform, page);
+        List<CardWithBLOBs> cards = cardService.findRecommendByGame(gameId, platform, page);
         int count = cardService.findRecommendCountByGame(gameId, platform);
         page.setCount(count);
         return ResultGenerator.generate(page, cards);
@@ -171,7 +171,7 @@ public class CardController {
     @ResponseBody
     @RequestMapping(value = "/recommendbygame", method = RequestMethod.GET)
     public String recommendByGame(int gameId, String platform, Page page) {
-        List<Card> cards = cardService.findRecommendByGame(gameId, platform, page);
+        List<CardWithBLOBs> cards = cardService.findRecommendByGame(gameId, platform, page);
         int count = cardService.findRecommendCountByGame(gameId, platform);
         page.setCount(count);
         return ResultGenerator.generate(page, cards);
@@ -187,7 +187,7 @@ public class CardController {
 
         List<Integer> ids = codes.stream().map(Code::getCardId).collect(Collectors.toList());
 
-        List<Card> cards = cardService.findByIds(ids);
+        List<CardWithBLOBs> cards = cardService.findByIds(ids);
         List<Map> datas = new ArrayList<>();
         for (Card card : cards) {
             try {

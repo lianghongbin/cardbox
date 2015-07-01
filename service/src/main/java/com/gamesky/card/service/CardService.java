@@ -77,7 +77,7 @@ public interface CardService {
      * @param page 分页条件
      * @return 卡包列表
      */
-    public List<Card> findAll(Page page);
+    public List<CardWithBLOBs> findAll(Page page);
 
     /**
      * 分页显示所有卡包数(后台用，显示所有礼包数）
@@ -92,7 +92,7 @@ public interface CardService {
      * @param page 分页条件
      * @return 卡包列表
      */
-    public List<Card> findEnabledAll(Page page);
+    public List<CardWithBLOBs> findEnabledAll(Page page);
 
     /**
      * 分页显示所有卡包数（前台接口用，显示可用礼包数）
@@ -108,7 +108,7 @@ public interface CardService {
      * @param cardExample 查询条件
      * @return 卡包列表
      */
-    public List<Card> findByCondition(CardExample cardExample);
+    public List<CardWithBLOBs> findByCondition(CardExample cardExample);
 
     /**
      * 根据条件分页查询显示卡包数量
@@ -125,7 +125,7 @@ public interface CardService {
      * @param page   分页数据
      * @return 卡包列表
      */
-    public List<Card> findByGame(int gameId, String platform, Page page);
+    public List<CardWithBLOBs> findByGame(int gameId, String platform, Page page);
 
     /**
      * 查找某款游戏下的卡包类别数量
@@ -142,7 +142,7 @@ public interface CardService {
      * @param page   分页数据
      * @return 卡包列表
      */
-    public List<Card> findRecommendByGame(int gameId, String platform, Page page);
+    public List<CardWithBLOBs> findRecommendByGame(int gameId, String platform, Page page);
 
     /**
      * 查找某款游戏下的推荐卡包类别数量
@@ -158,7 +158,7 @@ public interface CardService {
      * @param ids 礼包ID集合
      * @return 礼包集合
      */
-    public List<Card> findByIds(List<Integer> ids);
+    public List<CardWithBLOBs> findByIds(List<Integer> ids);
 
     /**
      * 查询手机用户是否已经申领过该礼品包
@@ -182,7 +182,7 @@ public interface CardService {
      * @param page 分页
      * @return 礼包列表
      */
-    public List<Card> recommend(int type, String platform, Page page);
+    public List<CardWithBLOBs> recommend(int type, String platform, Page page);
 
     /**
      * 根据条件查找推荐礼包数
@@ -197,7 +197,7 @@ public interface CardService {
      * @param page 分页
      * @return 礼包列表
      */
-    List<Card> findByKey(String key, String platform, Page page);
+    List<CardWithBLOBs> findByKey(String key, String platform, Page page);
 
     /**
      * 根据条件查找礼包数

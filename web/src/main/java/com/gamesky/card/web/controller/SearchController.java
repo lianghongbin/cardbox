@@ -2,8 +2,6 @@ package com.gamesky.card.web.controller;
 
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
-import com.gamesky.card.core.model.Card;
-import com.gamesky.card.core.model.CardExample;
 import com.gamesky.card.core.model.CardWithBLOBs;
 import com.gamesky.card.service.CardService;
 import org.apache.commons.lang3.StringUtils;
@@ -33,7 +31,7 @@ public class SearchController {
             return ResultGenerator.generate();
         }
 
-        List<Card> cards = cardService.findByKey(key, platform, page);
+        List<CardWithBLOBs> cards = cardService.findByKey(key, platform, page);
         int count = cardService.findCountByKey(key, platform);
         page.setCount(count);
 

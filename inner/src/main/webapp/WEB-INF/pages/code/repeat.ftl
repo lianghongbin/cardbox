@@ -10,18 +10,26 @@
     <script type="text/javascript">
         function operate() {
 
-            if(!confirm("你确认要批量添加激活码？")) {
+            if(!confirm("你确认要添加激活码？")) {
                 return false;
             }
 
+            var $codesInput = $(":text");
+            var codes = [];
+            $codesInput.each(function(){
+                if ($(this).val().trim() != "") {
+                    codes.push($(this).val());
+                }
+            });
+
             $.ajax({
-                url: '/code/batchsave',// 跳转到 action
+                url: '/code/save',// 跳转到 action
                 data: {
                     'cardId': $("#cardId").val(),
                     'gameId': $("#gameId").val(),
                     'cardName':$("#cardName").val(),
                     'gameName':$("#gameName").val(),
-                    'data':$("#data").val()
+                    'codes':codes
                 },
                 traditional :true,
                 type: 'post',
@@ -29,7 +37,7 @@
                 success: function (data) {
                     if (data == "1") {
                         alert("激活码添加成功");
-                        window.location.href = "../card/all";
+                        window.location.href="../card/all";
                     } else {
                         alert("激活码添加失败");
                     }
@@ -54,7 +62,7 @@
     <div class="result-wrap">
         <div class="result-title">
             <div class="result-list">
-                <a href="./add?cardId=${card.id}"><i class="icon-font"></i>单条添加</a>
+                <a href="./input?cardId=${card.id}"><i class="icon-font"></i>批量导入</a>
             </div>
         </div>
         <div class="result-content">
@@ -67,20 +75,23 @@
                             <input name="gameName" id="gameName" value="${game.name}" type="hidden">
                             <input name="cardId" id="cardId" value="${card.id}" type="hidden">
                             <input name="cardName" id="cardName" value="${card.name}" type="hidden">
-                            ${game.name}
+                        ${game.name}
                         </td>
                     </tr>
                     <tr>
                         <th>礼包名称：</th>
                         <td>
-                            ${card.name}
+                        ${card.name}
                         </td>
                     </tr>
                     <tr>
-                        <th>激活码文本：</th>
+                        <th>激活码：</th>
                         <td>
-                            <textarea name="data" class="common-textarea" id="data" cols="20"
-                                      style="width: 98%;" rows="15"></textarea>
+                            <table>
+                                <tr><td><input class="common-text" name="code" size="20" type="text"></td></tr>
+
+                            </table>
+
                         </td>
                     </tr>
                     <tr>

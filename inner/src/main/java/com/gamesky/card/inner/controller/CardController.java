@@ -178,7 +178,7 @@ public class CardController {
         cardExample.setLimit(page.getPagesize());
         cardExample.setLimitOffset(page.getOffset());
 
-        List<Card> cards = cardService.findByCondition(cardExample);
+        List<CardWithBLOBs> cards = cardService.findByCondition(cardExample);
         int count = cardService.findCountByCondition(cardExample);
         page.setCount(count);
 
@@ -217,7 +217,7 @@ public class CardController {
         cardExample.setLimit(page.getPagesize());
         cardExample.setLimitOffset(page.getOffset());
 
-        List<Card> cards = cardService.findByCondition(cardExample);
+        List<CardWithBLOBs> cards = cardService.findByCondition(cardExample);
         int count = cardService.findCountByCondition(cardExample);
         page.setCount(count);
 
@@ -256,7 +256,7 @@ public class CardController {
         cardExample.setLimit(page.getPagesize());
         cardExample.setLimitOffset(page.getOffset());
 
-        List<Card> cards = cardService.findByCondition(cardExample);
+        List<CardWithBLOBs> cards = cardService.findByCondition(cardExample);
         int count = cardService.findCountByCondition(cardExample);
         page.setCount(count);
 
@@ -280,7 +280,7 @@ public class CardController {
 
         List<Integer> ids = codes.stream().map(Code::getCardId).collect(Collectors.toList());
 
-        List<Card> cards = cardService.findByIds(ids);
+        List<CardWithBLOBs> cards = cardService.findByIds(ids);
         List<Map> datas = new ArrayList<>();
         for (Card card : cards) {
             try {

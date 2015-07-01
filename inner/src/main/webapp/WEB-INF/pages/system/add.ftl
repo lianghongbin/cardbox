@@ -53,19 +53,19 @@
                 <tr>
                     <th>每天登录得分：</th>
                     <td>
-                        <input class="common-text required" id="daily" name="daily" size="50" type="text"/>
+                        <input class="common-text required" id="daily" value="300" name="daily" size="50" type="text"/>
                     </td>
                 </tr>
                 <tr>
                     <th>注册得分：</th>
                     <td>
-                        <input class="common-text required" id="registry" name="registry" size="50" type="text"/>
+                        <input class="common-text required" id="registry" value="10" name="registry" size="50" type="text"/>
                     </td>
                 </tr>
                 <tr>
                     <th>微信分享得分：</th>
                     <td>
-                        <input class="common-text required" id="weixin" name="weixin" size="50" type="text"/>
+                        <input class="common-text required" id="weixin" value="10" name="weixin" size="50" type="text"/>
                     </td>
                 </tr>
                 <tr>
@@ -77,7 +77,7 @@
                 <tr>
                     <th>下载游戏得分：</th>
                     <td>
-                        <input class="common-text required" id="download" name="download" size="50" type="text"/>
+                        <input class="common-text required" id="download" value="100" name="download" size="50" type="text"/>
                     </td>
                 </tr>
                 <tr>

@@ -1,7 +1,7 @@
 package com.gamesky.card.inner.controller;
 
 import com.gamesky.card.core.*;
-import com.gamesky.card.core.model.Card;
+import com.gamesky.card.core.model.CardWithBLOBs;
 import com.gamesky.card.core.model.Focus;
 import com.gamesky.card.core.model.Game;
 import com.gamesky.card.service.CardService;
@@ -43,7 +43,7 @@ public class FocusController {
     @RequestMapping("/add")
     public ModelAndView add() {
         List<Game> games = gameService.findAll(new Page());
-        List<Card> cards = cardService.findAll(new Page());
+        List<CardWithBLOBs> cards = cardService.findAll(new Page());
         ModelAndView modelAndView = new ModelAndView("focus/add");
         modelAndView.addObject("games", games);
         modelAndView.addObject("cards", cards);
@@ -79,7 +79,7 @@ public class FocusController {
     public ModelAndView modify(int id) {
 
         List<Game> games = gameService.findAll(new Page());
-        List<Card> cards = cardService.findAll(new Page());
+        List<CardWithBLOBs> cards = cardService.findAll(new Page());
 
         Focus focus = focusService.find(id);
         ModelAndView modelAndView = new ModelAndView("focus/modify", "focus", focus);

@@ -206,12 +206,12 @@ public class CardServiceImpl implements CardService {
      * @return 卡包列表
      */
     @Override
-    public List<Card> findAll(Page page) {
+    public List<CardWithBLOBs> findAll(Page page) {
         CardExample cardExample = new CardExample();
         cardExample.setLimitOffset(page.getOffset());
         cardExample.setLimit(page.getPagesize());
         cardExample.setOrderByClause("sort asc, recommend desc, id desc");
-        return cardMapper.selectByExample(cardExample);
+        return cardMapper.selectByExampleWithBLOBs(cardExample);
     }
 
     /**
@@ -221,7 +221,7 @@ public class CardServiceImpl implements CardService {
      * @return 卡包列表
      */
     @Override
-    public List<Card> findEnabledAll(Page page) {
+    public List<CardWithBLOBs> findEnabledAll(Page page) {
         CardExample cardExample = new CardExample();
         cardExample.createCriteria()
                 .andOpenTimeLessThan(System.currentTimeMillis())
@@ -231,7 +231,7 @@ public class CardServiceImpl implements CardService {
         cardExample.setLimitOffset(page.getOffset());
         cardExample.setLimit(page.getPagesize());
         cardExample.setOrderByClause("sort asc, recommend desc, id desc");
-        return cardMapper.selectByExample(cardExample);
+        return cardMapper.selectByExampleWithBLOBs(cardExample);
     }
 
     /**
@@ -268,8 +268,8 @@ public class CardServiceImpl implements CardService {
      * @return 卡包列表
      */
     @Override
-    public List<Card> findByCondition(CardExample cardExample) {
-        return cardMapper.selectByExample(cardExample);
+    public List<CardWithBLOBs> findByCondition(CardExample cardExample) {
+        return cardMapper.selectByExampleWithBLOBs(cardExample);
     }
 
     /**
@@ -291,7 +291,7 @@ public class CardServiceImpl implements CardService {
      * @return 卡包列表
      */
     @Override
-    public List<Card> findByGame(int gameId, String platform, Page page) {
+    public List<CardWithBLOBs> findByGame(int gameId, String platform, Page page) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
         criteria.andGameIdEqualTo(gameId)
@@ -309,7 +309,7 @@ public class CardServiceImpl implements CardService {
         cardExample.setLimitOffset(page.getOffset());
         cardExample.setLimit(page.getPagesize());
         cardExample.setOrderByClause("sort asc, recommend desc, id desc");
-        return cardMapper.selectByExample(cardExample);
+        return cardMapper.selectByExampleWithBLOBs(cardExample);
     }
 
     /**
@@ -346,7 +346,7 @@ public class CardServiceImpl implements CardService {
      * @return 卡包列表
      */
     @Override
-    public List<Card> findRecommendByGame(int gameId, String platform, Page page) {
+    public List<CardWithBLOBs> findRecommendByGame(int gameId, String platform, Page page) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
         criteria.andGameIdEqualTo(gameId)
@@ -365,7 +365,7 @@ public class CardServiceImpl implements CardService {
         cardExample.setLimitOffset(page.getOffset());
         cardExample.setLimit(page.getPagesize());
         cardExample.setOrderByClause("sort asc, id desc");
-        return cardMapper.selectByExample(cardExample);
+        return cardMapper.selectByExampleWithBLOBs(cardExample);
     }
 
     /**
@@ -401,10 +401,10 @@ public class CardServiceImpl implements CardService {
      * @return 礼包集合
      */
     @Override
-    public List<Card> findByIds(List<Integer> ids) {
+    public List<CardWithBLOBs> findByIds(List<Integer> ids) {
         CardExample cardExample = new CardExample();
         cardExample.createCriteria().andIdIn(ids);
-        return cardMapper.selectByExample(cardExample);
+        return cardMapper.selectByExampleWithBLOBs(cardExample);
     }
 
     /**
@@ -443,7 +443,7 @@ public class CardServiceImpl implements CardService {
      * @return 礼包列表
      */
     @Override
-    public List<Card> recommend(int type, String platform, Page page) {
+    public List<CardWithBLOBs> recommend(int type, String platform, Page page) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria()
                 .andRecommendEqualTo(true)
@@ -475,7 +475,7 @@ public class CardServiceImpl implements CardService {
         cardExample.setLimit(page.getPagesize());
         cardExample.setLimitOffset(page.getOffset());
 
-        return cardMapper.selectByExample(cardExample);
+        return cardMapper.selectByExampleWithBLOBs(cardExample);
     }
 
     /**
@@ -525,7 +525,7 @@ public class CardServiceImpl implements CardService {
      * @return 礼包列表
      */
     @Override
-    public List<Card> findByKey(String key, String platform, Page page) {
+    public List<CardWithBLOBs> findByKey(String key, String platform, Page page) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
         criteria.andNameLike("%" + key + "%")
@@ -545,7 +545,7 @@ public class CardServiceImpl implements CardService {
         cardExample.setLimit(page.getPagesize());
         cardExample.setLimitOffset(page.getOffset());
 
-        return cardMapper.selectByExample(cardExample);
+        return cardMapper.selectByExampleWithBLOBs(cardExample);
     }
 
     /**
