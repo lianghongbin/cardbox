@@ -59,11 +59,15 @@
                     </tr>
                     <th><i class="require-red">*</i>平台：</th>
                     <td>
+                    <#if game.platform=="ALL">
                         <select name="platform" id="platform" class="required">
                             <option value="ALL">ALL</option>
                             <option value="android">android</option>
                             <option value="iOS">iOS</option>
                         </select>
+                    <#else >
+                        <input type="text" name="platform" id="platform" value="${game.platform}" readonly/>
+                    </#if>
                     </td>
                     <tr>
                         <th><i class="require-red">*</i>礼包类别：</th>

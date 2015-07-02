@@ -12,6 +12,15 @@
     <link rel="stylesheet" type="text/css" href="/uploadify/uploadify.css">
     <script type="text/javascript">
         function operate() {
+            if ($("#gameId").val() == "") {
+                alert("请选择所属游戏！");
+                return false;
+            }
+            if ($("#platform").val() == "") {
+                alert("请选择所属平台");
+                return false;
+            }
+
             $.ajax({
                 url: '/card/save',// 跳转到 action
                 data: $('#myform').serialize(),// 你的formid,
@@ -50,6 +59,36 @@
                 }
             });
         });
+
+        function setPlatform(gameId) {
+            if(gameId == "") {
+                return;
+            }
+            $.ajax({
+                url: '/game/findplatform',// 跳转到 action
+                data: {
+                    id: gameId
+                },
+                type: 'post',
+                dataType: 'text',
+                success: function (data) {
+                    if (data == "") {
+                        alert("该游戏不存在");
+                        return;
+                    }
+
+                    if(data == "ALL") {
+                        $("#platformId").html("<select name=platform id=platform><option value=ALL>ALL</option><option value=iOS>iOS</option><option value=android>android</option></select>");
+                    }
+                    else{
+                        $("#platformId").html("<input type=text name=platform id=platform value=" + data + " readonly>");
+                    }
+                },
+                error: function () {
+                    alert("异常！");
+                }
+            });
+        }
     </script>
 </head>
 <body>
@@ -70,7 +109,8 @@
                     <tr>
                         <th><i class="require-red">*</i>所属游戏：</th>
                         <td>
-                            <select name="gameId" id="gameId" class="required">
+                            <select name="gameId" id="gameId" class="required" onchange="setPlatform(this.value)">
+                                <option value="">请选择所属游戏</option>
                             <#list games as game>
                                 <option value="${game.id}">${game.name}</option>
                             </#list>
@@ -106,11 +146,7 @@
                     <tr>
                         <th><i class="require-red">*</i>平台：</th>
                         <td>
-                            <select name="platform" id="platform" class="required">
-                                <option value="ALL">ALL</option>
-                                <option value="android">android</option>
-                                <option value="iOS">iOS</option>
-                            </select>
+                            <div id="platformId"></div>
                         </td>
                     </tr>
                     <tr>

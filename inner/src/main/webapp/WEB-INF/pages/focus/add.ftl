@@ -11,6 +11,20 @@
     <link rel="stylesheet" type="text/css" href="/uploadify/uploadify.css">
     <script type="text/javascript">
         function operate() {
+            if($("#itemId").val() == "") {
+                alert("请选择关系游戏或礼包！");
+                return false;
+            }
+
+            if($("#photo").val() == "") {
+                alert("请上传焦点图！");
+                return false;
+            }
+            if($("url").val() == "") {
+                alert("请填写焦点图对应URL");
+                return false;
+            }
+
             $.ajax({
                 url: '/focus/save',// 跳转到 action
                 data: $('#myform').serialize(),// 你的formid,
@@ -60,6 +74,10 @@
                 $("#itemCard").show();
             }
         }
+
+        function setV(v) {
+            $("#itemId").val(v);
+        }
     </script>
 </head>
 <body>
@@ -91,7 +109,8 @@
                     <th>关联ITEM：</th>
                     <td>
                         <div id="itemGame">
-                            关联游戏：<select name="itemId" id="itemId" class="required">
+                            关联游戏：<select name="gId" id="gId" class="required" onchange="setV(this.value)">
+                            <option value="">请选择关联游戏</option>
                         <#list games as game>
                             <option value="${game.id}">${game.name}</option>
                         </#list>
@@ -99,7 +118,8 @@
                         </div>
 
                         <div id="itemCard" STYLE="display: none">
-                            关联礼包：<select name="itemId" id="itemId" class="required">
+                            关联礼包：<select name="cId" id="cId" class="required" onchange="setV(this.value)">
+                            <option value="">请选择关联礼包</option>
                         <#list cards as card>
                             <option value="${card.id}">${card.name}</option>
                         </#list>
@@ -110,6 +130,7 @@
                 <tr>
                     <th width="120">排序：</th>
                     <td>
+                        <input type="hidden" name="itemId" id="itemId"/>
                         <input class="common-text required" id="sort" name="sort" value="0" size="20" type="text"/>
                     </td>
                 </tr>

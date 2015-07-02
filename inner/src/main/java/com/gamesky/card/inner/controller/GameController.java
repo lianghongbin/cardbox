@@ -202,4 +202,15 @@ public class GameController {
         cardService.validByGame(id, !operate);
         return String.valueOf(result);
     }
+
+    @ResponseBody
+    @RequestMapping("/findplatform")
+    public String findPlatform(int id) {
+        Game game = gameService.find(id);
+        if (game == null) {
+            return "";
+        }
+
+        return game.getPlatform();
+    }
 }

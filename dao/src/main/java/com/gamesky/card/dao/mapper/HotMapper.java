@@ -2,9 +2,8 @@ package com.gamesky.card.dao.mapper;
 
 import com.gamesky.card.core.model.Hot;
 import com.gamesky.card.core.model.HotExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface HotMapper {
     int countByExample(HotExample example);
