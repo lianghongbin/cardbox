@@ -25,7 +25,7 @@
 </head>
 <body>
 <div class="banner">
-	<img src="http://n.7k7kimg.cn/uploads/cdn/shangwu/jf.jpg" width="100%" />	
+	<img src="http://kk.7k7kimg.cn/page_score.jpg" width="100%" />
 </div>
 </body>
 </html>
