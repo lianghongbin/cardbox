@@ -82,7 +82,7 @@
                         <th width="120">名称：</th>
                         <td>
                             <input name="id" id="id" value="${card.id}" type="hidden">
-                            <input class="common-text required" id="name" name="name" value="${card.name}" size="50"
+                            <input class="common-text required" id="name" name="name" value="${card.name!}" size="50"
                                    type="text"/>
                         </td>
                     </tr>
@@ -127,7 +127,7 @@
                     </tr>
                     <tr>
                         <th>分数：</th>
-                        <td><input class="common-text" name="score" id="score" value="${card.score}" size="20"
+                        <td><input class="common-text" name="score" id="score" value="${card.score!0}" size="20"
                                    type="text"></td>
                     </tr>
                     <tr>
@@ -151,12 +151,12 @@
                     <tr>
                         <th>描述：</th>
                         <td><textarea name="description" class="common-textarea" id="description" cols="20"
-                                      style="width: 98%;" rows="5">${card.description}</textarea></td>
+                                      style="width: 98%;" rows="5">${card.description!}</textarea></td>
                     </tr>
                     <tr>
                         <th>使用流程：</th>
                         <td><textarea name="flow" class="common-textarea" id="flow" cols="20"
-                                      style="width: 98%;" rows="5">${card.flow}</textarea></td>
+                                      style="width: 98%;" rows="5">${card.flow!}</textarea></td>
                     </tr>
                     <tr>
                         <th>开放时间：</th>

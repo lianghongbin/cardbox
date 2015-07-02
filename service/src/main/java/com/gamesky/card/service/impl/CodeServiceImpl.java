@@ -53,7 +53,8 @@ public class CodeServiceImpl implements CodeService {
      */
     @Override
     public int remove(int id) {
-        cardService.reduceTotal(id, 1);
+        Code code = find(id);
+        cardService.reduceTotal(code.getCardId(), 1);
         return codeMapper.deleteByPrimaryKey(id);
     }
 
@@ -67,6 +68,8 @@ public class CodeServiceImpl implements CodeService {
     public int removeByCard(int cardId) {
         CodeExample codeExample = new CodeExample();
         codeExample.createCriteria().andCardIdEqualTo(cardId);
+        int count = codeMapper.countByExample(codeExample);
+        cardService.reduceTotal(cardId, count);
         return codeMapper.deleteByExample(codeExample);
     }
 

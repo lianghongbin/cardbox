@@ -105,7 +105,6 @@ public class CodeController {
     @ResponseBody
     @RequestMapping("/remove")
     public String remove(int id) {
-
         int result = codeService.remove(id);
         return String.valueOf(result);
     }
@@ -179,7 +178,6 @@ public class CodeController {
 
         String[] codes = StringUtils.split(input, " ");
 
-        int count = 0;
         for (String code : codes) {
             if (StringUtils.isNoneBlank(code)) {
                 Code tmp = new Code();
@@ -192,17 +190,11 @@ public class CodeController {
                 tmp.setAssigned(false);
                 tmp.setCreateTime(System.currentTimeMillis());
 
-                int result = codeService.save(tmp);
-                count += result;
+                codeService.save(tmp);
             }
         }
 
-        Card card = cardService.find(cardId);
-        CardWithBLOBs cardWithBLOBs = new CardWithBLOBs();
-        cardWithBLOBs.setId(cardId);
-        cardWithBLOBs.setTotal(card.getTotal() + count);
-        cardService.update(cardWithBLOBs);
-
+        cardService.increaseTotal(cardId, 1);
         return String.valueOf("1");
     }
 }

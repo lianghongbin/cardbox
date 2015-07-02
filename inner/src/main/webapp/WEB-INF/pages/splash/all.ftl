@@ -67,31 +67,7 @@
                 }
             });
         }
-
-        function saveSort(id, index) {
-            var sort = $(":text").eq(index).val();
-            $.ajax({
-                url: '/splash/update',// 跳转到 action
-                data: {
-                    id: id,
-                    sort: sort
-                },
-                type: 'post',
-                dataType: 'text',
-                success: function (data) {
-                    if (data == "1") {
-                        alert("修改成功");
-                        window.location.reload();
-                    } else {
-                        alert("修改失败");
-                    }
-                },
-                error: function () {
-                    alert("异常！");
-                }
-            });
-        }
-
+        
         function saveSort(id, sort) {
             $.ajax({
                 url: '/splash/update',// 跳转到 action

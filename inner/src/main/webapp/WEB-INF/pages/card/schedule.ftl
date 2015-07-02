@@ -141,18 +141,18 @@
                                 ${card.id}
                             </td>
                             <td>
-                                <input size="3" name="sort" value="${card.sort}"  type="text" onblur="javascript:saveSort(${card.id}, this.value.trim())">
+                                <input size="3" name="sort" value="${card.sort!0}"  type="text" onblur="javascript:saveSort(${card.id}, this.value.trim())">
                             </td>
-                            <td title="${card.gameName}">
-                                <a href="../game/view?id=${card.gameId}" title="${card.gameName}">${card.gameName}</a>
+                            <td title="${card.gameName!}">
+                                <a href="../game/view?id=${card.gameId}" title="${card.gameName!}">${card.gameName!}</a>
                             </td>
-                            <td title="${card.name}">
-                                <a href="./view?id=${card.id}" title="${card.name}">${card.name}</a>
+                            <td title="${card.name!}">
+                                <a href="./view?id=${card.id}" title="${card.name!}">${card.name!}</a>
                             </td>
                             <td><#if card.closed>下线<#else><font color="red">上线</font></#if> </td>
-                            <td>${card.total}</td>
+                            <td>${card.total!0}</td>
                             <td>${card.total-card.assignTotal}</td>
-                            <td>${card.type}</td>
+                            <td>${card.type!}</td>
                             <td><#if card.recommend><font color="red">推荐</font><#else>正常</#if></td>
                             <td>${card.openTime?number_to_datetime}</td>
                             <td>${card.expireTime?number_to_datetime}</td>

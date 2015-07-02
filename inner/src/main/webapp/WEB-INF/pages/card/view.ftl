@@ -27,24 +27,28 @@
                 <tr>
                     <th>所属游戏：</th>
                     <td>
-                    ${card.gameName}
+                    ${card.gameName!}
                     </td>
                 </tr>
                 <tr>
                     <th width="120">名称：</th>
                     <td>
-                    ${card.name}
+                    ${card.name!}
                     </td>
+                </tr>
+                <tr>
+                    <th>平台：</th>
+                    <td>${card.platform!}</td>
                 </tr>
                 <tr>
                     <th>图标：</th>
                     <td>
-                    <img src="{card.icon}"/>
+                    <img src="{card.icon!}"/>
                     </td>
                 </tr>
                 <tr>
                     <th>礼包数量：</th>
-                    <td>${card.total}
+                    <td>${card.total!0}
                     </td>
                 </tr>
                 <tr>
@@ -56,12 +60,12 @@
                 <tr>
                     <th>礼包类别：</th>
                     <td>
-                    ${card.type}
+                    ${card.type!}
                     </td>
                 </tr>
                 <tr>
                     <th>分数：</th>
-                    <td>${card.score}</td>
+                    <td>${card.score!0}</td>
                 </tr>
                 <tr>
                     <th>是否推荐：</th>
@@ -77,21 +81,21 @@
                 </tr>
                 <tr>
                     <th>描述：</th>
-                    <td>${card.description}
+                    <td>${card.description!}
                     </td>
                 </tr>
                 <tr>
                     <th>使用流程：</th>
-                    <td>${card.flow}
+                    <td>${card.flow!}
                     </td>
                 </tr>
                 <tr>
                     <th>开放时间：</th>
-                    <td>${card.openTime?number_to_date}</td>
+                    <td>${card.openTime?number_to_datetime}</td>
                 </tr>
                 <tr>
                     <th>截止时间：</th>
-                    <td>${card.expireTime?number_to_date}</td>
+                    <td>${card.expireTime?number_to_datetime}</td>
                 </tr>
                 <tr>
                     <th></th>

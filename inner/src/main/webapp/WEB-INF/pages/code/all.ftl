@@ -110,15 +110,15 @@
                     <#list paginationData.pageItems as code>
                         <tr>
                             <td>
-                                ${code.phone}
+                                ${code.phone!}
                             </td>
                             <td>
-                                ${code.code}
+                                ${code.code!}
                             </td>
                             <td>
-                                ${code.gameName}
+                                ${code.gameName!}
                             </td>
-                            <td>${code.cardName}</td>
+                            <td>${code.cardName!}</td>
                             <td><#if code.assigned><font color="red">是</font><#else>否</#if></td>
                             <td><#if code.used><font color="red">是</font><#else>否</#if></td>
                             <td><#if code.assignTime??> ${code.assignTime?number_to_datetime}</#if></td>

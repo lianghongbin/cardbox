@@ -75,13 +75,13 @@
                             <input name="gameName" id="gameName" value="${game.name}" type="hidden">
                             <input name="cardId" id="cardId" value="${card.id}" type="hidden">
                             <input name="cardName" id="cardName" value="${card.name}" type="hidden">
-                            ${game.name}
+                            ${game.name!}
                         </td>
                     </tr>
                     <tr>
                         <th>礼包名称：</th>
                         <td>
-                            ${card.name}
+                            ${card.name!}
                         </td>
                     </tr>
                     <tr>

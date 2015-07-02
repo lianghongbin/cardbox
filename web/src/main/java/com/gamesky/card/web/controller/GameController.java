@@ -5,6 +5,7 @@ import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.model.Game;
 import com.gamesky.card.core.model.Photo;
 import com.gamesky.card.service.BeanUtils;
+import com.gamesky.card.service.CardService;
 import com.gamesky.card.service.GameService;
 import com.gamesky.card.service.PhotoService;
 import com.google.gson.Gson;
@@ -33,6 +34,8 @@ public class GameController {
 
     @Autowired
     private GameService gameService;
+    @Autowired
+    private CardService cardService;
     @Autowired
     private PhotoService photoService;
     private static final Logger logger = LoggerFactory.getLogger(GameController.class);
@@ -74,6 +77,11 @@ public class GameController {
             return ResultGenerator.generateError(e.getMessage());
         }
 
+        int cardId =cardService.findMaxCountId(id);
+        if (cardId > 0) {
+            params.put("cardId", cardId);
+        }
+
         List<String> photoList = new ArrayList<>();
 
         if (photos == null || photos.size() == 0) {
@@ -86,6 +94,7 @@ public class GameController {
 
             params.put("photo", photoList);
         }
+
 
         return ResultGenerator.generate(params);
     }

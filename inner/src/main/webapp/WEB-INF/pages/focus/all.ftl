@@ -116,7 +116,7 @@
                         <tr>
                             <th>排序</th>
                             <th>类别</th>
-                            <th>类别名称</th>
+                            <th>平台类型</th>
                             <th>状态</th>
                             <th>图片</th>
                             <th>URL</th>
@@ -129,10 +129,10 @@
                                 <input class="common-input sort-input" name="sort" value="${focus.sort}" type="text"  onblur="javascript:saveSort(${focus.id}, this.value)">
                             </td>
                             <td>
-                            ${focus.type}
+                            ${focus.type!}
                             </td>
                             <td>
-                            ${focus.name}
+                            ${focus.platform!}
                             </td>
                             <td><#if focus.enabled>线上<#else><font color="red">下线</font></#if> </td>
                             <td><img src="${focus.photo}" width="160" height="160"></td>

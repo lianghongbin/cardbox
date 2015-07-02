@@ -125,6 +125,7 @@
                             <th width="50">排序</th>
                             <th>游戏名称</th>
                             <th>礼包名称</th>
+                            <th>平台</th>
                             <th>状态</th>
                             <th width="50">礼包数</th>
                             <th width="50">库存量</th>
@@ -141,18 +142,19 @@
                                 ${card.id}
                             </td>
                             <td>
-                                <input size="3" name="sort" value="${card.sort}"  type="text" onblur="javascript:saveSort(${card.id}, this.value.trim())">
+                                <input size="3" name="sort" value="${card.sort!2}"  type="text" onblur="javascript:saveSort(${card.id}, this.value.trim())">
                             </td>
-                            <td title="${card.gameName}">
+                            <td title="${card.gameName!}">
                                 <a href="../game/view?id=${card.gameId}" title="${card.gameName}">${card.gameName}</a>
                             </td>
-                            <td title="${card.name}">
-                                <a href="./view?id=${card.id}" title="${card.name}">${card.name}</a>
+                            <td title="${card.name!}">
+                                <a href="./view?id=${card.id}" title="${card.name!}">${card.name!}</a>
                             </td>
+                            <td>${card.platform!}</td>
                             <td><#if card.closed>下线<#else><font color="red">上线</font></#if> </td>
-                            <td>${card.total}</td>
+                            <td>${card.total!}</td>
                             <td>${card.total-card.assignTotal}</td>
-                            <td>${card.type}</td>
+                            <td>${card.type!}</td>
                             <td><#if card.recommend><font color="red">推荐</font><#else>正常</#if></td>
                             <td>${card.openTime?number_to_datetime}</td>
                             <td>${card.expireTime?number_to_datetime}</td>

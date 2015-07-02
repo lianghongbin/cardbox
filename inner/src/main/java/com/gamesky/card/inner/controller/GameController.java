@@ -57,6 +57,13 @@ public class GameController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(Game game) {
         game.setModifyTime(System.currentTimeMillis());
+
+
+        Game org = gameService.find(game.getId());
+        if (!org.getName().equalsIgnoreCase(game.getName())) {
+            cardService.updateGameName(game.getId(), game.getName());
+        }
+
         int result = gameService.update(game);
         return String.valueOf(result);
     }

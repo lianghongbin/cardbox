@@ -312,6 +312,15 @@ public class CardServiceImpl implements CardService {
         return cardMapper.selectByExampleWithBLOBs(cardExample);
     }
 
+    @Override
+    public int updateGameName(int gameId, String gameName) {
+        CardExample cardExample = new CardExample();
+        cardExample.createCriteria().andGameIdEqualTo(gameId);
+        CardWithBLOBs cardWithBLOBs = new CardWithBLOBs();
+        cardWithBLOBs.setGameName(gameName);
+        return cardMapper.updateByExampleSelective(cardWithBLOBs, cardExample);
+    }
+
     /**
      * 查找某款游戏下的卡包类别数量
      *
@@ -464,7 +473,7 @@ public class CardServiceImpl implements CardService {
             default:
         }
 
-        if (platform.equalsIgnoreCase(Platform.ALL.name())) {
+        if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
             List<String> platforms = new ArrayList<>();
             platforms.add(Platform.ALL.name());
             platforms.add(platform);
@@ -506,7 +515,7 @@ public class CardServiceImpl implements CardService {
             default:
         }
 
-        if (platform.equalsIgnoreCase(Platform.ALL.name())) {
+        if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
             List<String> platforms = new ArrayList<>();
             platforms.add(Platform.ALL.name());
             platforms.add(platform);
@@ -534,7 +543,7 @@ public class CardServiceImpl implements CardService {
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
                 .andExpireTimeGreaterThan(System.currentTimeMillis());
 
-        if (platform.equalsIgnoreCase(Platform.ALL.name())) {
+        if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
             List<String> platforms = new ArrayList<>();
             platforms.add(Platform.ALL.name());
             platforms.add(platform);
@@ -565,7 +574,7 @@ public class CardServiceImpl implements CardService {
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
                 .andExpireTimeGreaterThan(System.currentTimeMillis());
 
-        if (platform.equalsIgnoreCase(Platform.ALL.name())) {
+        if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
             List<String> platforms = new ArrayList<>();
             platforms.add(Platform.ALL.name());
             platforms.add(platform);
@@ -628,5 +637,26 @@ public class CardServiceImpl implements CardService {
         CardWithBLOBs card = cardMapper.selectByPrimaryKey(id);
         card.setAssignTotal(card.getAssignTotal() - Math.abs(count));
         return cardMapper.updateByPrimaryKeySelective(card);
+    }
+
+    /**
+     * 根据游戏ID，找到该游戏下，礼包中库存激活码最多的礼包
+     *
+     * @param gameId 游戏ID
+     * @return 礼包ID
+     */
+    @Override
+    public int findMaxCountId(int gameId) {
+        CardExample cardExample = new CardExample();
+        cardExample.createCriteria().andGameIdEqualTo(gameId);
+        cardExample.setLimitOffset(0);
+        cardExample.setLimit(1);
+        cardExample.setOrderByClause("(total-assign_total) desc");
+        List<Card> cards = cardMapper.selectByExample(cardExample);
+        if (cards == null || cards.size() == 0) {
+            return 0;
+        }
+
+        return cards.get(0).getId();
     }
 }

@@ -27,17 +27,6 @@
                 }
             });
         }
-
-        function onChange(type) {
-            if(type == "GAME") {
-                $("#itemGame").show();
-                $("#itemCard").hide();
-            }
-            else if(type == "CARD") {
-                $("#itemGame").hide();
-                $("#itemCard").show();
-            }
-        }
     </script>
 </head>
 <body>

@@ -127,6 +127,8 @@ public interface CardService {
      */
     public List<CardWithBLOBs> findByGame(int gameId, String platform, Page page);
 
+    public int updateGameName(int gameId, String gameName);
+
     /**
      * 查找某款游戏下的卡包类别数量
      *
@@ -237,4 +239,11 @@ public interface CardService {
      * @return 影响条数
      */
     public int reduceAssignTotal(int id, int count);
+
+    /**
+     * 根据游戏ID，找到该游戏下，礼包中库存激活码最多的礼包
+     * @param gameId 游戏ID
+     * @return 礼包ID
+     */
+    public int findMaxCountId(int gameId);
 }

@@ -88,7 +88,7 @@
                                 <select name="gameId" id="">
                                     <option value="">全部</option>
                                     <#list games as game>
-                                    <option value="${game.id}">${game.name}</option>
+                                    <option value="${game.id}">${game.name!}</option>
                                     </#list>
                                 </select>
                             </td>
@@ -141,7 +141,7 @@
                                 ${card.id}
                             </td>
                             <td>
-                                <input size="3" name="sort" value="${card.sort}"  type="text" onblur="javascript:saveSort(${card.id}, this.value.trim())">
+                                <input size="3" name="sort" value="${card.sort!0}"  type="text" onblur="javascript:saveSort(${card.id}, this.value.trim())">
                             </td>
                             <td title="${card.gameName}">
                                 <a href="../game/view?id=${card.gameId}" title="${card.gameName}">${card.gameName}</a>
