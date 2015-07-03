@@ -8,7 +8,6 @@ import com.gamesky.card.dao.mapper.HotMapper;
 import com.gamesky.card.service.HotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,6 @@ import java.util.List;
  * @Author lianghongbin
  */
 @Service
-@Transactional
 public class HotServiceImpl implements HotService {
 
     @Autowired

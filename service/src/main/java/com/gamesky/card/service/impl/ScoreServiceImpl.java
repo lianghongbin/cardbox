@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,6 +25,7 @@ import java.util.List;
  * @Author lianghongbin
  */
 @Service
+@Transactional
 public class ScoreServiceImpl implements ScoreService {
 
     @Autowired
@@ -83,7 +85,8 @@ public class ScoreServiceImpl implements ScoreService {
         }
 
         User user = userService.findByPhone(phone);
-        if (user == null) {
+        if (user == null || user.getScore()<score) {
+            logger.error("手机用户 {} 不存在或者积分不足");
             return 0;
         }
 

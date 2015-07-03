@@ -91,6 +91,7 @@ public class CodeServiceImpl implements CodeService {
      * @return 激活码
      */
     @Override
+    @Transactional(readOnly = true)
     public Code find(int id) {
         return codeMapper.selectByPrimaryKey(id);
     }
@@ -102,6 +103,7 @@ public class CodeServiceImpl implements CodeService {
      * @return 激活码实体
      */
     @Override
+    @Transactional(readOnly = true)
     public Code findOne(final int cardId) {
         CodeLock codeLock = new CodeLock(cardId);
 
@@ -134,6 +136,7 @@ public class CodeServiceImpl implements CodeService {
      * @return 激活码列表
      */
     @Override
+    @Transactional(readOnly = true)
     public List<Code> findByCard(int cardId, Page page) {
         CodeExample codeExample = new CodeExample();
         codeExample.createCriteria().andCardIdEqualTo(cardId);
@@ -150,6 +153,7 @@ public class CodeServiceImpl implements CodeService {
      * @return 激活码列表数量
      */
     @Override
+    @Transactional(readOnly = true)
     public int findCountByCard(int cardId) {
         CodeExample keyExample = new CodeExample();
         keyExample.createCriteria().andCardIdEqualTo(cardId);
@@ -164,6 +168,7 @@ public class CodeServiceImpl implements CodeService {
      * @return 激活码列表
      */
     @Override
+    @Transactional(readOnly = true)
     public List<Code> findByPhone(String phone, Page page) {
         CodeExample codeExample = new CodeExample();
         codeExample.createCriteria().andPhoneEqualTo(phone);
@@ -180,6 +185,7 @@ public class CodeServiceImpl implements CodeService {
      * @return 激活码列表
      */
     @Override
+    @Transactional(readOnly = true)
     public int findCountByPhone(String phone) {
         CodeExample codeExample = new CodeExample();
         codeExample.createCriteria().andPhoneEqualTo(phone);
@@ -195,6 +201,7 @@ public class CodeServiceImpl implements CodeService {
      * @return 激活码列表
      */
     @Override
+    @Transactional(readOnly = true)
     public List<Code> findByCardAndPhone(int cardId, String phone, Page page) {
         CodeExample codeExample = new CodeExample();
         codeExample.createCriteria().andCardIdEqualTo(cardId).andPhoneEqualTo(phone).andAssignedEqualTo(true);
@@ -212,6 +219,7 @@ public class CodeServiceImpl implements CodeService {
      * @return 激活码列表
      */
     @Override
+    @Transactional(readOnly = true)
     public int findCountByCardAndPhone(int cardId, String phone) {
         CodeExample codeExample = new CodeExample();
         codeExample.createCriteria().andCardIdEqualTo(cardId).andPhoneEqualTo(phone);
@@ -225,6 +233,7 @@ public class CodeServiceImpl implements CodeService {
      * @return 激活码列表
      */
     @Override
+    @Transactional(readOnly = true)
     public List<Code> findAll(Page page) {
         CodeExample codeExample = new CodeExample();
         codeExample.setLimitOffset(page.getOffset());
@@ -252,6 +261,7 @@ public class CodeServiceImpl implements CodeService {
      * @return 激活码列表
      */
     @Override
+    @Transactional(readOnly = true)
     public List<Code> findByCondition(CodeExample codeExample) {
         return codeMapper.selectByExample(codeExample);
     }
@@ -263,6 +273,7 @@ public class CodeServiceImpl implements CodeService {
      * @return 激活码列表数量
      */
     @Override
+    @Transactional(readOnly = true)
     public int findCountByCondition(CodeExample codeExample) {
         return codeMapper.countByExample(codeExample);
     }

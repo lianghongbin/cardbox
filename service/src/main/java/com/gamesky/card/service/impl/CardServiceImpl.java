@@ -195,6 +195,7 @@ public class CardServiceImpl implements CardService {
      * @return 影响条数
      */
     @Override
+    @Transactional(readOnly = true)
     public Card find(int id) {
         return cardMapper.selectByPrimaryKey(id);
     }
@@ -206,6 +207,7 @@ public class CardServiceImpl implements CardService {
      * @return 卡包列表
      */
     @Override
+    @Transactional(readOnly = true)
     public List<CardWithBLOBs> findAll(Page page) {
         CardExample cardExample = new CardExample();
         cardExample.setLimitOffset(page.getOffset());
@@ -221,6 +223,7 @@ public class CardServiceImpl implements CardService {
      * @return 卡包列表
      */
     @Override
+    @Transactional(readOnly = true)
     public List<CardWithBLOBs> findEnabledAll(Page page) {
         CardExample cardExample = new CardExample();
         cardExample.createCriteria()
@@ -251,6 +254,7 @@ public class CardServiceImpl implements CardService {
      * @return 卡包数
      */
     @Override
+    @Transactional(readOnly = true)
     public int findEnabledCount() {
         CardExample cardExample = new CardExample();
         cardExample.createCriteria()
@@ -268,6 +272,7 @@ public class CardServiceImpl implements CardService {
      * @return 卡包列表
      */
     @Override
+    @Transactional(readOnly = true)
     public List<CardWithBLOBs> findByCondition(CardExample cardExample) {
         return cardMapper.selectByExampleWithBLOBs(cardExample);
     }
@@ -279,6 +284,7 @@ public class CardServiceImpl implements CardService {
      * @return 卡包数量
      */
     @Override
+    @Transactional(readOnly = true)
     public int findCountByCondition(CardExample cardExample) {
         return cardMapper.countByExample(cardExample);
     }
@@ -291,6 +297,7 @@ public class CardServiceImpl implements CardService {
      * @return 卡包列表
      */
     @Override
+    @Transactional(readOnly = true)
     public List<CardWithBLOBs> findByGame(int gameId, String platform, Page page) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
@@ -328,6 +335,7 @@ public class CardServiceImpl implements CardService {
      * @return 卡包类别数量
      */
     @Override
+    @Transactional(readOnly = true)
     public int findCountByGame(int gameId, String platform) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
@@ -355,6 +363,7 @@ public class CardServiceImpl implements CardService {
      * @return 卡包列表
      */
     @Override
+    @Transactional(readOnly = true)
     public List<CardWithBLOBs> findRecommendByGame(int gameId, String platform, Page page) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
@@ -384,6 +393,7 @@ public class CardServiceImpl implements CardService {
      * @return 卡包类别数量
      */
     @Override
+    @Transactional(readOnly = true)
     public int findRecommendCountByGame(int gameId, String platform) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
@@ -410,6 +420,7 @@ public class CardServiceImpl implements CardService {
      * @return 礼包集合
      */
     @Override
+    @Transactional(readOnly = true)
     public List<CardWithBLOBs> findByIds(List<Integer> ids) {
         CardExample cardExample = new CardExample();
         cardExample.createCriteria().andIdIn(ids);
@@ -423,6 +434,7 @@ public class CardServiceImpl implements CardService {
      * @param phone 用户手机
      * @return true/false
      */
+    @Transactional(readOnly = true)
     public boolean hasAssign(int id, String phone) {
         List<Code> codes = codeService.findByCardAndPhone(id, phone, new Page());
         return codes != null && codes.size() > 0;
@@ -452,6 +464,7 @@ public class CardServiceImpl implements CardService {
      * @return 礼包列表
      */
     @Override
+    @Transactional(readOnly = true)
     public List<CardWithBLOBs> recommend(int type, String platform, Page page) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria()
@@ -494,6 +507,7 @@ public class CardServiceImpl implements CardService {
      * @return 礼包数
      */
     @Override
+    @Transactional(readOnly = true)
     public int recommendCount(int type, String platform) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria()
@@ -534,6 +548,7 @@ public class CardServiceImpl implements CardService {
      * @return 礼包列表
      */
     @Override
+    @Transactional(readOnly = true)
     public List<CardWithBLOBs> findByKey(String key, String platform, Page page) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
@@ -565,6 +580,7 @@ public class CardServiceImpl implements CardService {
      * @return 礼包数
      */
     @Override
+    @Transactional(readOnly = true)
     public int findCountByKey(String key, String platform) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
