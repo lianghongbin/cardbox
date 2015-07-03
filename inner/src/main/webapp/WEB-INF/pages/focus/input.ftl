@@ -11,6 +11,15 @@
     <link rel="stylesheet" type="text/css" href="/uploadify/uploadify.css">
     <script type="text/javascript">
         function operate() {
+            if($("#photo").val() == "") {
+                alert("请上传焦点图！");
+                return false;
+            }
+            if($("#url").val() == "") {
+                alert("请填写焦点图对应URL");
+                return false;
+            }
+
             $.ajax({
                 url: '/focus/save',// 跳转到 action
                 data: $('#myform').serialize(),// 你的formid,
@@ -43,6 +52,10 @@
                 queueID: 'photoQueue',
                 multi: false,
                 onUploadSuccess : function(file, data, response) {
+                    if(data == "") {
+                        alert("上传文件失败");
+                        return;
+                    }
                     $("#photo").val(data);
                     $("#imgId").html("<img src=" + data + ">");
                     $("#show").show();

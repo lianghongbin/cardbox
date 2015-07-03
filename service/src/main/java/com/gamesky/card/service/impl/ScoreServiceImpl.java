@@ -1,9 +1,7 @@
 package com.gamesky.card.service.impl;
 
-import com.gamesky.card.core.Constants;
-import com.gamesky.card.core.FlowType;
-import com.gamesky.card.core.MethodType;
-import com.gamesky.card.core.Page;
+import com.gamesky.card.core.*;
+import com.gamesky.card.core.exceptions.MarshalException;
 import com.gamesky.card.core.model.Flow;
 import com.gamesky.card.core.model.Setting;
 import com.gamesky.card.core.model.User;
@@ -11,10 +9,13 @@ import com.gamesky.card.service.FlowService;
 import com.gamesky.card.service.ScoreService;
 import com.gamesky.card.service.SettingService;
 import com.gamesky.card.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,12 +32,16 @@ public class ScoreServiceImpl implements ScoreService {
     private FlowService flowService;
     @Autowired
     private SettingService settingService;
+    @Autowired
+    private Marshaller<Cacheable, Integer> marshaller;
+    private static final Logger logger = LoggerFactory.getLogger(ScoreServiceImpl.class);
+
     /**
      * 用户赚取积分
      *
-     * @param phone 用户手机
-     * @param score 积分数
-     * @param methodType   获取积分类别
+     * @param phone      用户手机
+     * @param score      积分数
+     * @param methodType 获取积分类别
      * @return 影响条数
      */
     @Override
@@ -97,6 +102,7 @@ public class ScoreServiceImpl implements ScoreService {
 
     /**
      * 每日登录赚积分，一天只能一次
+     *
      * @param phone 用户ID
      * @return 影响条数
      */
@@ -123,7 +129,7 @@ public class ScoreServiceImpl implements ScoreService {
                 continue;
             }
 
-            if(sameDay(flow.getCreateTime(), System.currentTimeMillis())) {
+            if (sameDay(flow.getCreateTime(), System.currentTimeMillis())) {
                 return 0;
             }
         }
@@ -143,6 +149,7 @@ public class ScoreServiceImpl implements ScoreService {
 
     /**
      * 微信分享赚积分，一天只能一次
+     *
      * @param phone 用户手机
      * @return 影响条数
      */
@@ -169,7 +176,7 @@ public class ScoreServiceImpl implements ScoreService {
                 continue;
             }
 
-            if(sameDay(flow.getCreateTime(), System.currentTimeMillis())) {
+            if (sameDay(flow.getCreateTime(), System.currentTimeMillis())) {
                 return 0;
             }
         }
@@ -188,6 +195,7 @@ public class ScoreServiceImpl implements ScoreService {
 
     /**
      * QQ分享赚积分 ，一天只能一次
+     *
      * @param phone 用户手机
      * @return 影响条数
      */
@@ -214,7 +222,7 @@ public class ScoreServiceImpl implements ScoreService {
                 continue;
             }
 
-            if(sameDay(flow.getCreateTime(), System.currentTimeMillis())) {
+            if (sameDay(flow.getCreateTime(), System.currentTimeMillis())) {
                 return 0;
             }
         }
@@ -232,42 +240,55 @@ public class ScoreServiceImpl implements ScoreService {
         return 0;
     }
 
-    private int download(String phone) {
-        List<Flow> flows = flowService.findByPhone(phone, new Page());
+    private int download(final String phone) {
         int score = Constants.DOWNLOAD_SCORE;
-        Setting setting;
-        if (flows == null || flows.size() == 0) {
-            setting = settingService.find("1_0");
-            if (setting != null) {
-                score = setting.getDownload();
-            }
-
-            int result = this.gain(phone, score, MethodType.DOWNLOAD_GAIN);
-            if (result > 0) {
-                return score;
-            }
-
-            return 0;
-        }
-
-        for (Flow flow : flows) {
-            if (!flow.getMethod().equals(MethodType.DOWNLOAD_GAIN.name())) {
-                continue;
-            }
-
-            if(sameDay(flow.getCreateTime(), System.currentTimeMillis())) {
-                return 0;
-            }
-        }
-
-        setting = settingService.find("1_0");
+        Setting setting = settingService.find("1_0");
         if (setting != null) {
             score = setting.getDownload();
         }
 
-        int result = this.gain(phone, score, MethodType.DOWNLOAD_GAIN);
-        if (result > 0) {
-            return score;
+        //一天只前三次下载送积分
+        SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String today = dataFormat.format(new Date());
+        String suffix = "_login_" + today;
+        try {
+            Integer count = marshaller.unmarshal(new Cacheable() {
+                @Override
+                public int expire() {
+                    return 0;
+                }
+
+                @Override
+                public String k() {
+                    return phone + suffix;
+                }
+            });
+
+            count = count == null ? 0 : count;
+
+            if (count >= 3) {
+                return 0;
+            } else {
+                marshaller.marshal(new Cacheable() {
+                    @Override
+                    public int expire() {
+                        return 24 * 60 * 60 * 2;
+                    }
+
+                    @Override
+                    public String k() {
+                        return phone + suffix;
+                    }
+                }, count + 1);
+
+                int result = this.gain(phone, score, MethodType.DOWNLOAD_GAIN);
+                if (result > 0) {
+                    return score;
+                }
+            }
+        } catch (MarshalException e) {
+            logger.error("缓存读取异常：{}", e);
+            return 0;
         }
 
         return 0;

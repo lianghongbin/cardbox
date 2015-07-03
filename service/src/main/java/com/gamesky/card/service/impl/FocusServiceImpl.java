@@ -2,10 +2,14 @@ package com.gamesky.card.service.impl;
 
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.Platform;
+import com.gamesky.card.core.model.Card;
 import com.gamesky.card.core.model.Focus;
 import com.gamesky.card.core.model.FocusExample;
+import com.gamesky.card.core.model.Game;
 import com.gamesky.card.dao.mapper.FocusMapper;
+import com.gamesky.card.service.CardService;
 import com.gamesky.card.service.FocusService;
+import com.gamesky.card.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +27,10 @@ public class FocusServiceImpl implements FocusService {
 
     @Autowired
     private FocusMapper focusMapper;
+    @Autowired
+    private GameService gameService;
+    @Autowired
+    private CardService cardService;
 
     /**
      * 添加焦点图
@@ -54,6 +62,19 @@ public class FocusServiceImpl implements FocusService {
      */
     @Override
     public int update(Focus focus) {
+        if ("GAME".equalsIgnoreCase(focus.getType())) {
+            Game game = gameService.find(focus.getItemId());
+            focus.setPlatform(game.getPlatform());
+        }
+        else if ("CARD".equalsIgnoreCase(focus.getType())){
+            Card card = cardService.find(focus.getItemId());
+            focus.setPlatform(card.getPlatform());
+        }
+        else {
+            focus.setItemId(0);
+            focus.setPlatform(Platform.ALL.name());
+        }
+
         return focusMapper.updateByPrimaryKeySelective(focus);
     }
 
@@ -73,7 +94,7 @@ public class FocusServiceImpl implements FocusService {
         FocusExample focusExample = new FocusExample();
         focusExample.setLimitOffset(page.getOffset());
         focusExample.setLimit(page.getPagesize());
-        focusExample.setOrderByClause("sort asc, enabled desc");
+        focusExample.setOrderByClause("sort asc, enabled desc, id desc");
         return focusMapper.selectByExample(focusExample);
     }
 
@@ -86,7 +107,7 @@ public class FocusServiceImpl implements FocusService {
     public List<Focus> findAll() {
         FocusExample focusExample = new FocusExample();
         focusExample.createCriteria().andEnabledEqualTo(true);
-        focusExample.setOrderByClause("sort asc, enabled desc");
+        focusExample.setOrderByClause("sort asc, enabled desc, id desc");
         return focusMapper.selectByExample(focusExample);
     }
 
@@ -127,7 +148,7 @@ public class FocusServiceImpl implements FocusService {
 
         focusExample.setLimitOffset(page.getOffset());
         focusExample.setLimit(page.getPagesize());
-        focusExample.setOrderByClause("sort asc, enabled desc");
+        focusExample.setOrderByClause("sort asc, enabled desc, id desc");
         return focusMapper.selectByExample(focusExample);
     }
 

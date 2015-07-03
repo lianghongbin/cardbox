@@ -11,16 +11,15 @@
     <link rel="stylesheet" type="text/css" href="/uploadify/uploadify.css">
     <script type="text/javascript">
         function operate() {
-            if($("#itemId").val() == "") {
-                alert("请选择关系游戏或礼包！");
-                return false;
+            if ($("#itemId").val()=="" && $("#t").val() =="") {
+                alert("请你选择焦点图关联类型!");
+                return;
             }
-
             if($("#photo").val() == "") {
                 alert("请上传焦点图！");
                 return false;
             }
-            if($("url").val() == "") {
+            if($("input[name='type']:checked").val() == "PAGE" && $("#url").val() == "") {
                 alert("请填写焦点图对应URL");
                 return false;
             }
@@ -57,6 +56,11 @@
                 queueID: 'photoQueue',
                 multi: false,
                 onUploadSuccess : function(file, data, response) {
+                    if(data == "") {
+                        alert("上传文件失败");
+                        return false;
+                    }
+
                     $("#photo").val(data);
                     $("#imgId").html("<img src=" + data + ">");
                     $("#show").show();
@@ -68,10 +72,20 @@
             if(type == "GAME") {
                 $("#itemGame").show();
                 $("#itemCard").hide();
+                $("#itemPage").hide();
+                $("#t").val("");
             }
             else if(type == "CARD") {
                 $("#itemGame").hide();
                 $("#itemCard").show();
+                $("#itemPage").hide();
+                $("#t").val("");
+            }
+            else {
+                $("#itemGame").hide();
+                $("#itemCard").hide();
+                $("#itemPage").show();
+                $("#t").val("Page");
             }
         }
 
@@ -102,7 +116,10 @@
                                onclick="onChange('GAME')" checked> GAME &nbsp;&nbsp;
 
                         <input type="radio" name="type" value="CARD"
-                               onclick="onChange('CARD')"> CARD
+                               onclick="onChange('CARD')"> CARD &nbsp;&nbsp;
+
+                        <input type="radio" name="type" value="PAGE"
+                               onclick="onChange('PAGE')"> PAGE
                     </td>
                 </tr>
                 <tr>
@@ -124,6 +141,10 @@
                             <option value="${card.id}">${card.name}</option>
                         </#list>
                         </select>
+                        </div>
+
+                        <div id="itemPage" style="display:none">
+                            外部链接
                         </div>
                     </td>
                 </tr>
@@ -153,6 +174,7 @@
                 <tr>
                     <th>URL：</th>
                     <td>
+                        <input name="t" id="t" type="hidden">
                         <input name="photo" id="photo" type="hidden">
                         <input class="common-text required" id="url" name="url" size="50" type="text"/>
                     </td>

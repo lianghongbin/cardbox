@@ -11,7 +11,7 @@ public interface Constants {
     int REGISTRY_SCORE = 300;
     int DAILY_SCORE = 100;
     int SHARE_WEIXIN = 10;
-    int DOWNLOAD_SCORE = 10;
+    int DOWNLOAD_SCORE = 100;
 
     int SHARE_QQ = 10;
 

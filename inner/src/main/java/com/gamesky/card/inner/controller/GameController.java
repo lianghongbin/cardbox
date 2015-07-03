@@ -58,9 +58,8 @@ public class GameController {
     public String update(Game game) {
         game.setModifyTime(System.currentTimeMillis());
 
-
         Game org = gameService.find(game.getId());
-        if (!org.getName().equalsIgnoreCase(game.getName())) {
+        if (game.getName() != null && !org.getName().equalsIgnoreCase(game.getName())) {
             cardService.updateGameName(game.getId(), game.getName());
         }
 

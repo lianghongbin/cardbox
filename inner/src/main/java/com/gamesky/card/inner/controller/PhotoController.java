@@ -1,11 +1,9 @@
 package com.gamesky.card.inner.controller;
 
-import com.gamesky.card.core.Constants;
 import com.gamesky.card.core.Keyable;
 import com.gamesky.card.core.Marshaller;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.model.Card;
-import com.gamesky.card.core.model.CardWithBLOBs;
 import com.gamesky.card.core.model.Game;
 import com.gamesky.card.core.model.Photo;
 import com.gamesky.card.service.CardService;
@@ -15,8 +13,6 @@ import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,9 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -129,7 +123,8 @@ public class PhotoController {
 
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
-                return "创建上传文件夹失败";
+                logger.error("创建上传文件夹失败:{}", dir.getAbsolutePath());
+                return "";
             }
         }
 
@@ -181,7 +176,8 @@ public class PhotoController {
 
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
-                return "创建上传文件夹失败";
+                logger.error("创建上传文件夹失败:{}", dir.getAbsolutePath());
+                return "";
             }
         }
 

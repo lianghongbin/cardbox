@@ -11,6 +11,18 @@
     <link rel="stylesheet" type="text/css" href="/uploadify/uploadify.css">
     <script type="text/javascript">
         function operate() {
+            if ($("#itemId").val()=="" && $("#t").val() =="") {
+                alert("请你选择焦点图关联类型!");
+                return;
+            }
+            if($("#photo").val() == "") {
+                alert("请上传焦点图！");
+                return false;
+            }
+            if($("input[name='type']:checked").val() == "PAGE" && $("#url").val() == "") {
+                alert("请填写焦点图对应URL");
+                return false;
+            }
 
             $.ajax({
                 url: '/focus/update',// 跳转到 action
@@ -44,6 +56,10 @@
                 queueID: 'photoQueue',
                 multi: false,
                 onUploadSuccess: function (file, data, response) {
+                    if(data == "") {
+                        alert("上传文件失败");
+                        return;
+                    }
                     $("#photo").val(data);
                     $("#imgId").html("<img src=" + data + " width=160 height=160>");
                 }
@@ -51,13 +67,23 @@
         });
 
         function onChange(type) {
-            if (type == "GAME") {
+            if(type == "GAME") {
                 $("#itemGame").show();
                 $("#itemCard").hide();
+                $("#itemPage").hide();
+                $("#t").val("");
             }
-            else if (type == "CARD") {
+            else if(type == "CARD") {
                 $("#itemGame").hide();
                 $("#itemCard").show();
+                $("#itemPage").hide();
+                $("#t").val("");
+            }
+            else {
+                $("#itemGame").hide();
+                $("#itemCard").hide();
+                $("#itemPage").show();
+                $("#t").val("Page");
             }
         }
 
@@ -84,18 +110,22 @@
                     <tr>
                         <th>所属类别：</th>
                         <td>
-                            <input type="radio" name="type" value="GAME" <#if focus.type=="GAME">checked</#if>
-                                   onclick="onChange('GAME')"> GAME &nbsp;&nbsp;
+                            <input type="radio" name="type" value="GAME"
+                                   onclick="onChange('GAME')" <#if focus.type=="GAME">checked</#if>> GAME &nbsp;&nbsp;
 
-                            <input type="radio" name="type" value="CARD" <#if focus.type=="CARD">checked</#if>
-                                   onclick="onChange('CARD')"> CARD
+                            <input type="radio" name="type" value="CARD"
+                                   onclick="onChange('CARD')" <#if focus.type=="CARD">checked</#if>> CARD &nbsp;&nbsp;
+
+                            <input type="radio" name="type" value="PAGE"
+                                   onclick="onChange('PAGE')" <#if focus.type=="PAGE">checked</#if>> PAGE
                         </td>
                     </tr>
                     <tr>
                         <th>关联ITEM：</th>
                         <td>
-                            <div id="itemGame" <#if focus.type=="CARD">style="display:none"</#if> >
-                                关联游戏：<select name="t" id="t" class="required" onchange="setV(this.value)">
+                            <div id="itemGame" <#if focus.type!="GAME">style="display:none"</#if> >
+                                关联游戏：<select name="gId" id="gId" class="required" onchange="setV(this.value)">
+                                <option value="">请选择关联游戏</option>
                             <#list games as game>
                                 <option value="${game.id}"
                                         <#if game.id==focus.itemId>selected</#if>>${game.name}</option>
@@ -103,13 +133,18 @@
                             </select>
                             </div>
 
-                            <div id="itemCard"  <#if focus.type=="GAME">style="display:none"</#if>>
-                                关联礼包：<select name="t" id="t" class="required"  onchange="setV(this.value)">
+                            <div id="itemCard"  <#if focus.type!="CARD">style="display:none"</#if>>
+                                关联礼包：<select name="cId" id="cId" class="required"  onchange="setV(this.value)">
+                                <option value="">请选择关联礼包</option>
                             <#list cards as card>
                                 <option value="${card.id}"
                                         <#if card.id==focus.itemId>selected</#if>>${card.name}</option>
                             </#list>
                             </select>
+                            </div>
+
+                            <div id="itemPage" <#if focus.type!="PAGE">style="display:none"</#if>>
+                                外部链接
                             </div>
                         </td>
                     </tr>
@@ -142,6 +177,7 @@
                     <tr>
                         <th>URL：</th>
                         <td>
+                            <input name="t" id="t" value="${focus.type}" type="hidden"/>
                             <input name="id" id="id" value="${focus.id}" type="hidden">
                             <input name="photo" id="photo" value="${focus.photo}" type="hidden">
                             <input name="itemId" id="itemId" value="${focus.itemId}" type="hidden"/>
