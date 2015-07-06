@@ -43,6 +43,10 @@
                 queueID: 'iconQueue',
                 multi: false,
                 onUploadSuccess: function (file, data, response) {
+                    if(data==null) {
+                        alert("图片上传失败");
+                        return false;
+                    }
                     $("#icon").val(data);
                     $("#imgId").html("<img src=" + data + " width=160 height=160>");
                     $("#show").show();

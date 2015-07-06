@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -124,7 +125,20 @@ public class GameController {
         Gson gson = new Gson();
         List<String> listData = gson.fromJson(data, collectionType);
         List<Game> games = gameService.findByPackages(listData);
-        return ResultGenerator.generate(games);
+
+
+        List<Map<String, String>> out = new ArrayList<>();
+        if (games == null) {
+            return ResultGenerator.generate(out);
+        }
+
+        for (Game game : games) {
+            Map<String, String> params = new HashMap<>();
+            params.put("packagename", game.getIdentifier());
+            out.add(params);
+        }
+
+        return ResultGenerator.generate(out);
     }
 
     public static void main(String[] args) {
