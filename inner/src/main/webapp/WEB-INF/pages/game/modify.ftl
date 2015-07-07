@@ -73,7 +73,7 @@
                     <tr>
                         <th width="120">名称：</th>
                         <td>
-                            <input name="icon" id="icon" type="hidden">
+                            <input name="icon" id="icon" value="${game.icon}" type="hidden">
                             <input name="id" id="id" value="${game.id}" type="hidden">
                             <input class="common-text required" id="name" name="name" size="50" value="${game.name}"
                                    type="text"/>
