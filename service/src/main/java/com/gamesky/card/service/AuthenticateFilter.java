@@ -11,9 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Created on 6/11/15.
@@ -22,8 +20,27 @@ import java.util.TreeSet;
  */
 public class AuthenticateFilter extends OncePerRequestFilter {
 
+    private static List<String> ignoreUrl = new ArrayList<>();
+
+    public AuthenticateFilter() {
+
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        if (request.getMethod().equalsIgnoreCase("post")) { //post的暂时不做校验
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        String url = request.getRequestURI();
+        for (String ignore : ignoreUrl) {
+            if (url.equalsIgnoreCase(ignore)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+        }
 
         Enumeration enumeration = request.getAttributeNames();
         SortedSet<String> attributes = new TreeSet<String>();
@@ -58,6 +75,8 @@ public class AuthenticateFilter extends OncePerRequestFilter {
             return;
         }
 
+        response.setHeader("Content-type", "text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
         response.getWriter().print(ResultGenerator.generateError(ReturnCode.ILLEGAL_ARGUMENT));
     }
 }
