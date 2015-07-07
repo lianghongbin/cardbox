@@ -44,7 +44,10 @@ public class GameController {
     @ResponseBody
     @RequestMapping(value = "/save")
     public String save(Game game) {
-        game.setTotal(0);
+        if (game.getTotal() == null) {
+            game.setTotal(0);
+        }
+
         if (StringUtils.isBlank(game.getIcon())) {
             game.setIcon(Constants.DEFAULT_ICON);
         }
