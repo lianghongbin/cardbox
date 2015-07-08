@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>获取积分</title>
+<title>礼包分享</title>
 <meta name="Keywords" content="" />
 <meta name="Description" content="" />
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
@@ -37,7 +37,7 @@
                 .ic_info .jdt .sy_num {width:25.5%;}
                 .ic_info .jdt .sy_num font {color:#f5cb54}
                 .ic_info .jdt .jdts {width:73%;height: 12px;margin-top:5px;border: 1px solid #f5cb54;border-radius:6px;}
-                .ic_info .jdt .jdts span {display: block;width:${(card.assignTotal/card.total)*100}%;height: 12px;background: #f5cb54;border-radius:6px;}
+                .ic_info .jdt .jdts span {display: block;width:<#if card.total gt 0>${((card.total-card.assignTotal)/card.total)*100}%<#else>0%</#if>;height: 12px;background: #f5cb54;border-radius:6px;}
                 .ic_info .tips {height:25px;line-height: 25px; background:url(../../img/tip.png) no-repeat 3% center #feeeef;background-size:8%;text-indent:15%}
                 .cons h3 {font-size: 20px;color:#333;padding-bottom:8px}
                 .cons p {line-height: 150%}
@@ -48,23 +48,23 @@
                 .foot .tj_info p {font-size: 20px;line-height: 150%;color:#333;}
                 .foot .tj_info span {line-height: 150%;color:#666;}
                 .foot .tj_btn {width:30%;float:right}
-                .foot .tj_btn a {display: block;width:100%;height: 40px;line-height: 40px;text-align:center;font-size:20px;border: 1px solid #ff6325;border-radius:5px;color:#333}
+                .foot .tj_btn a {display: block;width:100%;height: 40px;line-height: 40px;text-align:center;font-size:20px;border: 1px solid #ff6325;border-radius:5px;color:#fff;background: #ff6325;outline:none}
                 .foot .tj_btn a:link{text-decoration:none;}
                 /*.foot .tj_btn a:hover{text-decoration:none;color:#fff;background: #ff6325}*/
-                .foot .tj_btn a:active{text-decoration:none;color:#fff;background: #ff6325}
+                .foot .tj_btn a:active{text-decoration:none;color:#333;background: none}
         </style>
 </head>
 <body>
-<div class="top"></div>
+<!--<div class="top"></div>-->
 <div class="tit">
         <img src="../../img/t_logo.png" height="55" />
         <span>礼包大全</span>
 </div>
 <div class="con">
         <div class="cons cc_in">
-                <img src="../../img/icon.png" width="21.1%" />
+                <img src="${card.icon!'http://kk.7k7kimg.cn/icon.jpg'}" width="21.1%" />
                 <div class="ic_info">
-                        <h2>${card.name}</h2>
+                        <h2>《自由之战》礼包大全福利卡</h2>
                         <div class="jdt"><span class="sy_num">剩余: <font>${card.total-card.assignTotal}</font></span><div class="jdts"><span></span></div></div>
                         <div class="tips">本卡只能在礼包大全中领取！</div>
                 </div>
@@ -75,17 +75,17 @@
                 <P>${card.description}</P>
         </div>
         <div class="cons">
-                <h3>使用流程</h3>
+                <h3>礼包内容</h3>
                 <P>${card.flow}</P>
         </div>
 </div>
 <div class="foot">
         <div class="tj_img"><img src="../../img/lbdq.png" width="100%" /></div>
         <div class="tj_info">
-                <p>下载礼包大全</p>
-                <span>用手机随时领取礼包</span>
+                <p style="padding-top:10px">下载礼包大全</p>
+                <span style="display:block;text-indent:8px">用手机随时领取礼包</span>
         </div>
-        <div class="tj_btn">
+        <div class="tj_btn" style="padding-top:15px">
                 <a href="">领取礼包</a>
         </div>
         <div class="clear"></div>
