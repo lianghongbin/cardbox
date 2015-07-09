@@ -15,8 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 卡包服务接口实现类
@@ -198,6 +197,46 @@ public class CardServiceImpl implements CardService {
     @Transactional(readOnly = true)
     public Card find(int id) {
         return cardMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 根据礼包ID，查找礼包，并且根据逻辑判断是否进入淘号状态
+     *
+     * @param id 礼包ID
+     * @return 礼包
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public Map findIncludeTao(int id) {
+        Card card = cardMapper.selectByPrimaryKey(id);
+        Map data;
+        try {
+            data = BeanUtils.beanToMap(card);
+            data.put("tao", 0);
+        } catch (Exception e) {
+            logger.error("serialize bean to map error:{}", e);
+            return null;
+        }
+
+        if (card.getTotal() >0 && Objects.equals(card.getTotal(), card.getAssignTotal())) {
+            long assignTime = codeService.lastAssignTime(id);
+            if (assignTime == 0) {
+                return data;
+            }
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(assignTime);
+
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.setTime(new Date());
+
+            calendar.add(Calendar.MINUTE, 30);
+            if (calendar1.after(calendar)) {
+                data.put("tao", 1);
+            }
+        }
+
+        return data;
     }
 
     /**

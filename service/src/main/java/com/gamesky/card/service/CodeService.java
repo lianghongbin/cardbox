@@ -32,6 +32,7 @@ public interface CodeService {
 
     /**
      * 根据礼包ID，删除该礼包下的所有激活码
+     *
      * @param cardId 礼包ID
      * @return 影响条数
      */
@@ -90,7 +91,7 @@ public interface CodeService {
     /**
      * 根据用户手机号查找该用户的激活码
      *
-     * @param page  分页参数
+     * @param page 分页参数
      * @return 激活码列表
      */
     List<Code> findAll(Page page);
@@ -104,6 +105,7 @@ public interface CodeService {
 
     /**
      * 随机获取某种卡包下的一个未分配的激活码
+     *
      * @param cardId 卡包ID
      * @return 激活码实体
      */
@@ -130,6 +132,7 @@ public interface CodeService {
 
     /**
      * 根据条件查询激活码列表
+     *
      * @param keyExample 查询条件
      * @return 激活码列表
      */
@@ -137,6 +140,7 @@ public interface CodeService {
 
     /**
      * 根据条件查询激活码列表数量
+     *
      * @param keyExample 查询条件
      * @return 激活码列表数量
      */
@@ -144,18 +148,37 @@ public interface CodeService {
 
     /**
      * 为某人分一个礼包的激活码
+     *
      * @param cardId 礼包ID
-     * @param phone 手机号
+     * @param phone  手机号
      * @return 申请到的激活码
      */
     String assign(int cardId, String phone);
 
     /**
      * 使用某个激活码
+     *
      * @param gameId 游戏ID
-     * @param code 激活码
-     * @param phone 手机号
+     * @param code   激活码
+     * @param phone  手机号
      * @return 影响条数
      */
     int used(int gameId, String code, String phone);
+
+    /**
+     * 查找某个礼包下激活码最后领取时间
+     *
+     * @param cardId 礼包ID
+     * @return 领取时间
+     */
+    long lastAssignTime(int cardId);
+
+    /**
+     * 淘礼包
+     *
+     * @param cardId   礼包ID
+     * @param count    每次取的个数
+     * @return 激活码列表
+     */
+    List<Code> tao(int cardId, int count);
 }

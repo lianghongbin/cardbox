@@ -30,14 +30,26 @@
         #forms input {height:25px;}
         #forms textarea {height:200px;}
     </style>
-    <script>
+    <script type="text/javascript">
+        function check() {
+            if(document.getElementsByName("contact").value == "") {
+                alert("请填写联系方式！");
+                document.getElementsByName("contact").focus();
+                return false;
+            }
 
+            if(document.getElementsByName("content").value == "") {
+                alert("请填写反馈内容！");
+                document.getElementsByName("content").focus();
+                return false;
+            }
+        }
     </script>
 </head>
 <body>
 <div class="tit">问题反馈</div>
 <div class="pad15">
-    <form name="form1" action="./save" id="forms" method="post">
+    <form name="form1" action="./save" id="forms" method="post" onsubmit="return check()">
         <input type="text" name="contact" class="inp email" placeholder="填写邮箱地址！" />
         <textarea name="content">问题描述...</textarea>
         <input type="submit" value="提交建议" />

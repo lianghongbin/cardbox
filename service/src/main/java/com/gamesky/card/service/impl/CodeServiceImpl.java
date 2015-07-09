@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created on 6/12/15.
@@ -31,7 +33,6 @@ public class CodeServiceImpl implements CodeService {
     private CardService cardService;
     @Autowired
     private GlobalLock<Lockable> globalLock;
-    ;
 
     /**
      * 保存我的激活码
@@ -325,5 +326,112 @@ public class CodeServiceImpl implements CodeService {
         Code assignCode = codes.get(0);
         assignCode.setUsed(true);
         return update(assignCode);
+    }
+
+    /**
+     * 查找某个礼包下激活码最后领取时间
+     *
+     * @param cardId 礼包ID
+     * @return 领取时间
+     */
+    @Transactional(readOnly = true)
+    @Override
+    public long lastAssignTime(int cardId) {
+        CodeExample codeExample = new CodeExample();
+        codeExample.createCriteria().andCardIdEqualTo(cardId);
+        codeExample.setOrderByClause("assign_time desc");
+        codeExample.setLimitOffset(0);
+        codeExample.setLimit(1);
+
+        List<Code> codes = codeMapper.selectByExample(codeExample);
+        if (codes == null || codes.size() == 0 || codes.get(0).getAssignTime() == null) {
+            return 0;
+        }
+
+        return codes.get(0).getAssignTime();
+    }
+
+    /**
+     * 淘礼包
+     *
+     * @param count    每次取的个数
+     * @return 激活码列表
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    @Transactional(readOnly = true)
+    public List<Code> tao(int cardId, int count) {
+        CodeExample codeExample = new CodeExample();
+        codeExample.createCriteria().andCardIdEqualTo(cardId);
+        codeExample.setOrderByClause("id desc");
+        codeExample.setLimit(1);
+        codeExample.setLimitOffset(0);
+        List<Code> codes = codeMapper.selectByExample(codeExample);
+        if (codes == null || codes.size() == 0) {
+            return null;
+        }
+
+        int max = codes.get(0).getId();
+
+        List<Code> list = randomSelect(max, count);
+        List<Code> out = new ArrayList<>();
+        if (list == null) {
+            return null;
+        }
+
+        if (list.size() < count) {
+            list = randomSelect(max, count);
+            if (list.size() <= count) {
+                return list;
+            }
+        }
+
+        int[] random = randomArray(0, list.size()-1, count);
+        for (int index : random) {
+            out.add(list.get(index));
+        }
+
+        return out;
+    }
+
+    private int[] randomArray(int min, int max, int n) {
+        int len = max - min + 1;
+
+        if (max < min || n > len) {
+            return new int[0];
+        }
+
+        //初始化给定范围的待选数组
+        int[] source = new int[len];
+        for (int i = min; i < min + len; i++) {
+            source[i - min] = i;
+        }
+
+        int[] result = new int[n];
+        Random rd = new Random();
+        int index = 0;
+        for (int i = 0; i < result.length; i++) {
+            //待选数组0到(len-2)随机一个下标
+            index = Math.abs(rd.nextInt() % len--);
+            //将随机到的数放入结果集
+            result[i] = source[index];
+            //将待选数组中被随机到的数，用待选数组(len-1)下标对应的数替换
+            source[index] = source[len];
+        }
+        return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<Code> randomSelect(int max, int count) {
+        CodeExample codeExample = new CodeExample();
+
+        int[] ids = randomArray(1, max, count * 10);
+        List<Integer> list = new ArrayList<>();
+        for (int id : ids) {
+            list.add(id);
+        }
+
+        codeExample.createCriteria().andIdIn(list);
+        return codeMapper.selectByExample(codeExample);
     }
 }

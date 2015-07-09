@@ -1,6 +1,9 @@
 package com.gamesky.card.inner.controller;
 
-import com.gamesky.card.core.*;
+import com.gamesky.card.core.CardType;
+import com.gamesky.card.core.Constants;
+import com.gamesky.card.core.Page;
+import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.model.*;
 import com.gamesky.card.service.BeanUtils;
 import com.gamesky.card.service.CardService;
@@ -10,20 +13,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -41,9 +39,6 @@ public class CardController {
     private GameService gameService;
     @Autowired
     private CodeService codeService;
-    @Autowired
-    @Qualifier("uploadMarshaller")
-    private Marshaller<Keyable, Serializable> marshaller;
     private static final Logger logger = LoggerFactory.getLogger(CardController.class);
 
     @RequestMapping(value = "/add")
@@ -270,6 +265,7 @@ public class CardController {
         return modelAndView;
     }
 
+    @SuppressWarnings("unchecked")
     @ResponseBody
     @RequestMapping(value = "/my", method = RequestMethod.GET)
     public String myCard(String phone, Page page) {
@@ -281,25 +277,25 @@ public class CardController {
         List<Integer> ids = codes.stream().map(Code::getCardId).collect(Collectors.toList());
 
         List<CardWithBLOBs> cards = cardService.findByIds(ids);
-        List<Map> datas = new ArrayList<>();
+        List<Map> data = new ArrayList<>();
         for (Card card : cards) {
             try {
                 Map param = BeanUtils.beanToMap(card);
                 for (Code code : codes) {
-                    if (card.getId() == code.getCardId()) {
+                    if (Objects.equals(card.getId(), code.getCardId())) {
                         param.put("code", code.getCode());
                         break;
                     }
                 }
 
-                datas.add(param);
+                data.add(param);
             } catch (Exception e) {
                 logger.error(e.getMessage());
             }
 
         }
 
-        return ResultGenerator.generate(datas);
+        return ResultGenerator.generate(data);
     }
 
     @ResponseBody

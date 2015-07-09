@@ -20,10 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -91,13 +88,14 @@ public class CardController {
     @ResponseBody
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     public String find(int id) {
-        Card card = cardService.find(id);
-        return ResultGenerator.generate(card);
+        Map data = cardService.findIncludeTao(id);
+        return ResultGenerator.generate(data);
     }
 
+    @SuppressWarnings("unchecked")
     @ResponseBody
     @RequestMapping(value = "/findwhenlogin", method = RequestMethod.GET)
-    public String find(int id, String phone) {
+    public String findWhenLogin(int id, String phone) {
         Card card = cardService.find(id);
         List<Code> codes = codeService.findByCardAndPhone(id, phone, new Page());
         if (codes != null && codes.size() > 0) {
@@ -177,6 +175,7 @@ public class CardController {
         return ResultGenerator.generate(page, cards);
     }
 
+    @SuppressWarnings("unchecked")
     @ResponseBody
     @RequestMapping(value = "/my", method = RequestMethod.GET)
     public String myCard(String phone, Page page) {
@@ -188,25 +187,25 @@ public class CardController {
         List<Integer> ids = codes.stream().map(Code::getCardId).collect(Collectors.toList());
 
         List<CardWithBLOBs> cards = cardService.findByIds(ids);
-        List<Map> datas = new ArrayList<>();
+        List<Map> data = new ArrayList<>();
         for (Card card : cards) {
             try {
                 Map param = BeanUtils.beanToMap(card);
                 for (Code code : codes) {
-                    if (card.getId() == code.getCardId()) {
+                    if (Objects.equals(card.getId(), code.getCardId())) {
                         param.put("code", code.getCode());
                         break;
                     }
                 }
 
-                datas.add(param);
+                data.add(param);
             } catch (Exception e) {
                 logger.error(e.getMessage());
             }
 
         }
 
-        return ResultGenerator.generate(datas);
+        return ResultGenerator.generate(data);
     }
 
     @ResponseBody
@@ -222,5 +221,21 @@ public class CardController {
         }
 
         return ResultGenerator.generate(params);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/tao", method = RequestMethod.GET)
+    public String tao(int id, int count) {
+        List<Code> codes = codeService.tao(id, count);
+        if (codes == null || codes.size() == 0) {
+            return ResultGenerator.generate();
+        }
+
+        List<String> codeList = new ArrayList<>();
+        for (Code code : codes) {
+            codeList.add(code.getCode());
+        }
+
+        return ResultGenerator.generate(codeList);
     }
 }
