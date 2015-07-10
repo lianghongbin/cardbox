@@ -66,6 +66,10 @@ public class GameController {
             cardService.updateGameName(game.getId(), game.getName());
         }
 
+        if (org.getClosed() != game.getClosed()) {
+            cardService.validByGame(game.getId(), !game.getClosed());
+        }
+
         int result = gameService.update(game);
         return String.valueOf(result);
     }
