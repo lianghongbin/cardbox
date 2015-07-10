@@ -12,8 +12,8 @@ public interface Constants {
     int DAILY_SCORE = 100;
     int SHARE_WEIXIN = 10;
     int DOWNLOAD_SCORE = 100;
-
     int SHARE_QQ = 10;
+    int TAO_AFTER_TIME = 120;   //多长时间之后进行淘号状态(分钟)
 
     String CHECK_CODE_KEY_PREFIX = "check_code_key-";
     String USER_LOGIN_KEY_PREFIX = "user_login_key-";

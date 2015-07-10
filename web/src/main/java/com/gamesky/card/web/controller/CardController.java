@@ -96,21 +96,19 @@ public class CardController {
     @ResponseBody
     @RequestMapping(value = "/findwhenlogin", method = RequestMethod.GET)
     public String findWhenLogin(int id, String phone) {
-        Card card = cardService.find(id);
+        Map data = cardService.findIncludeTao(id);
         List<Code> codes = codeService.findByCardAndPhone(id, phone, new Page());
         if (codes != null && codes.size() > 0) {
-            Map<String, Object> map = null;
             try {
-                map = BeanUtils.beanToMap(card);
-                map.put("code", codes.get(0).getCode());
+                data.put("code", codes.get(0).getCode());
             } catch (Exception e) {
                 logger.error(e.getMessage());
             }
 
-            return ResultGenerator.generate(map);
+            return ResultGenerator.generate(data);
         }
 
-        return ResultGenerator.generate(card);
+        return ResultGenerator.generate(data);
     }
 
     @ResponseBody

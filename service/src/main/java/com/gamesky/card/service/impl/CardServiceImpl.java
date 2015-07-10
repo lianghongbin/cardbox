@@ -1,9 +1,6 @@
 package com.gamesky.card.service.impl;
 
-import com.gamesky.card.core.CardType;
-import com.gamesky.card.core.Page;
-import com.gamesky.card.core.Platform;
-import com.gamesky.card.core.ReturnCode;
+import com.gamesky.card.core.*;
 import com.gamesky.card.core.lock.GlobalLock;
 import com.gamesky.card.core.lock.Lockable;
 import com.gamesky.card.core.model.*;
@@ -230,7 +227,7 @@ public class CardServiceImpl implements CardService {
             Calendar calendar1 = Calendar.getInstance();
             calendar1.setTime(new Date());
 
-            calendar.add(Calendar.MINUTE, 30);
+            calendar.add(Calendar.MINUTE, Constants.TAO_AFTER_TIME);
             if (calendar1.after(calendar)) {
                 data.put("tao", 1);
             }
