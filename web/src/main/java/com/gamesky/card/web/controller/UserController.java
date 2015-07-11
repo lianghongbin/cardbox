@@ -1,8 +1,11 @@
 package com.gamesky.card.web.controller;
 
 import com.gamesky.card.core.ResultGenerator;
+import com.gamesky.card.core.ReturnCode;
 import com.gamesky.card.core.exceptions.CheckCodeInvalidException;
 import com.gamesky.card.core.exceptions.CheckCodeWrongException;
+import com.gamesky.card.core.exceptions.MarshalException;
+import com.gamesky.card.core.exceptions.SmsSenderException;
 import com.gamesky.card.core.model.User;
 import com.gamesky.card.service.CheckCodeService;
 import com.gamesky.card.service.CodeGenerator;
@@ -95,8 +98,12 @@ public class UserController {
     public String checkCode(final String phone) {
         String code = generator.generate();
 
-        if (!checkCodeService.send(phone, code)) {
-            return ResultGenerator.generateError("验证码发送或存储失败");
+        try {
+            checkCodeService.send(phone, code);
+        } catch (MarshalException e) {
+            return ResultGenerator.generateError(ReturnCode.MARSHAL_ERROR);
+        } catch (SmsSenderException e) {
+            return ResultGenerator.generateError(ReturnCode.SMS_SEND_ERROR);
         }
 
         Map<String,String> data = new HashMap<>();

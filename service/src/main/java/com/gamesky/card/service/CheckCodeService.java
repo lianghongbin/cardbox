@@ -1,5 +1,8 @@
 package com.gamesky.card.service;
 
+import com.gamesky.card.core.exceptions.MarshalException;
+import com.gamesky.card.core.exceptions.SmsSenderException;
+
 /**
  * Created on 3/26/15.
  *
@@ -7,5 +10,5 @@ package com.gamesky.card.service;
  */
 public interface CheckCodeService {
 
-    public boolean send(String phone, String message);
+    public void send(String phone, String message) throws MarshalException, SmsSenderException;
 }

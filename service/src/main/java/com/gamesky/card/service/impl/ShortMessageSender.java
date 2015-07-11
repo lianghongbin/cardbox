@@ -5,7 +5,6 @@ import com.gamesky.card.core.SmsMessage;
 import com.gamesky.card.core.utils.MD5Utils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.sun.tools.doclets.internal.toolkit.util.DocFinder;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
@@ -13,19 +12,14 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.HttpParams;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +52,7 @@ public class ShortMessageSender implements MessageSender<SmsMessage> {
         CloseableHttpResponse response;
         try {
             HttpPost httpPost = new HttpPost(url);
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            List<NameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("uid", uid));
             params.add(new BasicNameValuePair("mobile", t[0].getPhone()));
             params.add(new BasicNameValuePair("content", content));
@@ -79,7 +73,7 @@ public class ShortMessageSender implements MessageSender<SmsMessage> {
         HttpEntity httpEntity = response.getEntity();
         StringBuilder stringBuilder = new StringBuilder();
         byte[] bytes = new byte[1024];
-        int size = 0;
+        int size;
         InputStream inputStream = null;
         try {
             inputStream = httpEntity.getContent();

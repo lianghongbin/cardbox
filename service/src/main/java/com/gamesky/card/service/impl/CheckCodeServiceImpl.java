@@ -1,7 +1,11 @@
 package com.gamesky.card.service.impl;
 
-import com.gamesky.card.core.*;
+import com.gamesky.card.core.Keyable;
+import com.gamesky.card.core.Marshaller;
+import com.gamesky.card.core.MessageSender;
+import com.gamesky.card.core.SmsMessage;
 import com.gamesky.card.core.exceptions.MarshalException;
+import com.gamesky.card.core.exceptions.SmsSenderException;
 import com.gamesky.card.service.CheckCodeService;
 import com.gamesky.card.service.key.CheckCodeKey;
 import org.slf4j.Logger;
@@ -36,7 +40,7 @@ public class CheckCodeServiceImpl implements CheckCodeService {
     }
 
     @Override
-    public boolean send(final String phone, String code) {
+    public void send(final String phone, String code) throws MarshalException, SmsSenderException{
         String content = MessageFormat.format(placeholder, code);
         for (MessageSender<SmsMessage> sender : messageSenders) {
             if (!sender.send(new SmsMessage(phone, content))) {
@@ -46,14 +50,13 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 
             try {
                 marshaller.marshal(new CheckCodeKey(phone, 60), code);
+                return;
             } catch (MarshalException e) {
                 logger.error("验证码存储出错");
-                return false;
+                throw new MarshalException("验证码存储出错");
             }
-
-            return true;
         }
 
-        return false;
+        throw new SmsSenderException("消息发送出错");
     }
 }
