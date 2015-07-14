@@ -80,7 +80,7 @@
         </div>
         <div class="search-wrap">
             <div class="search-content">
-                <form action="#" method="post">
+                <form action="./all" method="post">
                     <table class="search-tab">
                         <tr>
                             <th width="120">游戏名称:</th>
@@ -88,20 +88,20 @@
                                 <select name="gameId" id="">
                                     <option value="">全部</option>
                                     <#list games as game>
-                                    <option value="${game.id}">${game.name}</option>
+                                    <option value="${game.id}" <#if game.id=gameId>selected</#if> >${game.name}</option>
                                     </#list>
                                 </select>
                             </td>
                             <th width="70">游戏状态:</th>
                             <td>
                                 <select name="closed" id="">
-                                    <option value="">全部</option>
-                                    <option value="false">上线</option>
-                                    <option value="true">未上线</option>
+                                    <option value="2">全部</option>
+                                    <option value="0" <#if closed==0>selected</#if> >上线</option>
+                                    <option value="1" <#if closed==1>selected</#if> >未上线</option>
                                 </select>
                             </td>
                             <th width="120">礼包名称:</th>
-                            <td><input class="common-text" placeholder="礼包名称" name="name" value="" id="" type="text">
+                            <td><input class="common-text" placeholder="礼包名称" name="name" value="${name}" id="" type="text">
                             </td>
                             <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
                         </tr>
@@ -114,8 +114,8 @@
                 <div class="result-title">
                     <div class="result-list">
                         <a href="./add"><i class="icon-font"></i>新增礼包</a>
-                        <a href="./expire"><i class="icon-font"></i>过期礼包</a>
-                        <a href="./schedule"><i class="icon-font"></i>定时礼包</a>
+                        <a href="./expire?gameId=${gameId}&closed=${closed}&name=${name}"><i class="icon-font"></i>过期礼包</a>
+                        <a href="./schedule?gameId=${gameId}&closed=${closed}&name=${name}"><i class="icon-font"></i>定时礼包</a>
                     </div>
                 </div>
                 <div class="result-content">
@@ -163,6 +163,9 @@
                                 &nbsp; <a class="link-update" href="../code/findbycard?cardId=${card.id}">查看</a>
                             </td>
                             <td align="center">
+                                <input type="hidden" name="gameId" value="${gameId}">
+                                <input type="hidden" name="closed" value="${closed}">
+                                <input type="hidden" name="name" value="${name}">
                                 <#if card.closed><a class="link-update" href="javascript:operate(${card.id},${card.gameId},'${card.closed!false}')">上线</a><#else><a class="link-update" href="javascript:operate(${card.id},${card.gameId},'${card.closed!false}')">下线</a></#if>
                                 &nbsp; <a class="link-update" href="./modify?id=${card.id}">修改</a>
                             </td>

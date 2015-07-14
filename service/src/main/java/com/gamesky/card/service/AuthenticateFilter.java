@@ -23,7 +23,7 @@ public class AuthenticateFilter extends OncePerRequestFilter {
     private static List<String> ignoreUrl = new ArrayList<>();
 
     public AuthenticateFilter() {
-
+        ignoreUrl.add("/1_0/page/card");
     }
 
     @Override
@@ -55,6 +55,6 @@ public class AuthenticateFilter extends OncePerRequestFilter {
 
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().print(ResultGenerator.generateError(ReturnCode.ILLEGAL_ARGUMENT));
+        response.getWriter().print(ResultGenerator.generateError(ReturnCode.TOKEN_CHECK_ERROR));
     }
 }

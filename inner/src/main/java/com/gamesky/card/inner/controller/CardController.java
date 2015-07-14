@@ -149,7 +149,7 @@ public class CardController {
 
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/all")
-    public ModelAndView all(Integer gameId, Boolean closed, String name, Page page) {
+    public ModelAndView all(Integer gameId, Integer closed, String name, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
             page.setPagesize(15);
         }
@@ -160,8 +160,9 @@ public class CardController {
         if (gameId != null) {
             criteria.andGameIdEqualTo(gameId);
         }
-        if (closed != null) {
-            criteria.andClosedEqualTo(closed);
+        if (closed!=null && closed != 2) {
+            boolean c = closed != 0;
+            criteria.andClosedEqualTo(c);
         }
         if (StringUtils.isNotBlank(StringUtils.trimToEmpty(name))) {
             criteria.andNameLike("%" + name + "%");
@@ -190,12 +191,16 @@ public class CardController {
         modelAndView.addObject("paginationData", paginationData);
         modelAndView.addObject("page", page);
         modelAndView.addObject("games", games);
+        modelAndView.addObject("gameId", gameId);
+        modelAndView.addObject("closed", closed);
+        modelAndView.addObject("name", name);
+
         return modelAndView;
     }
 
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/expire")
-     public ModelAndView expire(Integer gameId, Boolean closed, String name, Page page) {
+     public ModelAndView expire(Integer gameId, Integer closed, String name, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
             page.setPagesize(15);
         }
@@ -206,8 +211,9 @@ public class CardController {
         if (gameId != null) {
             criteria.andGameIdEqualTo(gameId);
         }
-        if (closed != null) {
-            criteria.andClosedEqualTo(closed);
+        if (closed!=null && closed != 2) {
+            boolean c = closed != 0;
+            criteria.andClosedEqualTo(c);
         }
         if (StringUtils.isNotBlank(StringUtils.trimToEmpty(name))) {
             criteria.andNameLike("%" + name + "%");
@@ -235,12 +241,16 @@ public class CardController {
         modelAndView.addObject("paginationData", paginationData);
         modelAndView.addObject("page", page);
         modelAndView.addObject("games", games);
+        modelAndView.addObject("gameId", gameId);
+        modelAndView.addObject("closed", closed);
+        modelAndView.addObject("name", name);
+
         return modelAndView;
     }
 
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/schedule")
-    public ModelAndView schedule(Integer gameId, Boolean closed, String name, Page page) {
+    public ModelAndView schedule(Integer gameId, Integer closed, String name, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
             page.setPagesize(15);
         }
@@ -251,8 +261,9 @@ public class CardController {
         if (gameId != null) {
             criteria.andGameIdEqualTo(gameId);
         }
-        if (closed != null) {
-            criteria.andClosedEqualTo(closed);
+        if (closed!=null && closed != 2) {
+            boolean c = closed != 0;
+            criteria.andClosedEqualTo(c);
         }
         if (StringUtils.isNotBlank(StringUtils.trimToEmpty(name))) {
             criteria.andNameLike("%" + name + "%");
@@ -280,6 +291,10 @@ public class CardController {
         modelAndView.addObject("paginationData", paginationData);
         modelAndView.addObject("page", page);
         modelAndView.addObject("games", games);
+        modelAndView.addObject("gameId", gameId);
+        modelAndView.addObject("closed", closed);
+        modelAndView.addObject("name", name);
+
         return modelAndView;
     }
 

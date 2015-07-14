@@ -105,7 +105,7 @@ public class CardServiceImpl implements CardService {
 
         try {
             if (!globalLock.acquire(cardLock, 3000)) {
-                return String.valueOf(-1);
+                return String.valueOf(ReturnCode.MARSHAL_ERROR.getCode());
             }
 
             boolean isLogin = userService.isLogin(phone);
@@ -123,7 +123,7 @@ public class CardServiceImpl implements CardService {
                     .andExpireTimeGreaterThan(System.currentTimeMillis());
             List<Card> cards = cardMapper.selectByExample(cardExample);
             if (cards == null || cards.size() == 0) {
-                return String.valueOf(ReturnCode.DATA_EMPTY.getCode());
+                return String.valueOf(ReturnCode.CARD_EMPTY.getCode());
             }
 
             Card card = cards.get(0);
@@ -131,7 +131,7 @@ public class CardServiceImpl implements CardService {
             List<Code> codes = codeService.findByCardAndPhone(id, phone, new Page());
 
             if (codes != null && codes.size() > 0) {
-                return String.valueOf(ReturnCode.ILLEGAL_OPERATE.getCode());
+                return String.valueOf(ReturnCode.REPEAT_ASSIGN.getCode());
             }
 
             if (card.getTotal() <= card.getAssignTotal()) {
@@ -143,7 +143,7 @@ public class CardServiceImpl implements CardService {
                 //如果是扣分数的礼包，查看一下分数是否够，如果不够直接返回错误提示
                 User user = userService.findByPhone(phone);
                 if (user == null) {
-                    return String.valueOf(ReturnCode.ILLEGAL_ARGUMENT.getCode());
+                    return String.valueOf(ReturnCode.USER_NOT_EXIST);
                 }
 
                 if (card.getScore() > user.getScore()) {
@@ -159,7 +159,7 @@ public class CardServiceImpl implements CardService {
             String code = codeService.assign(id, phone);
             if (code == null) {
                 logger.error("没有可使用的激活码");
-                return String.valueOf(ReturnCode.DATA_EMPTY.getCode());
+                return String.valueOf(ReturnCode.CODE_EMPTY.getCode());
             }
 
             increaseAssignTotal(card.getId(), 1);

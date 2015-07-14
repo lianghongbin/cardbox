@@ -2,6 +2,7 @@ package com.gamesky.card.inner.controller;
 
 import com.gamesky.card.core.Constants;
 import com.gamesky.card.core.Page;
+import com.gamesky.card.core.Platform;
 import com.gamesky.card.core.model.Game;
 import com.gamesky.card.core.model.GameExample;
 import com.gamesky.card.service.CardService;
@@ -87,6 +88,9 @@ public class GameController {
     @RequestMapping(value = "/view")
     public ModelAndView view(int id) {
         Game game = gameService.find(id);
+        int total = cardService.validCount(game.getId(), Platform.ALL.name());
+        game.setTotal(total);
+
         ModelAndView modelAndView = new ModelAndView("game/view");
         modelAndView.addObject("game", game);
         return modelAndView;
@@ -94,7 +98,7 @@ public class GameController {
 
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/all")
-    public ModelAndView findAll(String platform, Boolean closed, String name, Page page) {
+    public ModelAndView findAll(String platform, Integer closed, String name, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
             page.setPagesize(10);
         }
@@ -105,8 +109,9 @@ public class GameController {
         if (StringUtils.isNotBlank(platform)) {
             criteria.andPlatformEqualTo(platform);
         }
-        if (closed != null) {
-            criteria.andClosedEqualTo(closed);
+        if (closed!=null && closed != 2) {
+            boolean c = closed!=0;
+            criteria.andClosedEqualTo(c);
         }
         if (StringUtils.isNotBlank(StringUtils.trimToEmpty(name))) {
             criteria.andNameLike("%" + name + "%");
@@ -119,6 +124,12 @@ public class GameController {
         List<Game> games = gameService.findByCondition(gameExample);
         int count = gameService.findCountByCondition(gameExample);
         page.setCount(count);
+
+        for (Game game : games) {
+            int total = cardService.validCount(game.getId(), Platform.ALL.name());
+            game.setTotal(total);
+        }
+
         Map params = new HashMap<>();
         params.put("platform", platform);
         params.put("closed", closed);
@@ -130,6 +141,9 @@ public class GameController {
         modelAndView.addObject("page", page);
         modelAndView.addObject("games", games);
         modelAndView.addObject("paginationData", paginationData);
+        modelAndView.addObject("platform", platform);
+        modelAndView.addObject("closed", closed);
+
         return modelAndView;
     }
 
@@ -169,6 +183,9 @@ public class GameController {
         modelAndView.addObject("page", page);
         modelAndView.addObject("games", games);
         modelAndView.addObject("paginationData", paginationData);
+        modelAndView.addObject("platform", platform);
+        modelAndView.addObject("name", name);
+
         return modelAndView;
     }
 
@@ -207,6 +224,9 @@ public class GameController {
         modelAndView.addObject("page", page);
         modelAndView.addObject("games", games);
         modelAndView.addObject("paginationData", paginationData);
+        modelAndView.addObject("platform", platform);
+        modelAndView.addObject("name", name);
+
         return modelAndView;
     }
 

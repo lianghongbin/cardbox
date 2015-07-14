@@ -157,40 +157,54 @@ public class ScoreServiceImpl implements ScoreService {
      * @return 影响条数
      */
     public int weixinShare(String phone) {
-        List<Flow> flows = flowService.findByPhone(phone, new Page());
         int score = Constants.SHARE_WEIXIN;
-        Setting setting;
-        if (flows == null || flows.size() == 0) {
-            setting = settingService.find("1_0");
-            if (setting != null) {
-                score = setting.getDaily();
-            }
-
-            int result = this.gain(phone, score, MethodType.WEIXIN_GAIN);
-            if (result > 0) {
-                return score;
-            }
-
-            return 0;
-        }
-
-        for (Flow flow : flows) {
-            if (!flow.getMethod().equals(MethodType.WEIXIN_GAIN.name())) {
-                continue;
-            }
-
-            if (sameDay(flow.getCreateTime(), System.currentTimeMillis())) {
-                return 0;
-            }
-        }
-        setting = settingService.find("1_0");
+        Setting setting = settingService.find("1_0");
         if (setting != null) {
-            score = setting.getDaily();
+            score = setting.getWeixin();
         }
 
-        int result = this.gain(phone, score, MethodType.WEIXIN_GAIN);
-        if (result > 0) {
-            return score;
+        //一天只前三次下载送积分
+        SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String today = dataFormat.format(new Date());
+        String suffix = "_share_weixin_" + today;
+        try {
+            Integer count = marshaller.unmarshal(new Cacheable() {
+                @Override
+                public int expire() {
+                    return 0;
+                }
+
+                @Override
+                public String k() {
+                    return phone + suffix;
+                }
+            });
+
+            count = count == null ? 0 : count;
+
+            if (count >= 3) {
+                return 0;
+            } else {
+                marshaller.marshal(new Cacheable() {
+                    @Override
+                    public int expire() {
+                        return 24 * 60 * 60 * 2;
+                    }
+
+                    @Override
+                    public String k() {
+                        return phone + suffix;
+                    }
+                }, count + 1);
+
+                int result = this.gain(phone, score, MethodType.WEIXIN_GAIN);
+                if (result > 0) {
+                    return score;
+                }
+            }
+        } catch (MarshalException e) {
+            logger.error("缓存读取异常：{}", e);
+            return 0;
         }
 
         return 0;
@@ -203,41 +217,54 @@ public class ScoreServiceImpl implements ScoreService {
      * @return 影响条数
      */
     public int qqShare(String phone) {
-        List<Flow> flows = flowService.findByPhone(phone, new Page());
         int score = Constants.SHARE_QQ;
-        Setting setting;
-        if (flows == null || flows.size() == 0) {
-            setting = settingService.find("1_0");
-            if (setting != null) {
-                score = setting.getDaily();
-            }
-
-            int result = this.gain(phone, score, MethodType.QQ_GAIN);
-            if (result > 0) {
-                return score;
-            }
-
-            return 0;
-        }
-
-        for (Flow flow : flows) {
-            if (!flow.getMethod().equals(MethodType.QQ_GAIN.name())) {
-                continue;
-            }
-
-            if (sameDay(flow.getCreateTime(), System.currentTimeMillis())) {
-                return 0;
-            }
-        }
-
-        setting = settingService.find("1_0");
+        Setting setting = settingService.find("1_0");
         if (setting != null) {
-            score = setting.getDaily();
+            score = setting.getQq();
         }
 
-        int result = this.gain(phone, score, MethodType.QQ_GAIN);
-        if (result > 0) {
-            return score;
+        //一天只前三次下载送积分
+        SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String today = dataFormat.format(new Date());
+        String suffix = "_share_qq_" + today;
+        try {
+            Integer count = marshaller.unmarshal(new Cacheable() {
+                @Override
+                public int expire() {
+                    return 0;
+                }
+
+                @Override
+                public String k() {
+                    return phone + suffix;
+                }
+            });
+
+            count = count == null ? 0 : count;
+
+            if (count >= 3) {
+                return 0;
+            } else {
+                marshaller.marshal(new Cacheable() {
+                    @Override
+                    public int expire() {
+                        return 24 * 60 * 60 * 2;
+                    }
+
+                    @Override
+                    public String k() {
+                        return phone + suffix;
+                    }
+                }, count + 1);
+
+                int result = this.gain(phone, score, MethodType.QQ_GAIN);
+                if (result > 0) {
+                    return score;
+                }
+            }
+        } catch (MarshalException e) {
+            logger.error("缓存读取异常：{}", e);
+            return 0;
         }
 
         return 0;

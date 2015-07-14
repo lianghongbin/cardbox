@@ -88,21 +88,21 @@
                             <td>
                                 <select name="platform" id="">
                                     <option value="">全部</option>
-                                    <option value="ALL">ALL</option>
-                                    <option value="android">android</option>
-                                    <option value="iOS">iOS</option>
+                                    <option value="ALL" <#if platform=="ALL">selected</#if> >ALL</option>
+                                    <option value="android" <#if platform=="android">selected</#if>>android</option>
+                                    <option value="iOS" <#if platform=="iOS">selected</#if>>iOS</option>
                                 </select>
                             </td>
                             <th width="70">游戏状态:</th>
                             <td>
                                 <select name="closed" id="">
-                                    <option value="">全部</option>
-                                    <option value="false">上线</option>
-                                    <option value="true">未上线</option>
+                                    <option value="2">全部</option>
+                                    <option value="0" <#if closed==0>selected</#if> >上线</option>
+                                    <option value="1" <#if closed==1>selected</#if>>未上线</option>
                                 </select>
                             </td>
                             <th width="120">游戏名称:</th>
-                            <td><input class="common-text" placeholder="游戏名称" name="name" value="" id="" type="text">
+                            <td><input class="common-text" placeholder="游戏名称" name="name" value="${name}" id="" type="text">
                             </td>
                             <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
                         </tr>
@@ -139,7 +139,7 @@
                             </td>
                             <td><#if game.closed>下线<#else><font color="red">上线</font></#if> </td>
                             <td>${game.platform}</td>
-                            <td>${game.total}</td>
+                            <td><#if game.total gt 0><a href=../card/all?gameId=${game.id}>${game.total}</a><#else>${game.total}</#if> </td>
                             <td>${game.score}</td>
                             <td><#if game.recommend><font color="red">推荐</font><#else>正常</#if></td>
                             <td>${game.createTime?number_to_datetime}</td>
