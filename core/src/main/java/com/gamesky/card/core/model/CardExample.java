@@ -1194,6 +1194,66 @@ public class CardExample {
             return (Criteria) this;
         }
 
+        public Criteria andTaoIsNull() {
+            addCriterion("tao is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaoIsNotNull() {
+            addCriterion("tao is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaoEqualTo(Integer value) {
+            addCriterion("tao =", value, "tao");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaoNotEqualTo(Integer value) {
+            addCriterion("tao <>", value, "tao");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaoGreaterThan(Integer value) {
+            addCriterion("tao >", value, "tao");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaoGreaterThanOrEqualTo(Integer value) {
+            addCriterion("tao >=", value, "tao");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaoLessThan(Integer value) {
+            addCriterion("tao <", value, "tao");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaoLessThanOrEqualTo(Integer value) {
+            addCriterion("tao <=", value, "tao");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaoIn(List<Integer> values) {
+            addCriterion("tao in", values, "tao");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaoNotIn(List<Integer> values) {
+            addCriterion("tao not in", values, "tao");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaoBetween(Integer value1, Integer value2) {
+            addCriterion("tao between", value1, value2, "tao");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaoNotBetween(Integer value1, Integer value2) {
+            addCriterion("tao not between", value1, value2, "tao");
+            return (Criteria) this;
+        }
+
         public Criteria andGameNameLikeInsensitive(String value) {
             addCriterion("upper(game_name) like", value.toUpperCase(), "gameName");
             return (Criteria) this;

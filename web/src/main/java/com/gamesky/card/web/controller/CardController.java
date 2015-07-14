@@ -89,29 +89,31 @@ public class CardController {
     @ResponseBody
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     public String find(int id) {
-        Map data = cardService.findIncludeTao(id);
+        Card card = cardService.find(id);
 
-        return ResultGenerator.generate(data);
+        return ResultGenerator.generate(card);
     }
 
     @SuppressWarnings("unchecked")
     @ResponseBody
     @RequestMapping(value = "/findwhenlogin", method = RequestMethod.GET)
     public String findWhenLogin(int id, String phone) {
-        Map data = cardService.findIncludeTao(id);
-
+        Card card = cardService.find(id);
+        Map data;
         List<Code> codes = codeService.findByCardAndPhone(id, phone, new Page());
         if (codes != null && codes.size() > 0) {
             try {
+                data = BeanUtils.beanToMap(card);
                 data.put("code", codes.get(0).getCode());
             } catch (Exception e) {
                 logger.error(e.getMessage());
+                return ResultGenerator.generate(card);
             }
 
             return ResultGenerator.generate(data);
         }
 
-        return ResultGenerator.generate(data);
+        return ResultGenerator.generate(card);
     }
 
     @ResponseBody
@@ -120,12 +122,6 @@ public class CardController {
         List<CardWithBLOBs> cards = cardService.findByGame(gameId, platform, page);
         int count = cardService.findCountByGame(gameId, platform);
         page.setCount(count);
-        for (Card card : cards) {
-            int total = codeService.findCountByCard(card.getId());
-            int assignTotal = codeService.findCountAssignByCard(card.getId());
-            card.setTotal(total);
-            card.setAssignTotal(assignTotal);
-        }
 
         return ResultGenerator.generate(page, cards);
     }
@@ -152,12 +148,6 @@ public class CardController {
         List<CardWithBLOBs> cards = cardService.recommend(searchType, platform, page);
         int count = cardService.recommendCount(searchType, platform);
         page.setCount(count);
-        for (Card card : cards) {
-            int total = codeService.findCountByCard(card.getId());
-            int assignTotal = codeService.findCountAssignByCard(card.getId());
-            card.setTotal(total);
-            card.setAssignTotal(assignTotal);
-        }
 
         return ResultGenerator.generate(page, cards);
     }
@@ -169,12 +159,6 @@ public class CardController {
         List<CardWithBLOBs> cards = cardService.findEnabledAll(page);
         int count = cardService.findEnabledCount();
         page.setCount(count);
-        for (Card card : cards) {
-            int total = codeService.findCountByCard(card.getId());
-            int assignTotal = codeService.findCountAssignByCard(card.getId());
-            card.setTotal(total);
-            card.setAssignTotal(assignTotal);
-        }
 
         return ResultGenerator.generate(page, cards);
     }
@@ -185,12 +169,6 @@ public class CardController {
         List<CardWithBLOBs> cards = cardService.findRecommendByGame(gameId, platform, page);
         int count = cardService.findRecommendCountByGame(gameId, platform);
         page.setCount(count);
-        for (Card card : cards) {
-            int total = codeService.findCountByCard(card.getId());
-            int assignTotal = codeService.findCountAssignByCard(card.getId());
-            card.setTotal(total);
-            card.setAssignTotal(assignTotal);
-        }
 
         return ResultGenerator.generate(page, cards);
     }
@@ -201,12 +179,6 @@ public class CardController {
         List<CardWithBLOBs> cards = cardService.findRecommendByGame(gameId, platform, page);
         int count = cardService.findRecommendCountByGame(gameId, platform);
         page.setCount(count);
-        for (Card card : cards) {
-            int total = codeService.findCountByCard(card.getId());
-            int assignTotal = codeService.findCountAssignByCard(card.getId());
-            card.setTotal(total);
-            card.setAssignTotal(assignTotal);
-        }
 
         return ResultGenerator.generate(page, cards);
     }
@@ -233,11 +205,6 @@ public class CardController {
                         break;
                     }
                 }
-
-                int total = codeService.findCountByCard(card.getId());
-                int assignTotal = codeService.findCountAssignByCard(card.getId());
-                param.put("total", total);
-                param.put("assignTotal", assignTotal);
 
                 data.add(param);
             } catch (Exception e) {

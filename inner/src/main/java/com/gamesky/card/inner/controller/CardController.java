@@ -179,13 +179,6 @@ public class CardController {
         int count = cardService.findCountByCondition(cardExample);
         page.setCount(count);
 
-        for (Card card : cards) {
-            int total = codeService.findCountByCard(card.getId());
-            int assignTotal = codeService.findCountAssignByCard(card.getId());
-            card.setTotal(total);
-            card.setAssignTotal(assignTotal);
-        }
-
         List<Game> games = gameService.findAll(new Page());
 
         ModelAndView modelAndView = new ModelAndView("/card/all");
@@ -235,12 +228,6 @@ public class CardController {
         List<CardWithBLOBs> cards = cardService.findByCondition(cardExample);
         int count = cardService.findCountByCondition(cardExample);
         page.setCount(count);
-        for (Card card : cards) {
-            int total = codeService.findCountByCard(card.getId());
-            int assignTotal = codeService.findCountAssignByCard(card.getId());
-            card.setTotal(total);
-            card.setAssignTotal(assignTotal);
-        }
 
         List<Game> games = gameService.findAll(new Page());
 
@@ -291,12 +278,6 @@ public class CardController {
         List<CardWithBLOBs> cards = cardService.findByCondition(cardExample);
         int count = cardService.findCountByCondition(cardExample);
         page.setCount(count);
-        for (Card card : cards) {
-            int total = codeService.findCountByCard(card.getId());
-            int assignTotal = codeService.findCountAssignByCard(card.getId());
-            card.setTotal(total);
-            card.setAssignTotal(assignTotal);
-        }
 
         List<Game> games = gameService.findAll(new Page());
 

@@ -35,6 +35,8 @@ public class Card {
 
     private Long expireTime;
 
+    private Integer tao;
+
     public Integer getId() {
         return id;
     }
@@ -171,6 +173,14 @@ public class Card {
         this.expireTime = expireTime;
     }
 
+    public Integer getTao() {
+        return tao;
+    }
+
+    public void setTao(Integer tao) {
+        this.tao = tao;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -199,7 +209,8 @@ public class Card {
             && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getOpenTime() == null ? other.getOpenTime() == null : this.getOpenTime().equals(other.getOpenTime()))
-            && (this.getExpireTime() == null ? other.getExpireTime() == null : this.getExpireTime().equals(other.getExpireTime()));
+            && (this.getExpireTime() == null ? other.getExpireTime() == null : this.getExpireTime().equals(other.getExpireTime()))
+            && (this.getTao() == null ? other.getTao() == null : this.getTao().equals(other.getTao()));
     }
 
     @Override
@@ -223,6 +234,7 @@ public class Card {
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getOpenTime() == null) ? 0 : getOpenTime().hashCode());
         result = prime * result + ((getExpireTime() == null) ? 0 : getExpireTime().hashCode());
+        result = prime * result + ((getTao() == null) ? 0 : getTao().hashCode());
         return result;
     }
 
@@ -249,6 +261,7 @@ public class Card {
         sb.append(", createTime=").append(createTime);
         sb.append(", openTime=").append(openTime);
         sb.append(", expireTime=").append(expireTime);
+        sb.append(", tao=").append(tao);
         sb.append("]");
         return sb.toString();
     }

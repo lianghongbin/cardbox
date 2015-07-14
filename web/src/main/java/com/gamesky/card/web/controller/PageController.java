@@ -35,10 +35,6 @@ public class PageController {
     @RequestMapping("/card")
     public ModelAndView card(int cardId) {
         Card card = cardService.find(cardId);
-        int total = codeService.findCountByCard(cardId);
-        int assignTotal = codeService.findCountAssignByCard(cardId);
-        card.setTotal(total);
-        card.setAssignTotal(assignTotal);
 
         return new ModelAndView("card", "card", card);
     }

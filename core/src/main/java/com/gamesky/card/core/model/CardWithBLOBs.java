@@ -50,6 +50,7 @@ public class CardWithBLOBs extends Card {
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getOpenTime() == null ? other.getOpenTime() == null : this.getOpenTime().equals(other.getOpenTime()))
             && (this.getExpireTime() == null ? other.getExpireTime() == null : this.getExpireTime().equals(other.getExpireTime()))
+            && (this.getTao() == null ? other.getTao() == null : this.getTao().equals(other.getTao()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
             && (this.getFlow() == null ? other.getFlow() == null : this.getFlow().equals(other.getFlow()));
     }
@@ -75,6 +76,7 @@ public class CardWithBLOBs extends Card {
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getOpenTime() == null) ? 0 : getOpenTime().hashCode());
         result = prime * result + ((getExpireTime() == null) ? 0 : getExpireTime().hashCode());
+        result = prime * result + ((getTao() == null) ? 0 : getTao().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         result = prime * result + ((getFlow() == null) ? 0 : getFlow().hashCode());
         return result;

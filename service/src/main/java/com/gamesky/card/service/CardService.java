@@ -6,7 +6,6 @@ import com.gamesky.card.core.model.CardExample;
 import com.gamesky.card.core.model.CardWithBLOBs;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 卡包服务接口
@@ -72,12 +71,7 @@ public interface CardService {
      */
     public Card find(int id);
 
-    /**
-     * 根据礼包ID，查找礼包，并且根据逻辑判断是否进入淘号状态
-     * @param id 礼包ID
-     * @return 礼包
-     */
-    public Map findIncludeTao(int id);
+    int isTao(Card card);
 
     /**
      * 分页显示所有卡包(后台用，显示所有礼包）
