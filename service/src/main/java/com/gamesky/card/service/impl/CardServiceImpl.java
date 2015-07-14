@@ -203,7 +203,12 @@ public class CardServiceImpl implements CardService {
             return null;
         }
 
-        if (card.getTotal() > 0 && Objects.equals(card.getTotal(), card.getAssignTotal())) {
+        int total = codeService.findCountByCard(id);
+        int assignTotal = codeService.findCountAssignByCard(id);
+        data.put("total", total);
+        data.put("assignTotal", assignTotal);
+
+        if (total > 0 && total == assignTotal) {
             long assignTime = codeService.lastAssignTime(id);
             if (assignTime == 0) {
                 return data;

@@ -363,41 +363,35 @@ public class CodeServiceImpl implements CodeService {
     public List<Code> tao(int cardId, int count) {
         CodeExample codeExample = new CodeExample();
         codeExample.createCriteria().andCardIdEqualTo(cardId);
-        codeExample.setOrderByClause("id desc");
-        codeExample.setLimit(1);
-        codeExample.setLimitOffset(0);
+
         List<Code> codes = codeMapper.selectByExample(codeExample);
         if (codes == null || codes.size() == 0) {
             return null;
         }
 
-        int max = codes.get(0).getId();
-
-        List<Code> list = randomSelect(max, count);
-        List<Code> out = new ArrayList<>();
-        if (list == null) {
-            return null;
-        }
-
-        if (list.size() < count) {
-            list = randomSelect(max, count);
-            if (list.size() <= count) {
-                return list;
-            }
-        }
-
-        int[] random = randomArray(0, list.size()-1, count);
+        List<Integer> ids = new ArrayList<>();
+        int[] random = randomArray(0, codes.size()-1, count);
         for (int index : random) {
-            out.add(list.get(index));
+            ids.add(codes.get(index).getId());
         }
 
-        return out;
+        codeExample.clear();
+        codeExample.createCriteria().andIdIn(ids);
+
+        return codeMapper.selectByExample(codeExample);
     }
 
     private int[] randomArray(int min, int max, int n) {
         int len = max - min + 1;
+        if (n > len) {
+            n = len;
+        }
 
-        if (max < min || n > len) {
+        if (min == max) {
+            return new int[] {min};
+        }
+
+        if (max < min) {
             return new int[0];
         }
 
@@ -409,7 +403,7 @@ public class CodeServiceImpl implements CodeService {
 
         int[] result = new int[n];
         Random rd = new Random();
-        int index = 0;
+        int index;
         for (int i = 0; i < result.length; i++) {
             //待选数组0到(len-2)随机一个下标
             index = Math.abs(rd.nextInt() % len--);
@@ -419,20 +413,6 @@ public class CodeServiceImpl implements CodeService {
             source[index] = source[len];
         }
         return result;
-    }
-
-    @SuppressWarnings("unchecked")
-    private List<Code> randomSelect(int max, int count) {
-        CodeExample codeExample = new CodeExample();
-
-        int[] ids = randomArray(1, max, count * 10);
-        List<Integer> list = new ArrayList<>();
-        for (int id : ids) {
-            list.add(id);
-        }
-
-        codeExample.createCriteria().andIdIn(list);
-        return codeMapper.selectByExample(codeExample);
     }
 
     @Override

@@ -127,14 +127,14 @@
                             <th>礼包名称</th>
                             <th>平台</th>
                             <th>状态</th>
-                            <th width="50">激活码数</th>
+                            <th width="60">激活码数</th>
                             <th width="50">库存量</th>
                             <th width="60">类别</th>
                             <th width="30">推荐</th>
                             <th width="150">发布时间</th>
                             <th width="150">截止时间</th>
-                            <th width="100">激活码</th>
-                            <th width="100">操作</th>
+                            <th width="80">激活码</th>
+                            <th width="80">操作</th>
                         </tr>
                     <#list paginationData.pageItems as card>
                         <tr>

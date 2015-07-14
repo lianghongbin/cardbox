@@ -91,11 +91,6 @@ public class CardController {
     public String find(int id) {
         Map data = cardService.findIncludeTao(id);
 
-        int total = codeService.findCountByCard(id);
-        int assignTotal = codeService.findCountAssignByCard(id);
-        data.put("total", total);
-        data.put("assignTotal", assignTotal);
-
         return ResultGenerator.generate(data);
     }
 
@@ -104,11 +99,6 @@ public class CardController {
     @RequestMapping(value = "/findwhenlogin", method = RequestMethod.GET)
     public String findWhenLogin(int id, String phone) {
         Map data = cardService.findIncludeTao(id);
-
-        int total = codeService.findCountByCard(id);
-        int assignTotal = codeService.findCountAssignByCard(id);
-        data.put("total", total);
-        data.put("assignTotal", assignTotal);
 
         List<Code> codes = codeService.findByCardAndPhone(id, phone, new Page());
         if (codes != null && codes.size() > 0) {
