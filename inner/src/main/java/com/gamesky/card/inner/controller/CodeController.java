@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -95,7 +97,12 @@ public class CodeController {
         List<CardWithBLOBs> cards = cardService.findAll(new Page());
 
         ModelAndView modelAndView = new ModelAndView("/code/all");
-        PaginationData paginationData = new PaginationData(page, codes);
+        Map params = new HashMap<>();
+        params.put("key", key);
+
+        PaginationData paginationData = new PaginationData(page, params, codes);
+
+
         modelAndView.addObject("paginationData", paginationData);
         modelAndView.addObject("cards", cards);
         modelAndView.addObject("games", games);
@@ -109,6 +116,7 @@ public class CodeController {
         return String.valueOf(result);
     }
 
+    @SuppressWarnings("unchecked")
     @RequestMapping("/findbycard")
     public ModelAndView findByCard(int cardId, String key, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
@@ -134,6 +142,9 @@ public class CodeController {
             criteria4.andCardIdEqualTo(cardId);
             codeExample.or(criteria4);
         }
+        else {
+            codeExample.createCriteria().andCardIdEqualTo(cardId);
+        }
 
         codeExample.setOrderByClause("id desc");
         codeExample.setLimit(page.getPagesize());
@@ -143,7 +154,11 @@ public class CodeController {
         int count = codeService.findCountByCondition(codeExample);
         page.setCount(count);
 
-        PaginationData paginationData = new PaginationData(page, codes);
+        Map params = new HashMap<>();
+        params.put("cardId", cardId);
+        params.put("key", key);
+
+        PaginationData paginationData = new PaginationData(page, params, codes);
         ModelAndView modelAndView = new ModelAndView("code/list");
         modelAndView.addObject("cardId", cardId);
         modelAndView.addObject("paginationData", paginationData);

@@ -37,7 +37,6 @@ public class CardServiceImpl implements CardService {
     private final static Logger logger = LoggerFactory.getLogger(CardServiceImpl.class);
 
     public int save(CardWithBLOBs card) {
-        gameService.increaseTotal(card.getGameId(), 1);
         return cardMapper.insert(card);
     }
 
@@ -50,9 +49,7 @@ public class CardServiceImpl implements CardService {
     @Override
     public int remove(int id) {
         codeService.removeByCard(id);
-        Card card = cardMapper.selectByPrimaryKey(id);
 
-        gameService.reduceTotal(card.getGameId(), 1);
         return cardMapper.deleteByPrimaryKey(id);
     }
 
@@ -66,11 +63,6 @@ public class CardServiceImpl implements CardService {
     public int close(int id) {
         Card card = cardMapper.selectByPrimaryKey(id);
         card.setClosed(true);
-
-        Game game = new Game();
-        game.setId(card.getGameId());
-        game.setTotal(findCountByGame(card.getGameId(), Platform.ALL.name()));
-        gameService.update(game);
 
         return cardMapper.updateByPrimaryKey(card);
     }
@@ -86,10 +78,6 @@ public class CardServiceImpl implements CardService {
         Card card = cardMapper.selectByPrimaryKey(id);
         card.setClosed(false);
 
-        Game game = new Game();
-        game.setId(card.getGameId());
-        game.setTotal(findCountByGame(card.getGameId(), Platform.ALL.name()));
-        gameService.update(game);
         return cardMapper.updateByPrimaryKey(card);
     }
 
@@ -215,7 +203,7 @@ public class CardServiceImpl implements CardService {
             return null;
         }
 
-        if (card.getTotal() >0 && Objects.equals(card.getTotal(), card.getAssignTotal())) {
+        if (card.getTotal() > 0 && Objects.equals(card.getTotal(), card.getAssignTotal())) {
             long assignTime = codeService.lastAssignTime(id);
             if (assignTime == 0) {
                 return data;
@@ -611,8 +599,8 @@ public class CardServiceImpl implements CardService {
     /**
      * 根据条件查找礼包数
      *
-     * @param key 查询关键字
-     *            @param platform 平台类型
+     * @param key      查询关键字
+     * @param platform 平台类型
      * @return 礼包数
      */
     @Override
@@ -680,7 +668,7 @@ public class CardServiceImpl implements CardService {
     /**
      * 减少激活码总数量
      *
-     * @param id 礼包ID
+     * @param id    礼包ID
      * @param count 减少数量
      * @return 影响条数
      */
@@ -710,5 +698,25 @@ public class CardServiceImpl implements CardService {
         }
 
         return cards.get(0).getId();
+    }
+
+    @Override
+    public int validCount(int gameId, String platform) {
+        CardExample cardExample = new CardExample();
+        CardExample.Criteria criteria = cardExample.createCriteria();
+        criteria.andGameIdEqualTo(gameId)
+                .andClosedEqualTo(false)
+                .andValidEqualTo(true)
+                .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
+                .andExpireTimeGreaterThan(System.currentTimeMillis());
+
+        if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
+            List<String> platforms = new ArrayList<>();
+            platforms.add(Platform.ALL.name());
+            platforms.add(platform);
+            criteria.andPlatformIn(platforms);
+        }
+
+        return cardMapper.countByExample(cardExample);
     }
 }

@@ -14,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 选题控制器
@@ -29,6 +31,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @SuppressWarnings("unchecked")
     @RequestMapping("/all")
     public ModelAndView all(String phone, String startDate, String endDate, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
@@ -65,6 +68,10 @@ public class UserController {
         List<User> users = userService.findByCondition(userExample);
         int count = userService.findCountByCondition(userExample);
         page.setCount(count);
+        Map params = new HashMap<>();
+        params.put("phone", phone);
+        params.put("startDate", startDate);
+        params.put("endDate", endDate);
 
         PaginationData paginationData = new PaginationData(page, users);
         ModelAndView modelAndView = new ModelAndView("user/all");

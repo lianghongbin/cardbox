@@ -1,6 +1,7 @@
 package com.gamesky.card.web.controller;
 
 import com.gamesky.card.core.Page;
+import com.gamesky.card.core.Platform;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.model.Game;
 import com.gamesky.card.core.model.Photo;
@@ -66,7 +67,7 @@ public class GameController {
     @SuppressWarnings("unchecked")
     @ResponseBody
     @RequestMapping(value = "/find", method = RequestMethod.GET)
-    public String find(int id) {
+    public String find(int id, String platform) {
         Game game = gameService.find(id);
 
         List<Photo> photos = photoService.findByGame(id, new Page());
@@ -96,26 +97,57 @@ public class GameController {
             params.put("photo", photoList);
         }
 
+        int cardCount = cardService.validCount(id, platform);
+        params.put("total", cardCount);
 
         return ResultGenerator.generate(params);
     }
 
+    @SuppressWarnings("unchecked")
     @ResponseBody
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String findAll(Page page) {
         List<Game> games = gameService.findAll(page);
         int count = gameService.findCount();
         page.setCount(count);
-        return ResultGenerator.generate(page, games);
+
+        List<Map> data = new ArrayList<>();
+
+        for (Game game : games) {
+            Map params;
+            try {
+                params = BeanUtils.beanToMap(game);
+                params.put("total", cardService.validCount(game.getId(), Platform.ALL.name()));
+                data.add(params);
+            } catch (Exception e) {
+                return ResultGenerator.generateError(e.getMessage());
+            }
+        }
+
+        return ResultGenerator.generate(page, data);
     }
 
+    @SuppressWarnings("unchecked")
     @ResponseBody
     @RequestMapping(value = "/recommend", method = RequestMethod.GET)
     public String recommend(String platform, Page page) {
         List<Game> games = gameService.findRecommend(platform, page);
         int count = gameService.findCountRecommend(platform);
         page.setCount(count);
-        return ResultGenerator.generate(page, games);
+        List<Map> data = new ArrayList<>();
+
+        for (Game game : games) {
+            Map params;
+            try {
+                params = BeanUtils.beanToMap(game);
+                params.put("total", cardService.validCount(game.getId(), platform));
+                data.add(params);
+            } catch (Exception e) {
+                return ResultGenerator.generateError(e.getMessage());
+            }
+        }
+
+        return ResultGenerator.generate(page, data);
     }
 
     @ResponseBody

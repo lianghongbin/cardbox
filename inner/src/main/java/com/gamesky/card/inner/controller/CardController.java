@@ -147,6 +147,7 @@ public class CardController {
         return modelAndView;
     }
 
+    @SuppressWarnings("unchecked")
     @RequestMapping(value = "/all")
     public ModelAndView all(Integer gameId, Boolean closed, String name, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
@@ -180,13 +181,19 @@ public class CardController {
         List<Game> games = gameService.findAll(new Page());
 
         ModelAndView modelAndView = new ModelAndView("/card/all");
-        PaginationData paginationData = new PaginationData(page, cards);
+        Map params = new HashMap<>();
+        params.put("gameId", gameId);
+        params.put("closed", closed);
+        params.put("name", name);
+
+        PaginationData paginationData = new PaginationData(page, params, cards);
         modelAndView.addObject("paginationData", paginationData);
         modelAndView.addObject("page", page);
         modelAndView.addObject("games", games);
         return modelAndView;
     }
 
+    @SuppressWarnings("unchecked")
     @RequestMapping(value = "/expire")
      public ModelAndView expire(Integer gameId, Boolean closed, String name, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
@@ -219,13 +226,19 @@ public class CardController {
         List<Game> games = gameService.findAll(new Page());
 
         ModelAndView modelAndView = new ModelAndView("/card/expire");
-        PaginationData paginationData = new PaginationData(page, cards);
+        Map params = new HashMap<>();
+        params.put("gameId", gameId);
+        params.put("closed", closed);
+        params.put("name", name);
+
+        PaginationData paginationData = new PaginationData(page, params, cards);
         modelAndView.addObject("paginationData", paginationData);
         modelAndView.addObject("page", page);
         modelAndView.addObject("games", games);
         return modelAndView;
     }
 
+    @SuppressWarnings("unchecked")
     @RequestMapping(value = "/schedule")
     public ModelAndView schedule(Integer gameId, Boolean closed, String name, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
@@ -258,7 +271,12 @@ public class CardController {
         List<Game> games = gameService.findAll(new Page());
 
         ModelAndView modelAndView = new ModelAndView("/card/schedule");
-        PaginationData paginationData = new PaginationData(page, cards);
+        Map params = new HashMap<>();
+        params.put("gameId", gameId);
+        params.put("closed", closed);
+        params.put("name", name);
+
+        PaginationData paginationData = new PaginationData(page, params, cards);
         modelAndView.addObject("paginationData", paginationData);
         modelAndView.addObject("page", page);
         modelAndView.addObject("games", games);

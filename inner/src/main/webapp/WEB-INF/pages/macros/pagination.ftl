@@ -51,78 +51,78 @@
  * Assign the current data to the object called "paginationData" if set.
 -->
 <#if paginationData??>
-	<#assign data = paginationData />
+    <#assign data = paginationData />
 </#if>
 
 <#--
  * Bind pagination data to the current data set these macros are using.
 -->
 <#macro bind paginationData>
-	<#assign data = paginationData />
+    <#assign data = paginationData />
 </#macro>
 
 <#--
  * Outputs the first page link
 -->
 <#macro first>
-	<#if (data.pageNumber < 1)>
-		<#local classAttr = "class=\"disabled\"" />
-	<#else>
-		<#local classAttr = "" />
-	</#if>
-	<#local text>
-		<@spring.messageText "pagination.first", "« First" />
-	</#local>
-	<@page 1, text, classAttr/>
+    <#if (data.pageNumber < 1)>
+        <#local classAttr = "class=\"disabled\"" />
+    <#else>
+        <#local classAttr = "" />
+    </#if>
+    <#local text>
+        <@spring.messageText "pagination.first", "« First" />
+    </#local>
+    <@page 1, text, classAttr/>
 </#macro>
 
 <#--
  * Outputs the last page link
 -->
 <#macro last>
-	<#if (data.pageNumber >= data.pagesAvailable - 1)>
-		<#local classAttr = "class=\"disabled\"" />
-	<#else>
-		<#local classAttr = "" />
-	</#if>
-	<#local text>
-		<@spring.messageText "pagination.last", "Last »" />
-	</#local>
-	<@page data.pagesAvailable, text, classAttr/>
+    <#if (data.pageNumber >= data.pagesAvailable - 1)>
+        <#local classAttr = "class=\"disabled\"" />
+    <#else>
+        <#local classAttr = "" />
+    </#if>
+    <#local text>
+        <@spring.messageText "pagination.last", "Last »" />
+    </#local>
+    <@page data.pagesAvailable, text, classAttr/>
 </#macro>
 
 <#--
  * Outputs the next page link
 -->
 <#macro next>
-	<#if (data.pageNumber >= data.pagesAvailable)>
-		<#local pageNumber = data.pageNumber />
-		<#local classAttr = "class=\"disabled\"" />
-	<#else>
-		<#local pageNumber = data.pageNumber + 1 />
-		<#local classAttr = "" />
-	</#if>
-	<#local text>
-		<@spring.messageText "pagination.next", "Next »" />
-	</#local>
-	<@page pageNumber, text, classAttr/>
+    <#if (data.pageNumber >= data.pagesAvailable)>
+        <#local pageNumber = data.pageNumber />
+        <#local classAttr = "class=\"disabled\"" />
+    <#else>
+        <#local pageNumber = data.pageNumber + 1 />
+        <#local classAttr = "" />
+    </#if>
+    <#local text>
+        <@spring.messageText "pagination.next", "Next »" />
+    </#local>
+    <@page pageNumber, text, classAttr/>
 </#macro>
 
 <#--
  * Outputs the previous page link
 -->
 <#macro previous>
-	<#if (data.pageNumber <= 1)>
-		<#local pageNumber = 1 />
-		<#local classAttr = "class=\"disabled\"" />
-	<#else>
-		<#local pageNumber = data.pageNumber - 1 />
-		<#local classAttr = "" />
-	</#if>
-	<#local text>
-		<@spring.messageText "pagination.previous", "« Previous" />
-	</#local>
-	<@page pageNumber, text, classAttr/>
+    <#if (data.pageNumber <= 1)>
+        <#local pageNumber = 1 />
+        <#local classAttr = "class=\"disabled\"" />
+    <#else>
+        <#local pageNumber = data.pageNumber - 1 />
+        <#local classAttr = "" />
+    </#if>
+    <#local text>
+        <@spring.messageText "pagination.previous", "« Previous" />
+    </#local>
+    <@page pageNumber, text, classAttr/>
 </#macro>
 
 <#--
@@ -132,35 +132,35 @@
  * @param separator (Optional) The seperator between page links
 -->
 <#macro numbers maxPages = 9 separator = " | ">
-	<#local pagesBefore = (maxPages / 2)?floor />
-	<#local pagesAfter = (maxPages / 2)?floor />
-	<#if maxPages % 2 == 0>
-		<#local pagesBefore = pagesBefore - 1 />
-	</#if>
-	<#local pageNumMin = data.pageNumber - pagesBefore />
-	<#local pageNumMax = data.pageNumber + pagesBefore />
-	<#if (pageNumMin < 0)>
-		<#local pageNumMax = pageNumMax + (0 - pageNumMin) />
-		<#local pageNumMin = 0 />
-	</#if>
-	<#if (pageNumMax >= data.pagesAvailable)>
-		<#local pageNumMin = pageNumMin - (pageNumMax - data.pagesAvailable) />
-		<#local pageNumMax = data.pagesAvailable - 1 />
-		<#if (pageNumMin < 0)>
-			<#local pageNumMin = 0 />
-		</#if>
-		<#if (pageNumMax < 0)>
-			<#local pageNumMax = 0 />
-		</#if>
-	</#if>
-	<#list pageNumMin..pageNumMax as pageNumber>
-		<#if pageNumber == data.pageNumber>
-			<#local classAttr = "class=\"selected\"" />
-		<#else>
-			<#local classAttr = "" />
-		</#if>
-		<@page pageNumber + 1, "", classAttr/><#if pageNumber_has_next>${separator}</#if>
-	</#list>
+    <#local pagesBefore = (maxPages / 2)?floor />
+    <#local pagesAfter = (maxPages / 2)?floor />
+    <#if maxPages % 2 == 0>
+        <#local pagesBefore = pagesBefore - 1 />
+    </#if>
+    <#local pageNumMin = data.pageNumber - pagesBefore />
+    <#local pageNumMax = data.pageNumber + pagesBefore />
+    <#if (pageNumMin < 0)>
+        <#local pageNumMax = pageNumMax + (0 - pageNumMin) />
+        <#local pageNumMin = 0 />
+    </#if>
+    <#if (pageNumMax >= data.pagesAvailable)>
+        <#local pageNumMin = pageNumMin - (pageNumMax - data.pagesAvailable) />
+        <#local pageNumMax = data.pagesAvailable - 1 />
+        <#if (pageNumMin < 0)>
+            <#local pageNumMin = 0 />
+        </#if>
+        <#if (pageNumMax < 0)>
+            <#local pageNumMax = 0 />
+        </#if>
+    </#if>
+    <#list pageNumMin..pageNumMax as pageNumber>
+        <#if pageNumber == data.pageNumber>
+            <#local classAttr = "class=\"selected\"" />
+        <#else>
+            <#local classAttr = "" />
+        </#if>
+        <@page pageNumber + 1, "", classAttr/><#if pageNumber_has_next>${separator}</#if>
+    </#list>
 </#macro>
 
 <#--
@@ -171,25 +171,36 @@
  * @param attributes (Optional) Any HTML attributes to add to the element
 -->
 <#macro page pageNumber text = "" attributes = "">
-	<#if text == "">
-		<#local text = (pageNumber)?string />
-	</#if>
-	<#if (attributes != "" && attributes?starts_with(" ") == false)>
-		<#local attributes = " " + attributes />
-	</#if>
-	<a href="?field=${data.sortField?url}&amp;pagenum=${pageNumber}&amp;pagesize=${data.pageSize}&amp;direction=${data.sortDirection?url}"${attributes}>${text?html}</a>
+    <#local lhbParams = ""/>
+    <#list data.params.keySet() as key>
+        <#if data.params.get(key) != null>
+            <#if lhbParams == "">
+                <#local lhbParams = lhbParams + key + "=" + data.params.get(key)/>
+            <#else>
+                <#local lhbParams = lhbParams + "&" + key + "=" + data.params.get(key)/>
+            </#if>
+        </#if>
+    </#list>
+
+    <#if text == "">
+        <#local text = (pageNumber)?string />
+    </#if>
+    <#if (attributes != "" && attributes?starts_with(" ") == false)>
+        <#local attributes = " " + attributes />
+    </#if>
+<a href="?pagenum=${pageNumber}&amp;pagesize=${data.pageSize}&amp;${lhbParams}"${attributes}>${text?html}</a>
 </#macro>
 
 <#--
  * Outputs the current page number and the total pages
 -->
 <#macro counter>
-	<#if data.pagesAvailable == 0>
-		<#local pagesAvailable = 1 />
-	<#else>
-		<#local pagesAvailable = data.pagesAvailable />
-	</#if>
-	<@spring.messageArgsText "pagination.counter", [data.pageNumber, pagesAvailable], "{0} of {1}" />
+    <#if data.pagesAvailable == 0>
+        <#local pagesAvailable = 1 />
+    <#else>
+        <#local pagesAvailable = data.pagesAvailable />
+    </#if>
+    <@spring.messageArgsText "pagination.counter", [data.pageNumber, pagesAvailable], "{0} of {1}" />
 </#macro>
 
 <#--
@@ -205,22 +216,22 @@
  * direction and switch to the converse.
 -->
 <#macro sort field text = "" attributes = "" directions = ["Asc", "Desc"]>
-	<#if field == data.sortField>
-		<#-- Change sort direction -->
-		<#if data.sortDirection?lower_case == directions[0]?lower_case>
-			<#local direction = directions[1] />
-		<#else>
-			<#local direction = directions[0] />
-		</#if>
-	<#else>
-		<#-- Change sort field (leave sort direction) -->
-		<#local direction = data.sortDirection />
-	</#if>
-	<#if text == "">
-		<#local text = field?cap_first />
-	</#if>
-	<#if (attributes != "" && attributes?starts_with(" ") == false)>
-		<#local attributes = " " + attributes />
-	</#if>
-	<a href="?field=${field?url}&amp;pagenum=${data.pageNumber}&amp;pagesize=${data.pageSize}&amp;direction=${direction?url}"${attributes}>${text?html}</a>
+    <#if field == data.sortField>
+    <#-- Change sort direction -->
+        <#if data.sortDirection?lower_case == directions[0]?lower_case>
+            <#local direction = directions[1] />
+        <#else>
+            <#local direction = directions[0] />
+        </#if>
+    <#else>
+    <#-- Change sort field (leave sort direction) -->
+        <#local direction = data.sortDirection />
+    </#if>
+    <#if text == "">
+        <#local text = field?cap_first />
+    </#if>
+    <#if (attributes != "" && attributes?starts_with(" ") == false)>
+        <#local attributes = " " + attributes />
+    </#if>
+<a href="?field=${field?url}&amp;pagenum=${data.pageNumber}&amp;pagesize=${data.pageSize}&amp;direction=${direction?url}"${attributes}>${text?html}</a>
 </#macro>

@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created on 6/10/15.
@@ -90,6 +92,7 @@ public class GameController {
         return modelAndView;
     }
 
+    @SuppressWarnings("unchecked")
     @RequestMapping(value = "/all")
     public ModelAndView findAll(String platform, Boolean closed, String name, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
@@ -115,10 +118,13 @@ public class GameController {
 
         List<Game> games = gameService.findByCondition(gameExample);
         int count = gameService.findCountByCondition(gameExample);
-
         page.setCount(count);
+        Map params = new HashMap<>();
+        params.put("platform", platform);
+        params.put("closed", closed);
+        params.put("name", name);
 
-        PaginationData paginationData = new PaginationData(page, games);
+        PaginationData paginationData = new PaginationData(page, params, games);
 
         ModelAndView modelAndView = new ModelAndView("game/all");
         modelAndView.addObject("page", page);
@@ -127,6 +133,7 @@ public class GameController {
         return modelAndView;
     }
 
+    @SuppressWarnings("unchecked")
     @RequestMapping(value = "/ranking")
     public ModelAndView ranking(String platform, String name, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
@@ -153,7 +160,10 @@ public class GameController {
 
         page.setCount(count);
 
-        PaginationData paginationData = new PaginationData(page, games);
+        Map params = new HashMap<>();
+        params.put("platform", platform);
+        params.put("name", name);
+        PaginationData paginationData = new PaginationData(page, params, games);
 
         ModelAndView modelAndView = new ModelAndView("game/ranking");
         modelAndView.addObject("page", page);
@@ -162,6 +172,7 @@ public class GameController {
         return modelAndView;
     }
 
+    @SuppressWarnings("unchecked")
     @RequestMapping(value = "/sort")
     public ModelAndView sort(String platform, String name, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
@@ -187,8 +198,10 @@ public class GameController {
         int count = gameService.findCountByCondition(gameExample);
 
         page.setCount(count);
-
-        PaginationData paginationData = new PaginationData(page, games);
+        Map params = new HashMap<>();
+        params.put("platform", platform);
+        params.put("name", name);
+        PaginationData paginationData = new PaginationData(page, params, games);
 
         ModelAndView modelAndView = new ModelAndView("game/ranking");
         modelAndView.addObject("page", page);

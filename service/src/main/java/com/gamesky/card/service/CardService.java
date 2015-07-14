@@ -254,4 +254,6 @@ public interface CardService {
      * @return 礼包ID
      */
     public int findMaxCountId(int gameId);
+
+    public int validCount(int gameId, String platform);
 }

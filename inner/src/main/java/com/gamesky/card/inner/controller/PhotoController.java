@@ -74,6 +74,7 @@ public class PhotoController {
         return modelAndView;
     }
 
+    @SuppressWarnings("unchecked")
     @RequestMapping("/card")
     public ModelAndView card(int cardId, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {
@@ -82,7 +83,10 @@ public class PhotoController {
 
         Card card = cardService.find(cardId);
         List<Photo> photos = photoService.findByCard(cardId, page);
-        PaginationData paginationData = new PaginationData(page, photos);
+        Map params = new HashMap();
+        params.put("cardId", cardId);
+
+        PaginationData paginationData = new PaginationData(page, params, photos);
         ModelAndView modelAndView = new ModelAndView("photo/card");
         modelAndView.addObject("paginationData", paginationData);
         modelAndView.addObject("card", card);
@@ -197,7 +201,6 @@ public class PhotoController {
             logger.error("文件{}上传失败", fileName);
             logger.error(e.getMessage());
         }
-
 
         return "";
     }

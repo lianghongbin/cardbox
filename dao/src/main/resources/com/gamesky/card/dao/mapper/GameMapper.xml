@@ -9,13 +9,13 @@
     <result column="ios_id" property="iosId" jdbcType="VARCHAR" />
     <result column="recommend" property="recommend" jdbcType="BIT" />
     <result column="identifier" property="identifier" jdbcType="VARCHAR" />
-    <result column="total" property="total" jdbcType="INTEGER" />
     <result column="sort" property="sort" jdbcType="INTEGER" />
     <result column="platform" property="platform" jdbcType="VARCHAR" />
     <result column="score" property="score" jdbcType="REAL" />
     <result column="closed" property="closed" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="BIGINT" />
     <result column="modify_time" property="modifyTime" jdbcType="BIGINT" />
+    <result column="total" property="total" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.gamesky.card.core.model.Game" extends="BaseResultMap" >
     <result column="description" property="description" jdbcType="LONGVARCHAR" />
@@ -79,8 +79,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, icon, url, ios_id, recommend, identifier, total, sort, platform, score, 
-    closed, create_time, modify_time
+    id, name, icon, url, ios_id, recommend, identifier, sort, platform, score, closed, 
+    create_time, modify_time, total
   </sql>
   <sql id="Blob_Column_List" >
     description
@@ -142,14 +142,16 @@
   <insert id="insert" parameterType="com.gamesky.card.core.model.Game" >
     insert into game (id, name, icon, 
       url, ios_id, recommend, 
-      identifier, total, sort, 
-      platform, score, closed, create_time, 
-      modify_time, description)
+      identifier, sort, platform, 
+      score, closed, create_time, 
+      modify_time, total, description
+      )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR}, #{iosId,jdbcType=VARCHAR}, #{recommend,jdbcType=BIT}, 
-      #{identifier,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, 
-      #{platform,jdbcType=VARCHAR}, #{score,jdbcType=REAL}, #{closed,jdbcType=BIT}, #{createTime,jdbcType=BIGINT}, 
-      #{modifyTime,jdbcType=BIGINT}, #{description,jdbcType=LONGVARCHAR})
+      #{identifier,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{platform,jdbcType=VARCHAR}, 
+      #{score,jdbcType=REAL}, #{closed,jdbcType=BIT}, #{createTime,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=BIGINT}, #{total,jdbcType=INTEGER}, #{description,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Game" >
     insert into game
@@ -175,9 +177,6 @@
       <if test="identifier != null" >
         identifier,
       </if>
-      <if test="total != null" >
-        total,
-      </if>
       <if test="sort != null" >
         sort,
       </if>
@@ -195,6 +194,9 @@
       </if>
       <if test="modifyTime != null" >
         modify_time,
+      </if>
+      <if test="total != null" >
+        total,
       </if>
       <if test="description != null" >
         description,
@@ -222,9 +224,6 @@
       <if test="identifier != null" >
         #{identifier,jdbcType=VARCHAR},
       </if>
-      <if test="total != null" >
-        #{total,jdbcType=INTEGER},
-      </if>
       <if test="sort != null" >
         #{sort,jdbcType=INTEGER},
       </if>
@@ -242,6 +241,9 @@
       </if>
       <if test="modifyTime != null" >
         #{modifyTime,jdbcType=BIGINT},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=INTEGER},
       </if>
       <if test="description != null" >
         #{description,jdbcType=LONGVARCHAR},
@@ -278,9 +280,6 @@
       <if test="record.identifier != null" >
         identifier = #{record.identifier,jdbcType=VARCHAR},
       </if>
-      <if test="record.total != null" >
-        total = #{record.total,jdbcType=INTEGER},
-      </if>
       <if test="record.sort != null" >
         sort = #{record.sort,jdbcType=INTEGER},
       </if>
@@ -299,6 +298,9 @@
       <if test="record.modifyTime != null" >
         modify_time = #{record.modifyTime,jdbcType=BIGINT},
       </if>
+      <if test="record.total != null" >
+        total = #{record.total,jdbcType=INTEGER},
+      </if>
       <if test="record.description != null" >
         description = #{record.description,jdbcType=LONGVARCHAR},
       </if>
@@ -316,13 +318,13 @@
       ios_id = #{record.iosId,jdbcType=VARCHAR},
       recommend = #{record.recommend,jdbcType=BIT},
       identifier = #{record.identifier,jdbcType=VARCHAR},
-      total = #{record.total,jdbcType=INTEGER},
       sort = #{record.sort,jdbcType=INTEGER},
       platform = #{record.platform,jdbcType=VARCHAR},
       score = #{record.score,jdbcType=REAL},
       closed = #{record.closed,jdbcType=BIT},
       create_time = #{record.createTime,jdbcType=BIGINT},
       modify_time = #{record.modifyTime,jdbcType=BIGINT},
+      total = #{record.total,jdbcType=INTEGER},
       description = #{record.description,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -337,13 +339,13 @@
       ios_id = #{record.iosId,jdbcType=VARCHAR},
       recommend = #{record.recommend,jdbcType=BIT},
       identifier = #{record.identifier,jdbcType=VARCHAR},
-      total = #{record.total,jdbcType=INTEGER},
       sort = #{record.sort,jdbcType=INTEGER},
       platform = #{record.platform,jdbcType=VARCHAR},
       score = #{record.score,jdbcType=REAL},
       closed = #{record.closed,jdbcType=BIT},
       create_time = #{record.createTime,jdbcType=BIGINT},
-      modify_time = #{record.modifyTime,jdbcType=BIGINT}
+      modify_time = #{record.modifyTime,jdbcType=BIGINT},
+      total = #{record.total,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -369,9 +371,6 @@
       <if test="identifier != null" >
         identifier = #{identifier,jdbcType=VARCHAR},
       </if>
-      <if test="total != null" >
-        total = #{total,jdbcType=INTEGER},
-      </if>
       <if test="sort != null" >
         sort = #{sort,jdbcType=INTEGER},
       </if>
@@ -390,6 +389,9 @@
       <if test="modifyTime != null" >
         modify_time = #{modifyTime,jdbcType=BIGINT},
       </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=INTEGER},
+      </if>
       <if test="description != null" >
         description = #{description,jdbcType=LONGVARCHAR},
       </if>
@@ -404,13 +406,13 @@
       ios_id = #{iosId,jdbcType=VARCHAR},
       recommend = #{recommend,jdbcType=BIT},
       identifier = #{identifier,jdbcType=VARCHAR},
-      total = #{total,jdbcType=INTEGER},
       sort = #{sort,jdbcType=INTEGER},
       platform = #{platform,jdbcType=VARCHAR},
       score = #{score,jdbcType=REAL},
       closed = #{closed,jdbcType=BIT},
       create_time = #{createTime,jdbcType=BIGINT},
       modify_time = #{modifyTime,jdbcType=BIGINT},
+      total = #{total,jdbcType=INTEGER},
       description = #{description,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -422,13 +424,13 @@
       ios_id = #{iosId,jdbcType=VARCHAR},
       recommend = #{recommend,jdbcType=BIT},
       identifier = #{identifier,jdbcType=VARCHAR},
-      total = #{total,jdbcType=INTEGER},
       sort = #{sort,jdbcType=INTEGER},
       platform = #{platform,jdbcType=VARCHAR},
       score = #{score,jdbcType=REAL},
       closed = #{closed,jdbcType=BIT},
       create_time = #{createTime,jdbcType=BIGINT},
-      modify_time = #{modifyTime,jdbcType=BIGINT}
+      modify_time = #{modifyTime,jdbcType=BIGINT},
+      total = #{total,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

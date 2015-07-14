@@ -222,31 +222,4 @@ public class GameServiceImpl implements GameService {
         return gameMapper.countByExample(gameExample);
     }
 
-    /**
-     * 添加礼包数量
-     *
-     * @param id    游戏ID
-     * @param count 添加数量
-     * @return 影响条数
-     */
-    @Override
-    public int increaseTotal(int id, int count) {
-        Game game = gameMapper.selectByPrimaryKey(id);
-        game.setTotal(game.getTotal() + Math.abs(count));
-        return gameMapper.updateByPrimaryKeySelective(game);
-    }
-
-    /**
-     * 减少礼包数量
-     *
-     * @param id    游戏ID
-     * @param count 减少数量
-     * @return 影响条数
-     */
-    @Override
-    public int reduceTotal(int id, int count) {
-        Game game = gameMapper.selectByPrimaryKey(id);
-        game.setTotal(game.getTotal() - Math.abs(count));
-        return gameMapper.updateByPrimaryKeySelective(game);
-    }
 }

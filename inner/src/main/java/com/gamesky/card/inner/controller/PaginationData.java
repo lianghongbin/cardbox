@@ -2,6 +2,9 @@ package com.gamesky.card.inner.controller;
 
 import com.gamesky.card.core.Page;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created on 2015/6/20.
  *
@@ -14,11 +17,18 @@ public class PaginationData {
     private String sortDirection;   // -> The sorting direction (ascending or descending)
     private String sortField;       // -> The field currently sorted by
     private Object pageItems;
+    private Map params = new HashMap<>();
     private Page page;
 
     public PaginationData(Page page, Object pageItems) {
         this.pageItems = pageItems;
         this.page = page;
+    }
+
+    public PaginationData(Page page, Map params, Object pageItems) {
+        this.pageItems = pageItems;
+        this.page = page;
+        this.params = params;
     }
 
     public int getPageNumber() {
@@ -55,5 +65,13 @@ public class PaginationData {
 
     public Page getPage() {
         return page;
+    }
+
+    public Map getParams() {
+        return params;
+    }
+
+    public void setParams(Map params) {
+        this.params = params;
     }
 }
