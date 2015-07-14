@@ -171,8 +171,11 @@ public class GameController {
 
         List<Game> games = gameService.findByCondition(gameExample);
         int count = gameService.findCountByCondition(gameExample);
-
         page.setCount(count);
+        for (Game game : games) {
+            int total = cardService.validCount(game.getId(), Platform.ALL.name());
+            game.setTotal(total);
+        }
 
         Map params = new HashMap<>();
         params.put("platform", platform);
@@ -213,8 +216,12 @@ public class GameController {
 
         List<Game> games = gameService.findByCondition(gameExample);
         int count = gameService.findCountByCondition(gameExample);
-
         page.setCount(count);
+        for (Game game : games) {
+            int total = cardService.validCount(game.getId(), Platform.ALL.name());
+            game.setTotal(total);
+        }
+
         Map params = new HashMap<>();
         params.put("platform", platform);
         params.put("name", name);

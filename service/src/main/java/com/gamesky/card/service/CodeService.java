@@ -181,4 +181,6 @@ public interface CodeService {
      * @return 激活码列表
      */
     List<Code> tao(int cardId, int count);
+
+    int findCountAssignByCard(int cardId);
 }

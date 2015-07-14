@@ -2,7 +2,7 @@ package com.gamesky.card.web.controller;
 
 import com.gamesky.card.core.model.Card;
 import com.gamesky.card.service.CardService;
-import com.gamesky.card.service.GameService;
+import com.gamesky.card.service.CodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +20,7 @@ public class PageController {
     @Autowired
     private CardService cardService;
     @Autowired
-    private GameService gameService;
+    private CodeService codeService;
 
     @RequestMapping("/score")
     public ModelAndView score() {
@@ -35,6 +35,11 @@ public class PageController {
     @RequestMapping("/card")
     public ModelAndView card(int cardId) {
         Card card = cardService.find(cardId);
+        int total = codeService.findCountByCard(cardId);
+        int assignTotal = codeService.findCountAssignByCard(cardId);
+        card.setTotal(total);
+        card.setAssignTotal(assignTotal);
+
         return new ModelAndView("card", "card", card);
     }
 }

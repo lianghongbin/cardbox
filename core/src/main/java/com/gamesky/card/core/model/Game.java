@@ -15,6 +15,8 @@ public class Game {
 
     private String identifier;
 
+    private Integer total;
+
     private Integer sort;
 
     private String platform;
@@ -26,8 +28,6 @@ public class Game {
     private Long createTime;
 
     private Long modifyTime;
-
-    private Integer total;
 
     private String description;
 
@@ -87,6 +87,14 @@ public class Game {
         this.identifier = identifier;
     }
 
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
     public Integer getSort() {
         return sort;
     }
@@ -135,14 +143,6 @@ public class Game {
         this.modifyTime = modifyTime;
     }
 
-    public Integer getTotal() {
-        return total;
-    }
-
-    public void setTotal(Integer total) {
-        this.total = total;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -170,13 +170,13 @@ public class Game {
             && (this.getIosId() == null ? other.getIosId() == null : this.getIosId().equals(other.getIosId()))
             && (this.getRecommend() == null ? other.getRecommend() == null : this.getRecommend().equals(other.getRecommend()))
             && (this.getIdentifier() == null ? other.getIdentifier() == null : this.getIdentifier().equals(other.getIdentifier()))
+            && (this.getTotal() == null ? other.getTotal() == null : this.getTotal().equals(other.getTotal()))
             && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
             && (this.getPlatform() == null ? other.getPlatform() == null : this.getPlatform().equals(other.getPlatform()))
             && (this.getScore() == null ? other.getScore() == null : this.getScore().equals(other.getScore()))
             && (this.getClosed() == null ? other.getClosed() == null : this.getClosed().equals(other.getClosed()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getModifyTime() == null ? other.getModifyTime() == null : this.getModifyTime().equals(other.getModifyTime()))
-            && (this.getTotal() == null ? other.getTotal() == null : this.getTotal().equals(other.getTotal()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()));
     }
 
@@ -191,13 +191,13 @@ public class Game {
         result = prime * result + ((getIosId() == null) ? 0 : getIosId().hashCode());
         result = prime * result + ((getRecommend() == null) ? 0 : getRecommend().hashCode());
         result = prime * result + ((getIdentifier() == null) ? 0 : getIdentifier().hashCode());
+        result = prime * result + ((getTotal() == null) ? 0 : getTotal().hashCode());
         result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
         result = prime * result + ((getPlatform() == null) ? 0 : getPlatform().hashCode());
         result = prime * result + ((getScore() == null) ? 0 : getScore().hashCode());
         result = prime * result + ((getClosed() == null) ? 0 : getClosed().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getModifyTime() == null) ? 0 : getModifyTime().hashCode());
-        result = prime * result + ((getTotal() == null) ? 0 : getTotal().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         return result;
     }
@@ -215,13 +215,13 @@ public class Game {
         sb.append(", iosId=").append(iosId);
         sb.append(", recommend=").append(recommend);
         sb.append(", identifier=").append(identifier);
+        sb.append(", total=").append(total);
         sb.append(", sort=").append(sort);
         sb.append(", platform=").append(platform);
         sb.append(", score=").append(score);
         sb.append(", closed=").append(closed);
         sb.append(", createTime=").append(createTime);
         sb.append(", modifyTime=").append(modifyTime);
-        sb.append(", total=").append(total);
         sb.append(", description=").append(description);
         sb.append("]");
         return sb.toString();

@@ -71,6 +71,7 @@ public class CodeController {
         return String.valueOf("1");
     }
 
+    @SuppressWarnings("unchecked")
     @RequestMapping(value = "/all")
     public ModelAndView all(String key, Page page) {
         if (page.getPagesize() == Integer.MAX_VALUE) {

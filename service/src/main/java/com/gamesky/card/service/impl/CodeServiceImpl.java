@@ -434,4 +434,11 @@ public class CodeServiceImpl implements CodeService {
         codeExample.createCriteria().andIdIn(list);
         return codeMapper.selectByExample(codeExample);
     }
+
+    @Override
+    public int findCountAssignByCard(int cardId) {
+        CodeExample codeExample = new CodeExample();
+        codeExample.createCriteria().andCardIdEqualTo(cardId).andAssignedEqualTo(true);
+        return codeMapper.countByExample(codeExample);
+    }
 }

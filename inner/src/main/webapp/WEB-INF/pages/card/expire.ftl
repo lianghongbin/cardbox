@@ -126,7 +126,7 @@
                             <th>游戏名称</th>
                             <th>礼包名称</th>
                             <th>状态</th>
-                            <th width="50">礼包数</th>
+                            <th width="50">激活码数</th>
                             <th width="50">库存量</th>
                             <th width="60">类别</th>
                             <th width="30">推荐</th>

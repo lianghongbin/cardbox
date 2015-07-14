@@ -65,7 +65,7 @@
                 <img src="${card.icon!'http://kk.7k7kimg.cn/icon.jpg'}" width="21.1%" />
                 <div class="ic_info">
                         <h2>《自由之战》礼包大全福利卡</h2>
-                        <div class="jdt"><span class="sy_num">剩余: <font>${card.total-card.assignTotal}</font></span><div class="jdts"><span></span></div></div>
+                        <div class="jdt"><span class="sy_num">剩余: <font>${((card.total-card.assignTotal)/card.total)*100}%</font></span><div class="jdts"><span></span></div></div>
                         <div class="tips">本卡只能在礼包大全中领取！</div>
                 </div>
                 <div class="clear"></div>
