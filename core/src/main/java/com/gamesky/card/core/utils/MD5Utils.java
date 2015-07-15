@@ -10,7 +10,7 @@ import java.security.MessageDigest;
 public class MD5Utils {
 
     public static String toString(String message) {
-        MessageDigest md5 = null;
+        MessageDigest md5;
         try {
             md5 = MessageDigest.getInstance("MD5");
         } catch (Exception e) {
