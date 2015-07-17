@@ -62,17 +62,6 @@ public class GameController {
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(Game game) {
-        game.setModifyTime(System.currentTimeMillis());
-
-        Game org = gameService.find(game.getId());
-        if (game.getName() != null && !org.getName().equalsIgnoreCase(game.getName())) {
-            cardService.updateGameName(game.getId(), game.getName());
-        }
-
-        if (game.getClosed()!= null && org.getClosed() != game.getClosed()) {
-            cardService.validByGame(game.getId(), !game.getClosed());
-        }
-
         int result = gameService.update(game);
         return String.valueOf(result);
     }
@@ -245,7 +234,6 @@ public class GameController {
         game.setClosed(operate);
         int result = gameService.update(game);
 
-        cardService.validByGame(id, !operate);
         return String.valueOf(result);
     }
 

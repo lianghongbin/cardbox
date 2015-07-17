@@ -5,6 +5,7 @@ import com.gamesky.card.core.Platform;
 import com.gamesky.card.core.model.Game;
 import com.gamesky.card.core.model.GameExample;
 import com.gamesky.card.dao.mapper.GameMapper;
+import com.gamesky.card.service.CardService;
 import com.gamesky.card.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,8 @@ public class GameServiceImpl implements GameService {
 
     @Autowired
     private GameMapper gameMapper;
+    @Autowired
+    private CardService cardService;
 
     /**
      * 添加、保存游戏
@@ -53,6 +56,17 @@ public class GameServiceImpl implements GameService {
      */
     @Override
     public int update(Game game) {
+        game.setModifyTime(System.currentTimeMillis());
+
+        Game old = this.find(game.getId());
+        if (game.getName() != null && !old.getName().equalsIgnoreCase(game.getName())) {
+            cardService.updateGameName(game.getId(), game.getName());
+        }
+
+        if (game.getClosed() != null && old.getClosed() != game.getClosed()) {
+            cardService.validByGame(game.getId(), !game.getClosed());
+        }
+
         return gameMapper.updateByPrimaryKeySelective(game);
     }
 
@@ -155,7 +169,7 @@ public class GameServiceImpl implements GameService {
      * 取出推荐列表
      *
      * @param platform 平台类型
-     * @param page 分页参数
+     * @param page     分页参数
      * @return 游戏列表
      */
     @Override
