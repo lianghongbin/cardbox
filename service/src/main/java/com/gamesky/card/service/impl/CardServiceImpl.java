@@ -40,6 +40,7 @@ public class CardServiceImpl implements CardService {
     private final static Logger logger = LoggerFactory.getLogger(CardServiceImpl.class);
 
     public int save(CardWithBLOBs card) {
+        card.setTao(0);
         return cardMapper.insert(card);
     }
 
@@ -256,10 +257,11 @@ public class CardServiceImpl implements CardService {
     public List<CardWithBLOBs> findEnabledAll(Page page) {
         CardExample cardExample = new CardExample();
         cardExample.createCriteria()
-                .andOpenTimeLessThan(System.currentTimeMillis())
-                .andExpireTimeGreaterThan(System.currentTimeMillis())
                 .andClosedEqualTo(false)
-                .andValidEqualTo(true);
+                .andValidEqualTo(true)
+                .andOpenTimeLessThan(System.currentTimeMillis())
+                .andExpireTimeGreaterThan(System.currentTimeMillis());
+
         cardExample.setLimitOffset(page.getOffset());
         cardExample.setLimit(page.getPagesize());
         cardExample.setOrderByClause("sort asc, recommend desc, id desc");
@@ -296,10 +298,11 @@ public class CardServiceImpl implements CardService {
     public int findEnabledCount() {
         CardExample cardExample = new CardExample();
         cardExample.createCriteria()
-                .andOpenTimeLessThan(System.currentTimeMillis())
-                .andExpireTimeGreaterThan(System.currentTimeMillis())
                 .andClosedEqualTo(false)
-                .andValidEqualTo(true);
+                .andValidEqualTo(true)
+                .andOpenTimeLessThan(System.currentTimeMillis())
+                .andExpireTimeGreaterThan(System.currentTimeMillis());
+
         return cardMapper.countByExample(cardExample);
     }
 
@@ -348,11 +351,11 @@ public class CardServiceImpl implements CardService {
     public List<CardWithBLOBs> findByGame(int gameId, String platform, Page page) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
-        criteria.andGameIdEqualTo(gameId)
-                .andClosedEqualTo(false)
+        criteria.andClosedEqualTo(false)
                 .andValidEqualTo(true)
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
-                .andExpireTimeGreaterThan(System.currentTimeMillis());
+                .andExpireTimeGreaterThan(System.currentTimeMillis())
+                .andGameIdEqualTo(gameId);
         if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
             List<String> platforms = new ArrayList<>();
             platforms.add(Platform.ALL.name());
@@ -395,11 +398,11 @@ public class CardServiceImpl implements CardService {
     public int findCountByGame(int gameId, String platform) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
-        criteria.andGameIdEqualTo(gameId)
-                .andClosedEqualTo(false)
+        criteria.andClosedEqualTo(false)
                 .andValidEqualTo(true)
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
-                .andExpireTimeGreaterThan(System.currentTimeMillis());
+                .andExpireTimeGreaterThan(System.currentTimeMillis())
+                .andGameIdEqualTo(gameId);
         if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
             List<String> platforms = new ArrayList<>();
             platforms.add(Platform.ALL.name());
@@ -423,12 +426,12 @@ public class CardServiceImpl implements CardService {
     public List<CardWithBLOBs> findRecommendByGame(int gameId, String platform, Page page) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
-        criteria.andGameIdEqualTo(gameId)
-                .andClosedEqualTo(false)
-                .andValidEqualTo(true)
+        criteria.andClosedEqualTo(false)
                 .andRecommendEqualTo(true)
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
-                .andExpireTimeGreaterThan(System.currentTimeMillis());
+                .andExpireTimeGreaterThan(System.currentTimeMillis())
+                .andGameIdEqualTo(gameId)
+                .andValidEqualTo(true);
         if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
             List<String> platforms = new ArrayList<>();
             platforms.add(Platform.ALL.name());
@@ -462,12 +465,12 @@ public class CardServiceImpl implements CardService {
     public int findRecommendCountByGame(int gameId, String platform) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
-        criteria.andGameIdEqualTo(gameId)
-                .andClosedEqualTo(false)
+        criteria.andClosedEqualTo(false)
                 .andValidEqualTo(true)
-                .andRecommendEqualTo(true)
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
-                .andExpireTimeGreaterThan(System.currentTimeMillis());
+                .andExpireTimeGreaterThan(System.currentTimeMillis())
+                .andGameIdEqualTo(gameId)
+                .andRecommendEqualTo(true);
         if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
             List<String> platforms = new ArrayList<>();
             platforms.add(Platform.ALL.name());
@@ -542,11 +545,11 @@ public class CardServiceImpl implements CardService {
     public List<CardWithBLOBs> recommend(int type, String platform, Page page) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria()
-                .andRecommendEqualTo(true)
                 .andClosedEqualTo(false)
                 .andValidEqualTo(true)
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
-                .andExpireTimeGreaterThan(System.currentTimeMillis());
+                .andExpireTimeGreaterThan(System.currentTimeMillis())
+                .andRecommendEqualTo(true);
         switch (type) {
             case 1://付费
                 criteria.andTypeEqualTo(CardType.PAY.name());
@@ -594,11 +597,11 @@ public class CardServiceImpl implements CardService {
     public int recommendCount(int type, String platform) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria()
-                .andRecommendEqualTo(true)
                 .andClosedEqualTo(false)
                 .andValidEqualTo(true)
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
-                .andExpireTimeGreaterThan(System.currentTimeMillis());
+                .andExpireTimeGreaterThan(System.currentTimeMillis())
+                .andRecommendEqualTo(true);
         switch (type) {
             case 1://付费
                 criteria.andTypeEqualTo(CardType.PAY.name());
@@ -635,11 +638,11 @@ public class CardServiceImpl implements CardService {
     public List<CardWithBLOBs> findByKey(String key, String platform, Page page) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
-        criteria.andNameLike("%" + key + "%")
-                .andClosedEqualTo(false)
+        criteria.andClosedEqualTo(false)
                 .andValidEqualTo(true)
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
-                .andExpireTimeGreaterThan(System.currentTimeMillis());
+                .andExpireTimeGreaterThan(System.currentTimeMillis())
+                .andNameLike("%" + key + "%");
 
         if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
             List<String> platforms = new ArrayList<>();
@@ -676,11 +679,11 @@ public class CardServiceImpl implements CardService {
     public int findCountByKey(String key, String platform) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
-        criteria.andNameLike("%" + key + "%")
-                .andClosedEqualTo(false)
+        criteria.andClosedEqualTo(false)
                 .andValidEqualTo(true)
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
-                .andExpireTimeGreaterThan(System.currentTimeMillis());
+                .andExpireTimeGreaterThan(System.currentTimeMillis())
+                .andNameLike("%" + key + "%");
 
         if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
             List<String> platforms = new ArrayList<>();
@@ -772,11 +775,11 @@ public class CardServiceImpl implements CardService {
     public int validCount(int gameId, String platform) {
         CardExample cardExample = new CardExample();
         CardExample.Criteria criteria = cardExample.createCriteria();
-        criteria.andGameIdEqualTo(gameId)
-                .andClosedEqualTo(false)
+        criteria.andClosedEqualTo(false)
                 .andValidEqualTo(true)
                 .andOpenTimeLessThanOrEqualTo(System.currentTimeMillis())
-                .andExpireTimeGreaterThan(System.currentTimeMillis());
+                .andExpireTimeGreaterThan(System.currentTimeMillis())
+                .andGameIdEqualTo(gameId);
 
         if (!platform.equalsIgnoreCase(Platform.ALL.name())) {
             List<String> platforms = new ArrayList<>();

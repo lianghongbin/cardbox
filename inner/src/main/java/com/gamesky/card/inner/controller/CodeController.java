@@ -53,19 +53,23 @@ public class CodeController {
     public String save(String[] codes, String cardName, String gameName, int gameId, int cardId) {
 
         for (String code : codes) {
-            if (StringUtils.isNoneBlank(code)) {
-                Code tmp = new Code();
-                tmp.setGameId(gameId);
-                tmp.setGameName(gameName);
-                tmp.setCardId(cardId);
-                tmp.setCardName(cardName);
-                tmp.setCode(code);
-                tmp.setUsed(false);
-                tmp.setAssigned(false);
-                tmp.setCreateTime(System.currentTimeMillis());
-
-                codeService.save(tmp);
+            if (StringUtils.isBlank(code)) {
+                continue;
             }
+
+            Code tmp = new Code();
+            tmp.setPhone("");
+            tmp.setGameId(gameId);
+            tmp.setGameName(gameName);
+            tmp.setCardId(cardId);
+            tmp.setCardName(cardName);
+            tmp.setCode(code);
+            tmp.setUsed(false);
+            tmp.setAssigned(false);
+            tmp.setAssignTime(0L);
+            tmp.setCreateTime(System.currentTimeMillis());
+
+            codeService.save(tmp);
         }
 
         return String.valueOf("1");
@@ -142,8 +146,7 @@ public class CodeController {
             criteria4.andPhoneLike("%" + key + "%");
             criteria4.andCardIdEqualTo(cardId);
             codeExample.or(criteria4);
-        }
-        else {
+        } else {
             codeExample.createCriteria().andCardIdEqualTo(cardId);
         }
 
@@ -195,22 +198,25 @@ public class CodeController {
         String[] codes = StringUtils.split(input, " ");
 
         for (String code : codes) {
-            if (StringUtils.isNoneBlank(code)) {
-                Code tmp = new Code();
-                tmp.setGameId(gameId);
-                tmp.setGameName(gameName);
-                tmp.setCardId(cardId);
-                tmp.setCardName(cardName);
-                tmp.setCode(code);
-                tmp.setUsed(false);
-                tmp.setAssigned(false);
-                tmp.setCreateTime(System.currentTimeMillis());
-
-                codeService.save(tmp);
+            if (StringUtils.isBlank(code)) {
+                continue;
             }
+
+            Code tmp = new Code();
+            tmp.setGameId(gameId);
+            tmp.setGameName(gameName);
+            tmp.setCardId(cardId);
+            tmp.setCardName(cardName);
+            tmp.setCode(code);
+            tmp.setUsed(false);
+            tmp.setAssigned(false);
+            tmp.setPhone("");
+            tmp.setAssignTime(0L);
+            tmp.setCreateTime(System.currentTimeMillis());
+
+            codeService.save(tmp);
         }
 
-        cardService.increaseTotal(cardId, 1);
         return String.valueOf("1");
     }
 }
