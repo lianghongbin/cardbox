@@ -25,6 +25,7 @@ public class AuthenticateFilter extends OncePerRequestFilter {
     public AuthenticateFilter() {
         ignoreUrl.add("/1_0/page/card");
         ignoreUrl.add("/1_0/search/key");
+        ignoreUrl.add("/1_0/page/download");
     }
 
     @Override

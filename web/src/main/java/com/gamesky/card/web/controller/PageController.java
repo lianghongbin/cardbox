@@ -1,11 +1,14 @@
 package com.gamesky.card.web.controller;
 
 import com.gamesky.card.core.model.Card;
+import com.gamesky.card.core.model.Setting;
 import com.gamesky.card.service.CardService;
-import com.gamesky.card.service.CodeService;
+import com.gamesky.card.service.DownloadService;
+import com.gamesky.card.service.SettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -20,7 +23,9 @@ public class PageController {
     @Autowired
     private CardService cardService;
     @Autowired
-    private CodeService codeService;
+    private SettingService settingService;
+    @Autowired
+    private DownloadService downloadService;
 
     @RequestMapping("/score")
     public ModelAndView score() {
@@ -29,13 +34,29 @@ public class PageController {
 
     /**
      * 礼包分享页
+     *
      * @param cardId 卡包ID
      * @return 分享页面
      */
     @RequestMapping("/card")
     public ModelAndView card(int cardId) {
         Card card = cardService.find(cardId);
+        Setting setting = settingService.find("1_0");
 
-        return new ModelAndView("card", "card", card);
+        ModelAndView modelAndView = new ModelAndView("card", "card", card);
+        if (setting != null) {
+            modelAndView.addObject("android", setting.getAndroid());
+            modelAndView.addObject("ios", setting.getIos());
+        }
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/download")
+    @ResponseBody
+    public String download(String platform) {
+        downloadService.count(platform);
+
+        return "";
     }
 }

@@ -81,6 +81,18 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>android下载地址：</th>
+                    <td>
+                        <input class="common-text required" id="android" name="android" value="${setting.android}" size="50" type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>iOS下载ID</th>
+                    <td>
+                        <input class="common-text required" id="ios" value="100" name="ios" value="${setting.ios}" size="50" type="text"/>
+                    </td>
+                </tr>
+                <tr>
                     <th>关于我们：</th>
                     <td><textarea name="us" class="common-textarea" id="us" cols="20"
                                   style="width: 98%;" rows="5">${setting.us}</textarea></td>

@@ -35,6 +35,8 @@
                             <th width="60">微信分享</th>
                             <th width="60">QQ分享</th>
                             <th width="60">下载游戏</th>
+                            <th>android下载</th>
+                            <th>iOS ID</th>
                             <th>关于我们</th>
                             <th>启动公告</th>
                             <th width="150">添加时间</th>
@@ -57,6 +59,12 @@
                             </td>
                             <td>
                             ${setting.download}
+                            </td>
+                            <td>
+                            ${setting.android}
+                            </td>
+                            <td>
+                            ${setting.ios}
                             </td>
                             <td>
                             ${setting.us}

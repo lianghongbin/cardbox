@@ -754,6 +754,146 @@ public class SettingExample {
             return (Criteria) this;
         }
 
+        public Criteria andAndroidIsNull() {
+            addCriterion("android is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAndroidIsNotNull() {
+            addCriterion("android is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAndroidEqualTo(String value) {
+            addCriterion("android =", value, "android");
+            return (Criteria) this;
+        }
+
+        public Criteria andAndroidNotEqualTo(String value) {
+            addCriterion("android <>", value, "android");
+            return (Criteria) this;
+        }
+
+        public Criteria andAndroidGreaterThan(String value) {
+            addCriterion("android >", value, "android");
+            return (Criteria) this;
+        }
+
+        public Criteria andAndroidGreaterThanOrEqualTo(String value) {
+            addCriterion("android >=", value, "android");
+            return (Criteria) this;
+        }
+
+        public Criteria andAndroidLessThan(String value) {
+            addCriterion("android <", value, "android");
+            return (Criteria) this;
+        }
+
+        public Criteria andAndroidLessThanOrEqualTo(String value) {
+            addCriterion("android <=", value, "android");
+            return (Criteria) this;
+        }
+
+        public Criteria andAndroidLike(String value) {
+            addCriterion("android like", value, "android");
+            return (Criteria) this;
+        }
+
+        public Criteria andAndroidNotLike(String value) {
+            addCriterion("android not like", value, "android");
+            return (Criteria) this;
+        }
+
+        public Criteria andAndroidIn(List<String> values) {
+            addCriterion("android in", values, "android");
+            return (Criteria) this;
+        }
+
+        public Criteria andAndroidNotIn(List<String> values) {
+            addCriterion("android not in", values, "android");
+            return (Criteria) this;
+        }
+
+        public Criteria andAndroidBetween(String value1, String value2) {
+            addCriterion("android between", value1, value2, "android");
+            return (Criteria) this;
+        }
+
+        public Criteria andAndroidNotBetween(String value1, String value2) {
+            addCriterion("android not between", value1, value2, "android");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosIsNull() {
+            addCriterion("ios is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosIsNotNull() {
+            addCriterion("ios is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosEqualTo(String value) {
+            addCriterion("ios =", value, "ios");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosNotEqualTo(String value) {
+            addCriterion("ios <>", value, "ios");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosGreaterThan(String value) {
+            addCriterion("ios >", value, "ios");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosGreaterThanOrEqualTo(String value) {
+            addCriterion("ios >=", value, "ios");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosLessThan(String value) {
+            addCriterion("ios <", value, "ios");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosLessThanOrEqualTo(String value) {
+            addCriterion("ios <=", value, "ios");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosLike(String value) {
+            addCriterion("ios like", value, "ios");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosNotLike(String value) {
+            addCriterion("ios not like", value, "ios");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosIn(List<String> values) {
+            addCriterion("ios in", values, "ios");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosNotIn(List<String> values) {
+            addCriterion("ios not in", values, "ios");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosBetween(String value1, String value2) {
+            addCriterion("ios between", value1, value2, "ios");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosNotBetween(String value1, String value2) {
+            addCriterion("ios not between", value1, value2, "ios");
+            return (Criteria) this;
+        }
+
         public Criteria andUsLikeInsensitive(String value) {
             addCriterion("upper(us) like", value.toUpperCase(), "us");
             return (Criteria) this;
@@ -766,6 +906,16 @@ public class SettingExample {
 
         public Criteria andVLikeInsensitive(String value) {
             addCriterion("upper(v) like", value.toUpperCase(), "v");
+            return (Criteria) this;
+        }
+
+        public Criteria andAndroidLikeInsensitive(String value) {
+            addCriterion("upper(android) like", value.toUpperCase(), "android");
+            return (Criteria) this;
+        }
+
+        public Criteria andIosLikeInsensitive(String value) {
+            addCriterion("upper(ios) like", value.toUpperCase(), "ios");
             return (Criteria) this;
         }
     }

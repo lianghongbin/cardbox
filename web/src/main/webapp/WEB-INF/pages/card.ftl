@@ -53,6 +53,50 @@
                 /*.foot .tj_btn a:hover{text-decoration:none;color:#fff;background: #ff6325}*/
                 .foot .tj_btn a:active{text-decoration:none;color:#333;background: none}
         </style>
+    <script type="text/javascript">
+        var iosDownloadUrl = "itms-apps://itunes.apple.com/app/${ios}";
+        var androidDownloadUrl = "${android}";
+
+        function ajaxRequest(platform)
+        {
+            var xmlHttpRequest = null;
+            if(window.ActiveXObject) // IE浏览器
+            {
+                xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            else if(window.XMLHttpRequest) // 除IE以外的其他浏览器
+            {
+                xmlHttpRequest = new XMLHttpRequest();
+            }
+            if(null != xmlHttpRequest)
+            {
+                // 准备向服务器发出一个请求
+                 xmlHttpRequest.open("GET", "/1_0/page/download?platform=" + platform);
+                // 向服务器发出一个请求
+                xmlHttpRequest.send(null);
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        function isIOS(){
+            var sUserAgent = navigator.userAgent.toLowerCase();
+            var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+            var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+
+            return bIsIpad || bIsIphoneOs;
+        }
+
+        function download() {
+            if (isIOS()) {
+                ajaxRequest("iOS");
+                location.href = iosDownloadUrl;
+            }
+            else {
+                ajaxRequest("android");
+                location.href = androidDownloadUrl;
+            }
+        }
+    </script>
 </head>
 <body>
 <!--<div class="top"></div>-->
@@ -86,7 +130,7 @@
                 <span style="display:block;text-indent:8px">用手机随时领取礼包</span>
         </div>
         <div class="tj_btn" style="padding-top:15px">
-                <a href="">领取礼包</a>
+                <a href="javascript:download()">领取礼包</a>
         </div>
         <div class="clear"></div>
 </div>

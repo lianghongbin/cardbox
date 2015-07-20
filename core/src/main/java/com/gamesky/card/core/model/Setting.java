@@ -21,6 +21,10 @@ public class Setting {
 
     private Long createTime;
 
+    private String android;
+
+    private String ios;
+
     public Integer getId() {
         return id;
     }
@@ -101,6 +105,22 @@ public class Setting {
         this.createTime = createTime;
     }
 
+    public String getAndroid() {
+        return android;
+    }
+
+    public void setAndroid(String android) {
+        this.android = android;
+    }
+
+    public String getIos() {
+        return ios;
+    }
+
+    public void setIos(String ios) {
+        this.ios = ios;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -122,7 +142,9 @@ public class Setting {
             && (this.getRegistry() == null ? other.getRegistry() == null : this.getRegistry().equals(other.getRegistry()))
             && (this.getV() == null ? other.getV() == null : this.getV().equals(other.getV()))
             && (this.getDownload() == null ? other.getDownload() == null : this.getDownload().equals(other.getDownload()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
+            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+            && (this.getAndroid() == null ? other.getAndroid() == null : this.getAndroid().equals(other.getAndroid()))
+            && (this.getIos() == null ? other.getIos() == null : this.getIos().equals(other.getIos()));
     }
 
     @Override
@@ -139,6 +161,8 @@ public class Setting {
         result = prime * result + ((getV() == null) ? 0 : getV().hashCode());
         result = prime * result + ((getDownload() == null) ? 0 : getDownload().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+        result = prime * result + ((getAndroid() == null) ? 0 : getAndroid().hashCode());
+        result = prime * result + ((getIos() == null) ? 0 : getIos().hashCode());
         return result;
     }
 
@@ -158,6 +182,8 @@ public class Setting {
         sb.append(", v=").append(v);
         sb.append(", download=").append(download);
         sb.append(", createTime=").append(createTime);
+        sb.append(", android=").append(android);
+        sb.append(", ios=").append(ios);
         sb.append("]");
         return sb.toString();
     }
