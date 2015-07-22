@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.gamesky.card.dao.mapper.DatabasechangeloglockMapper" >
-  <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.Databasechangeloglock" >
-    <id column="ID" property="id" jdbcType="INTEGER" />
-    <result column="LOCKED" property="locked" jdbcType="BIT" />
-    <result column="LOCKGRANTED" property="lockgranted" jdbcType="TIMESTAMP" />
-    <result column="LOCKEDBY" property="lockedby" jdbcType="VARCHAR" />
+<mapper namespace="com.gamesky.card.dao.mapper.DownloadMapper" >
+  <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.Download" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="platform" property="platform" jdbcType="VARCHAR" />
+    <result column="download_time" property="downloadTime" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    ID, LOCKED, LOCKGRANTED, LOCKEDBY
+    id, count, platform, download_time
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.DatabasechangeloglockExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.DownloadExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from databasechangeloglock
+    from download
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,76 +88,76 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from databasechangeloglock
-    where ID = #{id,jdbcType=INTEGER}
+    from download
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from databasechangeloglock
-    where ID = #{id,jdbcType=INTEGER}
+    delete from download
+    where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.gamesky.card.core.model.DatabasechangeloglockExample" >
-    delete from databasechangeloglock
+  <delete id="deleteByExample" parameterType="com.gamesky.card.core.model.DownloadExample" >
+    delete from download
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.gamesky.card.core.model.Databasechangeloglock" >
-    insert into databasechangeloglock (ID, LOCKED, LOCKGRANTED, 
-      LOCKEDBY)
-    values (#{id,jdbcType=INTEGER}, #{locked,jdbcType=BIT}, #{lockgranted,jdbcType=TIMESTAMP}, 
-      #{lockedby,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.gamesky.card.core.model.Download" >
+    insert into download (id, count, platform, 
+      download_time)
+    values (#{id,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, #{platform,jdbcType=VARCHAR}, 
+      #{downloadTime,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Databasechangeloglock" >
-    insert into databasechangeloglock
+  <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Download" >
+    insert into download
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        ID,
+        id,
       </if>
-      <if test="locked != null" >
-        LOCKED,
+      <if test="count != null" >
+        count,
       </if>
-      <if test="lockgranted != null" >
-        LOCKGRANTED,
+      <if test="platform != null" >
+        platform,
       </if>
-      <if test="lockedby != null" >
-        LOCKEDBY,
+      <if test="downloadTime != null" >
+        download_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="locked != null" >
-        #{locked,jdbcType=BIT},
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
       </if>
-      <if test="lockgranted != null" >
-        #{lockgranted,jdbcType=TIMESTAMP},
+      <if test="platform != null" >
+        #{platform,jdbcType=VARCHAR},
       </if>
-      <if test="lockedby != null" >
-        #{lockedby,jdbcType=VARCHAR},
+      <if test="downloadTime != null" >
+        #{downloadTime,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.gamesky.card.core.model.DatabasechangeloglockExample" resultType="java.lang.Integer" >
-    select count(*) from databasechangeloglock
+  <select id="countByExample" parameterType="com.gamesky.card.core.model.DownloadExample" resultType="java.lang.Integer" >
+    select count(*) from download
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update databasechangeloglock
+    update download
     <set >
       <if test="record.id != null" >
-        ID = #{record.id,jdbcType=INTEGER},
+        id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.locked != null" >
-        LOCKED = #{record.locked,jdbcType=BIT},
+      <if test="record.count != null" >
+        count = #{record.count,jdbcType=INTEGER},
       </if>
-      <if test="record.lockgranted != null" >
-        LOCKGRANTED = #{record.lockgranted,jdbcType=TIMESTAMP},
+      <if test="record.platform != null" >
+        platform = #{record.platform,jdbcType=VARCHAR},
       </if>
-      <if test="record.lockedby != null" >
-        LOCKEDBY = #{record.lockedby,jdbcType=VARCHAR},
+      <if test="record.downloadTime != null" >
+        download_time = #{record.downloadTime,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -165,35 +165,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update databasechangeloglock
-    set ID = #{record.id,jdbcType=INTEGER},
-      LOCKED = #{record.locked,jdbcType=BIT},
-      LOCKGRANTED = #{record.lockgranted,jdbcType=TIMESTAMP},
-      LOCKEDBY = #{record.lockedby,jdbcType=VARCHAR}
+    update download
+    set id = #{record.id,jdbcType=INTEGER},
+      count = #{record.count,jdbcType=INTEGER},
+      platform = #{record.platform,jdbcType=VARCHAR},
+      download_time = #{record.downloadTime,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gamesky.card.core.model.Databasechangeloglock" >
-    update databasechangeloglock
+  <update id="updateByPrimaryKeySelective" parameterType="com.gamesky.card.core.model.Download" >
+    update download
     <set >
-      <if test="locked != null" >
-        LOCKED = #{locked,jdbcType=BIT},
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
       </if>
-      <if test="lockgranted != null" >
-        LOCKGRANTED = #{lockgranted,jdbcType=TIMESTAMP},
+      <if test="platform != null" >
+        platform = #{platform,jdbcType=VARCHAR},
       </if>
-      <if test="lockedby != null" >
-        LOCKEDBY = #{lockedby,jdbcType=VARCHAR},
+      <if test="downloadTime != null" >
+        download_time = #{downloadTime,jdbcType=BIGINT},
       </if>
     </set>
-    where ID = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Databasechangeloglock" >
-    update databasechangeloglock
-    set LOCKED = #{locked,jdbcType=BIT},
-      LOCKGRANTED = #{lockgranted,jdbcType=TIMESTAMP},
-      LOCKEDBY = #{lockedby,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Download" >
+    update download
+    set count = #{count,jdbcType=INTEGER},
+      platform = #{platform,jdbcType=VARCHAR},
+      download_time = #{downloadTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

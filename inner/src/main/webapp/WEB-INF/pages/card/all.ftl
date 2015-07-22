@@ -67,6 +67,33 @@
                 }
             });
         }
+
+        function del(id) {
+
+            if(!confirm("你确认要删除该礼包吗？ 删除数据不能被恢复！")) {
+                return false;
+            }
+
+            $.ajax({
+                url: '/card/remove',// 跳转到 action
+                data: {
+                    id: id,
+                },
+                type: 'post',
+                dataType: 'text',
+                success: function (data) {
+                    if (data == "1") {
+                        alert("礼包删除成功");
+                        window.location.reload();
+                    } else {
+                        alert("礼包删除失败");
+                    }
+                },
+                error: function () {
+                    alert("异常！");
+                }
+            });
+        }
     </script>
 </head>
 <body>
@@ -134,7 +161,7 @@
                             <th width="150">发布时间</th>
                             <th width="150">截止时间</th>
                             <th width="80">激活码</th>
-                            <th width="80">操作</th>
+                            <th width="100">操作</th>
                         </tr>
                     <#list paginationData.pageItems as card>
                         <tr>
@@ -168,6 +195,7 @@
                                 <input type="hidden" name="name" value="${name}">
                                 <#if card.closed><a class="link-update" href="javascript:operate(${card.id},${card.gameId},'${card.closed!false}')">上线</a><#else><a class="link-update" href="javascript:operate(${card.id},${card.gameId},'${card.closed!false}')">下线</a></#if>
                                 &nbsp; <a class="link-update" href="./modify?id=${card.id}">修改</a>
+                                <a class="link-update" href="javascript:del(${card.id})">删除</a>
                             </td>
                         </tr>
                     </#list>

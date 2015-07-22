@@ -82,7 +82,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from DATABASECHANGELOG
+    from databasechangelog
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -94,13 +94,13 @@
     </if>
   </select>
   <delete id="deleteByExample" parameterType="com.gamesky.card.core.model.DatabasechangelogExample" >
-    delete from DATABASECHANGELOG
+    delete from databasechangelog
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Databasechangelog" >
-    insert into DATABASECHANGELOG (ID, AUTHOR, FILENAME, 
+    insert into databasechangelog (ID, AUTHOR, FILENAME, 
       DATEEXECUTED, ORDEREXECUTED, EXECTYPE, 
       MD5SUM, DESCRIPTION, COMMENTS, 
       TAG, LIQUIBASE)
@@ -110,7 +110,7 @@
       #{tag,jdbcType=VARCHAR}, #{liquibase,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Databasechangelog" >
-    insert into DATABASECHANGELOG
+    insert into databasechangelog
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
@@ -183,13 +183,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.gamesky.card.core.model.DatabasechangelogExample" resultType="java.lang.Integer" >
-    select count(*) from DATABASECHANGELOG
+    select count(*) from databasechangelog
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update DATABASECHANGELOG
+    update databasechangelog
     <set >
       <if test="record.id != null" >
         ID = #{record.id,jdbcType=VARCHAR},
@@ -230,7 +230,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update DATABASECHANGELOG
+    update databasechangelog
     set ID = #{record.id,jdbcType=VARCHAR},
       AUTHOR = #{record.author,jdbcType=VARCHAR},
       FILENAME = #{record.filename,jdbcType=VARCHAR},

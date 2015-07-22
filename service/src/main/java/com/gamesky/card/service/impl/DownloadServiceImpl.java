@@ -58,4 +58,11 @@ public class DownloadServiceImpl implements DownloadService {
 
         return download.getCount() + 1;
     }
+
+    @Override
+    public List<Download> findAll() {
+        DownloadExample downloadExample = new DownloadExample();
+
+        return downloadMapper.selectByExample(downloadExample);
+    }
 }
