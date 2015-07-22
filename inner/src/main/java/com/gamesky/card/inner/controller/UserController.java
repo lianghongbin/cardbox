@@ -73,7 +73,7 @@ public class UserController {
         params.put("startDate", startDate);
         params.put("endDate", endDate);
 
-        PaginationData paginationData = new PaginationData(page, users);
+        PaginationData paginationData = new PaginationData(page, params, users);
         ModelAndView modelAndView = new ModelAndView("user/all");
         modelAndView.addObject("paginationData", paginationData);
 
