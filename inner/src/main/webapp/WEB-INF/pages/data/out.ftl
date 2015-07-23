@@ -50,8 +50,16 @@
 
                     <form action="./card" method="post">
                         <tr>
-                            <th colspan="5" align="center"><input class="btn btn-primary btn2" name="sub" value="导出礼包数据"
-                                                                  type="submit"></th>
+                            <th width="120">开始时间:</th>
+                            <td>
+                                <input class="laydate-icon" name="start" id="startTime" style="width:200px;">
+                            </td>
+                            <th width="120">结束时间:</th>
+                            <td>
+                                <input class="laydate-icon" name="end" id="endTime" style="width:200px;">
+                            </td>
+
+                            <td><input class="btn btn-primary btn2" name="sub" value="导出礼包数据" type="submit"></td>
                         </tr>
                     </form>
                 </table>
@@ -65,7 +73,7 @@
     var start = {
         elem: '#start',
         format: 'YYYY-MM-DD hh:mm:ss',
-        min: laydate.now(), //设定最小日期为当前日期
+        min: '2015-07-01 00:00:00', //设定最小日期为当前日期
         max: '2099-06-16 23:59:59', //最大日期
         istime: true,
         istoday: false,
@@ -77,7 +85,7 @@
     var end = {
         elem: '#end',
         format: 'YYYY-MM-DD hh:mm:ss',
-        min: laydate.now(),
+        min: '2015-07-01 00:00:00',
         max: '2099-06-16 23:59:59',
         istime: true,
         istoday: false,
@@ -87,6 +95,32 @@
     };
     laydate(start);
     laydate(end);
+
+    var startTime = {
+        elem: '#startTime',
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: '2015-07-01 00:00:00', //设定最小日期为当前日期
+        max: '2099-06-16 23:59:59', //最大日期
+        istime: true,
+        istoday: false,
+        choose: function (datas) {
+            end.min = datas; //开始日选好后，重置结束日的最小日期
+            end.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+    var endTime = {
+        elem: '#endTime',
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: '2015-07-01 00:00:00',
+        max: '2099-06-16 23:59:59',
+        istime: true,
+        istoday: false,
+        choose: function (datas) {
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
+    };
+    laydate(startTime);
+    laydate(endTime);
 </script>
 </div>
 </body>
