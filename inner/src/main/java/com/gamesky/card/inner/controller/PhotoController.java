@@ -143,10 +143,15 @@ public class PhotoController {
             // 重命名文件
             SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
             String newFileName = new Random().nextInt(1000) + df.format(new Date()) + "." + fileExt;
-            File uploadFile = new File(dir, newFileName);
+            final File uploadFile = new File(dir, newFileName);
 
             try {
-                marshaller.marshal(uploadFile::getAbsolutePath, mf.getBytes());
+                marshaller.marshal(new Keyable() {
+                    @Override
+                    public String k() {
+                        return uploadFile.getAbsolutePath();
+                    }
+                }, mf.getBytes());
 
                 int id = Integer.parseInt(request.getParameter("id"));
                 String type = request.getParameter("type");
@@ -191,10 +196,15 @@ public class PhotoController {
         // 重命名文件
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         String newFileName = new Random().nextInt(1000) + df.format(new Date()) + "." + fileExt;
-        File uploadFile = new File(dir, newFileName);
+        final File uploadFile = new File(dir, newFileName);
 
         try {
-            marshaller.marshal(uploadFile::getAbsolutePath, mf.getBytes());
+            marshaller.marshal(new Keyable() {
+                @Override
+                public String k() {
+                    return uploadFile.getAbsolutePath();
+                }
+            }, mf.getBytes());
 
             return host + "/" +dateDir + "/" + newFileName;
         } catch (Exception e) {

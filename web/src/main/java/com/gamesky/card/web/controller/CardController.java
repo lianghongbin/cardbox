@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Created on 6/10/15.
@@ -192,7 +191,11 @@ public class CardController {
             return ResultGenerator.generate();
         }
 
-        List<Integer> ids = codes.stream().map(Code::getCardId).collect(Collectors.toList());
+        List<Integer> ids = new ArrayList<>();
+
+        for (Code code : codes) {
+            ids.add(code.getCardId());
+        }
 
         List<CardWithBLOBs> cards = cardService.findByIds(ids);
         List<Map> data = new ArrayList<>();

@@ -156,7 +156,7 @@ public class ScoreServiceImpl implements ScoreService {
      * @param phone 用户手机
      * @return 影响条数
      */
-    public int weixinShare(String phone) {
+    public int weixinShare(final String phone) {
         int score = Constants.SHARE_WEIXIN;
         Setting setting = settingService.find("1_0");
         if (setting != null) {
@@ -166,7 +166,7 @@ public class ScoreServiceImpl implements ScoreService {
         //一天只前三次下载送积分
         SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
         String today = dataFormat.format(new Date());
-        String suffix = "_share_weixin_" + today;
+        final String suffix = "_share_weixin_" + today;
         try {
             Integer count = marshaller.unmarshal(new Cacheable() {
                 @Override
@@ -216,7 +216,7 @@ public class ScoreServiceImpl implements ScoreService {
      * @param phone 用户手机
      * @return 影响条数
      */
-    public int qqShare(String phone) {
+    public int qqShare(final String phone) {
         int score = Constants.SHARE_QQ;
         Setting setting = settingService.find("1_0");
         if (setting != null) {
@@ -226,7 +226,7 @@ public class ScoreServiceImpl implements ScoreService {
         //一天只前三次下载送积分
         SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
         String today = dataFormat.format(new Date());
-        String suffix = "_share_qq_" + today;
+        final String suffix = "_share_qq_" + today;
         try {
             Integer count = marshaller.unmarshal(new Cacheable() {
                 @Override
@@ -280,7 +280,7 @@ public class ScoreServiceImpl implements ScoreService {
         //一天只前三次下载送积分
         SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
         String today = dataFormat.format(new Date());
-        String suffix = "_login_" + today;
+        final String suffix = "_login_" + today;
         try {
             Integer count = marshaller.unmarshal(new Cacheable() {
                 @Override

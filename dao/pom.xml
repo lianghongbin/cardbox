@@ -44,7 +44,7 @@
                 <!-- 自动生成 -->
                 <executions>
                     <execution>
-                        <phase>install</phase>
+                        <phase>deploy</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
