@@ -30,6 +30,7 @@ public class CardOutput {
     private CardService cardService;
     @Autowired
     private CodeService codeService;
+    private Map<Integer, Integer> idMap = new HashMap<>();
 
     public String out(HttpServletRequest request, HttpServletResponse response) {
         String fileName = "card";
@@ -38,33 +39,38 @@ public class CardOutput {
         String end = request.getParameter("end");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         CodeExample codeExample = new CodeExample();
-        CodeExample.Criteria criteria = codeExample.createCriteria();
-        if (StringUtils.isNotBlank(start)) {
-            try {
-                Date date = sdf.parse(start);
-                criteria.andAssignTimeGreaterThanOrEqualTo(date.getTime());
-            } catch (ParseException ignored) {
-            }
-        }
-
-        if (StringUtils.isNotBlank(end)) {
-            try {
-                Date date = sdf.parse(end);
-                criteria.andAssignTimeLessThan(date.getTime());
-            } catch (ParseException ignored) {
-            }
-        }
+        idMap = new HashMap<>();
 
         //填充projects数据
         List<CardWithBLOBs> cards = cardService.findEnabledAll(new Page());
         for (Card card : cards) {
+            codeExample.clear();
+            CodeExample.Criteria criteria = codeExample.createCriteria();
             criteria.andCardIdEqualTo(card.getId()).andAssignedEqualTo(true);
+
+            if (StringUtils.isNotBlank(start)) {
+                try {
+                    Date date = sdf.parse(start);
+                    criteria.andAssignTimeGreaterThanOrEqualTo(date.getTime());
+                } catch (ParseException ignored) {
+                }
+            }
+
+            if (StringUtils.isNotBlank(end)) {
+                try {
+                    Date date = sdf.parse(end);
+                    criteria.andAssignTimeLessThan(date.getTime());
+                } catch (ParseException ignored) {
+                }
+            }
+
             int count = codeService.findCountByCondition(codeExample);
-            card.setAssignTotal(count);
+            idMap.put(card.getId(), count);
         }
 
         List<Map<String, Object>> list = createExcelRecord(cards);
-        String columnNames[] = {"ID", "礼包名称", "游戏名称", "激活码数", "剩余数量", "领取数量", "是否淘号"};//列名
+
+        String columnNames[] = {"ID", "礼包名称", "游戏名称", "激活码数", "总剩余数量", "期间领取数量", "是否淘号"};//列名
         String keys[] = {"id", "name", "gameName", "total", "surplus", "assignTotal", "tao"};//map中的key
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         try {
@@ -116,7 +122,7 @@ public class CardOutput {
             mapValue.put("gameName", card.getGameName());
             mapValue.put("total", card.getTotal());
             mapValue.put("surplus", card.getTotal() - card.getAssignTotal());
-            mapValue.put("assignTotal", card.getAssignTotal());
+            mapValue.put("assignTotal", idMap.get(card.getId()));
             mapValue.put("tao", card.getTao()==1 ? "淘号" : "未淘号");
             list.add(mapValue);
         }
