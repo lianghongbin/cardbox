@@ -1,8 +1,15 @@
 package com.gamesky.card.inner.controller;
 
+import com.gamesky.card.core.Constants;
+import com.gamesky.card.core.model.Admin;
+import com.gamesky.card.service.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created on 6/17/15.
@@ -13,19 +20,29 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(produces="text/plain;charset=UTF-8")
 public class IndexController {
 
+    @Autowired
+    private AdminService adminService;
+
     @RequestMapping("/")
     public ModelAndView index() {
         return new ModelAndView("index");
     }
 
     @RequestMapping("/top")
-    public ModelAndView top() {
-        return new ModelAndView("top");
+    public ModelAndView top(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object phone = session.getAttribute(Constants.INNER_LOGIN_KEY);
+
+        return new ModelAndView("top", "phone", phone);
     }
 
     @RequestMapping("/left")
-    public ModelAndView left() {
-        return new ModelAndView("left");
+    public ModelAndView left(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String phone = (String) session.getAttribute(Constants.INNER_LOGIN_KEY);
+        Admin admin = adminService.findByPhone(phone);
+
+        return new ModelAndView("left", "admin", admin);
     }
 
     @RequestMapping("/main")

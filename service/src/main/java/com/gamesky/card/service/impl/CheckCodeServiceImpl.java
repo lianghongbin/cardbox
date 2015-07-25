@@ -41,6 +41,13 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 
     @Override
     public void send(final String phone, String code) throws MarshalException, SmsSenderException{
+
+        Serializable saveCode = marshaller.unmarshal(new CheckCodeKey(phone, 60));
+        if (saveCode != null) {
+            logger.warn("{} 手机生成的验证码还未失效，无法重复发送验证码", phone);
+            return;
+        }
+
         String content = MessageFormat.format(placeholder, code);
         for (MessageSender<SmsMessage> sender : messageSenders) {
             if (!sender.send(new SmsMessage(phone, content))) {

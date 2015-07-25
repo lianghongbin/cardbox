@@ -31,7 +31,10 @@
                     <li><a href="javascript:openUrl('/hot/all')"><i class="icon-font">&#xe052;</i>热词管理</a></li>
                     <li><a href="javascript:openUrl('/feedback/all')"><i class="icon-font">&#xe052;</i>用户反馈</a></li>
                     <li><a href="javascript:openUrl('/data/')"><i class="icon-font">&#xe052;</i>数据统计</a></li>
-                </ul>
+                    <#if admin?? && admin.top>
+                    <li><a href="javascript:openUrl('/admin/all')"><i class="icon-font">&#xe052;</i>操作员管理</a></li>
+                    </#if>
+                    </ul>
             </li>
             <li>
                 <a href="#"><i class="icon-font">&#xe018;</i>系统管理</a>

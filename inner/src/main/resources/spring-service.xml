@@ -57,7 +57,8 @@
             <value>UTF-8</value>
         </property>
         <property name="maxUploadSize">
-            <value>32505856</value><!-- 上传文件大小限制为31M，31*1024*1024 -->
+            <value>32505856</value>
+            <!-- 上传文件大小限制为31M，31*1024*1024 -->
         </property>
         <property name="maxInMemorySize">
             <value>4096</value>
@@ -69,5 +70,40 @@
 
     <bean id="globalLock" class="com.gamesky.card.service.RedisGlobalLock">
         <property name="jedisConnectionFactory" ref="jedisConnectionFactory"/>
+    </bean>
+
+
+    <bean name="loginFilter" class="com.gamesky.card.inner.controller.AuthenticateFilter">
+        <property name="ignoreUrl">
+            <list>
+                <value>/login</value>
+                <value>/login/check</value>
+                <value>/checkcode</value>
+            </list>
+        </property>
+        <property name="resources">
+            <list>
+                <value>/js/</value>
+                <value>/img/</value>
+                <value>/css/</value>
+                <value>/uploadify/</value>
+                <value>/upload/</value>
+                <value>/laydate/</value>
+                <value>/fonts/</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <!-- 这里的是为了下面的 Session策略过滤器提供构造函数传入的参数，因为Session过滤器要依赖该对象来构造，所以创建一个先 -->
+    <bean name="redisOperationsSessionRepository"
+          class="org.springframework.session.data.redis.RedisOperationsSessionRepository">
+        <constructor-arg ref="jedisConnectionFactory"/>
+    </bean>
+
+    <!-- 这个是Session策略过滤器，即将容器原有的Session持久化机制，代替为Spring的 Redis持久化Session机制。 -->
+    <!-- 注意，这个名字与 web.xml里的targetBean的下value是要一致的。 -->
+    <bean name="springSession" class="org.springframework.session.web.http.SessionRepositoryFilter">
+        <constructor-arg ref="redisOperationsSessionRepository"/>
     </bean>
 </beans>

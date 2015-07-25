@@ -23,4 +23,6 @@ public interface Constants {
     String PHOTO_URL_PREFIX = "http://kk.7k7kimg.cn";
 
     String DEFAULT_ICON = "http://kk.7k7kimg.cn/icon.jpg";
+
+    String INNER_LOGIN_KEY = "inner_login_key_lhb";
 }
