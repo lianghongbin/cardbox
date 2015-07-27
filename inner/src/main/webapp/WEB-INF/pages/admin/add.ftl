@@ -9,6 +9,11 @@
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript">
         function operate() {
+            if($("#username").val() == "") {
+                $("#username").focus();
+                alert("用户名不能为空");
+                return false;
+            }
             if($("#phone").val() == "") {
                 $("#phone").focus();
                 alert("手机号不能为空");
@@ -51,9 +56,15 @@
             <table class="insert-tab" width="100%">
                 <tbody>
                 <tr>
+                    <th width="120">姓名：</th>
+                    <td>
+                        <input class="common-text required" id="username" name="username" size="50" type="text"/>
+                    </td>
+                </tr>
+                <tr>
                     <th width="120">手机：</th>
                     <td>
-                        <input class="common-text required" id="phone" name="phone" size="150" type="text"/>
+                        <input class="common-text required" id="phone" maxlength="11" name="phone" size="50" type="text"/>
                     </td>
                 </tr>
                 <tr>

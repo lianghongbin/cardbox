@@ -83,6 +83,7 @@
                 <div class="result-content">
                     <table class="result-tab" width="100%">
                         <tr>
+                            <th>姓名</th>
                             <th>手机</th>
                             <th>超级管理员</th>
                             <th>锁定</th>
@@ -91,6 +92,9 @@
                         </tr>
                     <#list admins as admin>
                         <tr>
+                            <td>
+                            ${admin.username!}
+                            </td>
                             <td>
                             ${admin.phone}
                             </td>

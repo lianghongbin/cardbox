@@ -31,9 +31,10 @@ public class IndexController {
     @RequestMapping("/top")
     public ModelAndView top(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Object phone = session.getAttribute(Constants.INNER_LOGIN_KEY);
+        String phone = (String) session.getAttribute(Constants.INNER_LOGIN_KEY);
+        Admin admin = adminService.findByPhone(phone);
 
-        return new ModelAndView("top", "phone", phone);
+        return new ModelAndView("top", "admin", admin);
     }
 
     @RequestMapping("/left")

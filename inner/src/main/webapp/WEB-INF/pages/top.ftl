@@ -43,8 +43,8 @@
         </div>
         <div class="top-info-wrap">
             <ul class="top-info-list clearfix">
-                <li>管理员:${phone}</li>
-                <li><a href="#" onclick="quit(${phone})">退出</a></li>
+                <li>管理员:${admin.username!}</li>
+                <li><a href="#" onclick="quit(${admin.phone!})">退出</a></li>
             </ul>
         </div>
     </div>

@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.Admin" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="top" property="top" jdbcType="BIT" />
     <result column="locked" property="locked" jdbcType="BIT" />
     <result column="last_time" property="lastTime" jdbcType="BIGINT" />
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, phone, top, locked, last_time
+    id, phone, username, top, locked, last_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.AdminExample" >
     select
@@ -103,10 +104,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Admin" >
-    insert into admin (id, phone, top, locked, 
-      last_time)
-    values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{top,jdbcType=BIT}, #{locked,jdbcType=BIT}, 
-      #{lastTime,jdbcType=BIGINT})
+    insert into admin (id, phone, username, 
+      top, locked, last_time)
+    values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{top,jdbcType=BIT}, #{locked,jdbcType=BIT}, #{lastTime,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Admin" >
     insert into admin
@@ -116,6 +117,9 @@
       </if>
       <if test="phone != null" >
         phone,
+      </if>
+      <if test="username != null" >
+        username,
       </if>
       <if test="top != null" >
         top,
@@ -133,6 +137,9 @@
       </if>
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
       </if>
       <if test="top != null" >
         #{top,jdbcType=BIT},
@@ -160,6 +167,9 @@
       <if test="record.phone != null" >
         phone = #{record.phone,jdbcType=VARCHAR},
       </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
       <if test="record.top != null" >
         top = #{record.top,jdbcType=BIT},
       </if>
@@ -178,6 +188,7 @@
     update admin
     set id = #{record.id,jdbcType=INTEGER},
       phone = #{record.phone,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
       top = #{record.top,jdbcType=BIT},
       locked = #{record.locked,jdbcType=BIT},
       last_time = #{record.lastTime,jdbcType=BIGINT}
@@ -190,6 +201,9 @@
     <set >
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
       </if>
       <if test="top != null" >
         top = #{top,jdbcType=BIT},
@@ -206,6 +220,7 @@
   <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Admin" >
     update admin
     set phone = #{phone,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
       top = #{top,jdbcType=BIT},
       locked = #{locked,jdbcType=BIT},
       last_time = #{lastTime,jdbcType=BIGINT}

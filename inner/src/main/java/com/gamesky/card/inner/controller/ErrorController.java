@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 /**
  * 错误控制器
  * Created on 6/12/15.
@@ -48,13 +51,11 @@ public class ErrorController {
     @ResponseBody
     @RequestMapping("/exception")
     public String exception(Throwable e) {
-        logger.error("system exception：{}", e.getClass());
-        return ResultGenerator.generate(ReturnCode.EXCEPTION.getCode(), "系统异常：" + e.getClass() + " --|-- " + e.toString());
-    }
-
-    @ResponseBody
-    @RequestMapping("/error")
-    public String error() {
-        return ResultGenerator.generateError(ReturnCode.ERROR);
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(stringWriter);
+        e.printStackTrace(writer);
+        StringBuffer buffer = stringWriter.getBuffer();
+        logger.error("system error or exception：{}", buffer.toString());
+        return ResultGenerator.generate(ReturnCode.EXCEPTION.getCode(), buffer.toString());
     }
 }

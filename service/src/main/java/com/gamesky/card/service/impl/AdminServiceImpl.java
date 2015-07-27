@@ -4,6 +4,7 @@ import com.gamesky.card.core.model.Admin;
 import com.gamesky.card.core.model.AdminExample;
 import com.gamesky.card.dao.mapper.AdminMapper;
 import com.gamesky.card.service.AdminService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,10 @@ public class AdminServiceImpl implements AdminService {
         List<Admin> admins = adminMapper.selectByExample(adminExample);
         if (admins != null && admins.size() > 0) {
             return 0;
+        }
+
+        if (StringUtils.isBlank(admin.getUsername())) {
+            admin.setUsername(admin.getPhone());
         }
 
         return adminMapper.insert(admin);
