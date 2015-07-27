@@ -52,7 +52,7 @@
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
         <init-param>
             <param-name>targetBeanName</param-name>
-            <param-value>springSession</param-value>         //自己过滤器的名字
+            <param-value>springSession</param-value>
         </init-param>
 
         <init-param>
@@ -66,7 +66,7 @@
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
         <init-param>
             <param-name>targetBeanName</param-name>
-            <param-value>loginFilter</param-value>         //自己过滤器的名字
+            <param-value>loginFilter</param-value>
         </init-param>
 
         <init-param>

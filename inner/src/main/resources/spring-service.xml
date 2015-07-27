@@ -90,6 +90,8 @@
                 <value>/upload/</value>
                 <value>/laydate/</value>
                 <value>/fonts/</value>
+                <value>/error/</value>
+                <value>/monitor/</value>
             </list>
         </property>
     </bean>

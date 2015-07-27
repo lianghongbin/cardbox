@@ -76,7 +76,7 @@ public class LoginController {
 
         HttpSession session = request.getSession();
         session.setAttribute(Constants.INNER_LOGIN_KEY, phone);
-        adminService.login(phone);
+        //adminService.login(phone);
 
         return "";
     }
