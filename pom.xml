@@ -276,7 +276,7 @@
             <id>local</id>
             <properties>
                 <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
-                <jdbc.url>jdbc:mysql://127.0.0.1:3306/cardbox</jdbc.url>
+                <jdbc.url>jdbc:mysql://127.0.0.1:3306/KK_cardbox</jdbc.url>
                 <jdbc.username>root</jdbc.username>
                 <jdbc.password/>
                 <redis.host>127.0.0.1</redis.host>
@@ -372,7 +372,7 @@
                 </os>
             </activation>
             <properties>
-                <logger.root>~/card/logs/</logger.root>
+                <logger.root>/Users/lianghongbin/Desktop/card/logs/</logger.root>
             </properties>
         </profile>
     </profiles>

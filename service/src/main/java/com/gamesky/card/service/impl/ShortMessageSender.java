@@ -98,8 +98,9 @@ public class ShortMessageSender implements MessageSender<SmsMessage> {
 
         String status = map.get("status");
         if (!status.equals("1")) {
-            logger.error("消息发送出错，状态码：{}， 错误原因：{}", status, map.get("data"));
+            logger.error("消息发送出错,手机号:{}，状态码：{}， 错误原因：{}",t[0].getPhone(), status, map.get("data"));
         }
+
         return map.get("status").equals("1");
     }
 }
