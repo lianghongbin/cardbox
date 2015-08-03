@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ÎÊÌâ·´À¡</title>
+    <title>é—®é¢˜åé¦ˆ</title>
     <meta name="Keywords" content="" />
     <meta name="Description" content="" />
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
@@ -16,7 +16,7 @@
     <!-- Mobile Devices Support @end -->
     <style>
 
-        *{margin:0 ;padding:0;outline£ºnone}
+        *{margin:0 ;padding:0;outlineï¼šnone}
         body {font-size:62.5%;background:#f2f2f2;color:#333}
         ul,li {list-style:none}
         li img,img {display:block;}
@@ -33,11 +33,11 @@
     </style>
 </head>
 <body>
-<div class="tit">ÎÊÌâ·´À¡</div>
+<div class="tit">é—®é¢˜åé¦ˆ</div>
 <div class="pad15">
-    <p class="tips">Ìá½»Ê§°Ü£¡</p>
+    <p class="tips">æäº¤å¤±è´¥ï¼</p>
     <form name="form1" action="" id="forms">
-        <input type="button" onclick="document.location.href='./add'" value="·µ»ØÉÏÒ»¼¶" />
+        <input type="button" onclick="document.location.href='./add'" value="è¿”å›ä¸Šä¸€çº§" />
     </form>
 </div>
 </body>

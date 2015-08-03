@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ÎÊÌâ·´À¡</title>
+    <title>é—®é¢˜åé¦ˆ</title>
     <meta name="Keywords" content="" />
     <meta name="Description" content="" />
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
@@ -16,7 +16,7 @@
     <!-- Mobile Devices Support @end -->
     <style>
 
-        *{margin:0 ;padding:0;outline£ºnone}
+        *{margin:0 ;padding:0;outlineï¼šnone}
         body {font-size:62.5%;background:#f2f2f2;color:#333}
         ul,li {list-style:none}
         li img,img {display:block;}
@@ -33,13 +33,13 @@
     <script type="text/javascript">
         function check() {
             if(document.getElementsByName("contact").value == "") {
-                alert("ÇëÌîĞ´ÁªÏµ·½Ê½£¡");
+                alert("è¯·å¡«å†™è”ç³»æ–¹å¼ï¼");
                 document.getElementsByName("contact").focus();
                 return false;
             }
 
             if(document.getElementsByName("content").value == "") {
-                alert("ÇëÌîĞ´·´À¡ÄÚÈİ£¡");
+                alert("è¯·å¡«å†™åé¦ˆå†…å®¹ï¼");
                 document.getElementsByName("content").focus();
                 return false;
             }
@@ -49,15 +49,15 @@
     </script>
 </head>
 <body>
-<!--<div class="tit">ÎÊÌâ·´À¡</div>-->
+<!--<div class="tit">é—®é¢˜åé¦ˆ</div>-->
 <div class="pad15">
     <form name="form1" action="./save" id="forms" method="post" onsubmit="return check()">
         <input type="hidden" name="phone" id="phone" value="${phone}"/>
-        <input type="text" name="contact" class="inp email" placeholder="ÌîĞ´ÓÊÏäµØÖ·£¡" />
-        <textarea name="content">ÎÊÌâÃèÊö...</textarea>
-        <input type="submit" value="Ìá½»½¨Òé" />
+        <input type="text" name="contact" class="inp email" placeholder="å¡«å†™é‚®ç®±åœ°å€ï¼" />
+        <textarea name="content">é—®é¢˜æè¿°...</textarea>
+        <input type="submit" value="æäº¤å»ºè®®" />
     </form>
-    <p>ÄúËùÌá½»µÄÎÊÌâ£¬ÎÒÃÇ½«»áÔÚ3¸ö¹¤×÷ÈÕÄÚÍ¨¹ıÄúËùÁôÏÂµÄÓÊÏäµØÖ·½øĞĞ»Ø¸´£¬ÆäÖĞÓĞĞ§½¨Òé½«»áÓĞÒ»·İ¶îÍâµÄ¾ªÏ²½±Àø£¬¸ĞĞ»ÄúµÄ±¦¹ó½¨Òé£¡</p>
+    <p>æ‚¨æ‰€æäº¤çš„é—®é¢˜ï¼Œæˆ‘ä»¬å°†ä¼šåœ¨3ä¸ªå·¥ä½œæ—¥å†…é€šè¿‡æ‚¨æ‰€ç•™ä¸‹çš„é‚®ç®±åœ°å€è¿›è¡Œå›å¤ï¼Œå…¶ä¸­æœ‰æ•ˆå»ºè®®å°†ä¼šæœ‰ä¸€ä»½é¢å¤–çš„æƒŠå–œå¥–åŠ±ï¼Œæ„Ÿè°¢æ‚¨çš„å®è´µå»ºè®®ï¼</p>
 </div>
 </body>
 </html>
