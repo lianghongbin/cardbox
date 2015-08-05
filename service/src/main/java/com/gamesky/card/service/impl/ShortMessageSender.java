@@ -88,6 +88,8 @@ public class ShortMessageSender implements MessageSender<SmsMessage> {
                 if (inputStream != null) {
                     inputStream.close();
                 }
+                response.close();
+                httpclient.close();
             } catch (Exception ignored) {
             }
         }

@@ -1,4 +1,4 @@
-package com.gamesky.card.service;
+package com.gamesky.card.service.impl;
 
 import com.gamesky.card.core.Keyable;
 import com.gamesky.card.core.Marshaller;

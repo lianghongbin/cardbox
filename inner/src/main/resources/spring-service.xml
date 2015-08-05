@@ -35,7 +35,7 @@
 
     <bean id="codeGenerator" class="com.gamesky.card.service.impl.DefaultCodeGenerator"/>
 
-    <bean id="marshaller" class="com.gamesky.card.service.RedisMarshaller">
+    <bean id="marshaller" class="com.gamesky.card.service.impl.RedisMarshaller">
         <property name="jedisConnectionFactory" ref="jedisConnectionFactory"/>
     </bean>
 
@@ -66,9 +66,9 @@
     </bean>
 
 
-    <bean id="uploadMarshaller" class="com.gamesky.card.service.LocalFileMarshaller"/>
+    <bean id="uploadMarshaller" class="com.gamesky.card.service.impl.LocalFileMarshaller"/>
 
-    <bean id="globalLock" class="com.gamesky.card.service.RedisGlobalLock">
+    <bean id="globalLock" class="com.gamesky.card.service.impl.RedisGlobalLock">
         <property name="jedisConnectionFactory" ref="jedisConnectionFactory"/>
     </bean>
 

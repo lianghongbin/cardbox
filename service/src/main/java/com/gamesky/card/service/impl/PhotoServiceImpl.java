@@ -1,9 +1,10 @@
-package com.gamesky.card.service;
+package com.gamesky.card.service.impl;
 
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.model.Photo;
 import com.gamesky.card.core.model.PhotoExample;
 import com.gamesky.card.dao.mapper.PhotoMapper;
+import com.gamesky.card.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
