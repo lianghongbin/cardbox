@@ -38,7 +38,7 @@
                 <tr>
                     <th>图标：</th>
                     <td>
-                        <img src="${game.icon}"/>
+                        <img src="${game.icon}" width="100" height="100"/>
                     </td>
                 </tr>
                 <tr>
@@ -75,6 +75,14 @@
                     <th>排序：</th>
                     <td>
                     ${game.sort}
+                    </td>
+                </tr>
+                <tr>
+                    <th>分类：</th>
+                    <td>
+                    <#list gameTypes as gameType>
+                        ${gameType.type} &nbsp;
+                    </#list>
                     </td>
                 </tr>
                 <tr>

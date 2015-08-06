@@ -104,17 +104,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Admin" >
-    insert into admin (id, phone, username, 
-      top, locked, last_time)
-    values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
-      #{top,jdbcType=BIT}, #{locked,jdbcType=BIT}, #{lastTime,jdbcType=BIGINT})
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into admin (phone, username, top, 
+      locked, last_time)
+    values (#{phone,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{top,jdbcType=BIT}, 
+      #{locked,jdbcType=BIT}, #{lastTime,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Admin" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into admin
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="phone != null" >
         phone,
       </if>
@@ -132,9 +135,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
       </if>

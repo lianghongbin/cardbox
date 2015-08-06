@@ -82,7 +82,7 @@
                     <tr>
                         <th>图标：</th>
                         <td>
-                            <span id="imgId"><img src="${game.icon}"/></span>
+                            <span id="imgId"><img src="${game.icon}" height="100" width="100"/></span>
                         </td>
                     </tr>
                     <tr>
@@ -127,6 +127,14 @@
                         <th>排序：</th>
                         <td><input class="common-text" name="sort" id="sort" size="50" value="${game.sort}"
                                    type="text"></td>
+                    </tr>
+                    <tr>
+                        <th>分类：</th>
+                        <td>
+                            <#list typesList as type>
+                                <input type="checkbox" name="types" value="${type.name}" <#if types?seq_contains(type.name)>checked</#if> >${type.name} &nbsp;
+                            </#list>
+                        </td>
                     </tr>
                     <tr>
                         <th>平台：</th>

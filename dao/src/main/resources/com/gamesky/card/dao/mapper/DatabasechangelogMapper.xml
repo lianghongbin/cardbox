@@ -100,21 +100,24 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Databasechangelog" >
-    insert into DATABASECHANGELOG (ID, AUTHOR, FILENAME, 
-      DATEEXECUTED, ORDEREXECUTED, EXECTYPE, 
-      MD5SUM, DESCRIPTION, COMMENTS, 
-      TAG, LIQUIBASE)
-    values (#{id,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR}, 
-      #{dateexecuted,jdbcType=TIMESTAMP}, #{orderexecuted,jdbcType=INTEGER}, #{exectype,jdbcType=VARCHAR}, 
-      #{md5sum,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR}, 
-      #{tag,jdbcType=VARCHAR}, #{liquibase,jdbcType=VARCHAR})
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into DATABASECHANGELOG (AUTHOR, FILENAME, DATEEXECUTED, 
+      ORDEREXECUTED, EXECTYPE, MD5SUM, 
+      DESCRIPTION, COMMENTS, TAG, 
+      LIQUIBASE)
+    values (#{author,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR}, #{dateexecuted,jdbcType=TIMESTAMP}, 
+      #{orderexecuted,jdbcType=INTEGER}, #{exectype,jdbcType=VARCHAR}, #{md5sum,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, 
+      #{liquibase,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Databasechangelog" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into DATABASECHANGELOG
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        ID,
-      </if>
       <if test="author != null" >
         AUTHOR,
       </if>
@@ -147,9 +150,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
-      </if>
       <if test="author != null" >
         #{author,jdbcType=VARCHAR},
       </if>

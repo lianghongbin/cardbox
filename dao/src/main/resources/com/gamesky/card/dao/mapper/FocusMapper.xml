@@ -107,21 +107,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Focus" >
-    insert into focus (id, type, photo, 
-      sort, item_id, url, 
-      enabled, platform, create_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
-      #{sort,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, 
-      #{enabled,jdbcType=BIT}, #{platform,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}
-      )
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into focus (type, photo, sort, 
+      item_id, url, enabled, platform, 
+      create_time)
+    values (#{type,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
+      #{itemId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{enabled,jdbcType=BIT}, #{platform,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Focus" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into focus
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="type != null" >
         type,
       </if>
@@ -148,9 +149,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="type != null" >
         #{type,jdbcType=VARCHAR},
       </if>

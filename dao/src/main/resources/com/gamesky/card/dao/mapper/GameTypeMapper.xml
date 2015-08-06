@@ -101,17 +101,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.GameType" >
-    insert into game_type (id, game_id, type
-      )
-    values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}
-      )
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into game_type (game_id, type)
+    values (#{gameId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.GameType" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into game_type
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="gameId != null" >
         game_id,
       </if>
@@ -120,9 +121,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="gameId != null" >
         #{gameId,jdbcType=INTEGER},
       </if>

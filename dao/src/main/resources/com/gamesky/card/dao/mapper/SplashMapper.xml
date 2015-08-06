@@ -104,19 +104,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Splash" >
-    insert into splash (id, photo, url, 
-      enabled, sort, create_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{photo,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
-      #{enabled,jdbcType=BIT}, #{sort,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}
-      )
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into splash (photo, url, enabled, 
+      sort, create_time)
+    values (#{photo,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{enabled,jdbcType=BIT}, 
+      #{sort,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Splash" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into splash
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="photo != null" >
         photo,
       </if>
@@ -134,9 +135,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="photo != null" >
         #{photo,jdbcType=VARCHAR},
       </if>

@@ -95,15 +95,15 @@
                 <form action="./all" method="post">
                     <table class="search-tab">
                         <tr>
-                            <th width="120">手机:</th>
+                            <th width="90">手机:</th>
                             <td>
-                                <input type="text" name="phone" value="${phone}" placeholder="手机号">
+                                <input type="text" size="18" name="phone" value="${phone}" placeholder="手机号">
                             </td>
-                            <th width="120">游戏ID:</th>
+                            <th width="90">游戏ID:</th>
                             <td>
-                                <input type="text" name="gameId" value="${gameId}" placeholder="游戏ID">
+                                <input type="text" size="15" name="gameId" value="${gameId}" placeholder="游戏ID">
                             </td>
-                            <th width="120">游戏类别:</th>
+                            <th width="90">游戏类别:</th>
                             <td>
                                 <select name="type">
                                     <option value="">全部</option>

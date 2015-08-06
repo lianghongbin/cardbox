@@ -27,6 +27,13 @@ public class GameTypeServiceImpl implements GameTypeService {
     }
 
     @Override
+    public int removeByGame(int gameId) {
+        GameTypeExample gameTypeExample = new GameTypeExample();
+        gameTypeExample.createCriteria().andGameIdEqualTo(gameId);
+        return gameTypeMapper.deleteByExample(gameTypeExample);
+    }
+
+    @Override
     public List<GameType> findByGame(int gameId) {
         GameTypeExample gameTypeExample = new GameTypeExample();
         gameTypeExample.createCriteria().andGameIdEqualTo(gameId);

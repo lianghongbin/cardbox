@@ -105,19 +105,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Flow" >
-    insert into flow (id, score, type, 
-      user_id, phone, method, 
-      create_time)
-    values (#{id,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
-      #{userId,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=BIGINT})
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into flow (score, type, user_id, 
+      phone, method, create_time
+      )
+    values (#{score,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{phone,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Flow" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into flow
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="score != null" >
         score,
       </if>
@@ -138,9 +141,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="score != null" >
         #{score,jdbcType=INTEGER},
       </if>

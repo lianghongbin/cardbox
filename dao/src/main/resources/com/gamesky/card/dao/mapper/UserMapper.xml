@@ -108,21 +108,24 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.User" >
-    insert into user (id, username, password, 
-      score, device, type, 
-      phone, head, create_time, 
-      last_time)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{score,jdbcType=INTEGER}, #{device,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{head,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
-      #{lastTime,jdbcType=BIGINT})
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user (username, password, score, 
+      device, type, phone, 
+      head, create_time, last_time
+      )
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, 
+      #{device,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{head,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{lastTime,jdbcType=BIGINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.User" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="username != null" >
         username,
       </if>
@@ -152,9 +155,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="username != null" >
         #{username,jdbcType=VARCHAR},
       </if>

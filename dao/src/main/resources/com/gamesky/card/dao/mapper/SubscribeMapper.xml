@@ -107,21 +107,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Subscribe" >
-    insert into subscribe (id, token, phone, 
-      game_id, create_time, deleted, 
-      delete_time, game_name, types
-      )
-    values (#{id,jdbcType=INTEGER}, #{token,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{gameId,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}, #{deleted,jdbcType=BIT}, 
-      #{deleteTime,jdbcType=BIGINT}, #{gameName,jdbcType=VARCHAR}, #{types,jdbcType=VARCHAR}
-      )
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into subscribe (token, phone, game_id, 
+      create_time, deleted, delete_time, 
+      game_name, types)
+    values (#{token,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{gameId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=BIGINT}, #{deleted,jdbcType=BIT}, #{deleteTime,jdbcType=BIGINT}, 
+      #{gameName,jdbcType=VARCHAR}, #{types,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Subscribe" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into subscribe
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="token != null" >
         token,
       </if>
@@ -148,9 +149,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="token != null" >
         #{token,jdbcType=VARCHAR},
       </if>

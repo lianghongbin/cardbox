@@ -104,19 +104,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Share" >
-    insert into share (id, user_id, card_id, 
-      game_id, score, create_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{cardId,jdbcType=INTEGER}, 
-      #{gameId,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}
-      )
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into share (user_id, card_id, game_id, 
+      score, create_time)
+    values (#{userId,jdbcType=INTEGER}, #{cardId,jdbcType=INTEGER}, #{gameId,jdbcType=INTEGER}, 
+      #{score,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Share" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into share
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="userId != null" >
         user_id,
       </if>
@@ -134,9 +135,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>

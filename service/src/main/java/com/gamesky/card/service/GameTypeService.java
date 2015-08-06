@@ -12,6 +12,8 @@ public interface GameTypeService {
 
     int save(GameType gameType);
 
+    int removeByGame(int gameId);
+
     List<GameType> findByGame(int gameId);
 
     List<GameType> findByType(String type, Page page);

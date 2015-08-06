@@ -102,17 +102,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Search" >
-    insert into search (id, key, count, 
-      create_time)
-    values (#{id,jdbcType=INTEGER}, #{key,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=BIGINT})
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into search (key, count, create_time
+      )
+    values (#{key,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Search" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into search
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="key != null" >
         key,
       </if>
@@ -124,9 +127,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="key != null" >
         #{key,jdbcType=VARCHAR},
       </if>

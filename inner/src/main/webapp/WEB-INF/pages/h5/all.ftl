@@ -137,12 +137,12 @@
                         <tr>
                             <th width="50">游戏ID</th>
                             <th width="50">排序</th>
-                            <th width="300">游戏名称</th>
+                            <th>游戏名称</th>
                             <th>游戏描述</th>
                             <th width="60">是否推荐</th>
                             <th width="60">平台</th>
-                            <th width="150">添加时间</th>
-                            <th width="150">更新时间</th>
+                            <th width="130">添加时间</th>
+                            <th width="130">更新时间</th>
                             <th width="65">操作</th>
                         </tr>
                     <#list paginationData.pageItems as game>

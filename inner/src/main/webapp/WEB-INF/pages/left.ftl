@@ -32,7 +32,8 @@
                     <li><a href="javascript:openUrl('/h5/all')"><i class="icon-font">&#xe052;</i>H5管理</a></li>
                     <li><a href="javascript:openUrl('/feedback/all')"><i class="icon-font">&#xe052;</i>用户反馈</a></li>
                     <li><a href="javascript:openUrl('/data/')"><i class="icon-font">&#xe052;</i>数据统计</a></li>
-                    <#if admin?? && admin.top>
+                    <li><a href="javascript:openUrl('/subscribe/all')"><i class="icon-font">&#xe052;</i>订阅统计</a></li>
+                <#if admin?? && admin.top>
                     <li><a href="javascript:openUrl('/admin/all')"><i class="icon-font">&#xe052;</i>操作员管理</a></li>
                     </#if>
                     </ul>

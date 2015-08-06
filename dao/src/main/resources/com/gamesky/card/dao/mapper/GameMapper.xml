@@ -141,25 +141,28 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Game" >
-    insert into game (id, name, icon, 
-      url, ios_id, recommend, 
-      identifier, total, sort, 
-      platform, score, closed, create_time, 
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into game (name, icon, url, 
+      ios_id, recommend, identifier, 
+      total, sort, platform, 
+      score, closed, create_time, 
       modify_time, type, description
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{iosId,jdbcType=VARCHAR}, #{recommend,jdbcType=BIT}, 
-      #{identifier,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, 
-      #{platform,jdbcType=VARCHAR}, #{score,jdbcType=REAL}, #{closed,jdbcType=BIT}, #{createTime,jdbcType=BIGINT}, 
+    values (#{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{iosId,jdbcType=VARCHAR}, #{recommend,jdbcType=BIT}, #{identifier,jdbcType=VARCHAR}, 
+      #{total,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{platform,jdbcType=VARCHAR}, 
+      #{score,jdbcType=REAL}, #{closed,jdbcType=BIT}, #{createTime,jdbcType=BIGINT}, 
       #{modifyTime,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Game" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into game
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="name != null" >
         name,
       </if>
@@ -207,9 +210,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>

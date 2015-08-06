@@ -145,27 +145,30 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.CardWithBLOBs" >
-    insert into card (id, game_id, game_name, 
-      name, icon, total, 
-      assign_total, type, score, 
-      recommend, platform, closed, 
-      valid, sort, create_time, 
-      open_time, expire_time, tao, 
-      description, flow)
-    values (#{id,jdbcType=INTEGER}, #{gameId,jdbcType=INTEGER}, #{gameName,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, 
-      #{assignTotal,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, 
-      #{recommend,jdbcType=BIT}, #{platform,jdbcType=VARCHAR}, #{closed,jdbcType=BIT}, 
-      #{valid,jdbcType=BIT}, #{sort,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}, 
-      #{openTime,jdbcType=BIGINT}, #{expireTime,jdbcType=BIGINT}, #{tao,jdbcType=INTEGER}, 
-      #{description,jdbcType=LONGVARCHAR}, #{flow,jdbcType=LONGVARCHAR})
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into card (game_id, game_name, name, 
+      icon, total, assign_total, 
+      type, score, recommend, 
+      platform, closed, valid, sort, 
+      create_time, open_time, expire_time, 
+      tao, description, flow
+      )
+    values (#{gameId,jdbcType=INTEGER}, #{gameName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{icon,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, #{assignTotal,jdbcType=INTEGER}, 
+      #{type,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{recommend,jdbcType=BIT}, 
+      #{platform,jdbcType=VARCHAR}, #{closed,jdbcType=BIT}, #{valid,jdbcType=BIT}, #{sort,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=BIGINT}, #{openTime,jdbcType=BIGINT}, #{expireTime,jdbcType=BIGINT}, 
+      #{tao,jdbcType=INTEGER}, #{description,jdbcType=LONGVARCHAR}, #{flow,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.CardWithBLOBs" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into card
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="gameId != null" >
         game_id,
       </if>
@@ -225,9 +228,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="gameId != null" >
         #{gameId,jdbcType=INTEGER},
       </if>

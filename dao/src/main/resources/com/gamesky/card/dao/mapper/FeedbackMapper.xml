@@ -106,19 +106,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.Feedback" >
-    insert into feedback (id, content, contact, 
-      processed, remark, create_time, 
-      process_time, phone)
-    values (#{id,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
-      #{processed,jdbcType=BIT}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
-      #{processTime,jdbcType=BIGINT}, #{phone,jdbcType=VARCHAR})
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into feedback (content, contact, processed, 
+      remark, create_time, process_time, 
+      phone)
+    values (#{content,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{processed,jdbcType=BIT}, 
+      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{processTime,jdbcType=BIGINT}, 
+      #{phone,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Feedback" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into feedback
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="content != null" >
         content,
       </if>
@@ -142,9 +145,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="content != null" >
         #{content,jdbcType=VARCHAR},
       </if>

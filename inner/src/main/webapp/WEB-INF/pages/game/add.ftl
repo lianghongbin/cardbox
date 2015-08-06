@@ -124,6 +124,14 @@
                         <td><input class="common-text" name="sort" id="sort" size="50" value="0" type="text"></td>
                     </tr>
                     <tr>
+                        <th><i class="require-red">*</i>分类：</th>
+                        <td>
+                            <#list typesList as type>
+                                <input type="checkbox" name="types" value="${type.name}">${type.name}&nbsp;
+                            </#list>
+                        </td>
+                    </tr>
+                    <tr>
                         <th><i class="require-red">*</i>平台：</th>
                         <td>
                             <select name="platform" id="platform" class="required">

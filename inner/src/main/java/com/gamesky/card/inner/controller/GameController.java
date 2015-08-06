@@ -5,9 +5,12 @@ import com.gamesky.card.core.Page;
 import com.gamesky.card.core.Platform;
 import com.gamesky.card.core.model.Game;
 import com.gamesky.card.core.model.GameExample;
+import com.gamesky.card.core.model.GameType;
+import com.gamesky.card.core.model.Types;
 import com.gamesky.card.service.CardService;
 import com.gamesky.card.service.GameService;
-import com.gamesky.card.service.PhotoService;
+import com.gamesky.card.service.GameTypeService;
+import com.gamesky.card.service.TypeService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,17 +40,20 @@ public class GameController {
     @Autowired
     private CardService cardService;
     @Autowired
-    private PhotoService photoService;
+    private TypeService typeService;
+    @Autowired
+    private GameTypeService gameTypeService;
     private static final Logger logger = LoggerFactory.getLogger(GameController.class);
 
     @RequestMapping("/add")
     public ModelAndView add() {
-        return new ModelAndView("game/add");
+        List<Types> typesList = typeService.findAll();
+        return new ModelAndView("game/add", "typesList", typesList);
     }
 
     @ResponseBody
     @RequestMapping(value = "/save")
-    public String save(Game game) {
+    public String save(Game game, String[] types) {
         if (game.getTotal() == null) {
             game.setTotal(0);
         }
@@ -54,14 +61,32 @@ public class GameController {
         if (StringUtils.isBlank(game.getIcon())) {
             game.setIcon(Constants.DEFAULT_ICON);
         }
+
         game.setCreateTime(System.currentTimeMillis());
         int result = gameService.save(game);
+        for (String type : types) {
+            GameType gameType = new GameType();
+            gameType.setGameId(game.getId());
+            gameType.setType(type);
+            gameTypeService.save(gameType);
+        }
+
         return String.valueOf(result);
     }
 
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(Game game) {
+    public String update(Game game, String[] types) {
+        gameTypeService.removeByGame(game.getId());
+        if (types.length > 0) {
+            for (String type : types) {
+                GameType gameType = new GameType();
+                gameType.setGameId(game.getId());
+                gameType.setType(type);
+                gameTypeService.save(gameType);
+            }
+        }
+
         int result = gameService.update(game);
         return String.valueOf(result);
     }
@@ -69,8 +94,20 @@ public class GameController {
     @RequestMapping(value = "/modify")
     public ModelAndView modify(int id) {
         Game game = gameService.find(id);
+
+        List<GameType> gameTypes = gameTypeService.findByGame(id);
+        List<Types> typesList = typeService.findAll();
+        List<String> types = new ArrayList<>();
+        if (gameTypes != null) {
+            for (GameType gameType : gameTypes) {
+                types.add(gameType.getType());
+            }
+        }
+
         ModelAndView modelAndView = new ModelAndView("game/modify");
         modelAndView.addObject("game", game);
+        modelAndView.addObject("typesList", typesList);
+        modelAndView.addObject("types", types);
         return modelAndView;
     }
 
@@ -80,8 +117,11 @@ public class GameController {
         int total = cardService.validCount(game.getId(), Platform.ALL.name());
         game.setTotal(total);
 
+        List<GameType> gameTypes = gameTypeService.findByGame(id);
+
         ModelAndView modelAndView = new ModelAndView("game/view");
         modelAndView.addObject("game", game);
+        modelAndView.addObject("gameTypes", gameTypes);
         return modelAndView;
     }
 
