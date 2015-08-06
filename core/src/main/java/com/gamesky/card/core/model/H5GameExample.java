@@ -384,6 +384,76 @@ public class H5GameExample {
             return (Criteria) this;
         }
 
+        public Criteria andGameIntroIsNull() {
+            addCriterion("game_intro is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIntroIsNotNull() {
+            addCriterion("game_intro is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIntroEqualTo(String value) {
+            addCriterion("game_intro =", value, "gameIntro");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIntroNotEqualTo(String value) {
+            addCriterion("game_intro <>", value, "gameIntro");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIntroGreaterThan(String value) {
+            addCriterion("game_intro >", value, "gameIntro");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIntroGreaterThanOrEqualTo(String value) {
+            addCriterion("game_intro >=", value, "gameIntro");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIntroLessThan(String value) {
+            addCriterion("game_intro <", value, "gameIntro");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIntroLessThanOrEqualTo(String value) {
+            addCriterion("game_intro <=", value, "gameIntro");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIntroLike(String value) {
+            addCriterion("game_intro like", value, "gameIntro");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIntroNotLike(String value) {
+            addCriterion("game_intro not like", value, "gameIntro");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIntroIn(List<String> values) {
+            addCriterion("game_intro in", values, "gameIntro");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIntroNotIn(List<String> values) {
+            addCriterion("game_intro not in", values, "gameIntro");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIntroBetween(String value1, String value2) {
+            addCriterion("game_intro between", value1, value2, "gameIntro");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIntroNotBetween(String value1, String value2) {
+            addCriterion("game_intro not between", value1, value2, "gameIntro");
+            return (Criteria) this;
+        }
+
         public Criteria andGameUrlIsNull() {
             addCriterion("game_url is null");
             return (Criteria) this;
@@ -964,6 +1034,76 @@ public class H5GameExample {
             return (Criteria) this;
         }
 
+        public Criteria andPlatformIsNull() {
+            addCriterion("platform is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformIsNotNull() {
+            addCriterion("platform is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformEqualTo(String value) {
+            addCriterion("platform =", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformNotEqualTo(String value) {
+            addCriterion("platform <>", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformGreaterThan(String value) {
+            addCriterion("platform >", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformGreaterThanOrEqualTo(String value) {
+            addCriterion("platform >=", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformLessThan(String value) {
+            addCriterion("platform <", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformLessThanOrEqualTo(String value) {
+            addCriterion("platform <=", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformLike(String value) {
+            addCriterion("platform like", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformNotLike(String value) {
+            addCriterion("platform not like", value, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformIn(List<String> values) {
+            addCriterion("platform in", values, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformNotIn(List<String> values) {
+            addCriterion("platform not in", values, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformBetween(String value1, String value2) {
+            addCriterion("platform between", value1, value2, "platform");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformNotBetween(String value1, String value2) {
+            addCriterion("platform not between", value1, value2, "platform");
+            return (Criteria) this;
+        }
+
         public Criteria andTitleLikeInsensitive(String value) {
             addCriterion("upper(title) like", value.toUpperCase(), "title");
             return (Criteria) this;
@@ -971,6 +1111,11 @@ public class H5GameExample {
 
         public Criteria andGamePicLikeInsensitive(String value) {
             addCriterion("upper(game_pic) like", value.toUpperCase(), "gamePic");
+            return (Criteria) this;
+        }
+
+        public Criteria andGameIntroLikeInsensitive(String value) {
+            addCriterion("upper(game_intro) like", value.toUpperCase(), "gameIntro");
             return (Criteria) this;
         }
 
@@ -991,6 +1136,11 @@ public class H5GameExample {
 
         public Criteria andGamePopulationLikeInsensitive(String value) {
             addCriterion("upper(game_population) like", value.toUpperCase(), "gamePopulation");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformLikeInsensitive(String value) {
+            addCriterion("upper(platform) like", value.toUpperCase(), "platform");
             return (Criteria) this;
         }
     }

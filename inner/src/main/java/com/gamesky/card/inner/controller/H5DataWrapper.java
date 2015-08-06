@@ -3,6 +3,7 @@ package com.gamesky.card.inner.controller;
 import com.gamesky.card.core.model.H5Game;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * lianghongbin on 15/8/5.
@@ -103,10 +104,10 @@ public class H5DataWrapper {
         private int newgameid;
         private int newgamecount;
         private int hotgamecount;
-        private List<H5Game> wxgamelist;
-        private List<H5Game> newgamelist;
-        private List<H5Game> hotgamelist;
-        private H5Game recommendgame;
+        private List<Map<String, String>> wxgamelist;
+        private List<Map<String, String>> newgamelist;
+        private List<Map<String, String>> hotgamelist;
+        private Map<String, String> recommendgame;
 
         public int getWxgameid() {
             return wxgameid;
@@ -148,35 +149,35 @@ public class H5DataWrapper {
             this.hotgamecount = hotgamecount;
         }
 
-        public List<H5Game> getWxgamelist() {
+        public List<Map<String, String>> getWxgamelist() {
             return wxgamelist;
         }
 
-        public void setWxgamelist(List<H5Game> wxgamelist) {
+        public void setWxgamelist(List<Map<String, String>> wxgamelist) {
             this.wxgamelist = wxgamelist;
         }
 
-        public List<H5Game> getNewgamelist() {
+        public List<Map<String, String>> getNewgamelist() {
             return newgamelist;
         }
 
-        public void setNewgamelist(List<H5Game> newgamelist) {
+        public void setNewgamelist(List<Map<String, String>> newgamelist) {
             this.newgamelist = newgamelist;
         }
 
-        public List<H5Game> getHotgamelist() {
+        public List<Map<String, String>> getHotgamelist() {
             return hotgamelist;
         }
 
-        public void setHotgamelist(List<H5Game> hotgamelist) {
+        public void setHotgamelist(List<Map<String, String>> hotgamelist) {
             this.hotgamelist = hotgamelist;
         }
 
-        public H5Game getRecommendgame() {
+        public Map<String, String> getRecommendgame() {
             return recommendgame;
         }
 
-        public void setRecommendgame(H5Game recommendgame) {
+        public void setRecommendgame(Map<String, String> recommendgame) {
             this.recommendgame = recommendgame;
         }
     }

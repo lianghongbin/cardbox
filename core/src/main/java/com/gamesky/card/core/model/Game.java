@@ -29,6 +29,8 @@ public class Game {
 
     private Long modifyTime;
 
+    private String type;
+
     private String description;
 
     public Integer getId() {
@@ -143,6 +145,14 @@ public class Game {
         this.modifyTime = modifyTime;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -177,6 +187,7 @@ public class Game {
             && (this.getClosed() == null ? other.getClosed() == null : this.getClosed().equals(other.getClosed()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getModifyTime() == null ? other.getModifyTime() == null : this.getModifyTime().equals(other.getModifyTime()))
+            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()));
     }
 
@@ -198,6 +209,7 @@ public class Game {
         result = prime * result + ((getClosed() == null) ? 0 : getClosed().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getModifyTime() == null) ? 0 : getModifyTime().hashCode());
+        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         return result;
     }
@@ -222,6 +234,7 @@ public class Game {
         sb.append(", closed=").append(closed);
         sb.append(", createTime=").append(createTime);
         sb.append(", modifyTime=").append(modifyTime);
+        sb.append(", type=").append(type);
         sb.append(", description=").append(description);
         sb.append("]");
         return sb.toString();

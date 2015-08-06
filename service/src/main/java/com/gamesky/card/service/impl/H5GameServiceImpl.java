@@ -1,6 +1,7 @@
 package com.gamesky.card.service.impl;
 
 import com.gamesky.card.core.Page;
+import com.gamesky.card.core.Platform;
 import com.gamesky.card.core.model.H5Game;
 import com.gamesky.card.core.model.H5GameExample;
 import com.gamesky.card.dao.mapper.H5GameMapper;
@@ -9,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.security.util.PathList;
 
 import java.util.List;
 
@@ -45,6 +47,8 @@ public class H5GameServiceImpl implements H5GameService {
     public int save(H5Game h5Game) {
         H5Game game = h5GameMapper.selectByPrimaryKey(h5Game.getAid());
         if (game == null) {
+            h5Game.setSort(100);
+            h5Game.setPlatform(Platform.ALL.name());
             h5Game.setRecommend(false);
             h5Game.setCreateTime(System.currentTimeMillis());
             return h5GameMapper.insert(h5Game);
@@ -64,6 +68,7 @@ public class H5GameServiceImpl implements H5GameService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public H5Game find(int aid) {
         return h5GameMapper.selectByPrimaryKey(aid);
     }
@@ -85,6 +90,7 @@ public class H5GameServiceImpl implements H5GameService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<H5Game> findAll(Page page, String orderByClause) {
         H5GameExample h5GameExample = new H5GameExample();
         if (StringUtils.isNotBlank(orderByClause)) {
@@ -103,11 +109,15 @@ public class H5GameServiceImpl implements H5GameService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<H5Game> findAllRecommend(Page page, String orderByClause) {
         H5GameExample h5GameExample = new H5GameExample();
         h5GameExample.createCriteria().andRecommendEqualTo(true);
         if (StringUtils.isNotBlank(orderByClause)) {
             h5GameExample.setOrderByClause(orderByClause);
+        }
+        else {
+            h5GameExample.setOrderByClause("sort asc, create_time desc");
         }
 
         h5GameExample.setLimitOffset(page.getOffset());
@@ -116,9 +126,22 @@ public class H5GameServiceImpl implements H5GameService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public int findRecommendCount() {
         H5GameExample h5GameExample = new H5GameExample();
         h5GameExample.createCriteria().andRecommendEqualTo(true);
+        return h5GameMapper.countByExample(h5GameExample);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<H5Game> findByCondition(H5GameExample h5GameExample) {
+        return h5GameMapper.selectByExample(h5GameExample);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public int findCountByCondition(H5GameExample h5GameExample) {
         return h5GameMapper.countByExample(h5GameExample);
     }
 }

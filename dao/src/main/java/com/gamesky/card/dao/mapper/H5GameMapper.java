@@ -16,21 +16,15 @@ public interface H5GameMapper {
 
     int insertSelective(H5Game record);
 
-    List<H5Game> selectByExampleWithBLOBs(H5GameExample example);
-
     List<H5Game> selectByExample(H5GameExample example);
 
     H5Game selectByPrimaryKey(Integer aid);
 
     int updateByExampleSelective(@Param("record") H5Game record, @Param("example") H5GameExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") H5Game record, @Param("example") H5GameExample example);
-
     int updateByExample(@Param("record") H5Game record, @Param("example") H5GameExample example);
 
     int updateByPrimaryKeySelective(H5Game record);
-
-    int updateByPrimaryKeyWithBLOBs(H5Game record);
 
     int updateByPrimaryKey(H5Game record);
 }

@@ -9,6 +9,8 @@ public class H5Game {
 
     private String gamePic;
 
+    private String gameIntro;
+
     private String gameUrl;
 
     private String gameOrientation;
@@ -27,7 +29,7 @@ public class H5Game {
 
     private Boolean recommend;
 
-    private String gameIntro;
+    private String platform;
 
     public Integer getAid() {
         return aid;
@@ -59,6 +61,14 @@ public class H5Game {
 
     public void setGamePic(String gamePic) {
         this.gamePic = gamePic;
+    }
+
+    public String getGameIntro() {
+        return gameIntro;
+    }
+
+    public void setGameIntro(String gameIntro) {
+        this.gameIntro = gameIntro;
     }
 
     public String getGameUrl() {
@@ -133,12 +143,12 @@ public class H5Game {
         this.recommend = recommend;
     }
 
-    public String getGameIntro() {
-        return gameIntro;
+    public String getPlatform() {
+        return platform;
     }
 
-    public void setGameIntro(String gameIntro) {
-        this.gameIntro = gameIntro;
+    public void setPlatform(String platform) {
+        this.platform = platform;
     }
 
     @Override
@@ -157,6 +167,7 @@ public class H5Game {
             && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
             && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
             && (this.getGamePic() == null ? other.getGamePic() == null : this.getGamePic().equals(other.getGamePic()))
+            && (this.getGameIntro() == null ? other.getGameIntro() == null : this.getGameIntro().equals(other.getGameIntro()))
             && (this.getGameUrl() == null ? other.getGameUrl() == null : this.getGameUrl().equals(other.getGameUrl()))
             && (this.getGameOrientation() == null ? other.getGameOrientation() == null : this.getGameOrientation().equals(other.getGameOrientation()))
             && (this.getGameIswx() == null ? other.getGameIswx() == null : this.getGameIswx().equals(other.getGameIswx()))
@@ -166,7 +177,7 @@ public class H5Game {
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
             && (this.getRecommend() == null ? other.getRecommend() == null : this.getRecommend().equals(other.getRecommend()))
-            && (this.getGameIntro() == null ? other.getGameIntro() == null : this.getGameIntro().equals(other.getGameIntro()));
+            && (this.getPlatform() == null ? other.getPlatform() == null : this.getPlatform().equals(other.getPlatform()));
     }
 
     @Override
@@ -177,6 +188,7 @@ public class H5Game {
         result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
         result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
         result = prime * result + ((getGamePic() == null) ? 0 : getGamePic().hashCode());
+        result = prime * result + ((getGameIntro() == null) ? 0 : getGameIntro().hashCode());
         result = prime * result + ((getGameUrl() == null) ? 0 : getGameUrl().hashCode());
         result = prime * result + ((getGameOrientation() == null) ? 0 : getGameOrientation().hashCode());
         result = prime * result + ((getGameIswx() == null) ? 0 : getGameIswx().hashCode());
@@ -186,7 +198,7 @@ public class H5Game {
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         result = prime * result + ((getRecommend() == null) ? 0 : getRecommend().hashCode());
-        result = prime * result + ((getGameIntro() == null) ? 0 : getGameIntro().hashCode());
+        result = prime * result + ((getPlatform() == null) ? 0 : getPlatform().hashCode());
         return result;
     }
 
@@ -200,6 +212,7 @@ public class H5Game {
         sb.append(", title=").append(title);
         sb.append(", sort=").append(sort);
         sb.append(", gamePic=").append(gamePic);
+        sb.append(", gameIntro=").append(gameIntro);
         sb.append(", gameUrl=").append(gameUrl);
         sb.append(", gameOrientation=").append(gameOrientation);
         sb.append(", gameIswx=").append(gameIswx);
@@ -209,7 +222,7 @@ public class H5Game {
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", recommend=").append(recommend);
-        sb.append(", gameIntro=").append(gameIntro);
+        sb.append(", platform=").append(platform);
         sb.append("]");
         return sb.toString();
     }

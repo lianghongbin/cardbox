@@ -6,6 +6,7 @@
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="sort" property="sort" jdbcType="INTEGER" />
     <result column="game_pic" property="gamePic" jdbcType="VARCHAR" />
+    <result column="game_intro" property="gameIntro" jdbcType="VARCHAR" />
     <result column="game_url" property="gameUrl" jdbcType="VARCHAR" />
     <result column="game_orientation" property="gameOrientation" jdbcType="VARCHAR" />
     <result column="game_iswx" property="gameIswx" jdbcType="BIT" />
@@ -15,9 +16,7 @@
     <result column="create_time" property="createTime" jdbcType="BIGINT" />
     <result column="update_time" property="updateTime" jdbcType="BIGINT" />
     <result column="recommend" property="recommend" jdbcType="BIT" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.gamesky.card.core.model.H5Game" extends="BaseResultMap" >
-    <result column="game_intro" property="gameIntro" jdbcType="LONGVARCHAR" />
+    <result column="platform" property="platform" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -78,31 +77,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    aid, title, sort, game_pic, game_url, game_orientation, game_iswx, game_ishot, game_banner, 
-    game_population, create_time, update_time, recommend
+    aid, title, sort, game_pic, game_intro, game_url, game_orientation, game_iswx, game_ishot, 
+    game_banner, game_population, create_time, update_time, recommend, platform
   </sql>
-  <sql id="Blob_Column_List" >
-    game_intro
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.gamesky.card.core.model.H5GameExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from h5_game
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-    <if test="limitOffset != null and limitOffset>=0" >
-      limit #{limitOffset}, #{limit}
-    </if>
-  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.H5GameExample" >
     select
     <if test="distinct" >
@@ -120,11 +97,9 @@
       limit #{limitOffset}, #{limit}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from h5_game
     where aid = #{aid,jdbcType=INTEGER}
   </select>
@@ -140,15 +115,17 @@
   </delete>
   <insert id="insert" parameterType="com.gamesky.card.core.model.H5Game" >
     insert into h5_game (aid, title, sort, 
-      game_pic, game_url, game_orientation, 
-      game_iswx, game_ishot, game_banner, 
-      game_population, create_time, update_time, 
-      recommend, game_intro)
+      game_pic, game_intro, game_url, 
+      game_orientation, game_iswx, game_ishot, 
+      game_banner, game_population, create_time, 
+      update_time, recommend, platform
+      )
     values (#{aid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
-      #{gamePic,jdbcType=VARCHAR}, #{gameUrl,jdbcType=VARCHAR}, #{gameOrientation,jdbcType=VARCHAR}, 
-      #{gameIswx,jdbcType=BIT}, #{gameIshot,jdbcType=BIT}, #{gameBanner,jdbcType=VARCHAR}, 
-      #{gamePopulation,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, 
-      #{recommend,jdbcType=BIT}, #{gameIntro,jdbcType=LONGVARCHAR})
+      #{gamePic,jdbcType=VARCHAR}, #{gameIntro,jdbcType=VARCHAR}, #{gameUrl,jdbcType=VARCHAR}, 
+      #{gameOrientation,jdbcType=VARCHAR}, #{gameIswx,jdbcType=BIT}, #{gameIshot,jdbcType=BIT}, 
+      #{gameBanner,jdbcType=VARCHAR}, #{gamePopulation,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT}, #{recommend,jdbcType=BIT}, #{platform,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.H5Game" >
     insert into h5_game
@@ -164,6 +141,9 @@
       </if>
       <if test="gamePic != null" >
         game_pic,
+      </if>
+      <if test="gameIntro != null" >
+        game_intro,
       </if>
       <if test="gameUrl != null" >
         game_url,
@@ -192,8 +172,8 @@
       <if test="recommend != null" >
         recommend,
       </if>
-      <if test="gameIntro != null" >
-        game_intro,
+      <if test="platform != null" >
+        platform,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -208,6 +188,9 @@
       </if>
       <if test="gamePic != null" >
         #{gamePic,jdbcType=VARCHAR},
+      </if>
+      <if test="gameIntro != null" >
+        #{gameIntro,jdbcType=VARCHAR},
       </if>
       <if test="gameUrl != null" >
         #{gameUrl,jdbcType=VARCHAR},
@@ -236,8 +219,8 @@
       <if test="recommend != null" >
         #{recommend,jdbcType=BIT},
       </if>
-      <if test="gameIntro != null" >
-        #{gameIntro,jdbcType=LONGVARCHAR},
+      <if test="platform != null" >
+        #{platform,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -261,6 +244,9 @@
       </if>
       <if test="record.gamePic != null" >
         game_pic = #{record.gamePic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gameIntro != null" >
+        game_intro = #{record.gameIntro,jdbcType=VARCHAR},
       </if>
       <if test="record.gameUrl != null" >
         game_url = #{record.gameUrl,jdbcType=VARCHAR},
@@ -289,30 +275,10 @@
       <if test="record.recommend != null" >
         recommend = #{record.recommend,jdbcType=BIT},
       </if>
-      <if test="record.gameIntro != null" >
-        game_intro = #{record.gameIntro,jdbcType=LONGVARCHAR},
+      <if test="record.platform != null" >
+        platform = #{record.platform,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update h5_game
-    set aid = #{record.aid,jdbcType=INTEGER},
-      title = #{record.title,jdbcType=VARCHAR},
-      sort = #{record.sort,jdbcType=INTEGER},
-      game_pic = #{record.gamePic,jdbcType=VARCHAR},
-      game_url = #{record.gameUrl,jdbcType=VARCHAR},
-      game_orientation = #{record.gameOrientation,jdbcType=VARCHAR},
-      game_iswx = #{record.gameIswx,jdbcType=BIT},
-      game_ishot = #{record.gameIshot,jdbcType=BIT},
-      game_banner = #{record.gameBanner,jdbcType=VARCHAR},
-      game_population = #{record.gamePopulation,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=BIGINT},
-      update_time = #{record.updateTime,jdbcType=BIGINT},
-      recommend = #{record.recommend,jdbcType=BIT},
-      game_intro = #{record.gameIntro,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -323,6 +289,7 @@
       title = #{record.title,jdbcType=VARCHAR},
       sort = #{record.sort,jdbcType=INTEGER},
       game_pic = #{record.gamePic,jdbcType=VARCHAR},
+      game_intro = #{record.gameIntro,jdbcType=VARCHAR},
       game_url = #{record.gameUrl,jdbcType=VARCHAR},
       game_orientation = #{record.gameOrientation,jdbcType=VARCHAR},
       game_iswx = #{record.gameIswx,jdbcType=BIT},
@@ -331,7 +298,8 @@
       game_population = #{record.gamePopulation,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=BIGINT},
       update_time = #{record.updateTime,jdbcType=BIGINT},
-      recommend = #{record.recommend,jdbcType=BIT}
+      recommend = #{record.recommend,jdbcType=BIT},
+      platform = #{record.platform,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -347,6 +315,9 @@
       </if>
       <if test="gamePic != null" >
         game_pic = #{gamePic,jdbcType=VARCHAR},
+      </if>
+      <if test="gameIntro != null" >
+        game_intro = #{gameIntro,jdbcType=VARCHAR},
       </if>
       <if test="gameUrl != null" >
         game_url = #{gameUrl,jdbcType=VARCHAR},
@@ -375,17 +346,18 @@
       <if test="recommend != null" >
         recommend = #{recommend,jdbcType=BIT},
       </if>
-      <if test="gameIntro != null" >
-        game_intro = #{gameIntro,jdbcType=LONGVARCHAR},
+      <if test="platform != null" >
+        platform = #{platform,jdbcType=VARCHAR},
       </if>
     </set>
     where aid = #{aid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gamesky.card.core.model.H5Game" >
+  <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.H5Game" >
     update h5_game
     set title = #{title,jdbcType=VARCHAR},
       sort = #{sort,jdbcType=INTEGER},
       game_pic = #{gamePic,jdbcType=VARCHAR},
+      game_intro = #{gameIntro,jdbcType=VARCHAR},
       game_url = #{gameUrl,jdbcType=VARCHAR},
       game_orientation = #{gameOrientation,jdbcType=VARCHAR},
       game_iswx = #{gameIswx,jdbcType=BIT},
@@ -395,23 +367,7 @@
       create_time = #{createTime,jdbcType=BIGINT},
       update_time = #{updateTime,jdbcType=BIGINT},
       recommend = #{recommend,jdbcType=BIT},
-      game_intro = #{gameIntro,jdbcType=LONGVARCHAR}
-    where aid = #{aid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.H5Game" >
-    update h5_game
-    set title = #{title,jdbcType=VARCHAR},
-      sort = #{sort,jdbcType=INTEGER},
-      game_pic = #{gamePic,jdbcType=VARCHAR},
-      game_url = #{gameUrl,jdbcType=VARCHAR},
-      game_orientation = #{gameOrientation,jdbcType=VARCHAR},
-      game_iswx = #{gameIswx,jdbcType=BIT},
-      game_ishot = #{gameIshot,jdbcType=BIT},
-      game_banner = #{gameBanner,jdbcType=VARCHAR},
-      game_population = #{gamePopulation,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=BIGINT},
-      update_time = #{updateTime,jdbcType=BIGINT},
-      recommend = #{recommend,jdbcType=BIT}
+      platform = #{platform,jdbcType=VARCHAR}
     where aid = #{aid,jdbcType=INTEGER}
   </update>
 </mapper>

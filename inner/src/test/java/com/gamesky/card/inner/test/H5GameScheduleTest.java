@@ -1,6 +1,7 @@
 package com.gamesky.card.inner.test;
 
 import com.gamesky.card.inner.controller.H5GameSchedule;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,6 @@ public class H5GameScheduleTest extends AbstractJUnit4SpringContextTests {
     @Test
     public void testFetch() {
         schedule.fetch();
+        Assert.assertTrue(true);
     }
 }

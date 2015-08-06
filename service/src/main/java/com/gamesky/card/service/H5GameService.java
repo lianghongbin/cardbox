@@ -2,6 +2,7 @@ package com.gamesky.card.service;
 
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.model.H5Game;
+import com.gamesky.card.core.model.H5GameExample;
 
 import java.util.List;
 
@@ -32,4 +33,8 @@ public interface H5GameService {
     List<H5Game> findAllRecommend(Page page, String orderByClause);
 
     int findRecommendCount();
+
+    List<H5Game> findByCondition(H5GameExample h5GameExample);
+
+    int findCountByCondition(H5GameExample h5GameExample);
 }

@@ -1,29 +1,54 @@
 package com.gamesky.card.inner.controller;
 
+import com.gamesky.card.core.utils.MD5Utils;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * lianghongbin on 15/8/5.
  */
-public class H5GameSchedule {
+public class H5GameSchedule implements InitializingBean {
 
-    private String url;
+    private String httpURL;
+    private int times;
+    private int count;
     private ContentHandler<String> contentHandler;
     private static final Logger logger = LoggerFactory.getLogger(H5GameSchedule.class);
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setHttpURL(String httpURL) {
+        String tmp = httpURL.toLowerCase();
+        if (!tmp.startsWith("http://")) {
+            this.httpURL = StringUtils.substring(httpURL, tmp.indexOf("http://"));
+        } else {
+            this.httpURL = httpURL;
+        }
+    }
+
+    public void setTimes(int times) {
+        this.times = times;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public void setContentHandler(ContentHandler<String> contentHandler) {
@@ -31,13 +56,41 @@ public class H5GameSchedule {
     }
 
     public void fetch() {
+        logger.error("fetch h5 game starting from online interface ......");
+
+        Thread runnable = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int page = 1; page <= times; page++) {
+                    logger.error("fetch page number {}", page);
+                    doFetch(page);
+
+                    try {
+                        Thread.sleep(3000);
+                        logger.error("sleep 3 seconds");
+                    } catch (InterruptedException ignored) {
+                    }
+                }
+            }
+        });
+
+        runnable.start();
+
+        try {
+            runnable.join();
+        } catch (InterruptedException ignored) {
+        }
+        logger.error("fetch h5 game finished from online interface!");
+    }
+
+    private void doFetch(int pageNum) {
+        String url = httpURL + "&pagenum=" + pageNum + "&pagesize=" + count + "&token="+getMd5Token(pageNum);
         CloseableHttpClient httpclient = HttpClients.createDefault();
         CloseableHttpResponse response;
         try {
-            HttpPost httpPost = new HttpPost(url);
-            response = httpclient.execute(httpPost);
+            HttpGet httpPost = new HttpGet(url);response = httpclient.execute(httpPost);
         } catch (Exception e) {
-            logger.error("请求H5小游戏出错:{}", e);
+            logger.error("请求H5小游戏出错:{}", e.getMessage());
             return;
         }
 
@@ -71,11 +124,20 @@ public class H5GameSchedule {
         }
 
         String data = StringEscapeUtils.unescapeJava(stringBuilder.toString());
+        if (data.contains("token error.")) {
+            logger.error("fetch h5 game interrupt because error:{}", data);
+            return;
+        }
+
         contentHandler.handle(data);
     }
 
-    public static void main(String[] args) {
-        H5GameSchedule h5GameSchedule = new H5GameSchedule();
-        h5GameSchedule.fetch();
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        fetch();
+    }
+
+    private String getMd5Token(int pagenum) {
+        return MD5Utils.toString("HTML5GAME" + MD5Utils.toString(pagenum + "" + count));
     }
 }
