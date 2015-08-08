@@ -10,7 +10,6 @@
     <link rel="stylesheet" type="text/css" href="../css/main.css"/>
     <script type="text/javascript" src="../js/libs/modernizr.min.js"></script>
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="../laydate/laydate.js"></script>
     <script type="text/javascript">
         function recommend(id)
         {
@@ -102,7 +101,7 @@
                             </td>
                             <th width="90">游戏ID:</th>
                             <td>
-                                <input type="text" size="10" name="gameId" value="${gameId}" placeholder="游戏ID">
+                                <input type="text" size="15" name="gameId" value="${gameId}" placeholder="游戏ID">
                             </td>
                             <th width="90">游戏类别:</th>
                             <td>
@@ -113,17 +112,6 @@
                                     </#list>
                                 </select>
                             </td>
-                        </tr>
-                        <tr>
-                            <th width="120">开始时间:</th>
-                            <td>
-                                <input class="laydate-icon" name="start" value="${start}" id="start" style="width:200px;">
-                            </td>
-                            <th width="120">结束时间:</th>
-                            <td>
-                                <input class="laydate-icon" name="end" value="${end}" id="end" style="width:200px;">
-                            </td>
-                            <th>&nbsp;</th>
                             <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
                         </tr>
                     </table>
@@ -157,7 +145,6 @@
                     </table>
                     <div class="list-page">
                         <nav style="float:right;">
-                            ${count} 条订阅 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <@pagination.counter /> &nbsp;&nbsp;&nbsp;
                         <@pagination.first />
                         <@pagination.previous />
@@ -172,35 +159,5 @@
     </div>
     <!--/main-->
 </div>
-
-
-<script>
-    var start = {
-        elem: '#start',
-        format: 'YYYY-MM-DD hh:mm:ss',
-        min: '2015-07-01 00:00:00', //设定最小日期为当前日期
-        max: '2099-06-16 23:59:59', //最大日期
-        istime: true,
-        istoday: false,
-        choose: function (datas) {
-            end.min = datas; //开始日选好后，重置结束日的最小日期
-            end.start = datas //将结束日的初始值设定为开始日
-        }
-    };
-    var end = {
-        elem: '#end',
-        format: 'YYYY-MM-DD hh:mm:ss',
-        min: '2015-07-01 00:00:00',
-        max: '2099-06-16 23:59:59',
-        istime: true,
-        istoday: false,
-        choose: function (datas) {
-            start.max = datas; //结束日选好后，重置开始日的最大日期
-        }
-    };
-    laydate(start);
-    laydate(end);
-
-</script>
 </body>
 </html>

@@ -109,7 +109,7 @@ public class SubscribeServiceImpl implements SubscribeService {
     @Transactional(readOnly = true)
     public Subscribe find(String phone, int gameId) {
         SubscribeExample subscribeExample = new SubscribeExample();
-        subscribeExample.createCriteria().andGameIdEqualTo(gameId).andPhoneEqualTo(phone);
+        subscribeExample.createCriteria().andGameIdEqualTo(gameId).andPhoneEqualTo(phone).andDeletedEqualTo(false);
         List<Subscribe> subscribes = subscribeMapper.selectByExample(subscribeExample);
         if (subscribes == null || subscribes.size() == 0) {
             return null;

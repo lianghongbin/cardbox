@@ -31,7 +31,7 @@ public class IndexController {
     @RequestMapping("/top")
     public ModelAndView top(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String phone = (String) session.getAttribute(Constants.INNER_LOGIN_KEY);
+        String phone = (String) session.getAttribute(Constants.INNER_LOGIN_SESSION_KEY);
         Admin admin = adminService.findByPhone(phone);
 
         return new ModelAndView("top", "admin", admin);
@@ -40,7 +40,7 @@ public class IndexController {
     @RequestMapping("/left")
     public ModelAndView left(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String phone = (String) session.getAttribute(Constants.INNER_LOGIN_KEY);
+        String phone = (String) session.getAttribute(Constants.INNER_LOGIN_SESSION_KEY);
         Admin admin = adminService.findByPhone(phone);
 
         return new ModelAndView("left", "admin", admin);

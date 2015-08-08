@@ -62,7 +62,7 @@ public class AuthenticateFilter extends OncePerRequestFilter {
         }
 
         HttpSession session = request.getSession();
-        String phone = (String) session.getAttribute(Constants.INNER_LOGIN_KEY);
+        String phone = (String) session.getAttribute(Constants.INNER_LOGIN_SESSION_KEY);
         if (StringUtils.isNotBlank(phone)) {
             Admin admin = adminService.findByPhone(phone);
             if (admin == null || admin.getLocked()) {

@@ -24,5 +24,5 @@ public interface Constants {
 
     String DEFAULT_ICON = "http://kk.7k7kimg.cn/icon.jpg";
 
-    String INNER_LOGIN_KEY = "inner_login_key_lhb";
+    String INNER_LOGIN_SESSION_KEY = "inner_login_session_key_lhb";
 }

@@ -68,7 +68,7 @@ public class AdminController {
     public ModelAndView all(HttpServletRequest request) {
         List<Admin> admins = adminService.findAll();
         HttpSession session = request.getSession();
-        String phone = (String) session.getAttribute(Constants.INNER_LOGIN_KEY);
+        String phone = (String) session.getAttribute(Constants.INNER_LOGIN_SESSION_KEY);
 
         ModelAndView modelAndView = new ModelAndView("admin/all", "admins", admins);
         modelAndView.addObject("phone", phone);

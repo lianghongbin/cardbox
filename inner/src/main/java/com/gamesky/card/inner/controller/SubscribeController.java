@@ -14,10 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * lianghongbin on 15/8/6.
@@ -35,10 +34,28 @@ public class SubscribeController {
 
     @RequestMapping("/all")
     @SuppressWarnings("unchecked")
-    public ModelAndView all(String phone, Integer gameId, String type, Page page) {
+    public ModelAndView all(String phone, String start, String end, Integer gameId, String type, Page page) {
         SubscribeExample subscribeExample = new SubscribeExample();
         SubscribeExample.Criteria criteria = subscribeExample.createCriteria();
         criteria.andDeletedEqualTo(false);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        if (StringUtils.isNotBlank(start)) {
+            try {
+                Date date = sdf.parse(start);
+                criteria.andCreateTimeGreaterThanOrEqualTo(date.getTime());
+            } catch (ParseException ignored) {
+            }
+        }
+
+        if (StringUtils.isNotBlank(end)) {
+            try {
+                Date date = sdf.parse(end);
+                criteria.andCreateTimeLessThan(date.getTime());
+            } catch (ParseException ignored) {
+            }
+        }
 
         if (StringUtils.isNoneBlank(phone)) {
             criteria.andPhoneEqualTo(phone);
@@ -49,7 +66,8 @@ public class SubscribeController {
         if (StringUtils.isNoneBlank(type)) {
             List<GameType> gameTypes = gameTypeService.findByType(type, new Page());
             List<Integer> ids = new ArrayList<>();
-            if (gameTypes != null) {
+            ids.add(0);
+            if (gameTypes != null && gameTypes.size() > 0) {
                 for (GameType gameType : gameTypes) {
                     ids.add(gameType.getGameId());
                 }
@@ -84,6 +102,8 @@ public class SubscribeController {
         params.put("phone", phone);
         params.put("gameId", gameId);
         params.put("type", type);
+        params.put("start", start);
+        params.put("end", end);
 
         PaginationData paginationData = new PaginationData(page, params, subscribes);
 
@@ -91,6 +111,7 @@ public class SubscribeController {
 
         ModelAndView modelAndView = new ModelAndView("subscribe/all", "paginationData", paginationData);
         modelAndView.addObject("types", types);
+        modelAndView.addObject("count", count);
         modelAndView.addAllObjects(params);
 
         return modelAndView;

@@ -75,7 +75,7 @@ public class LoginController {
         }
 
         HttpSession session = request.getSession();
-        session.setAttribute(Constants.INNER_LOGIN_KEY, phone);
+        session.setAttribute(Constants.INNER_LOGIN_SESSION_KEY, phone);
         adminService.login(phone);
 
         return "";
@@ -93,7 +93,7 @@ public class LoginController {
         }
 
         HttpSession session = request.getSession();
-        session.setAttribute(Constants.INNER_LOGIN_KEY, "");
+        session.setAttribute(Constants.INNER_LOGIN_SESSION_KEY, "");
 
         return "";
     }

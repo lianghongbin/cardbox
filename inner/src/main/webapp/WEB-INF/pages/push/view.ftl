@@ -12,9 +12,9 @@
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="../laydate/laydate.js"></script>
     <script type="text/javascript">
-        function recommend(id)
+        function push()
         {
-            if(!confirm("你确定要对该游戏进行相关推荐/取消推荐操作？")) {
+            if(!confirm("你确定要给这些用户推送消息？推送时长依据推送数量，推送结果请查看推送服务商后台！")) {
                 return false;
             }
 
@@ -38,48 +38,6 @@
                 }
             });
         }
-
-        function saveSort(id, sort) {
-            $.ajax({
-                url: '/h5/sort',// 跳转到 action
-                data: {
-                    aid: id,
-                    sort: sort
-                },
-                type: 'post',
-                dataType: 'text',
-                success: function (data) {
-                    if (data == "1") {
-                        alert("排序修改成功");
-                        window.location.reload();
-                    } else {
-                        alert("排序修改失败");
-                    }
-                },
-                error: function () {
-                    alert("异常！");
-                }
-            });
-        }
-
-        function refresh() {
-            if (!confirm("在线游戏更新时间受网络和更新数量的影响,可能需要几十秒至几分钟,更新完成会刷新游戏列表,你确定要刷新吗?")) {
-                return false;
-            }
-
-            $.ajax({
-                url: '/h5/refresh',// 跳转到 action
-                type: 'get',
-                dataType: 'text',
-                success: function (data) {
-                    alert("游戏在线更新完成");
-                    window.location.reload();
-                },
-                error: function () {
-                    alert("异常！");
-                }
-            });
-        }
     </script>
 </head>
 <body>
@@ -89,41 +47,34 @@
 
         <div class="crumb-wrap">
             <div class="crumb-list"><i class="icon-font"></i>首页<span class="crumb-step">&gt;</span><span
-                    class="crumb-name">订阅管理</span></div>
+                    class="crumb-name">订阅查询</span></div>
         </div>
         <div class="search-wrap">
             <div class="search-content">
-                <form action="./all" method="post">
+                <form action="./view" method="post">
                     <table class="search-tab">
                         <tr>
-                            <th width="90">手机:</th>
-                            <td>
-                                <input type="text" size="18" name="phone" value="${phone}" placeholder="手机号">
-                            </td>
-                            <th width="90">游戏ID:</th>
-                            <td>
-                                <input type="text" size="10" name="gameId" value="${gameId}" placeholder="游戏ID">
-                            </td>
                             <th width="90">游戏类别:</th>
                             <td>
                                 <select name="type">
                                     <option value="">全部</option>
-                                    <#list types as t>
+                                    <#list typesList as t>
                                     <option value="${t.name}" <#if t.name==type>selected</#if> >${t.name}</option>
                                     </#list>
                                 </select>
                             </td>
-                        </tr>
-                        <tr>
-                            <th width="120">开始时间:</th>
+                            <th>游戏ID:</th>
                             <td>
-                                <input class="laydate-icon" name="start" value="${start}" id="start" style="width:200px;">
+                                <input type="text" size="10" name="gameId" value="${gameId}" placeholder="游戏ID">
                             </td>
-                            <th width="120">结束时间:</th>
+                            <th>开始时间:</th>
+                            <td>
+                                <input class="laydate-icon" value="${start}" name="start" id="start" style="width:200px;">
+                            </td>
+                            <th>结束时间:</th>
                             <td>
                                 <input class="laydate-icon" name="end" value="${end}" id="end" style="width:200px;">
                             </td>
-                            <th>&nbsp;</th>
                             <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
                         </tr>
                     </table>
@@ -154,6 +105,12 @@
                             <td>${subscribe.createTime?number_to_datetime}</td>
                         </tr>
                     </#list>
+                        <tr>
+                            <td colspan="4" align="center">
+                                <textarea name="content" cols="50" rows="4" placeholder="推送内容"></textarea><br>
+                            <input class="btn btn-primary" name="p" value="向当前 ${count} 位用户推送消息" onclick="push()" type="button">
+                            </td>
+                        </tr>
                     </table>
                     <div class="list-page">
                         <nav style="float:right;">
@@ -172,7 +129,6 @@
     </div>
     <!--/main-->
 </div>
-
 
 <script>
     var start = {
