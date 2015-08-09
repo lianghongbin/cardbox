@@ -34,7 +34,7 @@ public class SubscribeController {
 
     @RequestMapping("/all")
     @SuppressWarnings("unchecked")
-    public ModelAndView all(String phone, String start, String end, Integer gameId, String type, Page page) {
+    public ModelAndView all(String phone, String start, String end, Integer gameId, String[] types, Page page) {
         SubscribeExample subscribeExample = new SubscribeExample();
         SubscribeExample.Criteria criteria = subscribeExample.createCriteria();
         criteria.andDeletedEqualTo(false);
@@ -63,8 +63,8 @@ public class SubscribeController {
         if (gameId != null) {
             criteria.andGameIdEqualTo(gameId);
         }
-        if (StringUtils.isNoneBlank(type)) {
-            List<GameType> gameTypes = gameTypeService.findByType(type, new Page());
+        if (types != null && types.length > 0) {
+            List<GameType> gameTypes = gameTypeService.findByTypes(Arrays.asList(types), new Page());
             List<Integer> ids = new ArrayList<>();
             ids.add(0);
             if (gameTypes != null && gameTypes.size() > 0) {
@@ -101,16 +101,16 @@ public class SubscribeController {
         Map params = new HashMap<>();
         params.put("phone", phone);
         params.put("gameId", gameId);
-        params.put("type", type);
+        params.put("types", types);
         params.put("start", start);
         params.put("end", end);
 
         PaginationData paginationData = new PaginationData(page, params, subscribes);
 
-        List<Types> types = typeService.findAll();
+        List<Types> typesList = typeService.findAll();
 
         ModelAndView modelAndView = new ModelAndView("subscribe/all", "paginationData", paginationData);
-        modelAndView.addObject("types", types);
+        modelAndView.addObject("typesList", typesList);
         modelAndView.addObject("count", count);
         modelAndView.addAllObjects(params);
 

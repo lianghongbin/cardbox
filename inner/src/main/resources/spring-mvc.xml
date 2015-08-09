@@ -84,7 +84,7 @@
         <task:scheduled ref="h5GameSchedule" method="fetch" cron="0 0 1 * * ?"/>
     </task:scheduled-tasks>
 
-    <bean id="pushService" class="com.gamesky.card.service.impl.UmengPushServiceImpl"/>
+    <bean id="pushService" class="com.gamesky.card.service.push.UmengServiceImpl"/>
 
     <!-- 对静态资源文件的访问  方案二 （二选一）-->
     <mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>

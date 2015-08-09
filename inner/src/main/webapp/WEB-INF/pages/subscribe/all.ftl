@@ -98,23 +98,12 @@
                         <tr>
                             <th width="90">手机:</th>
                             <td>
-                                <input type="text" size="18" name="phone" value="${phone}" placeholder="手机号">
+                                <input type="text" size="15" name="phone" value="${phone}" placeholder="手机号">
                             </td>
                             <th width="90">游戏ID:</th>
                             <td>
                                 <input type="text" size="10" name="gameId" value="${gameId}" placeholder="游戏ID">
                             </td>
-                            <th width="90">游戏类别:</th>
-                            <td>
-                                <select name="type">
-                                    <option value="">全部</option>
-                                    <#list types as t>
-                                    <option value="${t.name}" <#if t.name==type>selected</#if> >${t.name}</option>
-                                    </#list>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
                             <th width="120">开始时间:</th>
                             <td>
                                 <input class="laydate-icon" name="start" value="${start}" id="start" style="width:200px;">
@@ -123,7 +112,15 @@
                             <td>
                                 <input class="laydate-icon" name="end" value="${end}" id="end" style="width:200px;">
                             </td>
-                            <th>&nbsp;</th>
+
+                        </tr>
+                        <tr>
+                            <th width="90">游戏类别:</th>
+                            <td colspan="6">
+                                <#list typesList as t>
+                                    <input type="checkbox" name="types" <#if types?? && types?seq_contains(t.name)>checked</#if> value="${t.name}">${t.name} &nbsp;&nbsp;
+                                </#list>
+                            </td>
                             <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
                         </tr>
                     </table>
@@ -149,7 +146,7 @@
                                 ${subscribe.gameName}
                             </td>
                             <td>
-                                ${subscribe.types}</a>
+                                ${subscribe.types}
                             </td>
                             <td>${subscribe.createTime?number_to_datetime}</td>
                         </tr>

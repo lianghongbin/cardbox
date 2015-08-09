@@ -17,4 +17,6 @@ public interface GameTypeService {
     List<GameType> findByGame(int gameId);
 
     List<GameType> findByType(String type, Page page);
+
+    List<GameType> findByTypes(List<String> types, Page page);
 }

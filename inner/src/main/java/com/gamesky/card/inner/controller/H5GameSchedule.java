@@ -56,18 +56,18 @@ public class H5GameSchedule implements InitializingBean {
     }
 
     public void fetch() {
-        logger.error("fetch h5 game starting from online interface ......");
+        logger.info("fetch h5 game starting from online interface ......");
 
         Thread runnable = new Thread(new Runnable() {
             @Override
             public void run() {
                 for (int page = 1; page <= times; page++) {
-                    logger.error("fetch page number {}", page);
+                    logger.info("fetch page number {}", page);
                     doFetch(page);
 
                     try {
                         Thread.sleep(3000);
-                        logger.error("sleep 3 seconds");
+                        logger.info("sleep 3 seconds");
                     } catch (InterruptedException ignored) {
                     }
                 }
@@ -80,7 +80,8 @@ public class H5GameSchedule implements InitializingBean {
             runnable.join();
         } catch (InterruptedException ignored) {
         }
-        logger.error("fetch h5 game finished from online interface!");
+
+        logger.info("fetch h5 game finished from online interface!");
     }
 
     private void doFetch(int pageNum) {
@@ -90,12 +91,12 @@ public class H5GameSchedule implements InitializingBean {
         try {
             HttpGet httpPost = new HttpGet(url);response = httpclient.execute(httpPost);
         } catch (Exception e) {
-            logger.error("请求H5小游戏出错:{}", e.getMessage());
+            logger.info("请求H5小游戏出错:{}", e.getMessage());
             return;
         }
 
         if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-            logger.error("请求H5小游戏出错,错误状态吗:{}", response.getStatusLine().getStatusCode());
+            logger.info("请求H5小游戏出错,错误状态吗:{}", response.getStatusLine().getStatusCode());
             return;
         }
 
@@ -125,7 +126,7 @@ public class H5GameSchedule implements InitializingBean {
 
         String data = StringEscapeUtils.unescapeJava(stringBuilder.toString());
         if (data.contains("token error.")) {
-            logger.error("fetch h5 game interrupt because error:{}", data);
+            logger.info("fetch h5 game interrupt because error:{}", data);
             return;
         }
 

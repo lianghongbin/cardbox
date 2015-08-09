@@ -10,16 +10,16 @@
     <link rel="stylesheet" type="text/css" href="../css/main.css"/>
     <script type="text/javascript" src="../js/libs/modernizr.min.js"></script>
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="../laydate/laydate.js"></script>
     <script type="text/javascript">
         function push()
         {
             var total = ${count};
+
             if(!confirm("你确定要给这"+total+"个用户推送消息？推送时长依据推送数量，推送结果请查看推送服务商后台！")) {
                 return false;
             }
 
-            if($("#count").val() == 0) {
+            if($("#count").val() ==0) {
                 alert("请选择推送对象！");
                 return false;
             }
@@ -30,7 +30,7 @@
             }
 
             $.ajax({
-                url: '/push/go',// 跳转到 action
+                url: '/push/userpush',// 跳转到 action
                 data: $('#myform').serialize(),// 你的formid,
                 type: 'post',
                 dataType: 'text',
@@ -55,33 +55,20 @@
 
         <div class="crumb-wrap">
             <div class="crumb-list"><i class="icon-font"></i>首页<span class="crumb-step">&gt;</span><span
-                    class="crumb-name">订阅推送</span></div>
+                    class="crumb-name">积分推送</span></div>
         </div>
         <div class="search-wrap">
             <div class="search-content">
-                <form action="./view" method="post">
+                <form action="./user" method="get">
                     <table class="search-tab">
                         <tr>
-                            <th width="90">游戏ID:</th>
+                            <th width="90">最低分:</th>
                             <td>
-                                <input type="text" size="10" name="gameId" value="${gameId}" placeholder="游戏ID">
+                                <input type="text" size="18" name="min" value="${min}" placeholder="推送最低分">
                             </td>
-                            <th width="120">开始时间:</th>
+                            <th width="90">最高分:</th>
                             <td>
-                                <input class="laydate-icon" name="start" value="${start}" id="start" style="width:200px;">
-                            </td>
-                            <th width="120">结束时间:</th>
-                            <td>
-                                <input class="laydate-icon" name="end" value="${end}" id="end" style="width:200px;">
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <th width="90">游戏类别:</th>
-                            <td colspan="4">
-                            <#list typesList as t>
-                                <input type="checkbox" name="types" <#if types?? && types?seq_contains(t.name)>checked</#if> value="${t.name}">${t.name} &nbsp;
-                            </#list>
+                                <input type="text" size="15" name="max" value="${max}" placeholder="推送最高分">
                             </td>
                             <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
                         </tr>
@@ -93,46 +80,43 @@
             <form name="myform" id="myform" method="post">
                 <div class="result-title">
                     <div class="result-list">
-                        <a href="./user"><i class="icon-font"></i>积分推送</a>
+                        <a href="./view"><i class="icon-font"></i>订阅推送</a>
                     </div>
                 </div>
                 <div class="result-content">
                     <table class="result-tab" width="100%">
                         <tr>
                             <th width="50">手机号</th>
-                            <th width="300">订阅游戏</th>
-                            <th width="60">游戏类别</th>
-                            <th width="150">订阅时间</th>
+                            <th width="30">积分</th>
+                            <th width="150">注册时间</th>
+                            <th width="150">最后登录</th>
                         </tr>
-                    <#list paginationData.pageItems as subscribe>
+                    <#list paginationData.pageItems as user>
                         <tr>
                             <td>
-                                ${subscribe.phone}
+                                ${user.phone}
                             </td>
                             <td>
-                                ${subscribe.gameName}
+                                ${user.score}
                             </td>
                             <td>
-                                ${subscribe.types}
+                                ${user.createTime?number_to_datetime}
                             </td>
-                            <td>${subscribe.createTime?number_to_datetime}</td>
+                            <td><#if user.lastTime??> ${user.lastTime?number_to_datetime}</#if></td>
                         </tr>
                     </#list>
                         <tr>
                             <td colspan="4" align="center">
                                 <textarea name="content" id="content" cols="50" rows="4" placeholder="推送内容"></textarea><br>
-                            <input class="btn btn-primary" name="p" value="向当前 ${count} 位用户推送消息" onclick="push()" type="button">
-                            <input type="hidden" name="gameId" value="${gameId}">
-                                <input type="hidden" name="start" value="${start}">
-                                <input type="hidden" name="end" value="${end}">
-                                <input type="hidden" name="types" value="${types}">
+                                <input class="btn btn-primary" name="p" value="向当前 ${count} 位用户推送消息" onclick="push()" type="button">
+                                <input type="hidden" name="min" value="${min}">
+                                <input type="hidden" name="max" value="${max}">
                                 <input type="hidden" name="count" id="count" value="${count}">
                             </td>
                         </tr>
                     </table>
                     <div class="list-page">
                         <nav style="float:right;">
-                            ${count} 条订阅 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <@pagination.counter /> &nbsp;&nbsp;&nbsp;
                         <@pagination.first />
                         <@pagination.previous />
@@ -147,34 +131,5 @@
     </div>
     <!--/main-->
 </div>
-
-<script>
-    var start = {
-        elem: '#start',
-        format: 'YYYY-MM-DD hh:mm:ss',
-        min: '2015-07-01 00:00:00', //设定最小日期为当前日期
-        max: '2099-06-16 23:59:59', //最大日期
-        istime: true,
-        istoday: false,
-        choose: function (datas) {
-            end.min = datas; //开始日选好后，重置结束日的最小日期
-            end.start = datas //将结束日的初始值设定为开始日
-        }
-    };
-    var end = {
-        elem: '#end',
-        format: 'YYYY-MM-DD hh:mm:ss',
-        min: '2015-07-01 00:00:00',
-        max: '2099-06-16 23:59:59',
-        istime: true,
-        istoday: false,
-        choose: function (datas) {
-            start.max = datas; //结束日选好后，重置开始日的最大日期
-        }
-    };
-    laydate(start);
-    laydate(end);
-
-</script>
 </body>
 </html>

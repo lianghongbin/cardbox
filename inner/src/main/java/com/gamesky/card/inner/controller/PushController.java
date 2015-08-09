@@ -2,6 +2,7 @@ package com.gamesky.card.inner.controller;
 
 import com.gamesky.card.core.Constants;
 import com.gamesky.card.core.Page;
+import com.gamesky.card.core.PushPayload;
 import com.gamesky.card.core.model.*;
 import com.gamesky.card.service.*;
 import org.apache.commons.lang3.StringUtils;
@@ -11,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -29,7 +32,7 @@ public class PushController {
     @Autowired
     private UserService userService;
     @Autowired
-    private PushService<String> pushService;
+    private PushService<PushPayload> pushService;
     @Autowired
     private TypeService typeService;
     @Autowired
@@ -40,7 +43,7 @@ public class PushController {
 
     @RequestMapping("/view")
     @SuppressWarnings("unchecked")
-    public ModelAndView view(String start, String end, Integer gameId, String type, Page page) {
+    public ModelAndView view(String start, String end, Integer gameId, String[] types, Page page) {
         SubscribeExample subscribeExample = new SubscribeExample();
         SubscribeExample.Criteria criteria = subscribeExample.createCriteria();
         criteria.andDeletedEqualTo(false);
@@ -66,8 +69,8 @@ public class PushController {
         if (gameId != null) {
             criteria.andGameIdEqualTo(gameId);
         }
-        if (StringUtils.isNoneBlank(type)) {
-            List<GameType> gameTypes = gameTypeService.findByType(type, new Page());
+        if (types != null && types.length > 0) {
+            List<GameType> gameTypes = gameTypeService.findByTypes(Arrays.asList(types), new Page());
             List<Integer> ids = new ArrayList<>();
             ids.add(0);
             if (gameTypes != null && gameTypes.size() > 0) {
@@ -79,11 +82,17 @@ public class PushController {
             criteria.andGameIdIn(ids);
         }
 
-        List<Subscribe> subscribes = subscribeService.findByCondition(subscribeExample);
-        int count = subscribeService.findCountByCondition(subscribeExample);
         if (page.getPagesize() == Integer.MAX_VALUE) {
             page.setPagesize(20);
         }
+
+        subscribeExample.setLimitOffset(page.getOffset());
+        subscribeExample.setLimit(page.getPagesize());
+        subscribeExample.setOrderByClause("create_time desc");
+
+        List<Subscribe> subscribes = subscribeService.findByCondition(subscribeExample);
+        int count = subscribeService.findCountByCondition(subscribeExample);
+
         page.setCount(count);
 
         if (subscribes != null) {
@@ -108,7 +117,7 @@ public class PushController {
         params.put("gameId", gameId);
         params.put("start", start);
         params.put("end", end);
-        params.put("type", type);
+        params.put("types", types);
 
         PaginationData paginationData = new PaginationData(page, params, subscribes);
 
@@ -124,11 +133,11 @@ public class PushController {
     }
 
     @ResponseBody
-    @RequestMapping("/go")
+    @RequestMapping(value = "/go", method = RequestMethod.POST)
     @SuppressWarnings("unchecked")
-    public String go(HttpServletRequest request,String start, String end, Integer gameId, String type, String content) {
+    public String go(HttpServletRequest request, String start, String end, Integer gameId, String[] types, String content) {
 
-        logger.error("----------{} start the push!-----------", request.getSession().getAttribute(Constants.INNER_LOGIN_SESSION_KEY));
+        logger.info("----------{} start the push based subscriber!-----------", request.getSession().getAttribute(Constants.INNER_LOGIN_SESSION_KEY));
         SubscribeExample subscribeExample = new SubscribeExample();
         SubscribeExample.Criteria criteria = subscribeExample.createCriteria();
         criteria.andDeletedEqualTo(false);
@@ -154,8 +163,8 @@ public class PushController {
         if (gameId != null) {
             criteria.andGameIdEqualTo(gameId);
         }
-        if (StringUtils.isNoneBlank(type)) {
-            List<GameType> gameTypes = gameTypeService.findByType(type, new Page());
+        if (types != null && types.length > 0) {
+            List<GameType> gameTypes = gameTypeService.findByTypes(Arrays.asList(types), new Page());
             List<Integer> ids = new ArrayList<>();
             ids.add(0);
             if (gameTypes != null && gameTypes.size() > 0) {
@@ -168,7 +177,7 @@ public class PushController {
         }
 
         List<Subscribe> subscribes = subscribeService.findByCondition(subscribeExample);
-        if (subscribes == null || subscribes.size()==0) {
+        if (subscribes == null || subscribes.size() == 0) {
             return "0";
         }
 
@@ -177,19 +186,97 @@ public class PushController {
             phones.add(subscribe.getPhone());
         }
 
-        this.push(phones);
+        this.pushByPhone(phones, content);
+        return "0";
+    }
+
+    @SuppressWarnings("unchecked")
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public ModelAndView user(Integer min, Integer max, String content, Page page) {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        if (min != null) {
+            criteria.andScoreGreaterThanOrEqualTo(min);
+        }
+        if (max != null) {
+            criteria.andScoreLessThan(max);
+        }
+
+        if (page.getPagesize() == Integer.MAX_VALUE) {
+            page.setPagesize(20);
+        }
+
+        userExample.setOrderByClause("score desc");
+        userExample.setLimit(page.getPagesize());
+        userExample.setLimitOffset(page.getOffset());
+
+        List<User> users = userService.findByCondition(userExample);
+        int count = userService.findCountByCondition(userExample);
+        page.setCount(count);
+
+        Map params = new HashMap<>();
+        params.put("min", min);
+        params.put("max", max);
+        params.put("content", content);
+
+        PaginationData paginationData = new PaginationData(page, params, users);
+        ModelAndView modelAndView = new ModelAndView("push/user");
+        modelAndView.addAllObjects(params);
+        modelAndView.addObject("paginationData", paginationData);
+        modelAndView.addObject("count", count);
+
+        return modelAndView;
+    }
+
+    @SuppressWarnings("unchecked")
+    @ResponseBody
+    @RequestMapping(value = "/userpush", method = RequestMethod.POST)
+    public String userPush(HttpServletRequest request, Integer min, Integer max, String content) {
+        logger.info("----------{} start the push based user's score!-----------", request.getSession().getAttribute(Constants.INNER_LOGIN_SESSION_KEY));
+
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        if (min != null) {
+            criteria.andScoreGreaterThanOrEqualTo(min);
+        }
+        if (max != null) {
+            criteria.andScoreLessThan(max);
+        }
+
+        List<User> users = userService.findByCondition(userExample);
+
+        if (users == null || users.size() == 0) {
+            return "0";
+        }
+
+        pushByUser(users, content);
         return "0";
     }
 
     @Async
-    private void push(Collection<String> phones) {
+    private void pushByPhone(Collection<String> phones, String content) {
         for (String phone : phones) {
             User user = userService.findByPhone(phone);
             if (user == null) {
                 continue;
             }
 
-            pushService.push(user.getDevice());
+            if (content != null && StringUtils.contains(content, "{0}")) {
+                content = MessageFormat.format(content, phone);
+            }
+
+            pushService.push(new PushPayload(user.getDevice(), content));
+        }
+    }
+
+    @Async
+    private void pushByUser(Collection<User> users, String content) {
+        for (User user : users) {
+            if (content != null && StringUtils.contains(content, "{0}")) {
+                content = MessageFormat.format(content, user.getPhone());
+            }
+
+            pushService.push(new PushPayload(user.getDevice(), content));
         }
     }
 }
