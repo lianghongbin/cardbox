@@ -16,7 +16,7 @@ import java.util.List;
  * lianghongbin on 15/8/6.
  */
 @Controller
-@RequestMapping(value = "/h5", produces = "text/plain;charset=UTF-8")
+@RequestMapping(value = "/1_0/h5", produces = "text/plain;charset=UTF-8")
 public class H5Controller {
 
     @Autowired

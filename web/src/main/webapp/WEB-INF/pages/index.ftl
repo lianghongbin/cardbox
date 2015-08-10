@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <title>礼包大全</title>
-    <link rel="stylesheet" type="text/css" href="./css/base.css?v10">
+    <link rel="stylesheet" type="text/css" href="./css/base.css">
 </head>
 <body>
 <div class="top">

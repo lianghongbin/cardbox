@@ -1,8 +1,9 @@
-package com.gamesky.card.service;
+package com.gamesky.card.web.controller;
 
 import com.gamesky.card.core.Constants;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.ReturnCode;
+import com.gamesky.card.service.TokenGenerator;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -26,6 +27,7 @@ public class AuthenticateFilter extends OncePerRequestFilter {
         ignoreUrl.add("/1_0/page/card");
         ignoreUrl.add("/1_0/search/key");
         ignoreUrl.add("/1_0/page/download");
+        ignoreUrl.add("/");
     }
 
     @Override

@@ -40,7 +40,7 @@
 
     <filter>
         <filter-name>sign</filter-name>
-        <filter-class>com.gamesky.card.service.AuthenticateFilter</filter-class>
+        <filter-class>com.gamesky.card.web.controller.AuthenticateFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>sign</filter-name>
