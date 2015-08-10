@@ -14,7 +14,6 @@ import java.io.Serializable;
  * 文件存储实现类
  * Created on 6/9/15.
  *
- * @Author lianghongbin
  */
 public class LocalFileMarshaller<K extends Keyable, V extends Serializable> implements Marshaller<K, V> {
 

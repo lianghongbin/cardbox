@@ -57,13 +57,18 @@
             <value>UTF-8</value>
         </property>
         <property name="maxUploadSize">
-            <value>32505856</value><!-- 上传文件大小限制为31M，31*1024*1024 -->
+            <value>32505856</value>
+            <!-- 上传文件大小限制为31M，31*1024*1024 -->
         </property>
         <property name="maxInMemorySize">
             <value>4096</value>
         </property>
     </bean>
 
+    <bean id="pushService" class="com.gamesky.card.service.push.umeng.UmengServiceImpl">
+        <constructor-arg name="appKey" value="558156e267e58ef5c4000dce"/>
+        <constructor-arg name="secret" value="6e8ba50e729ca155949d0c26fc0e393a"/>
+    </bean>
 
     <bean id="uploadMarshaller" class="com.gamesky.card.service.impl.LocalFileMarshaller"/>
 

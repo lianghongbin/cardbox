@@ -5,5 +5,5 @@ package com.gamesky.card.service;
  */
 public interface PushService<T> {
 
-    public void push(T t);
+    public void push(T t) throws Exception;
 }

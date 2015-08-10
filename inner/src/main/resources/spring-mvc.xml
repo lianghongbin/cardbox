@@ -71,8 +71,6 @@
 
     <bean id="h5GameSchedule" class="com.gamesky.card.inner.controller.H5GameSchedule">
         <property name="httpURL" value="http://h5game.7k7k.com/h5Recommend_v2/recommend?act=1"/>
-        <property name="times" value="4"/>
-        <property name="count" value="20"/>
         <property name="contentHandler" ref="contentHandler"/>
     </bean>
 
@@ -83,8 +81,6 @@
     <task:scheduled-tasks scheduler="scheduler">
         <task:scheduled ref="h5GameSchedule" method="fetch" cron="0 0 1 * * ?"/>
     </task:scheduled-tasks>
-
-    <bean id="pushService" class="com.gamesky.card.service.push.UmengServiceImpl"/>
 
     <!-- 对静态资源文件的访问  方案二 （二选一）-->
     <mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>

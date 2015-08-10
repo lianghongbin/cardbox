@@ -65,6 +65,10 @@
         </property>
     </bean>
 
+    <bean id="pushService" class="com.gamesky.card.service.push.umeng.UmengServiceImpl">
+        <constructor-arg name="appKey" value="558156e267e58ef5c4000dce"/>
+        <constructor-arg name="secret" value="v5udfkllkzdwswj6lqesevq4jwpohzr2"/>
+    </bean>
 
     <bean id="uploadMarshaller" class="com.gamesky.card.service.impl.LocalFileMarshaller"/>
 

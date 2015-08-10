@@ -3,9 +3,11 @@ package com.gamesky.card.web.controller;
 import com.gamesky.card.core.Page;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.model.Game;
+import com.gamesky.card.core.model.GameType;
 import com.gamesky.card.core.model.Subscribe;
 import com.gamesky.card.core.model.User;
 import com.gamesky.card.service.GameService;
+import com.gamesky.card.service.GameTypeService;
 import com.gamesky.card.service.SubscribeService;
 import com.gamesky.card.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class SubscribeController {
     @Autowired
     private GameService gameService;
     @Autowired
+    private GameTypeService gameTypeService;
+    @Autowired
     private UserService userService;
     @Autowired
     private SubscribeService subscribeService;
@@ -43,11 +47,25 @@ public class SubscribeController {
             return ResultGenerator.generateError("该游戏不存在！");
         }
 
+        List<GameType> gameTypes = gameTypeService.findByGame(gameId);
+        StringBuilder buffer = new StringBuilder();
+        if (gameTypes != null && gameTypes.size() > 0) {
+            for (GameType gameType : gameTypes) {
+                if (buffer.length() != 0) {
+                    buffer.append(" ");
+                }
+
+                buffer.append(gameType.getType());
+            }
+        }
+
         Subscribe subscribe = new Subscribe();
+        subscribe.setToken(user.getDevice());
         subscribe.setGameId(gameId);
         subscribe.setPhone(phone);
         subscribe.setGameName(game.getName());
         subscribe.setDeleted(false);
+        subscribe.setTypes(buffer.toString());
         subscribe.setCreateTime(System.currentTimeMillis());
 
         int result = subscribeService.save(subscribe);

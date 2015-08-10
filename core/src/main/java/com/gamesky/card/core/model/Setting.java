@@ -25,6 +25,8 @@ public class Setting {
 
     private String ios;
 
+    private Integer h5;
+
     public Integer getId() {
         return id;
     }
@@ -121,6 +123,14 @@ public class Setting {
         this.ios = ios;
     }
 
+    public Integer getH5() {
+        return h5;
+    }
+
+    public void setH5(Integer h5) {
+        this.h5 = h5;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -144,7 +154,8 @@ public class Setting {
             && (this.getDownload() == null ? other.getDownload() == null : this.getDownload().equals(other.getDownload()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getAndroid() == null ? other.getAndroid() == null : this.getAndroid().equals(other.getAndroid()))
-            && (this.getIos() == null ? other.getIos() == null : this.getIos().equals(other.getIos()));
+            && (this.getIos() == null ? other.getIos() == null : this.getIos().equals(other.getIos()))
+            && (this.getH5() == null ? other.getH5() == null : this.getH5().equals(other.getH5()));
     }
 
     @Override
@@ -163,6 +174,7 @@ public class Setting {
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getAndroid() == null) ? 0 : getAndroid().hashCode());
         result = prime * result + ((getIos() == null) ? 0 : getIos().hashCode());
+        result = prime * result + ((getH5() == null) ? 0 : getH5().hashCode());
         return result;
     }
 
@@ -184,6 +196,7 @@ public class Setting {
         sb.append(", createTime=").append(createTime);
         sb.append(", android=").append(android);
         sb.append(", ios=").append(ios);
+        sb.append(", h5=").append(h5);
         sb.append("]");
         return sb.toString();
     }

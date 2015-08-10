@@ -135,7 +135,7 @@ public class PushController {
     @ResponseBody
     @RequestMapping(value = "/go", method = RequestMethod.POST)
     @SuppressWarnings("unchecked")
-    public String go(HttpServletRequest request, String start, String end, Integer gameId, String[] types, String content) {
+    public String go(HttpServletRequest request, String start, String end, Integer gameId, String[] types, String title, String content) {
 
         logger.info("----------{} start the push based subscriber!-----------", request.getSession().getAttribute(Constants.INNER_LOGIN_SESSION_KEY));
         SubscribeExample subscribeExample = new SubscribeExample();
@@ -186,7 +186,7 @@ public class PushController {
             phones.add(subscribe.getPhone());
         }
 
-        this.pushByPhone(phones, content);
+        this.pushByPhone(phones, title, content);
         return "0";
     }
 
@@ -231,7 +231,7 @@ public class PushController {
     @SuppressWarnings("unchecked")
     @ResponseBody
     @RequestMapping(value = "/userpush", method = RequestMethod.POST)
-    public String userPush(HttpServletRequest request, Integer min, Integer max, String content) {
+    public String userPush(HttpServletRequest request, Integer min, Integer max, String title, String content) {
         logger.info("----------{} start the push based user's score!-----------", request.getSession().getAttribute(Constants.INNER_LOGIN_SESSION_KEY));
 
         UserExample userExample = new UserExample();
@@ -249,15 +249,20 @@ public class PushController {
             return "0";
         }
 
-        pushByUser(users, content);
+        pushByUser(users, title, content);
         return "0";
     }
 
     @Async
-    private void pushByPhone(Collection<String> phones, String content) {
+    private void pushByPhone(Collection<String> phones, String title, String content) {
         for (String phone : phones) {
             User user = userService.findByPhone(phone);
             if (user == null) {
+                continue;
+            }
+
+            if (StringUtils.isBlank(user.getDevice())) {
+                logger.warn("该手机号 {} 的推送token为空,无法推送!", user.getPhone());
                 continue;
             }
 
@@ -265,18 +270,31 @@ public class PushController {
                 content = MessageFormat.format(content, phone);
             }
 
-            pushService.push(new PushPayload(user.getDevice(), content));
+            try {
+                pushService.push(new PushPayload(user.getDevice(), title, content));
+            } catch (Exception e) {
+                logger.error("push service error:{}", e.getMessage());
+            }
         }
     }
 
     @Async
-    private void pushByUser(Collection<User> users, String content) {
+    private void pushByUser(Collection<User> users, String title, String content) {
         for (User user : users) {
             if (content != null && StringUtils.contains(content, "{0}")) {
                 content = MessageFormat.format(content, user.getPhone());
             }
 
-            pushService.push(new PushPayload(user.getDevice(), content));
+            if (StringUtils.isBlank(user.getDevice())) {
+                logger.warn("该手机号 {} 的推送token为空,无法推送!", user.getPhone());
+                continue;
+            }
+
+            try {
+                pushService.push(new PushPayload(user.getDevice(), title, content));
+            } catch (Exception e) {
+                logger.error("push service error:{}", e.getMessage());
+            }
         }
     }
 }

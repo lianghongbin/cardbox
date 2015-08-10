@@ -24,8 +24,15 @@
                 return false;
             }
 
+            if($("#title").val() == "") {
+                alert("推送标题不能为空!");
+                $("#title").focus();
+                return false;
+            }
+
             if($("#content").val() == "") {
                 alert("推送内容不能为空！");
+                $("#content").focus();
                 return false;
             }
 
@@ -120,7 +127,8 @@
                     </#list>
                         <tr>
                             <td colspan="4" align="center">
-                                <textarea name="content" id="content" cols="50" rows="4" placeholder="推送内容"></textarea><br>
+                                <input type="text" name="title" size="51" placeholder="推送标题" id="title" value="${title}"><br>
+                                <textarea name="content" id="content" cols="50" rows="3" placeholder="推送内容"></textarea><br>
                             <input class="btn btn-primary" name="p" value="向当前 ${count} 位用户推送消息" onclick="push()" type="button">
                             <input type="hidden" name="gameId" value="${gameId}">
                                 <input type="hidden" name="start" value="${start}">

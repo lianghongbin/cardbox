@@ -43,9 +43,10 @@ public class SubscribeServiceImpl implements SubscribeService {
         }
 
         Subscribe old = subscribes.get(0);
-        old.setDeleted(false);
-        old.setCreateTime(System.currentTimeMillis());
-        return subscribeMapper.updateByPrimaryKeySelective(old);
+        subscribe.setId(old.getId());
+        subscribe.setDeleted(false);
+        subscribe.setCreateTime(System.currentTimeMillis());
+        return subscribeMapper.updateByPrimaryKeySelective(subscribe);
     }
 
     /**

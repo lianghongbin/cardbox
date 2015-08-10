@@ -894,6 +894,66 @@ public class SettingExample {
             return (Criteria) this;
         }
 
+        public Criteria andH5IsNull() {
+            addCriterion("h5 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andH5IsNotNull() {
+            addCriterion("h5 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andH5EqualTo(Integer value) {
+            addCriterion("h5 =", value, "h5");
+            return (Criteria) this;
+        }
+
+        public Criteria andH5NotEqualTo(Integer value) {
+            addCriterion("h5 <>", value, "h5");
+            return (Criteria) this;
+        }
+
+        public Criteria andH5GreaterThan(Integer value) {
+            addCriterion("h5 >", value, "h5");
+            return (Criteria) this;
+        }
+
+        public Criteria andH5GreaterThanOrEqualTo(Integer value) {
+            addCriterion("h5 >=", value, "h5");
+            return (Criteria) this;
+        }
+
+        public Criteria andH5LessThan(Integer value) {
+            addCriterion("h5 <", value, "h5");
+            return (Criteria) this;
+        }
+
+        public Criteria andH5LessThanOrEqualTo(Integer value) {
+            addCriterion("h5 <=", value, "h5");
+            return (Criteria) this;
+        }
+
+        public Criteria andH5In(List<Integer> values) {
+            addCriterion("h5 in", values, "h5");
+            return (Criteria) this;
+        }
+
+        public Criteria andH5NotIn(List<Integer> values) {
+            addCriterion("h5 not in", values, "h5");
+            return (Criteria) this;
+        }
+
+        public Criteria andH5Between(Integer value1, Integer value2) {
+            addCriterion("h5 between", value1, value2, "h5");
+            return (Criteria) this;
+        }
+
+        public Criteria andH5NotBetween(Integer value1, Integer value2) {
+            addCriterion("h5 not between", value1, value2, "h5");
+            return (Criteria) this;
+        }
+
         public Criteria andUsLikeInsensitive(String value) {
             addCriterion("upper(us) like", value.toUpperCase(), "us");
             return (Criteria) this;

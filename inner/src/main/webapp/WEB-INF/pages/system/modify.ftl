@@ -93,9 +93,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>关于我们：</th>
-                    <td><textarea name="us" class="common-textarea" id="us" cols="20"
-                                  style="width: 98%;" rows="5">${setting.us}</textarea></td>
+                    <th>H5条数：</th>
+                    <td><input type="text" name="h5" value="${setting.h5}"> </td>
                 </tr>
                 <tr>
                     <th>启动公告：</th>

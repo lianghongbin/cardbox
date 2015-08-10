@@ -291,24 +291,6 @@
         </profile>
 
         <profile>
-            <id>server237</id>
-            <properties>
-                <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
-                <jdbc.url>jdbc:mysql://127.0.0.1:3306/cardbox</jdbc.url>
-                <jdbc.username>root</jdbc.username>
-                <jdbc.password/>
-                <redis.host>127.0.0.1</redis.host>
-                <redis.port>6379</redis.port>
-                <redis.maxIdle>10</redis.maxIdle>
-                <redis.maxTotal>100</redis.maxTotal>
-                <redis.maxWaitMillis>3000</redis.maxWaitMillis>
-                <redis.testOnBorrow>true</redis.testOnBorrow>
-                <photo.host>http://kk.7k7kimg.cn</photo.host>
-                <photo.uploadDir>/data/cardbox/upload</photo.uploadDir>
-            </properties>
-        </profile>
-
-        <profile>
             <id>dev</id>
             <properties/>
         </profile>
