@@ -64,11 +64,13 @@ public class GameController {
 
         game.setCreateTime(System.currentTimeMillis());
         int result = gameService.save(game);
-        for (String type : types) {
-            GameType gameType = new GameType();
-            gameType.setGameId(game.getId());
-            gameType.setType(type);
-            gameTypeService.save(gameType);
+        if (types != null) {
+            for (String type : types) {
+                GameType gameType = new GameType();
+                gameType.setGameId(game.getId());
+                gameType.setType(type);
+                gameTypeService.save(gameType);
+            }
         }
 
         return String.valueOf(result);
@@ -78,7 +80,7 @@ public class GameController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(Game game, String[] types) {
         gameTypeService.removeByGame(game.getId());
-        if (types.length > 0) {
+        if (types != null && types.length > 0) {
             for (String type : types) {
                 GameType gameType = new GameType();
                 gameType.setGameId(game.getId());

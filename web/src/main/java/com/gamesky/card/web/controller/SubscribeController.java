@@ -94,7 +94,7 @@ public class SubscribeController {
             return ResultGenerator.generateError("你没有订阅该游戏！");
         }
 
-        int result = subscribeService.delete(subscribe.getId());
+        int result = subscribeService.remove(subscribe.getId());
         if (result == 1) {
             return ResultGenerator.generate(0, "取消订阅成功！");
         }

@@ -17,6 +17,7 @@
     <result column="update_time" property="updateTime" jdbcType="BIGINT" />
     <result column="recommend" property="recommend" jdbcType="BIT" />
     <result column="platform" property="platform" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -78,7 +79,7 @@
   </sql>
   <sql id="Base_Column_List" >
     aid, title, sort, game_pic, game_intro, game_url, game_orientation, game_iswx, game_ishot, 
-    game_banner, game_population, create_time, update_time, recommend, platform
+    game_banner, game_population, create_time, update_time, recommend, platform, type
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.H5GameExample" >
     select
@@ -118,14 +119,14 @@
       game_pic, game_intro, game_url, 
       game_orientation, game_iswx, game_ishot, 
       game_banner, game_population, create_time, 
-      update_time, recommend, platform
-      )
+      update_time, recommend, platform, 
+      type)
     values (#{aid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
       #{gamePic,jdbcType=VARCHAR}, #{gameIntro,jdbcType=VARCHAR}, #{gameUrl,jdbcType=VARCHAR}, 
       #{gameOrientation,jdbcType=VARCHAR}, #{gameIswx,jdbcType=BIT}, #{gameIshot,jdbcType=BIT}, 
       #{gameBanner,jdbcType=VARCHAR}, #{gamePopulation,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
-      #{updateTime,jdbcType=BIGINT}, #{recommend,jdbcType=BIT}, #{platform,jdbcType=VARCHAR}
-      )
+      #{updateTime,jdbcType=BIGINT}, #{recommend,jdbcType=BIT}, #{platform,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.H5Game" >
     insert into h5_game
@@ -175,6 +176,9 @@
       <if test="platform != null" >
         platform,
       </if>
+      <if test="type != null" >
+        type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="aid != null" >
@@ -221,6 +225,9 @@
       </if>
       <if test="platform != null" >
         #{platform,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -278,6 +285,9 @@
       <if test="record.platform != null" >
         platform = #{record.platform,jdbcType=VARCHAR},
       </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -299,7 +309,8 @@
       create_time = #{record.createTime,jdbcType=BIGINT},
       update_time = #{record.updateTime,jdbcType=BIGINT},
       recommend = #{record.recommend,jdbcType=BIT},
-      platform = #{record.platform,jdbcType=VARCHAR}
+      platform = #{record.platform,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -349,6 +360,9 @@
       <if test="platform != null" >
         platform = #{platform,jdbcType=VARCHAR},
       </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
     </set>
     where aid = #{aid,jdbcType=INTEGER}
   </update>
@@ -367,7 +381,8 @@
       create_time = #{createTime,jdbcType=BIGINT},
       update_time = #{updateTime,jdbcType=BIGINT},
       recommend = #{recommend,jdbcType=BIT},
-      platform = #{platform,jdbcType=VARCHAR}
+      platform = #{platform,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR}
     where aid = #{aid,jdbcType=INTEGER}
   </update>
 </mapper>

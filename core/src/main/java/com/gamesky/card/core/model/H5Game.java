@@ -31,6 +31,8 @@ public class H5Game {
 
     private String platform;
 
+    private String type;
+
     public Integer getAid() {
         return aid;
     }
@@ -151,6 +153,14 @@ public class H5Game {
         this.platform = platform;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -177,7 +187,8 @@ public class H5Game {
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
             && (this.getRecommend() == null ? other.getRecommend() == null : this.getRecommend().equals(other.getRecommend()))
-            && (this.getPlatform() == null ? other.getPlatform() == null : this.getPlatform().equals(other.getPlatform()));
+            && (this.getPlatform() == null ? other.getPlatform() == null : this.getPlatform().equals(other.getPlatform()))
+            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()));
     }
 
     @Override
@@ -199,6 +210,7 @@ public class H5Game {
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         result = prime * result + ((getRecommend() == null) ? 0 : getRecommend().hashCode());
         result = prime * result + ((getPlatform() == null) ? 0 : getPlatform().hashCode());
+        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         return result;
     }
 
@@ -223,6 +235,7 @@ public class H5Game {
         sb.append(", updateTime=").append(updateTime);
         sb.append(", recommend=").append(recommend);
         sb.append(", platform=").append(platform);
+        sb.append(", type=").append(type);
         sb.append("]");
         return sb.toString();
     }

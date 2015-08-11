@@ -56,7 +56,7 @@ public class SubscribeServiceImpl implements SubscribeService {
      * @return 影响条数
      */
     @Override
-    public int delete(int id) {
+    public int remove(int id) {
         Subscribe subscribe = subscribeMapper.selectByPrimaryKey(id);
         if (subscribe == null) {
             return 0;

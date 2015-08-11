@@ -10,5 +10,6 @@ import java.io.Serializable;
  */
 public interface MessageSender<T extends Serializable> {
 
+    @SuppressWarnings("unchecked")
     public boolean send(T... t);
 }

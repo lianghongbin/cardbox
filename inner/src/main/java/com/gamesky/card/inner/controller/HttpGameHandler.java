@@ -26,8 +26,20 @@ public class HttpGameHandler implements ContentHandler<String> {
     public void handle(String s) {
         Gson gson = new Gson();
         H5DataWrapper h5DataWrapper = gson.fromJson(s, H5DataWrapper.class);
-        List<Map<String, String>> games = h5DataWrapper.getData().getHotgamelist();
+        List<Map<String, String>> hotGames = h5DataWrapper.getData().getHotgamelist();
+        List<Map<String, String>> wxGames = h5DataWrapper.getData().getWxgamelist();
+        Map<String, String> recommendGame = h5DataWrapper.getData().getRecommendgame();
+        List<Map<String, String>> newGames = h5DataWrapper.getData().getNewgamelist();
 
+        List<Map<String, String>> recommendGames = new ArrayList<>();
+        recommendGames.add(recommendGame);
+        save(hotGames, "hot");
+        save(wxGames, "wx");
+        save(recommendGames, "recommend");
+        save(newGames, "new");
+    }
+
+    private void save(List<Map<String, String>> games, String type) {
         if (games == null || games.size() == 0) {
             return;
         }
@@ -35,6 +47,7 @@ public class HttpGameHandler implements ContentHandler<String> {
         List<H5Game> h5Games = new ArrayList<>(games.size());
         for (Map<String, String> map : games) {
             H5Game h5Game = new H5Game();
+            h5Game.setType(type);
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 String key = entry.getKey();
                 if (key.contains("_")) {
@@ -43,14 +56,13 @@ public class HttpGameHandler implements ContentHandler<String> {
                     for (String word : words) {
                         if (name.length() == 0) {
                             name.append(word);
-                        }else {
+                        } else {
                             name.append(StringUtils.capitalize(word));
                         }
                     }
 
                     mapping(name.toString(), entry.getValue(), h5Game);
-                }
-                else {
+                } else {
                     mapping(entry.getKey(), entry.getValue(), h5Game);
                 }
             }

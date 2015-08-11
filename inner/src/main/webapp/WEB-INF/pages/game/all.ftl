@@ -69,34 +69,6 @@
             });
         }
 
-        $(function(){
-            $("#plsc").click(function(){
-                var idlist="";
-                var idCount=0;
-                $(":checkbox[checked]").each(function(){
-                    idlist = idlist+$(this).val()+',';
-                    idCount++;
-                });
-                if(idCount==0){
-                    alert("请选择删除对象！");
-                    return ;
-                }
-                $(":checkbox[checked]").each(function(){
-                    $("tr[id="+$(this).val()+"]").remove();
-                });
-
-                $.ajax({
-                    type: "POST",
-                    url: "operate/deleteConsume!deleteConsume.action",
-                    data:"ids="+idlist,
-                    dataType:"json",
-                    async: false,
-                    success: function(data){
-                    }
-                });
-            })
-
-        })
     </script>
 </head>
 <body>
@@ -150,7 +122,6 @@
                 <div class="result-content">
                     <table class="result-tab" width="100%">
                         <tr>
-                            <th><input type="checkbox"/></th>
                             <th width="40">排序</th>
                             <th>名称</th>
                             <th>状态</th>
@@ -163,7 +134,6 @@
                         </tr>
                     <#list games as game>
                         <tr>
-                            <td><input type="checkbox" name="id" id="id" value="${game.id}"/> </td>
                             <td>
                                 <input size="3" name="sort" value="${game.sort}" type="text" onblur="saveSort(${game.id}, this.value)">
                             </td>

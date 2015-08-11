@@ -11,14 +11,20 @@
     <script type="text/javascript" src="../js/libs/modernizr.min.js"></script>
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript">
-        function recommend(id)
-        {
-            if(!confirm("你确定要对该游戏进行相关推荐/取消推荐操作？")) {
+        function recommend(id, recommended) {
+            if (!confirm("你确定要对该游戏进行相关推荐/取消推荐操作？")) {
                 return false;
+            }
+            var url;
+            if (recommended) {
+                url = "/h5/unrecommend";
+            }
+            else {
+                url = "/h5/recommend";
             }
 
             $.ajax({
-                url: '/h5/recommend',// 跳转到 action
+                url: url,// 跳转到 action
                 data: {
                     aid: id
                 },
@@ -97,7 +103,17 @@
                         <tr>
                             <th width="120">游戏ID:</th>
                             <td>
-                                <input type="text" name="aid" value="${aid}" placeholder="游戏ID">
+                                <input type="text" size="8" name="aid" value="${aid}" placeholder="游戏ID">
+                            </td>
+                            <th width="120">游戏分类:</th>
+                            <td>
+                                <select name="type">
+                                    <option value="">全部</option>
+                                    <option value="hot" <#if type="hot">selected</#if>>热门游戏</option>
+                                    <option value="new" <#if type="new">selected</#if>>最新游戏</option>
+                                    <option value="recommend" <#if type="recommend">selected</#if>>推荐游戏</option>
+                                    <option value="wx" <#if type="wx">selected</#if>>微信游戏</option>
+                                </select>
                             </td>
                             <th width="120">游戏名称:</th>
                             <td>
@@ -125,6 +141,7 @@
                 </form>
             </div>
         </div>
+    <#assign showType = {"hot":"热门游戏", "new":"最新游戏", "recommend":"推荐游戏", "wx":"微信游戏"}>
         <div class="result-wrap">
             <form name="myform" id="myform" method="post">
                 <div class="result-title">
@@ -140,6 +157,7 @@
                             <th>游戏名称</th>
                             <th>游戏描述</th>
                             <th width="60">是否推荐</th>
+                            <th width="60">分类</th>
                             <th width="60">平台</th>
                             <th width="130">添加时间</th>
                             <th width="130">更新时间</th>
@@ -148,23 +166,27 @@
                     <#list paginationData.pageItems as game>
                         <tr>
                             <td>
-                                ${game.aid}
+                            ${game.aid}
                             </td>
                             <td>
-                                <input size="3" name="sort" value="${game.sort!100}"  type="text" onblur="javascript:saveSort(${game.aid}, this.value.trim())">
+                                <input size="3" name="sort" value="${game.sort!100}" type="text"
+                                       onblur="javascript:saveSort(${game.aid}, this.value.trim())">
                             </td>
                             <td title="${game.title!}">
-                                ${game.title}
+                            ${game.title}
                             </td>
                             <td>
-                                ${game.gameIntro!}
+                            ${game.gameIntro!}
                             </td>
                             <td><#if game.recommend><font color="red">推荐</font><#else>未推荐</#if> </td>
+                            <td><#if game.type??>${showType[game.type]}</#if></td>
                             <td>${game.platform!"ALL"}</td>
                             <td>${game.createTime?number_to_datetime}</td>
                             <td><#if game.updateTime??> ${game.updateTime?number_to_datetime}</#if></td>
                             <td align="center">
-                                &nbsp; <a class="link-update" href="javascript:recommend(${game.aid})"><#if game.recommend><font color="red">取消推荐</font><#else>推荐</#if></a>
+                                &nbsp; <a class="link-update"
+                                          href="javascript:recommend(${game.aid}, ${game.recommend?string("true", "false")})"><#if game.recommend>
+                                <font color="red">取消推荐</font><#else>推荐</#if></a>
                             </td>
                         </tr>
                     </#list>

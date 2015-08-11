@@ -25,7 +25,7 @@ public interface SubscribeService {
      * @param id 订阅ID
      * @return 影响条数
      */
-    int delete(int id);
+    int remove(int id);
 
     /**
      * 取出所有订阅

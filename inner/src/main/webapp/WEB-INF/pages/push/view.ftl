@@ -73,11 +73,11 @@
                             <td>
                                 <input type="text" size="10" name="gameId" value="${gameId}" placeholder="游戏ID">
                             </td>
-                            <th width="120">开始时间:</th>
+                            <th>开始时间:</th>
                             <td>
                                 <input class="laydate-icon" name="start" value="${start}" id="start" style="width:200px;">
                             </td>
-                            <th width="120">结束时间:</th>
+                            <th>结束时间:</th>
                             <td>
                                 <input class="laydate-icon" name="end" value="${end}" id="end" style="width:200px;">
                             </td>
@@ -87,7 +87,7 @@
                             <th width="90">游戏类别:</th>
                             <td colspan="4">
                             <#list typesList as t>
-                                <input type="checkbox" name="types" <#if types?? && types?seq_contains(t.name)>checked</#if> value="${t.name}">${t.name} &nbsp;
+                                <input type="checkbox" name="types" <#if types?? && types?seq_contains(t.name)>checked</#if> value="${t.name}"> ${t.name} &nbsp;
                             </#list>
                             </td>
                             <td><input class="btn btn-primary btn2" name="sub" value="查询" type="submit"></td>
@@ -101,11 +101,13 @@
                 <div class="result-title">
                     <div class="result-list">
                         <a href="./user"><i class="icon-font"></i>积分推送</a>
+                        <a href="../h5/subscribe"><i class="icon-font"></i>H5订阅推送</a>
                     </div>
                 </div>
                 <div class="result-content">
                     <table class="result-tab" width="100%">
                         <tr>
+                            <th width="20">游戏ID</th>
                             <th width="50">手机号</th>
                             <th width="300">订阅游戏</th>
                             <th width="60">游戏类别</th>
@@ -114,7 +116,10 @@
                     <#list paginationData.pageItems as subscribe>
                         <tr>
                             <td>
-                                ${subscribe.phone}
+                                ${subscribe.gameId}
+                            </td>
+                            <td>
+                            ${subscribe.phone}
                             </td>
                             <td>
                                 ${subscribe.gameName}
@@ -126,10 +131,10 @@
                         </tr>
                     </#list>
                         <tr>
-                            <td colspan="4" align="center">
+                            <td colspan="6" align="center">
                                 <input type="text" name="title" size="51" placeholder="推送标题" id="title" value="${title}"><br>
                                 <textarea name="content" id="content" cols="50" rows="3" placeholder="推送内容"></textarea><br>
-                            <input class="btn btn-primary" name="p" value="向当前 ${count} 位用户推送消息" onclick="push()" type="button">
+                            <input class="btn btn-primary" name="p" value="向当前 ${count} 个订阅推送消息,重复手机号只会推送一次" onclick="push()" type="button">
                             <input type="hidden" name="gameId" value="${gameId}">
                                 <input type="hidden" name="start" value="${start}">
                                 <input type="hidden" name="end" value="${end}">

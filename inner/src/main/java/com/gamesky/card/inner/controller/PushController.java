@@ -249,6 +249,15 @@ public class PushController {
             return "0";
         }
 
+        Set<String> devices = new HashSet<>();
+        for (User user : users) {
+            if (devices.contains(user.getDevice())) {
+                users.remove(user);
+                continue;
+            }
+
+            devices.add(user.getDevice());
+        }
         pushByUser(users, title, content);
         return "0";
     }
