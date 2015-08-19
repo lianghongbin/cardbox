@@ -11,4 +11,6 @@ import com.gamesky.card.core.exceptions.SmsSenderException;
 public interface CheckCodeService {
 
     public void send(String phone, String message) throws MarshalException, SmsSenderException;
+
+    public String find(String phone) throws MarshalException;
 }

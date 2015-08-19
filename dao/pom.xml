@@ -3,14 +3,16 @@
     <parent>
         <artifactId>card</artifactId>
         <groupId>com.gamesky</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dao</artifactId>
+    <artifactId>card-dao</artifactId>
     <packaging>jar</packaging>
 
     <name>dao</name>
+    <version>1.4</version>
+
     <properties>
         <mybatis.model.target>${project.basedir}/../core</mybatis.model.target>
         <mybatis.dao.target>${project.basedir}</mybatis.dao.target>
@@ -18,6 +20,9 @@
     </properties>
 
     <build>
+            <defaultGoal>install</defaultGoal>
+            <finalName>${project.artifactId}-${project.version}</finalName>
+
         <plugins>
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
@@ -44,7 +49,7 @@
                 <!-- 自动生成 -->
                 <executions>
                     <execution>
-                        <phase>deploy</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -72,6 +77,14 @@
                     <username>${jdbc.username}</username>
                     <password>${jdbc.password}</password>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -89,8 +102,8 @@
         </dependency>
         <dependency>
             <groupId>com.gamesky</groupId>
-            <artifactId>core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>card-core</artifactId>
+            <version>1.4</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

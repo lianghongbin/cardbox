@@ -1,5 +1,6 @@
 package com.gamesky.card.web.controller;
 
+import com.gamesky.card.core.Result;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.ReturnCode;
 import com.gamesky.card.core.exceptions.CheckCodeInvalidException;
@@ -7,9 +8,12 @@ import com.gamesky.card.core.exceptions.CheckCodeWrongException;
 import com.gamesky.card.core.exceptions.MarshalException;
 import com.gamesky.card.core.exceptions.SmsSenderException;
 import com.gamesky.card.core.model.User;
+import com.gamesky.card.core.utils.CodeUtils;
+import com.gamesky.card.core.utils.MD5Utils;
 import com.gamesky.card.service.CheckCodeService;
 import com.gamesky.card.service.CodeGenerator;
 import com.gamesky.card.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -122,5 +126,37 @@ public class UserController {
         User user = userService.findByPhone(phone);
 
         return ResultGenerator.generate(user);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(User user, String checkCode, String rcode) {
+        try {
+            String code = checkCodeService.find(user.getPhone());
+            if (StringUtils.isBlank(code)) {
+                return ResultGenerator.generateError("验证码已过期!");
+            }
+
+            if (code.equalsIgnoreCase(checkCode)) {
+                return ResultGenerator.generateError("验证码错误!");
+            }
+        } catch (MarshalException e) {
+            return ResultGenerator.generateError("验证码读取失败!");
+        }
+
+        if (StringUtils.isNoneBlank(rcode)) {
+            String phone = CodeUtils.toPhone(rcode);
+            //TODO 推荐的人给予一定的奖励
+        }
+
+        user.setPassword(MD5Utils.toString(user.getPassword()));
+        user.setCreateTime(System.currentTimeMillis());
+
+        int result = userService.save(user);
+        if (result == 1) {
+            return ResultGenerator.generate();
+        }
+
+        return ResultGenerator.generateError("注册失败!");
     }
 }

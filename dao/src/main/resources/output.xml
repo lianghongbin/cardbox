@@ -3,82 +3,133 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
 
-    <changeSet author="lianghongbin (generated)" id="1435228689754-1">
-        <createTable tableName="Flow">
+    <changeSet author="lianghongbin (generated)" id="1439971836043-1">
+        <createTable tableName="admin">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="score" remarks="获取分数" type="INT"/>
-            <column name="type" remarks="流水类别: 0赚取，1支出" type="INT"/>
-            <column name="user_id" remarks="用户ID" type="INT"/>
-            <column name="phone" remarks="用户手机" type="VARCHAR(11)"/>
-            <column name="method" remarks="交易方式" type="VARCHAR(20)"/>
-            <column name="create_time" remarks="获取时间" type="BIGINT"/>
+            <column name="phone" type="VARCHAR(11)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(20)"/>
+            <column defaultValueNumeric="0" name="top" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="locked" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_time" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435228689754-2">
+    <changeSet author="lianghongbin (generated)" id="1439971836043-2">
         <createTable tableName="card">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="game_id" remarks="所属游戏ID" type="INT"/>
-            <column name="game_name" remarks="游戏名称" type="VARCHAR(50)"/>
+            <column name="game_id" remarks="所属游戏ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="game_name" remarks="游戏名称" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
             <column defaultValue="" name="name" remarks="礼包名称" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="icon" remarks="礼包代表图" type="VARCHAR(255)"/>
+            <column defaultValue="" name="icon" remarks="礼包代表图" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="description" remarks="礼包描述" type="TEXT"/>
             <column name="flow" remarks="领取流程" type="TEXT"/>
-            <column name="total" remarks="总礼包数量" type="INT"/>
+            <column defaultValueNumeric="0" name="total" remarks="总礼包数量" type="INT">
+                <constraints nullable="false"/>
+            </column>
             <column defaultValueNumeric="0" name="assign_total" remarks="分发出去数量" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column name="type" remarks="礼品卡类别" type="VARCHAR(20)"/>
-            <column name="score" remarks="兑换所需分数" type="INT"/>
+            <column defaultValue="" name="type" remarks="礼品卡类别" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="score" remarks="兑换所需分数" type="INT">
+                <constraints nullable="false"/>
+            </column>
             <column defaultValueNumeric="0" name="recommend" remarks="是否推荐" type="BIT(1)">
                 <constraints nullable="false"/>
             </column>
-            <column name="platform" remarks="平台类型：android、ios" type="VARCHAR(20)"/>
+            <column defaultValue="" name="platform" remarks="平台类型：android、ios" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
             <column defaultValueNumeric="0" name="closed" remarks="卡是否被锁" type="BIT(1)">
                 <constraints nullable="false"/>
             </column>
             <column defaultValueNumeric="1" name="valid" remarks="是否有效：当游戏被下线时，置为无效" type="BIT">
                 <constraints nullable="false"/>
             </column>
+            <column defaultValueNumeric="0" name="sort" remarks="排序" type="INT">
+                <constraints nullable="false"/>
+            </column>
             <column name="create_time" remarks="添加时间" type="BIGINT"/>
-            <column name="close_time" remarks="锁定时间" type="BIGINT"/>
-            <column name="open_time" remarks="打开时间" type="BIGINT"/>
-            <column name="expire_time" remarks="到期时间" type="BIGINT"/>
+            <column name="open_time" remarks="打开时间" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expire_time" remarks="到期时间" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="tao" type="INT">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435228689754-3">
+    <changeSet author="lianghongbin (generated)" id="1439971836043-3">
         <createTable tableName="code">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="card_id" remarks="卡包ID" type="INT"/>
-            <column name="phone" remarks="用户手机号" type="VARCHAR(11)"/>
-            <column name="code" remarks="激活码" type="VARCHAR(20)"/>
+            <column name="card_id" remarks="卡包ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="phone" remarks="用户手机号" type="VARCHAR(11)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(40)"/>
             <column defaultValueNumeric="0" name="used" remarks="是否已经使用" type="BIT(1)">
                 <constraints nullable="false"/>
             </column>
             <column defaultValueNumeric="0" name="assigned" remarks="是否已分发过" type="BIT(1)">
                 <constraints nullable="false"/>
             </column>
-            <column name="game_id" remarks="所属游戏ID" type="INT"/>
-            <column name="card_name" remarks="礼包名称" type="VARCHAR(50)"/>
-            <column name="game_name" remarks="游戏名称" type="VARCHAR(50)"/>
-            <column name="create_time" remarks="添加时间" type="BIGINT"/>
-            <column name="assign_time" remarks="分发时间" type="BIGINT"/>
+            <column name="game_id" remarks="所属游戏ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="card_name" remarks="礼包名称" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="" name="game_name" remarks="游戏名称" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" remarks="添加时间" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="assign_time" remarks="分发时间" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
             <column name="use_time" remarks="使用时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435228689754-4">
+    <changeSet author="lianghongbin (generated)" id="1439971836043-4">
+        <createTable tableName="download">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="count" remarks="下载次数" type="INT"/>
+            <column name="platform" remarks="平台类型" type="VARCHAR(20)"/>
+            <column name="download_time" remarks="下载时间" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-5">
         <createTable tableName="feedback">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="user_id" remarks="反馈人ID" type="INT"/>
             <column defaultValue="" name="content" remarks="反馈内容" type="VARCHAR(255)"/>
             <column name="contact" remarks="联系方式" type="VARCHAR(50)"/>
             <column defaultValueNumeric="0" name="processed" remarks="是否处理过" type="BIT(1)">
@@ -90,7 +141,20 @@
             <column name="phone" remarks="用户手机" type="VARCHAR(11)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435228689754-5">
+    <changeSet author="lianghongbin (generated)" id="1439971836043-6">
+        <createTable tableName="flow">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="score" remarks="获取分数" type="INT"/>
+            <column name="type" remarks="流水类别: 0赚取，1支出" type="INT"/>
+            <column name="user_id" remarks="用户ID" type="INT"/>
+            <column name="phone" remarks="用户手机" type="VARCHAR(11)"/>
+            <column name="method" remarks="交易方式" type="VARCHAR(20)"/>
+            <column name="create_time" remarks="获取时间" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-7">
         <createTable tableName="focus">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -99,11 +163,13 @@
             <column name="photo" remarks="代表图" type="VARCHAR(255)"/>
             <column name="sort" remarks="显示顺序：值越小越靠前" type="INT"/>
             <column name="item_id" remarks="小游戏或礼包ID" type="INT"/>
+            <column name="url" remarks="图片连接" type="VARCHAR(100)"/>
             <column name="enabled" remarks="是否使用" type="BIT(1)"/>
+            <column name="platform" remarks="对应游戏的所属平台" type="VARCHAR(20)"/>
             <column name="create_time" remarks="创建时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435228689754-6">
+    <changeSet author="lianghongbin (generated)" id="1439971836043-8">
         <createTable tableName="game">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -124,26 +190,88 @@
                 <constraints nullable="false"/>
             </column>
             <column name="platform" remarks="游戏平台" type="VARCHAR(10)"/>
-            <column name="score" remarks="用户评分：1-5分" type="INT"/>
+            <column name="score" remarks="用户评分：1-5分" type="FLOAT(12)"/>
             <column defaultValueNumeric="0" name="closed" remarks="是否上线" type="BIT">
                 <constraints nullable="false"/>
             </column>
             <column name="create_time" remarks="添加时间" type="BIGINT"/>
             <column name="modify_time" remarks="最后修改时间" type="BIGINT"/>
+            <column name="type" type="VARCHAR(100)"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435228689754-7">
+    <changeSet author="lianghongbin (generated)" id="1439971836043-9">
+        <createTable tableName="game_type">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="game_id" remarks="游戏ID" type="INT"/>
+            <column name="type" remarks="类别名称" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-10">
+        <createTable tableName="h5_game">
+            <column name="aid" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(100)"/>
+            <column defaultValueNumeric="100" name="sort" type="INT"/>
+            <column name="game_pic" type="VARCHAR(100)"/>
+            <column defaultValue="" name="game_intro" type="VARCHAR(255)"/>
+            <column name="game_url" type="VARCHAR(100)"/>
+            <column name="game_orientation" type="VARCHAR(1)"/>
+            <column name="game_iswx" type="BIT"/>
+            <column name="game_ishot" type="BIT"/>
+            <column name="game_banner" type="VARCHAR(100)"/>
+            <column name="game_population" type="VARCHAR(10)"/>
+            <column name="create_time" type="BIGINT"/>
+            <column name="update_time" type="BIGINT"/>
+            <column defaultValueNumeric="0" name="recommend" type="BIT"/>
+            <column defaultValue="ALL" name="platform" type="VARCHAR(20)"/>
+            <column name="type" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-11">
+        <createTable tableName="h5_subscribe">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="phone" remarks="订阅手机号" type="VARCHAR(11)"/>
+            <column name="create_time" remarks="订阅时间" type="BIGINT"/>
+            <column name="deleted" remarks="是否退订" type="BIT"/>
+            <column name="deleted_time" remarks="退订时间" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-12">
+        <createTable tableName="hot">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" remarks="搜索关键字" type="VARCHAR(20)"/>
+            <column name="sort" remarks="排序" type="INT"/>
+            <column name="platform" remarks="热词平台" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-13">
         <createTable tableName="photo">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
             </column>
             <column name="type" remarks="图片所属类别：游戏、卡包" type="VARCHAR(10)"/>
-            <column name="name" remarks="图片名称" type="VARCHAR(20)"/>
             <column name="url" remarks="图片路径" type="VARCHAR(255)"/>
             <column name="item_id" remarks="游戏或卡包ID" type="INT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435228689754-8">
+    <changeSet author="lianghongbin (generated)" id="1439971836043-14">
+        <createTable tableName="search">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="key" remarks="搜索关键词" type="VARCHAR(20)"/>
+            <column name="count" remarks="搜索频次" type="INT"/>
+            <column name="create_time" remarks="搜索时间" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-15">
         <createTable tableName="setting">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -157,9 +285,12 @@
             <column name="v" remarks="系统版本" type="VARCHAR(10)"/>
             <column name="download" remarks="下载游戏得分" type="INT"/>
             <column name="create_time" remarks="创建时间" type="BIGINT"/>
+            <column name="android" type="VARCHAR(100)"/>
+            <column name="ios" type="VARCHAR(50)"/>
+            <column name="h5" type="INT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435228689754-9">
+    <changeSet author="lianghongbin (generated)" id="1439971836043-16">
         <createTable tableName="share">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -171,7 +302,7 @@
             <column name="create_time" remarks="分享时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435228689754-10">
+    <changeSet author="lianghongbin (generated)" id="1439971836043-17">
         <createTable tableName="splash">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -183,7 +314,30 @@
             <column name="create_time" remarks="添加时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="lianghongbin (generated)" id="1435228689754-11">
+    <changeSet author="lianghongbin (generated)" id="1439971836043-18">
+        <createTable tableName="subscribe">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column defaultValue="" name="token" remarks="订阅token" type="VARCHAR(100)"/>
+            <column name="phone" remarks="订阅手机号" type="VARCHAR(11)"/>
+            <column name="game_id" remarks="游戏ID" type="INT"/>
+            <column name="create_time" remarks="订阅时间" type="BIGINT"/>
+            <column defaultValueNumeric="0" name="deleted" remarks="退订" type="BIT"/>
+            <column name="delete_time" remarks="退订时间" type="BIGINT"/>
+            <column name="game_name" remarks="订阅游戏名称" type="VARCHAR(50)"/>
+            <column name="types" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-19">
+        <createTable tableName="types">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" remarks="游戏分类" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-20">
         <createTable tableName="user">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
@@ -200,5 +354,79 @@
             <column name="create_time" remarks="初次登录/注册时间" type="BIGINT"/>
             <column name="last_time" remarks="最后一次登录时间" type="BIGINT"/>
         </createTable>
+    </changeSet>
+    <changeSet id="lhb-1" author="lianghongbin">
+        <addColumn tableName="user">
+            <column name="money" remarks="钻石" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-21">
+        <addPrimaryKey columnNames="aid" constraintName="PRIMARY" tableName="h5_game"/>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-22">
+        <createIndex indexName="assign_time_index" tableName="code" unique="false">
+            <column name="assign_time"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-23">
+        <createIndex indexName="card_id_index" tableName="code" unique="false">
+            <column name="card_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-24">
+        <createIndex indexName="game_id_index" tableName="card" unique="false">
+            <column name="game_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-25">
+        <createIndex indexName="mult_1_index" tableName="card" unique="false">
+            <column name="closed"/>
+            <column name="valid"/>
+            <column name="open_time"/>
+            <column name="expire_time"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-26">
+        <createIndex indexName="mult_1_index" tableName="game" unique="false">
+            <column name="closed"/>
+            <column name="identifier"/>
+            <column name="sort"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-27">
+        <createIndex indexName="mult_2_index" tableName="card" unique="false">
+            <column name="closed"/>
+            <column name="valid"/>
+            <column name="open_time"/>
+            <column name="expire_time"/>
+            <column name="game_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-28">
+        <createIndex indexName="phone_index" tableName="code" unique="false">
+            <column name="phone"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-29">
+        <createIndex indexName="platform_index" tableName="download" unique="false">
+            <column name="platform"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-30">
+        <createIndex indexName="recommend_index" tableName="h5_game" unique="false">
+            <column name="recommend"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-31">
+        <createIndex indexName="sort_create_index" tableName="h5_game" unique="false">
+            <column name="sort"/>
+            <column name="create_time"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="lianghongbin (generated)" id="1439971836043-32">
+        <createIndex indexName="sort_update_index" tableName="h5_game" unique="false">
+            <column name="sort"/>
+            <column name="update_time"/>
+        </createIndex>
     </changeSet>
 </databaseChangeLog>

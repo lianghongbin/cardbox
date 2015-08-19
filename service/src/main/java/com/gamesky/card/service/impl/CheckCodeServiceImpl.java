@@ -66,4 +66,14 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 
         throw new SmsSenderException("消息发送出错");
     }
+
+    @Override
+    public String find(String phone) throws MarshalException {
+        Serializable saveCode = marshaller.unmarshal(new CheckCodeKey(phone, 60));
+        if (saveCode == null) {
+            return "";
+        }
+
+        return (String) saveCode;
+    }
 }

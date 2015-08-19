@@ -21,6 +21,8 @@ public class User {
 
     private Long lastTime;
 
+    private Integer money;
+
     public Integer getId() {
         return id;
     }
@@ -101,6 +103,14 @@ public class User {
         this.lastTime = lastTime;
     }
 
+    public Integer getMoney() {
+        return money;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -122,7 +132,8 @@ public class User {
             && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
             && (this.getHead() == null ? other.getHead() == null : this.getHead().equals(other.getHead()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getLastTime() == null ? other.getLastTime() == null : this.getLastTime().equals(other.getLastTime()));
+            && (this.getLastTime() == null ? other.getLastTime() == null : this.getLastTime().equals(other.getLastTime()))
+            && (this.getMoney() == null ? other.getMoney() == null : this.getMoney().equals(other.getMoney()));
     }
 
     @Override
@@ -139,6 +150,7 @@ public class User {
         result = prime * result + ((getHead() == null) ? 0 : getHead().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getLastTime() == null) ? 0 : getLastTime().hashCode());
+        result = prime * result + ((getMoney() == null) ? 0 : getMoney().hashCode());
         return result;
     }
 
@@ -158,6 +170,7 @@ public class User {
         sb.append(", head=").append(head);
         sb.append(", createTime=").append(createTime);
         sb.append(", lastTime=").append(lastTime);
+        sb.append(", money=").append(money);
         sb.append("]");
         return sb.toString();
     }
