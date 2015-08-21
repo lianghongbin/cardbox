@@ -1,5 +1,6 @@
 package com.gamesky.card.web.controller;
 
+import com.gamesky.card.core.Keyable;
 import com.gamesky.card.core.Result;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.ReturnCode;
@@ -19,9 +20,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * 选题控制器
@@ -39,6 +47,8 @@ public class UserController {
     private CodeGenerator generator;
     @Autowired
     private CheckCodeService checkCodeService;
+    @Autowired
+    private PhotoController photoController;
 
     /**
      * 系统登录
@@ -129,7 +139,7 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(User user, String checkCode, String rcode) {
         try {
             String code = checkCodeService.find(user.getPhone());
@@ -158,5 +168,33 @@ public class UserController {
         }
 
         return ResultGenerator.generateError("注册失败!");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String update(User user) {
+        if (StringUtils.isNoneBlank(user.getPassword())) {
+            user.setPassword(MD5Utils.toString(user.getPassword()));
+        }
+
+        int result = userService.update(user);
+        if (result == 1) {
+            return ResultGenerator.generate();
+        }
+
+        return ResultGenerator.generateError("修改信息失败!");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/uploadHeader", method = RequestMethod.POST)
+    public String uploadHeader(HttpServletRequest request, String phone) {
+        String headerUrl = photoController.single(request);
+        int result = userService.uploadHeader(phone, headerUrl);
+
+        if (StringUtils.isNoneBlank(headerUrl) && result > 0) {
+            return ResultGenerator.generate(headerUrl);
+        }
+
+        return ResultGenerator.generateError("头像上传失败!");
     }
 }

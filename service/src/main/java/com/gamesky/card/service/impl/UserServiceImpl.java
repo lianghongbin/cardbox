@@ -82,6 +82,16 @@ public class UserServiceImpl implements UserService {
         return userMapper.updateByPrimaryKeySelective(user);
     }
 
+    @Override
+    public int uploadHeader(String phone, String header) {
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andPhoneEqualTo(phone);
+
+        User user = new User();
+        user.setHead(header);
+        return userMapper.updateByExampleSelective(user, userExample);
+    }
+
     /**
      * 根据ID查找用户
      *

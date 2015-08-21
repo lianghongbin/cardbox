@@ -40,6 +40,8 @@ public interface UserService {
      */
     int update(User user);
 
+    int uploadHeader(String phone, String header);
+
     /**
      * 根据ID查找用户
      *

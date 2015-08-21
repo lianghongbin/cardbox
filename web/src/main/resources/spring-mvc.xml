@@ -53,6 +53,12 @@
         </property>
     </bean>
 
+    <bean id="photoController" class="com.gamesky.card.web.controller.PhotoController">
+        <property name="marshaller" ref="uploadMarshaller"/>
+        <property name="host" value="${photo.host}"/>
+        <property name="uploadDir" value="${photo.uploadDir}"/>
+    </bean>
+
     <!-- 对静态资源文件的访问  方案二 （二选一）-->
     <mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>
     <mvc:resources mapping="/css/**" location="/css/" cache-period="31556926"/>

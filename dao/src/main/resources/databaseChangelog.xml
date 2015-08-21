@@ -355,7 +355,7 @@
             <column name="last_time" remarks="最后一次登录时间" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet id="lhb-1" author="lianghongbin">
+    <changeSet id="lhb-user-addMoney" author="lianghongbin">
         <addColumn tableName="user">
             <column name="money" remarks="钻石" type="INT"/>
         </addColumn>
@@ -427,6 +427,49 @@
         <createIndex indexName="sort_update_index" tableName="h5_game" unique="false">
             <column name="sort"/>
             <column name="update_time"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="lhb-task" author="lianghongbin">
+        <createTable tableName="task">
+            <column name="id" autoIncrement="true" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(40)" remarks="任务名称"/>
+            <column name="count" type="INT" remarks="要求次数"/>
+            <column name="show" type="BIT" remarks="是否展示"/>
+            <column name="create_time" type="BIGINT" remarks="创建时间"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="lhb-user-task" author="lianghongbin">
+        <createTable tableName="user_task">
+            <column name="id" autoIncrement="true" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="phone" type="VARCHAR(11)"/>
+            <column name="task_id" type="INT"/>
+            <column name="create_time" type="BIGINT" remarks="创建时间"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lianghongbin" id="user_task-index-phone-create_time">
+        <createIndex indexName="phone_create_index" tableName="user_task" unique="false">
+            <column name="phone"/>
+            <column name="create_time"/>
+        </createIndex>
+    </changeSet>
+    <changeSet id="lhb-sign" author="lianghongbin">
+        <createTable tableName="sign">
+            <column name="id" autoIncrement="true" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="times" type="INT"/>
+            <column name="operate_time" type="BIGINT"/>
+            <column name="phone" type="varchar(11)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="lianghongbin" id="sign-index-phone">
+        <createIndex indexName="phone_index" tableName="sign" unique="false">
+            <column name="phone"/>
         </createIndex>
     </changeSet>
 </databaseChangeLog>
