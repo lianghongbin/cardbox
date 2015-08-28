@@ -472,4 +472,15 @@
             <column name="phone"/>
         </createIndex>
     </changeSet>
+
+    <changeSet id="lhb-user_config" author="lianghongbin">
+        <createTable tableName="user_config">
+            <column name="id" autoIncrement="true" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="times" type="INT"/>
+            <column name="operate_time" type="BIGINT"/>
+            <column name="phone" type="varchar(11)"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

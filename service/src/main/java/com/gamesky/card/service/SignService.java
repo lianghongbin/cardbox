@@ -20,4 +20,10 @@ public interface SignService {
      * @return 签到实例
      */
     Sign findByPhone(String phone);
+
+    /**
+     * 所有签到用户数
+     * @return 签到用户数
+     */
+    int findCount();
 }

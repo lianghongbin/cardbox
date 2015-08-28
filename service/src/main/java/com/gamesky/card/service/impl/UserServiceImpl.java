@@ -260,4 +260,42 @@ public class UserServiceImpl implements UserService {
 
         return true;
     }
+
+    /**
+     * 修改分数
+     *
+     * @param phone 手机号
+     * @param score 分数
+     * @return 影响条数
+     */
+    @Override
+    public int addScore(String phone, int score) {
+        User user = this.findByPhone(phone);
+        if (user == null) {
+            return 0;
+        }
+
+        user.setScore(user.getScore() + score);
+
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    /**
+     * 修改钱数
+     *
+     * @param phone 手机号
+     * @param money 钱数
+     * @return 影响条数
+     */
+    @Override
+    public int addMoney(String phone, int money) {
+        User user = this.findByPhone(phone);
+        if (user == null) {
+            return 0;
+        }
+
+        user.setMoney(user.getMoney() + money);
+
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
 }

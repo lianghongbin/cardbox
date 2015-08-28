@@ -112,4 +112,20 @@ public interface UserService {
      * @return true/false
      */
     boolean logout(String phone);
+
+    /**
+     * 修改分数
+     * @param phone 手机号
+     * @param score 分数
+     * @return 影响条数
+     */
+    int addScore(String phone, int score);
+
+    /**
+     * 修改钱数
+     * @param phone 手机号
+     * @param money 钱数
+     * @return 影响条数
+     */
+    int addMoney(String phone, int money);
 }

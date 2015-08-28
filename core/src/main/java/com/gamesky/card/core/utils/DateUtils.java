@@ -11,14 +11,20 @@ import java.util.GregorianCalendar;
  */
 public class DateUtils {
 
-    public static boolean sameDay(long one, long two) {
+    public static boolean sameDay(Long one, Long two) {
+        if (one == null || two == null) {
+            return false;
+        }
         SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = dataFormat.format(one);
         String now = dataFormat.format(two);
         return date.equals(now);
     }
 
-    public static long minTime(long time) {
+    public static long minTime(Long time) {
+        if (time == null) {
+            return 0L;
+        }
         SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = dataFormat.format(time);
 
@@ -31,7 +37,10 @@ public class DateUtils {
         return 0L;
     }
 
-    public static long maxTime(long time) {
+    public static long maxTime(Long time) {
+        if (time == null) {
+            return 0L;
+        }
         SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = dataFormat.format(time);
 
@@ -44,7 +53,10 @@ public class DateUtils {
         return 0L;
     }
 
-    public static boolean nextDay(long first, long second) {
+    public static boolean nextDay(Long first, Long second) {
+        if (first == null || second == null) {
+            return false;
+        }
         Calendar calendar = new GregorianCalendar();
         calendar.setTimeInMillis(first);
         calendar.add(Calendar.DATE, 1);//把日期往后增加一天.整数往后推,负数往前移动
