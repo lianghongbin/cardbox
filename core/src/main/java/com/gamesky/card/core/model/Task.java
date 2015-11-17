@@ -7,7 +7,9 @@ public class Task {
 
     private Integer count;
 
-    private Boolean show;
+    private Integer score;
+
+    private Boolean valid;
 
     private Long createTime;
 
@@ -35,12 +37,20 @@ public class Task {
         this.count = count;
     }
 
-    public Boolean getShow() {
-        return show;
+    public Integer getScore() {
+        return score;
     }
 
-    public void setShow(Boolean show) {
-        this.show = show;
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public Boolean getValid() {
+        return valid;
+    }
+
+    public void setValid(Boolean valid) {
+        this.valid = valid;
     }
 
     public Long getCreateTime() {
@@ -66,7 +76,8 @@ public class Task {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getCount() == null ? other.getCount() == null : this.getCount().equals(other.getCount()))
-            && (this.getShow() == null ? other.getShow() == null : this.getShow().equals(other.getShow()))
+            && (this.getScore() == null ? other.getScore() == null : this.getScore().equals(other.getScore()))
+            && (this.getValid() == null ? other.getValid() == null : this.getValid().equals(other.getValid()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
     }
 
@@ -77,7 +88,8 @@ public class Task {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getCount() == null) ? 0 : getCount().hashCode());
-        result = prime * result + ((getShow() == null) ? 0 : getShow().hashCode());
+        result = prime * result + ((getScore() == null) ? 0 : getScore().hashCode());
+        result = prime * result + ((getValid() == null) ? 0 : getValid().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         return result;
     }
@@ -91,7 +103,8 @@ public class Task {
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", count=").append(count);
-        sb.append(", show=").append(show);
+        sb.append(", score=").append(score);
+        sb.append(", valid=").append(valid);
         sb.append(", createTime=").append(createTime);
         sb.append("]");
         return sb.toString();

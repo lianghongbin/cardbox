@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.gamesky.card.dao.mapper.UserTaskMapper" >
-  <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.UserTask" >
+<mapper namespace="com.gamesky.card.dao.mapper.InviteMapper" >
+  <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.Invite" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="task_id" property="taskId" jdbcType="INTEGER" />
-    <result column="done" property="done" jdbcType="BIT" />
-    <result column="create_time" property="createTime" jdbcType="BIGINT" />
-    <result column="done_time" property="doneTime" jdbcType="BIGINT" />
+    <result column="invited_phone" property="invitedPhone" jdbcType="VARCHAR" />
+    <result column="invited_time" property="invitedTime" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, phone, task_id, done, create_time, done_time
+    id, phone, invited_phone, invited_time
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.UserTaskExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.InviteExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from user_task
+    from invite
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -90,76 +88,64 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from user_task
+    from invite
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from user_task
+    delete from invite
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.gamesky.card.core.model.UserTaskExample" >
-    delete from user_task
+  <delete id="deleteByExample" parameterType="com.gamesky.card.core.model.InviteExample" >
+    delete from invite
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.gamesky.card.core.model.UserTask" >
+  <insert id="insert" parameterType="com.gamesky.card.core.model.Invite" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user_task (phone, task_id, done, 
-      create_time, done_time)
-    values (#{phone,jdbcType=VARCHAR}, #{taskId,jdbcType=INTEGER}, #{done,jdbcType=BIT}, 
-      #{createTime,jdbcType=BIGINT}, #{doneTime,jdbcType=BIGINT})
+    insert into invite (phone, invited_phone, invited_time
+      )
+    values (#{phone,jdbcType=VARCHAR}, #{invitedPhone,jdbcType=VARCHAR}, #{invitedTime,jdbcType=BIGINT}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.gamesky.card.core.model.UserTask" >
+  <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Invite" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user_task
+    insert into invite
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="phone != null" >
         phone,
       </if>
-      <if test="taskId != null" >
-        task_id,
+      <if test="invitedPhone != null" >
+        invited_phone,
       </if>
-      <if test="done != null" >
-        done,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="doneTime != null" >
-        done_time,
+      <if test="invitedTime != null" >
+        invited_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="taskId != null" >
-        #{taskId,jdbcType=INTEGER},
+      <if test="invitedPhone != null" >
+        #{invitedPhone,jdbcType=VARCHAR},
       </if>
-      <if test="done != null" >
-        #{done,jdbcType=BIT},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="doneTime != null" >
-        #{doneTime,jdbcType=BIGINT},
+      <if test="invitedTime != null" >
+        #{invitedTime,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.gamesky.card.core.model.UserTaskExample" resultType="java.lang.Integer" >
-    select count(*) from user_task
+  <select id="countByExample" parameterType="com.gamesky.card.core.model.InviteExample" resultType="java.lang.Integer" >
+    select count(*) from invite
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update user_task
+    update invite
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
@@ -167,17 +153,11 @@
       <if test="record.phone != null" >
         phone = #{record.phone,jdbcType=VARCHAR},
       </if>
-      <if test="record.taskId != null" >
-        task_id = #{record.taskId,jdbcType=INTEGER},
+      <if test="record.invitedPhone != null" >
+        invited_phone = #{record.invitedPhone,jdbcType=VARCHAR},
       </if>
-      <if test="record.done != null" >
-        done = #{record.done,jdbcType=BIT},
-      </if>
-      <if test="record.createTime != null" >
-        create_time = #{record.createTime,jdbcType=BIGINT},
-      </if>
-      <if test="record.doneTime != null" >
-        done_time = #{record.doneTime,jdbcType=BIGINT},
+      <if test="record.invitedTime != null" >
+        invited_time = #{record.invitedTime,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -185,45 +165,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update user_task
+    update invite
     set id = #{record.id,jdbcType=INTEGER},
       phone = #{record.phone,jdbcType=VARCHAR},
-      task_id = #{record.taskId,jdbcType=INTEGER},
-      done = #{record.done,jdbcType=BIT},
-      create_time = #{record.createTime,jdbcType=BIGINT},
-      done_time = #{record.doneTime,jdbcType=BIGINT}
+      invited_phone = #{record.invitedPhone,jdbcType=VARCHAR},
+      invited_time = #{record.invitedTime,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gamesky.card.core.model.UserTask" >
-    update user_task
+  <update id="updateByPrimaryKeySelective" parameterType="com.gamesky.card.core.model.Invite" >
+    update invite
     <set >
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="taskId != null" >
-        task_id = #{taskId,jdbcType=INTEGER},
+      <if test="invitedPhone != null" >
+        invited_phone = #{invitedPhone,jdbcType=VARCHAR},
       </if>
-      <if test="done != null" >
-        done = #{done,jdbcType=BIT},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="doneTime != null" >
-        done_time = #{doneTime,jdbcType=BIGINT},
+      <if test="invitedTime != null" >
+        invited_time = #{invitedTime,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.UserTask" >
-    update user_task
+  <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Invite" >
+    update invite
     set phone = #{phone,jdbcType=VARCHAR},
-      task_id = #{taskId,jdbcType=INTEGER},
-      done = #{done,jdbcType=BIT},
-      create_time = #{createTime,jdbcType=BIGINT},
-      done_time = #{doneTime,jdbcType=BIGINT}
+      invited_phone = #{invitedPhone,jdbcType=VARCHAR},
+      invited_time = #{invitedTime,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

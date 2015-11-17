@@ -5,7 +5,8 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="count" property="count" jdbcType="INTEGER" />
-    <result column="show" property="show" jdbcType="BIT" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="valid" property="valid" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, count, show, create_time
+    id, name, count, score, valid, create_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.TaskExample" >
     select
@@ -106,10 +107,10 @@
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into task (name, count, show, 
-      create_time)
-    values (#{name,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, #{show,jdbcType=BIT}, 
-      #{createTime,jdbcType=BIGINT})
+    insert into task (name, count, score, 
+      valid, create_time)
+    values (#{name,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, 
+      #{valid,jdbcType=BIT}, #{createTime,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Task" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -123,8 +124,11 @@
       <if test="count != null" >
         count,
       </if>
-      <if test="show != null" >
-        show,
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="valid != null" >
+        valid,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -137,8 +141,11 @@
       <if test="count != null" >
         #{count,jdbcType=INTEGER},
       </if>
-      <if test="show != null" >
-        #{show,jdbcType=BIT},
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null" >
+        #{valid,jdbcType=BIT},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=BIGINT},
@@ -163,8 +170,11 @@
       <if test="record.count != null" >
         count = #{record.count,jdbcType=INTEGER},
       </if>
-      <if test="record.show != null" >
-        show = #{record.show,jdbcType=BIT},
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.valid != null" >
+        valid = #{record.valid,jdbcType=BIT},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=BIGINT},
@@ -179,7 +189,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       count = #{record.count,jdbcType=INTEGER},
-      show = #{record.show,jdbcType=BIT},
+      score = #{record.score,jdbcType=INTEGER},
+      valid = #{record.valid,jdbcType=BIT},
       create_time = #{record.createTime,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -194,8 +205,11 @@
       <if test="count != null" >
         count = #{count,jdbcType=INTEGER},
       </if>
-      <if test="show != null" >
-        show = #{show,jdbcType=BIT},
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null" >
+        valid = #{valid,jdbcType=BIT},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=BIGINT},
@@ -207,7 +221,8 @@
     update task
     set name = #{name,jdbcType=VARCHAR},
       count = #{count,jdbcType=INTEGER},
-      show = #{show,jdbcType=BIT},
+      score = #{score,jdbcType=INTEGER},
+      valid = #{valid,jdbcType=BIT},
       create_time = #{createTime,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>

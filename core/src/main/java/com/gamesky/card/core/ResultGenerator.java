@@ -9,6 +9,10 @@ import com.google.gson.Gson;
  */
 public class ResultGenerator {
 
+    public static String generateError() {
+        return generateError(ReturnCode.GENERAL);
+    }
+
     public static String generateError(String message) {
         return generate(-1, message);
     }

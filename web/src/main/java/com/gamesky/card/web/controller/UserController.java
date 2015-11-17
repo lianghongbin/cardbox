@@ -1,18 +1,18 @@
 package com.gamesky.card.web.controller;
 
-import com.gamesky.card.core.Keyable;
-import com.gamesky.card.core.Result;
 import com.gamesky.card.core.ResultGenerator;
 import com.gamesky.card.core.ReturnCode;
 import com.gamesky.card.core.exceptions.CheckCodeInvalidException;
 import com.gamesky.card.core.exceptions.CheckCodeWrongException;
 import com.gamesky.card.core.exceptions.MarshalException;
 import com.gamesky.card.core.exceptions.SmsSenderException;
+import com.gamesky.card.core.model.Invite;
 import com.gamesky.card.core.model.User;
 import com.gamesky.card.core.utils.CodeUtils;
 import com.gamesky.card.core.utils.MD5Utils;
 import com.gamesky.card.service.CheckCodeService;
 import com.gamesky.card.service.CodeGenerator;
+import com.gamesky.card.service.InviteService;
 import com.gamesky.card.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +20,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * 选题控制器
@@ -49,6 +43,8 @@ public class UserController {
     private CheckCodeService checkCodeService;
     @Autowired
     private PhotoController photoController;
+    @Autowired
+    private InviteService inviteService;
 
     /**
      * 系统登录
@@ -140,7 +136,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(User user, String checkCode, String rcode) {
+    public String register(User user, String checkCode, String invateCode) {
         try {
             String code = checkCodeService.find(user.getPhone());
             if (StringUtils.isBlank(code)) {
@@ -154,9 +150,13 @@ public class UserController {
             return ResultGenerator.generateError("验证码读取失败!");
         }
 
-        if (StringUtils.isNoneBlank(rcode)) {
-            String phone = CodeUtils.toPhone(rcode);
-            //TODO 推荐的人给予一定的奖励
+        if (StringUtils.isNoneBlank(invateCode)) {
+            String phone = CodeUtils.toPhone(invateCode);
+
+            Invite invite = new Invite();   //记录推荐记录
+            invite.setInvitedPhone(user.getPhone());
+            invite.setPhone(phone);
+            inviteService.save(invite);
         }
 
         user.setPassword(MD5Utils.toString(user.getPassword()));
@@ -173,7 +173,7 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(User user) {
-        if (StringUtils.isNoneBlank(user.getPassword())) {
+        if (StringUtils.isNoneBlank(user.getPassword()) && user.getPassword().length() < 32) {
             user.setPassword(MD5Utils.toString(user.getPassword()));
         }
 

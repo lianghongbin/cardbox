@@ -430,6 +430,8 @@
         </createIndex>
     </changeSet>
 
+    <!--   新增数据库结构   -->
+
     <changeSet id="lhb-task" author="lianghongbin">
         <createTable tableName="task">
             <column name="id" autoIncrement="true" type="INT">
@@ -437,7 +439,8 @@
             </column>
             <column name="name" type="VARCHAR(40)" remarks="任务名称"/>
             <column name="count" type="INT" remarks="要求次数"/>
-            <column name="show" type="BIT" remarks="是否展示"/>
+            <column name="score" type="INT" remarks="奖励积分"/>
+            <column name="valid" type="BIT" remarks="是否展示"/>
             <column name="create_time" type="BIGINT" remarks="创建时间"/>
         </createTable>
     </changeSet>
@@ -446,9 +449,11 @@
             <column name="id" autoIncrement="true" type="INT">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="phone" type="VARCHAR(11)"/>
-            <column name="task_id" type="INT"/>
-            <column name="create_time" type="BIGINT" remarks="创建时间"/>
+            <column name="phone" type="varchar(11)" remarks="电话号码"/>
+            <column name="task_id" type="INT" remarks="任务ID"/>
+            <column name="done" type="BIT" remarks="是否已经完成"/>
+            <column name="create_time" type="BIGINT" remarks="领取任务时间"/>
+            <column name="done_time" type="BIGINT" remarks="完成任务时间"/>
         </createTable>
     </changeSet>
     <changeSet author="lianghongbin" id="user_task-index-phone-create_time">
@@ -481,6 +486,37 @@
             <column name="times" type="INT"/>
             <column name="operate_time" type="BIGINT"/>
             <column name="phone" type="varchar(11)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="lhb-invite" author="lianghongbin">
+        <createTable tableName="invite">
+            <column name="id" autoIncrement="true" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="phone" type="varchar(11)"/>
+            <column name="invited_phone" type="varchar(11)"/>
+            <column name="invited_time" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="lhb-note" author="lianghongbin">
+        <createTable tableName="note">
+            <column name="id" autoIncrement="true" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="title" type="varchar(50)"/>
+            <column name="content" type="varchar(255)"/>
+            <column name="deleted" type="bit"/>
+            <column name="create_time" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="lhb-note_op" author="lianghongbin">
+        <createTable tableName="note_op">
+            <column name="id" autoIncrement="true" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="u_id" type="int"/>
+            <column name="n_id" type="int"/>
+            <column name="type" type="int" remarks="0:已删除, 1:已读"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

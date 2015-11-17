@@ -314,6 +314,66 @@ public class UserTaskExample {
             return (Criteria) this;
         }
 
+        public Criteria andDoneIsNull() {
+            addCriterion("done is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneIsNotNull() {
+            addCriterion("done is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneEqualTo(Boolean value) {
+            addCriterion("done =", value, "done");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneNotEqualTo(Boolean value) {
+            addCriterion("done <>", value, "done");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneGreaterThan(Boolean value) {
+            addCriterion("done >", value, "done");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("done >=", value, "done");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneLessThan(Boolean value) {
+            addCriterion("done <", value, "done");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneLessThanOrEqualTo(Boolean value) {
+            addCriterion("done <=", value, "done");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneIn(List<Boolean> values) {
+            addCriterion("done in", values, "done");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneNotIn(List<Boolean> values) {
+            addCriterion("done not in", values, "done");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneBetween(Boolean value1, Boolean value2) {
+            addCriterion("done between", value1, value2, "done");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("done not between", value1, value2, "done");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;
@@ -371,6 +431,66 @@ public class UserTaskExample {
 
         public Criteria andCreateTimeNotBetween(Long value1, Long value2) {
             addCriterion("create_time not between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneTimeIsNull() {
+            addCriterion("done_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneTimeIsNotNull() {
+            addCriterion("done_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneTimeEqualTo(Long value) {
+            addCriterion("done_time =", value, "doneTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneTimeNotEqualTo(Long value) {
+            addCriterion("done_time <>", value, "doneTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneTimeGreaterThan(Long value) {
+            addCriterion("done_time >", value, "doneTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneTimeGreaterThanOrEqualTo(Long value) {
+            addCriterion("done_time >=", value, "doneTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneTimeLessThan(Long value) {
+            addCriterion("done_time <", value, "doneTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneTimeLessThanOrEqualTo(Long value) {
+            addCriterion("done_time <=", value, "doneTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneTimeIn(List<Long> values) {
+            addCriterion("done_time in", values, "doneTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneTimeNotIn(List<Long> values) {
+            addCriterion("done_time not in", values, "doneTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneTimeBetween(Long value1, Long value2) {
+            addCriterion("done_time between", value1, value2, "doneTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDoneTimeNotBetween(Long value1, Long value2) {
+            addCriterion("done_time not between", value1, value2, "doneTime");
             return (Criteria) this;
         }
 

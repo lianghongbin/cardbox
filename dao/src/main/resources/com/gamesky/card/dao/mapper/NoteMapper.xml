@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.gamesky.card.dao.mapper.UserTaskMapper" >
-  <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.UserTask" >
+<mapper namespace="com.gamesky.card.dao.mapper.NoteMapper" >
+  <resultMap id="BaseResultMap" type="com.gamesky.card.core.model.Note" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="task_id" property="taskId" jdbcType="INTEGER" />
-    <result column="done" property="done" jdbcType="BIT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="BIGINT" />
-    <result column="done_time" property="doneTime" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, phone, task_id, done, create_time, done_time
+    id, title, content, deleted, create_time
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.UserTaskExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.gamesky.card.core.model.NoteExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from user_task
+    from note
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -90,94 +89,85 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from user_task
+    from note
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from user_task
+    delete from note
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.gamesky.card.core.model.UserTaskExample" >
-    delete from user_task
+  <delete id="deleteByExample" parameterType="com.gamesky.card.core.model.NoteExample" >
+    delete from note
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.gamesky.card.core.model.UserTask" >
+  <insert id="insert" parameterType="com.gamesky.card.core.model.Note" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user_task (phone, task_id, done, 
-      create_time, done_time)
-    values (#{phone,jdbcType=VARCHAR}, #{taskId,jdbcType=INTEGER}, #{done,jdbcType=BIT}, 
-      #{createTime,jdbcType=BIGINT}, #{doneTime,jdbcType=BIGINT})
+    insert into note (title, content, deleted, 
+      create_time)
+    values (#{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}, 
+      #{createTime,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.gamesky.card.core.model.UserTask" >
+  <insert id="insertSelective" parameterType="com.gamesky.card.core.model.Note" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user_task
+    insert into note
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="phone != null" >
-        phone,
+      <if test="title != null" >
+        title,
       </if>
-      <if test="taskId != null" >
-        task_id,
+      <if test="content != null" >
+        content,
       </if>
-      <if test="done != null" >
-        done,
+      <if test="deleted != null" >
+        deleted,
       </if>
       <if test="createTime != null" >
         create_time,
       </if>
-      <if test="doneTime != null" >
-        done_time,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="phone != null" >
-        #{phone,jdbcType=VARCHAR},
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
       </if>
-      <if test="taskId != null" >
-        #{taskId,jdbcType=INTEGER},
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
       </if>
-      <if test="done != null" >
-        #{done,jdbcType=BIT},
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=BIGINT},
       </if>
-      <if test="doneTime != null" >
-        #{doneTime,jdbcType=BIGINT},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.gamesky.card.core.model.UserTaskExample" resultType="java.lang.Integer" >
-    select count(*) from user_task
+  <select id="countByExample" parameterType="com.gamesky.card.core.model.NoteExample" resultType="java.lang.Integer" >
+    select count(*) from note
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update user_task
+    update note
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.phone != null" >
-        phone = #{record.phone,jdbcType=VARCHAR},
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.taskId != null" >
-        task_id = #{record.taskId,jdbcType=INTEGER},
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
       </if>
-      <if test="record.done != null" >
-        done = #{record.done,jdbcType=BIT},
+      <if test="record.deleted != null" >
+        deleted = #{record.deleted,jdbcType=BIT},
       </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=BIGINT},
-      </if>
-      <if test="record.doneTime != null" >
-        done_time = #{record.doneTime,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -185,45 +175,40 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update user_task
+    update note
     set id = #{record.id,jdbcType=INTEGER},
-      phone = #{record.phone,jdbcType=VARCHAR},
-      task_id = #{record.taskId,jdbcType=INTEGER},
-      done = #{record.done,jdbcType=BIT},
-      create_time = #{record.createTime,jdbcType=BIGINT},
-      done_time = #{record.doneTime,jdbcType=BIGINT}
+      title = #{record.title,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      deleted = #{record.deleted,jdbcType=BIT},
+      create_time = #{record.createTime,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.gamesky.card.core.model.UserTask" >
-    update user_task
+  <update id="updateByPrimaryKeySelective" parameterType="com.gamesky.card.core.model.Note" >
+    update note
     <set >
-      <if test="phone != null" >
-        phone = #{phone,jdbcType=VARCHAR},
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="taskId != null" >
-        task_id = #{taskId,jdbcType=INTEGER},
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="done != null" >
-        done = #{done,jdbcType=BIT},
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=BIGINT},
       </if>
-      <if test="doneTime != null" >
-        done_time = #{doneTime,jdbcType=BIGINT},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.UserTask" >
-    update user_task
-    set phone = #{phone,jdbcType=VARCHAR},
-      task_id = #{taskId,jdbcType=INTEGER},
-      done = #{done,jdbcType=BIT},
-      create_time = #{createTime,jdbcType=BIGINT},
-      done_time = #{doneTime,jdbcType=BIGINT}
+  <update id="updateByPrimaryKey" parameterType="com.gamesky.card.core.model.Note" >
+    update note
+    set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
